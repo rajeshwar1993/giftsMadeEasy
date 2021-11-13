@@ -2,13 +2,17 @@ import puppeteer, { Browser, Page } from "puppeteer";
 import cheerio from "cheerio";
 import { selectors } from "./dataSectors";
 
-const getWebData = async (url: string) => {
+const initPage = async () => {
   const browser: Browser = await puppeteer.launch();
   const page: Page = await browser.newPage();
   await page.setViewport({ width: 1366, height: 800 });
+
+  return { browser, page };
+};
+
+const getWebData = async (page: Page, url: string) => {
   await page.goto(url, { waitUntil: "load", timeout: 30000 });
 
-  await page.screenshot({ path: "example.png" });
   let html = await page.evaluate(() => document.body.innerHTML);
 
   const $ = cheerio.load(html);
@@ -29,9 +33,11 @@ const getWebData = async (url: string) => {
   // get totalRatings
   allData.totalRatings = $(selectors.totalRatings).text();
 
-  await browser.close();
-
   return allData;
 };
 
-export default getWebData;
+const closeBrowser = async (browser: Browser) => {
+  await browser.close();
+};
+
+export { initPage, getWebData, closeBrowser };
