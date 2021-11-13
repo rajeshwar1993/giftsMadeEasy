@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import { parse } from "fast-csv";
-import getWebData from "./crawler";
+import { initPage, closeBrowser, getWebData } from "./crawler";
 
 let allCSVData: any = [];
 
@@ -13,28 +13,33 @@ const gatherAllCSVData = async (row: any) => {
 };
 
 // function for end
-const fetchDataForEachProduct = (rowcount: number) => {
-  if (rowcount !== allCSVData.length) {
-    console.log("All data was not stored. Exiting");
-    return;
+const fetchDataForEachProduct = async () => {
+  console.time("Op");
+  let { browser, page } = await initPage();
+  console.log("Starting parsing");
+
+  for (let i = 0; i < allCSVData.length; i++) {
+    let data = await getWebData(page, allCSVData[i].URL);
+    console.log(data);
   }
 
-  console.log(`All data gathered: ${allCSVData.length} of ${rowcount}`);
+  console.log("Ending parsing");
+  console.timeEnd("Op");
+  closeBrowser(browser);
+};
 
-  allCSVData.forEach(async (element: any) => {
-    let data = await getWebData(element.URL);
-    console.log(data);
+const readTheFile = () => {
+  return new Promise((resolve, reject) => {
+    // get all the data
+    fs.createReadStream("Gifts.csv")
+      .pipe(parse({ headers: true }))
+      .on("error", (error) => reject(error))
+      .on("data", gatherAllCSVData)
+      .on("end", () => resolve("Done"));
   });
 };
 
-// open csv file
-const csvFile = fs.createReadStream("Gifts.csv");
-
-// get all the data
-csvFile
-  .pipe(parse({ headers: true }))
-  .on("error", (error) => console.error(error))
-  .on("data", gatherAllCSVData)
-  .on("end", fetchDataForEachProduct);
-
-console.log("THE END");
+readTheFile().then((res) => {
+  console.log("THE END", allCSVData.length);
+  fetchDataForEachProduct();
+});
