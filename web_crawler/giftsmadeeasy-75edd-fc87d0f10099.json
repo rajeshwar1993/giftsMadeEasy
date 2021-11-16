@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "giftsmadeeasy-75edd",
+  "private_key_id": "fc87d0f100991e1812b114899fc3548b6ff0fd35",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDmMHCnIC7NoDzh\nd9SJRywfZBKAWje4gZ5n8RAi9P48zJ5KncKmPzKUvtoorgoyqoqMvKQrlXCO7/eI\nQX69juHuC8yFIF7O7zC1PsiO6UkN4gybhD6txsNCYRk3zi+H5gpjEH2CMlbJAO2k\npUpO3FipmV6hrbpCQLFOCbK06EWkgHMBI1zfsypTmycaD+ASdb5UoAe0uIcsO6M0\n7ce2dWE5zbssU9bKNd6B5K9OeSLiFoUMCiPPXFq4SCT1px46WsECTimkiyDIxjay\n/5OZ0LgwYSJ1cheWMODNihZFKwEl9hI2yZXbijBkkPQLlIgCsW4RgymmmYk4lq/2\n0/BXgq+RAgMBAAECggEAasfmwkhmHcIq68a8Q7BN8gPopzzyozcRxhLoEudGdurO\ntTtou9kOPD0qk3tkxKsjGXU6zPMGY3BDCiSjyAhbmyNDDTB+eo0vsaw9ujnSx0to\n4M2gi9lr48OKQL53gxm+EMVqC3cRli3Fj76TcXC6+nXolaSzBh/fgB10loI3KD8C\nofJ57jtJwX6Iej2HtLDnYAa1ufgY0PRlXkcJU4eAO/Y301XB8jP+RkEirWkB1zwb\nMLtBSHT4KTWqIYfC52o8n0+tjqHEx2Y68QjuZ4G4yvuCJlGd6W5oL6XbWS0qIzf/\nsVo723dyzebxl/KMO3ytqf4gtOgfQx56fxdLvw4AtwKBgQDzMY+v4VE3GBZ6rDao\nqiVzQbe7jQc8+Ig8HEiBWYvVIXaqAtYPlyyTa71MaFZ07oSeOAD/AfOIW4KbXLYm\n+FGeWtZqQkUXq+2hpZtfNkHsD05bOQ84zJQIrgbQw69UCSVlYrEl1LkIrLku9CSC\n5wJXewdF8IzNepXg9pMaIxjDDwKBgQDyT5HTAcQQM4mKeYtxomK5uLv7U/t8Y3X6\n2PcgdPaM+sRpKmvNSa4OTvohU7uTOfzqfQeqcuCHTKBkJR7ay3JYwaDOx0WsnE4P\nVJJ318p/RsqC4OxX+QW7Dw3lcnTU8XKc9gf/rla70CntBevk+YWsnNfhCp+0q8mM\nFOPJLeTjXwKBgApcSirMBpG6TPrc61c0KHRIkHNFBtHqJKOq8MvR7MsfqdaEWGpB\nnnyJUn820rgYkT3MVP6ILr/YZjAIOxpd6dw9MnVEbX0crfr8+ymLPjO4UzY/sA5T\naNsVzuSF8ao62YUAN1vNPDTKZvlBHW0WOltPuneYT+dRGaGD37B1XlCxAoGBAMlv\n4Jh79VRKo+LcXFIhXtVqf8vV61FjFedtizQOSBC3P6T1wRyuTeZTPZmLFHq2UE1X\nl5HZYlLYHtZiDZ5yVyL2BQshmgh/AF26PvEmEY9xeFUJSzFvMZZqU3EVj46fElru\nJYQmmLAVw2Tp8UsvLDNtSAIrZM07qpernhnW71sdAoGBALVA8BFiTA76oRfNbSZN\ncXrcvyeHiJnx1d0ztkuL2rhyhj9lUzH4/JT2ep2qhNnvX6njm8GJCMq8cmrRL6eG\nCalT7WMikBG7Ak8yPy8okI4UR4mgkVPs2vUDiQoSEVqVv5QADq2BGzWj5wT0nSGk\nDiJMbxWzTDOnMnRI6ZmwnfXv\n-----END PRIVATE KEY-----\n",
+  "client_email": "giftsmadeeasy-75edd@appspot.gserviceaccount.com",
+  "client_id": "111079084348364787205",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/giftsmadeeasy-75edd%40appspot.gserviceaccount.com"
+}
