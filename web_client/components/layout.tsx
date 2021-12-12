@@ -1,5 +1,5 @@
 import Footer from './footer';
-import NavBar from './navbar';
+import NavBar from './Navbar';
 
 const Layout = (props: any) => {
   return (
