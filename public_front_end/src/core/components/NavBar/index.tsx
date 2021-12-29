@@ -13,12 +13,12 @@ const NavBar: FC<Props> = ({ config }) => {
   let { Icon, Button } = AllComponents;
 
   return (
-    <header className='sticky bg-skin-fill top-0 z-10 flex'>
-      <div className='w-[12%]' />
-      <nav aria-label='Top' className='mx-auto p-2 w-[86%]'>
-        <div className='relative flex justify-between items-center lg:text-base text-md my-2'>
+    <header className='sticky bg-skin-fill top-0 z-10 xl:flex'>
+      <div className='xl:w-[12%]' />
+      <nav aria-label='Top' className='mx-auto p-2 xl:w-[86%]'>
+        <div className='relative flex justify-between items-center xl:text-base text-sm text-md my-2'>
           {/* Left Section */}
-          <div className='w-3/5 justify-start items-center lg:flex hidden '>
+          <div className='w-3/5 flex'>
             <div className='lg:block hidden cursor-pointer'>
               <span className='sr-only'>{config.title}</span>
               <Link href={'/'}>
@@ -29,18 +29,28 @@ const NavBar: FC<Props> = ({ config }) => {
                 />
               </Link>
             </div>
-            {config.leftSideNav.map((btn, i) => (
-              <Button
-                key={i}
-                link={btn.link}
-                onClick={btn.onClick}
-                text={btn.text}
-                icon={btn.icon}
-                showOnlyIcon={btn.showOnlyIcon}
-                wrapperClasses={`border-0  mx-2 ${btn.wrapperClasses}`}
-                styleClasses={`hover:text-skin-accent ${btn.styleClasses}`}
-              />
-            ))}
+            <button
+              className='block lg:hidden p-2'
+              onClick={() => {
+                toggleMenuOpen(true);
+              }}
+            >
+              <Icon iconName='Menu' />
+            </button>
+            <div className='justify-start items-center lg:flex hidden '>
+              {config.leftSideNav.map((btn, i) => (
+                <Button
+                  key={i}
+                  link={btn.link}
+                  onClick={btn.onClick}
+                  text={btn.text}
+                  icon={btn.icon}
+                  showOnlyIcon={btn.showOnlyIcon}
+                  wrapperClasses={`border-0  mx-2 ${btn.wrapperClasses}`}
+                  styleClasses={`hover:text-skin-accent ${btn.styleClasses}`}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Right Section */}
@@ -60,7 +70,7 @@ const NavBar: FC<Props> = ({ config }) => {
           </div>
         </div>
       </nav>
-      <div className='w-[12%]' />
+      <div className='xl:w-[12%]' />
       {/* Mobile Menu */}
       <MobileNav
         config={config}
