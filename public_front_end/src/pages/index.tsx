@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import getDataParser, { DataSource } from '../core/data_parser';
+import getDataParser from '../core/data_parser';
 
 import AllPages from '../core_custom_mixer/pageFormats';
 import { PageProps as Props } from '../core/pageFormats/types';
