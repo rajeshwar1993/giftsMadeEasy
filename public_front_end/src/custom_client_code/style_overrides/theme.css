@@ -1,0 +1,23 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+/* @layer base {
+  :root {
+    
+    --accent: 26, 67, 201;
+    --secondary: 255, 255, 0;
+
+
+    --color-text-primary: 0, 0, 0;
+    --color-text-accent: var(--accent);
+    --color-text-disabled: 166, 169, 179;
+    --color-text-inverted: 255, 255, 255;
+    --color-fill: 255, 255, 255;
+    --color-fill-accent: var(--accent);
+    --color-fill-accent-hover: 56, 84, 171;
+    --color-fill-disabled: 99, 102, 241;
+    --color-border-primary: 229, 231, 235;
+    --color-border-accent: var(--accent);
+  }
+} */
