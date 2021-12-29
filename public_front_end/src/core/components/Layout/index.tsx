@@ -10,7 +10,7 @@ type Props = {
 const Layout: FC<Props> = ({ children, config }) => {
   let { Footer, NavBar } = AllComponents;
   return (
-    <div className='max-w-screen-2xl mx-auto'>
+    <div className='bg-skin-fill text-skin-primary'>
       <NavBar config={config.navbar} />
       <main className='py-8 md:px-4 sm:px-6 lg:px-12'>{children}</main>
       <Footer config={config.footer} />

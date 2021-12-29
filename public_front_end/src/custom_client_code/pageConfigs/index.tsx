@@ -1,5 +1,4 @@
 import { LayoutConfigType } from '../../core/components/Layout/type';
-import { PageProps } from '../../core/pageFormats/types';
 import { scrollToId, toggleTheme } from '../../core/utils';
 import {
   APP_NAME,
@@ -17,28 +16,23 @@ export const layoutConfig: LayoutConfigType = {
     leftSideNav: [
       {
         text: 'Home',
-        onClick: () => scrollToId('intro'),
-        styleClasses: 'border-0'
+        link: 'intro'
       },
       {
         text: 'Design',
-        onClick: () => scrollToId('design'),
-        styleClasses: 'border-0'
+        link: 'design'
       },
       {
         text: 'Why Choose Us',
-        onClick: () => scrollToId('whychoose'),
-        styleClasses: 'border-0'
+        link: 'whychoose'
       },
       {
         text: 'Features',
-        onClick: () => scrollToId('features'),
-        styleClasses: 'border-0'
+        link: 'features'
       },
       {
         text: 'FAQ',
-        onClick: () => scrollToId('faq'),
-        styleClasses: 'border-0'
+        link: 'faq'
       }
     ],
     rightSideNav: [
@@ -72,28 +66,23 @@ export const layoutConfig: LayoutConfigType = {
     links: [
       {
         text: 'Home',
-        onClick: () => scrollToId('intro'),
-        styleClasses: 'border-0'
+        link: 'intro'
       },
       {
         text: 'Design',
-        onClick: () => scrollToId('design'),
-        styleClasses: 'border-0'
+        link: 'design'
       },
       {
         text: 'Why Choose Us',
-        onClick: () => scrollToId('whychoose'),
-        styleClasses: 'border-0'
+        link: 'whychoose'
       },
       {
         text: 'Features',
-        onClick: () => scrollToId('features'),
-        styleClasses: 'border-0'
+        link: 'features'
       },
       {
         text: 'FAQ',
-        onClick: () => scrollToId('faq'),
-        styleClasses: 'border-0'
+        link: 'faq'
       }
     ],
     contactInfo: {

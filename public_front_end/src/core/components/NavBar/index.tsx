@@ -13,11 +13,12 @@ const NavBar: FC<Props> = ({ config }) => {
   let { Icon, Button } = AllComponents;
 
   return (
-    <header className='sticky top-0 bg-skin-fill text-skin-primary z-10 border-b-2 border-opacity-10 border-skin-inverted'>
-      <nav aria-label='Top' className='mx-auto p-2 md:px-4 sm:px-6 lg:px-12'>
-        <div className='relative flex justify-between items-center lg:text-xl text-md my-2'>
+    <header className='sticky bg-skin-fill top-0 z-10 flex'>
+      <div className='w-[12%]' />
+      <nav aria-label='Top' className='mx-auto p-2 w-[86%]'>
+        <div className='relative flex justify-between items-center lg:text-base text-md my-2'>
           {/* Left Section */}
-          <div className='flex lg:w-1/5 w-3/5 items-center'>
+          <div className='w-3/5 justify-start items-center lg:flex hidden '>
             <div className='lg:block hidden cursor-pointer'>
               <span className='sr-only'>{config.title}</span>
               <Link href={'/'}>
@@ -28,25 +29,6 @@ const NavBar: FC<Props> = ({ config }) => {
                 />
               </Link>
             </div>
-            <button
-              className='block lg:hidden p-2'
-              onClick={() => {
-                toggleMenuOpen(true);
-              }}
-            >
-              <Icon iconName='Menu' />
-            </button>
-            <div className='mx-2 my-2'>
-              <Link href={'/'}>
-                <span className='cursor-pointer font-bold md:text-2xl text-lg'>
-                  {config.title}
-                </span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Mid Section */}
-          <div className='w-3/5  justify-center items-center lg:flex hidden '>
             {config.leftSideNav.map((btn, i) => (
               <Button
                 key={i}
@@ -78,7 +60,7 @@ const NavBar: FC<Props> = ({ config }) => {
           </div>
         </div>
       </nav>
-
+      <div className='w-[12%]' />
       {/* Mobile Menu */}
       <MobileNav
         config={config}
