@@ -16,7 +16,7 @@ const Layout: FC<Props> = ({ children, config }) => {
         {/* reserved for side content, maybe ads */}
         <div className='xl:w-[12%]' />
         {/* main body area */}
-        <div className='xl:w-[86%]'>{children}</div>
+        <div className='xl:w-[86%] w-full'>{children}</div>
         {/* reserved for side content, maybe ads */}
         <div className='xl:w-[12%]' />
       </main>
