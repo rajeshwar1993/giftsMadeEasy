@@ -1,15 +1,18 @@
 import React from 'react';
 import AllComponents from '../../../core_custom_mixer/components';
+import { useRouter } from 'next/router';
 
 let { Text, Button } = AllComponents;
 
 const GiftsSearchMini = () => {
+  const router = useRouter();
+
   return (
-    <div className='flex flex-col justify-center items-start border-2 p-4 rounded-lg'>
+    <div className='flex flex-col justify-center items-center xl:items-start xl:border-r-2 p-4 w-full'>
       <Text
-        content='Quick Search: '
-        tag='h2'
-        styleClasses='text-2xl xl:text-3xl'
+        content='Quick Search'
+        tag='h3'
+        styleClasses='text-lg xl:text-xl font-bold'
         wrapperStyleClasses='mb-4'
       />
       <Text
@@ -52,7 +55,9 @@ const GiftsSearchMini = () => {
       </div>
       <Button
         text='GO'
-        onClick={() => {}}
+        onClick={() => {
+          router.push('/search');
+        }}
         wrapperClasses='w-full mt-4'
         styleClasses='w-full'
       />
