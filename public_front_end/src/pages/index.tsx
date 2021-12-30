@@ -1,13 +1,10 @@
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import getDataParser from '../core/data_parser';
 
-import AllPages from '../core_custom_mixer/pageFormats';
 import { PageProps as Props } from '../core/pageFormats/types';
-import { DATA_SOURCE } from '../core_custom_mixer/app_config';
+import { HomePage } from '../custom_client_code/customPageDesigns';
 
 const Home: NextPage<Props> = () => {
-  const { SectionedPages } = AllPages;
   return (
     <div>
       <Head>
@@ -15,6 +12,7 @@ const Home: NextPage<Props> = () => {
         <meta name='description' content={'Meta description'} />
         <link rel='icon' href={'/favicon.ico'} />
       </Head>
+      <HomePage />
     </div>
   );
 };

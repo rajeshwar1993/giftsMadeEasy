@@ -6,7 +6,7 @@ const BannerImage: FC<Props> = ({ image, wrapperClasses }) => {
   let { ImageComponent } = AllComponents;
 
   return (
-    <div className={`h-80 ${wrapperClasses}`}>
+    <div className={`h-52 xl:h-80 ${wrapperClasses}`}>
       <ImageComponent {...image} />
     </div>
   );

@@ -10,7 +10,7 @@ export const layoutConfig: LayoutConfigType = {
   navbar: {
     title: APP_NAME,
     logo: {
-      img: '/media/logo.png',
+      img: '/images/logo.png',
       alt: APP_NAME
     },
     leftSideNav: [

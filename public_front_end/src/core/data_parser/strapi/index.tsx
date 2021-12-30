@@ -104,7 +104,7 @@ const parseSections = (sections: Array<any>) => {
   return pageSection;
 };
 
-export default function (data: any) {
+const strapiParser = (data: any) => {
   let headerData = data.attributes.Header;
   let sectionsData = data.attributes.Sections;
   let pageData: PageProps = {
@@ -113,4 +113,6 @@ export default function (data: any) {
   };
 
   return pageData;
-}
+};
+
+export default strapiParser;

@@ -16,9 +16,9 @@ const NavBar: FC<Props> = ({ config }) => {
     <header className='sticky bg-skin-fill top-0 z-10 xl:flex'>
       <div className='xl:w-[12%]' />
       <nav aria-label='Top' className='mx-auto p-2 xl:w-[86%]'>
-        <div className='relative flex justify-between items-center xl:text-base text-sm text-md my-2'>
+        <div className='relative flex justify-between items-center xl:text-base text-sm text-md'>
           {/* Left Section */}
-          <div className='w-3/5 flex'>
+          <div className='w-3/5 flex items-center'>
             <div className='lg:block hidden cursor-pointer'>
               <span className='sr-only'>{config.title}</span>
               <Link href={'/'}>
