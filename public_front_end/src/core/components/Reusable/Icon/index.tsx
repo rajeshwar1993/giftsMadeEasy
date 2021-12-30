@@ -69,6 +69,11 @@ const Icon: FC<Props> = ({
         IconToUse = MdCheckCircle;
         break;
 
+      case 'FilterListAlt':
+        let { MdFilterListAlt } = await import('react-icons/md');
+        IconToUse = MdFilterListAlt;
+        break;
+
       default:
         let { MdDoDisturb } = await import('react-icons/md');
         IconToUse = MdDoDisturb;

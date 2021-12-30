@@ -16,23 +16,31 @@ export const layoutConfig: LayoutConfigType = {
     leftSideNav: [
       {
         text: 'Home',
-        link: 'intro'
+        link: '/'
       },
       {
-        text: 'Design',
-        link: 'design'
+        text: 'Search',
+        link: '/search'
       },
       {
-        text: 'Why Choose Us',
-        link: 'whychoose'
+        text: 'Login',
+        link: '/login'
       },
       {
-        text: 'Features',
-        link: 'features'
+        text: 'Signup',
+        link: '/signup'
       },
       {
-        text: 'FAQ',
-        link: 'faq'
+        text: 'Profile',
+        link: '/profile'
+      },
+      {
+        text: 'Wishlist',
+        link: '/wishlist'
+      },
+      {
+        text: 'Shortlisted',
+        link: '/shortlisted'
       }
     ],
     rightSideNav: [
