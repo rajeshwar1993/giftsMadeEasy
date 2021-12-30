@@ -11,9 +11,11 @@ const HomePage = () => {
       <BannerImage
         image={{ src: '/images/banner_1.jpg', alt: 'Banner Image' }}
       />
-      <div className='px-4 mt-8 flex flex-col xl:flex-row'>
+      <div className='mt-8 flex flex-col xl:flex-row'>
         {/* Gifts Search Mini Section */}
-        <GiftsSearchMini />
+        <div className='xl:w-2/5 pr-8'>
+          <GiftsSearchMini />
+        </div>
         {/* Popular searches */}
         <div className='flex flex-col justify-center items-start'>
           <Text
