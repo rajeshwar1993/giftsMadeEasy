@@ -41,7 +41,7 @@ const Button: FC<Props> = ({
                 : 'hover:bg-skin-accent hover:text-skin-inverted'
             } ${styleClasses}`}
           >
-            {icon && <Icon {...icon} size='20' />}
+            {icon && <Icon {...icon} size={icon.size || '20'} />}
             {icon && text && !showOnlyIcon && <div className='w-2' />}
             {text && !showOnlyIcon && <span>{text}</span>}
           </button>
