@@ -8,26 +8,23 @@ const { BannerImage, Text } = AllComponents;
 const HomePage = () => {
   return (
     <section className='text-base'>
-      {/* Banner section */}
-      <BannerImage
-        image={{ src: '/images/banner_1.jpg', alt: 'Banner Image' }}
-      />
-      <div className='mt-8 flex flex-col justify-start items-center flex-wrap xl:flex-row xl:items-start'>
+      <div className='mt-8 flex flex-col-reverse justify-start items-center flex-wrap xl:flex-row xl:items-start'>
         {/* Gifts Search Mini Section */}
         <div className='w-full xl:w-2/5 xl:pr-8'>
           <GiftsSearchMini />
         </div>
-        {/* Popular searches */}
-        <div className='mt-6 xl:mt-0'>
-          <TrendingSearches />
+        {/* Banner Text */}
+        <div className='w-full xl:w-3/5 mb-6 xl:mt-0 flex xl:justify-center items-center'>
+          <div>
+            <Text content='YOUR' styleClasses='text-4xl xl:text-6xl' />
+            <Text
+              content='PRESENT'
+              styleClasses='text-6xl xl:text-9xl'
+              tag='h1'
+            />
+            <Text content='THAT MATTERS' styleClasses='text-4xl xl:text-7xl' />
+          </div>
         </div>
-      </div>
-      <div className=''>
-        <Text
-          content='Popular Gifts'
-          tag='h2'
-          styleClasses='text-xl xl:text-3xl'
-        />
       </div>
     </section>
   );

@@ -1,14 +1,10 @@
 import type { GetStaticProps, NextPage } from 'next';
-import { auth } from '../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import Head from 'next/head';
 
 import { PageProps as Props } from '../core/pageFormats/types';
 import { HomePage } from '../custom_client_code/customPageDesigns';
-import { RootState, useAppDispatch } from '../redux/store';
+import { RootState } from '../redux/store';
 import { useSelector } from 'react-redux';
-import { decrement, increment } from '../redux/counter';
 
 const Home: NextPage<Props> = () => {
   const { data: userData } = useSelector((state: RootState) => state.user);
@@ -20,7 +16,6 @@ const Home: NextPage<Props> = () => {
         <meta name='description' content={'Meta description'} />
         <link rel='icon' href={'/favicon.ico'} />
       </Head>
-      {userData && <h1>{userData.name}</h1>}
 
       <HomePage />
     </div>
