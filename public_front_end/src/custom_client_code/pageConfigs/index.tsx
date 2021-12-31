@@ -28,7 +28,7 @@ export const layoutConfig: LayoutConfigType = {
       },
       {
         text: 'Signup',
-        link: '/signup'
+        link: '/auth/signup'
       },
       {
         text: 'Profile',

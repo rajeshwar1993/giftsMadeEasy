@@ -1,6 +1,6 @@
 export enum Gender {
-  Male = 'male',
-  Female = 'felmale'
+  Male = 'M',
+  Female = 'F'
 }
 
 export enum AgeGroup {

@@ -11,9 +11,9 @@ class User {
   phoneNumber: string;
   dob: string;
   imgUrl: string;
-  gender?: Gender;
+  gender: Gender;
   anniversaryDate?: string;
-  datesToRemember: Array<string>; //need to make a separate model for this
+  // datesToRemember: Array<string>; // TODO need to make a separate model for this
 
   constructor() {
     this.uid = '';
@@ -25,8 +25,7 @@ class User {
     this.phoneNumber = '';
     this.dob = '';
     this.imgUrl = '';
-    this.gender = undefined;
-    this.datesToRemember = [];
+    this.gender = Gender.Female;
   }
 
   convertToJson = () => ({
@@ -39,8 +38,7 @@ class User {
     [UserDBKeys.phoneNumber]: this.phoneNumber,
     [UserDBKeys.dob]: this.dob,
     [UserDBKeys.imgUrl]: this.imgUrl,
-    [UserDBKeys.gender]: this.gender,
-    [UserDBKeys.datesToRemember]: this.datesToRemember
+    [UserDBKeys.gender]: this.gender.toString()
   });
 
   static convertJsonToObj = (inp: any) => {
@@ -55,7 +53,6 @@ class User {
     u.dob = inp[UserDBKeys.dob];
     u.imgUrl = inp[UserDBKeys.imgUrl];
     u.gender = inp[UserDBKeys.gender];
-    u.datesToRemember = inp[UserDBKeys.datesToRemember];
 
     return u;
   };
