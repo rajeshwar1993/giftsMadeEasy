@@ -33,10 +33,16 @@ export const userSlice = createSlice({
       state.error = {
         message: action.payload
       };
+    },
+    ur_logout: state => {
+      state.error = null;
+      state.loading = false;
+      state.data = null;
     }
   }
 });
 
-export const { ur_init, ur_setLoading, ur_setError } = userSlice.actions;
+export const { ur_init, ur_setLoading, ur_setError, ur_logout } =
+  userSlice.actions;
 
 export default userSlice.reducer;

@@ -6,13 +6,14 @@ import { PageProps as Props } from '../../core/pageFormats/types';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { RootState, useAppDispatch } from '../../redux/store';
+import { ur_logout } from '../../redux/user';
 
 const { Button } = AllComponents;
 
 const Signup: NextPage<Props> = () => {
   const { data: userData } = useSelector((state: RootState) => state.user);
-
+  const dispatch = useAppDispatch();
   return (
     <section>
       {!userData && (
@@ -50,6 +51,7 @@ const Signup: NextPage<Props> = () => {
           text='Signout'
           onClick={() => {
             signOut(auth);
+            dispatch(ur_logout());
           }}
         />
       )}
