@@ -6,10 +6,14 @@ import Head from 'next/head';
 
 import { PageProps as Props } from '../core/pageFormats/types';
 import { HomePage } from '../custom_client_code/customPageDesigns';
+import { RootState, useAppDispatch } from '../redux/store';
+import { useSelector } from 'react-redux';
+import { decrement, increment } from '../redux/counter';
 
 const Home: NextPage<Props> = () => {
   const [user, loading, error] = useAuthState(auth);
-
+  const { count } = useSelector((state: RootState) => state.counter);
+  const dispatch = useAppDispatch();
   return (
     <div>
       <Head>
@@ -17,6 +21,25 @@ const Home: NextPage<Props> = () => {
         <meta name='description' content={'Meta description'} />
         <link rel='icon' href={'/favicon.ico'} />
       </Head>
+
+      <h1>{count}</h1>
+      <button
+        onClick={() => {
+          console.log('calling increment');
+          dispatch(increment());
+        }}
+      >
+        {'+++'}
+      </button>
+
+      <button
+        onClick={() => {
+          console.log('calling decrement');
+          dispatch(decrement());
+        }}
+      >
+        {'---'}
+      </button>
       {user && (
         <>
           Signed in as {user.email} <br />
