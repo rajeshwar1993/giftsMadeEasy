@@ -10,7 +10,7 @@ type Props = {
 const Footer: FC<Props> = ({ config }) => {
   let { Icon, Button, Text } = AllComponents;
   return (
-    <div id={'footer'} className='bg-skin-fill'>
+    <div id={'footer'} className='bg-skin-fill mt-6'>
       <footer className='pt-8 border-t-2 mx-auto p-4 stext-base xl:flex'>
         <div className='xl:w-[12%]' />
         <div className='flex md:flex-row flex-col justify-between xl:w-[86%] px-2'>

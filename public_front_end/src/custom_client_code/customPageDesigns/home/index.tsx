@@ -3,12 +3,12 @@ import AllComponents from '../../../core_custom_mixer/components';
 import GiftsSearchMini from './giftsSearchMini';
 import TrendingSearches from './trendingSearches';
 
-const { BannerImage, Text } = AllComponents;
+const { Text } = AllComponents;
 
 const HomePage = () => {
   return (
     <section className='text-base'>
-      <div className='mt-8 flex flex-col-reverse justify-start items-center flex-wrap xl:flex-row xl:items-start'>
+      <div className=' flex flex-col-reverse justify-start items-center flex-wrap xl:flex-row xl:items-start'>
         {/* Gifts Search Mini Section */}
         <div className='w-full xl:w-2/5 xl:pr-8'>
           <GiftsSearchMini />
@@ -25,6 +25,9 @@ const HomePage = () => {
             <Text content='THAT MATTERS' styleClasses='text-4xl xl:text-7xl' />
           </div>
         </div>
+      </div>
+      <div className='mt-12'>
+        <TrendingSearches />
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import { TextType as Props } from './type';
 import sanitizeHtml from 'sanitize-html';
 
@@ -6,7 +6,8 @@ const Text: FC<Props> = ({
   content = 'Test Content',
   styleClasses = '',
   wrapperStyleClasses = '',
-  tag: Tag = 'p'
+  tag: Tag = 'p',
+  wrapperTag: WT = Fragment
 }) => {
   let sanitizedContent = sanitizeHtml(content, {
     allowedClasses: {
@@ -15,12 +16,12 @@ const Text: FC<Props> = ({
     }
   });
   return (
-    <div className={`${wrapperStyleClasses}`}>
+    <WT className={`${wrapperStyleClasses}`}>
       <Tag
         className={` ${styleClasses}`}
         dangerouslySetInnerHTML={{ __html: sanitizedContent }}
       />
-    </div>
+    </WT>
   );
 };
 

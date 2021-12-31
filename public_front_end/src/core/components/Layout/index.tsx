@@ -12,7 +12,7 @@ const Layout: FC<Props> = ({ children, config }) => {
   return (
     <div className='bg-skin-fill text-skin-primary'>
       <NavBar config={config.navbar} />
-      <main className='mx-4 my-2 md:my-8 flex'>
+      <main className='mx-4 md:my-8 flex'>
         {/* reserved for side content, maybe ads */}
         <div className='xl:w-[12%]' />
         {/* main body area */}
