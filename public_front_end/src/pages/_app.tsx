@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import All from '../core_custom_mixer/components';
 import { layoutConfig } from '../custom_client_code/pageConfigs';
+import '../firebase';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { Layout } = All;
