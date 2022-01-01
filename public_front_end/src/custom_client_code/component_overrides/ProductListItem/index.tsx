@@ -3,10 +3,10 @@ import AllComponents from '../../../core_custom_mixer/components';
 
 const { ImageComponent, Text } = AllComponents;
 
-const SearchProductItem = () => {
+const ProductListItem = () => {
   return (
-    <div className='py-4 px-6 w-full mb-4 cursor-pointer hover:shadow-2xl transition-all rounded-lg'>
-      <div className='rounded-lg overflow-hidden border-2'>
+    <div className='xl:p-4 w-full cursor-pointer xl:hover:shadow-2xl transition-all rounded-lg'>
+      <div className='rounded-lg overflow-hidden '>
         <ImageComponent src='/images/product.jpg' alt='product name' />
       </div>
       <div className='mt-2'>
@@ -23,4 +23,4 @@ const SearchProductItem = () => {
   );
 };
 
-export default SearchProductItem;
+export default ProductListItem;

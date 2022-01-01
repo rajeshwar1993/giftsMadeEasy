@@ -27,7 +27,7 @@ const SearchPage = () => {
       <div className='flex flex-row mt-4'>
         <Filters />
 
-        <div className='flex flex-row flex-wrap px-4 w-full xl:w-4/5'>
+        <div className='flex flex-row flex-wrap xl:px-4 w-full xl:w-4/5'>
           <ProductListing />
         </div>
       </div>

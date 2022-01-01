@@ -1,16 +1,16 @@
 import React from 'react';
-import SearchProductItem from './searchProductItem';
+import ProductListItem from '../../component_overrides/ProductListItem';
 
 const ProductListing = () => {
   return (
     <div className='grid grid-cols-1 xl:grid-cols-3 gap-6 w-full'>
-      <SearchProductItem />
-      <SearchProductItem />
-      <SearchProductItem />
-      <SearchProductItem />
-      <SearchProductItem />
-      <SearchProductItem />
-      <SearchProductItem />
+      <ProductListItem />
+      <ProductListItem />
+      <ProductListItem />
+      <ProductListItem />
+      <ProductListItem />
+      <ProductListItem />
+      <ProductListItem />
     </div>
   );
 };

@@ -39,7 +39,12 @@ const NavBar: FC<Props> = ({ config }) => {
             </button>
             <div className='justify-start items-center lg:flex hidden '>
               {config.leftSideNav.map((btn, i) => (
-                <Button key={i} {...btn} defautStyle='cust-btn-link' />
+                <Button
+                  key={i}
+                  {...btn}
+                  defautStyle='cust-btn-link'
+                  styleClasses='mx-2 px-2'
+                />
               ))}
             </div>
           </div>
@@ -47,7 +52,12 @@ const NavBar: FC<Props> = ({ config }) => {
           {/* Right Section */}
           <div className='lg:w-1/5 w-2/5 flex justify-end items-center'>
             {config.rightSideNav.map((btn, i) => (
-              <Button key={i} {...btn} defautStyle='cust-btn-link' />
+              <Button
+                key={i}
+                {...btn}
+                defautStyle='cust-btn-link'
+                styleClasses='mx-2 px-2'
+              />
             ))}
           </div>
         </div>

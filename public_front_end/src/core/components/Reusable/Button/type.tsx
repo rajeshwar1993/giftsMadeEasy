@@ -6,7 +6,7 @@ export interface ButtonType {
   icon?: IconType;
   onClick?: Function;
   wrapperClasses?: string;
-  defautStyle?: string;
+  defautStyle?: 'cust-btn-btn' | 'cust-btn-link';
   styleClasses?: string;
   showOnlyIcon?: boolean;
 }
