@@ -53,11 +53,10 @@
     --color-border-primary: var(--fill);
     --color-border-accent: var(--accent);
     --color-border-inverted: var(--fill-inverted);
-
   }
 }
 
-@layer utilities{
+@layer utilities {
   .cust-paragraph-text {
     @apply text-base xl:text-lg;
   }
@@ -65,7 +64,17 @@
     @apply font-semibold text-xl xl:text-2xl;
   }
 
+  .cust-btn-base {
+    @apply px-4 py-2 rounded-md font-semibold transition duration-200 ease-in-out cursor-pointer;
+  }
 
+  .cust-btn-btn {
+    @apply border-2 border-skin-inverted hover:bg-skin-accent hover:text-skin-inverted;
+  }
+
+  .cust-btn-link {
+    @apply hover:text-skin-accent;
+  }
 }
 
 /* importing from custom code */

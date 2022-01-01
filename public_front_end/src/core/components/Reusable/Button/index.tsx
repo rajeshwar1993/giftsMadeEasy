@@ -2,52 +2,39 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 import { ButtonType as Props } from './type';
 import AllComponents from '../../../../core_custom_mixer/components';
+import { useRouter } from 'next/router';
+
+const { Icon } = AllComponents;
 
 const Button: FC<Props> = ({
   text,
   link,
   onClick,
   wrapperClasses = '',
+  defautStyle = 'cust-btn-btn',
   styleClasses = '',
   icon,
   showOnlyIcon = false
 }) => {
-  let { Icon } = AllComponents;
+  const router = useRouter();
 
   return (
-    <>
-      {link && (
-        <div
-          className={`px-4 py-2 cursor-pointer font-semibold transition duration-200 ease-in-out  ${wrapperClasses}`}
-        >
-          <Link href={link}>
-            <span
-              className={`flex justify-center items-center ${styleClasses}`}
-            >
-              {icon && <Icon {...icon} size='20' />}
-              {icon && text && !showOnlyIcon && <div className='w-2' />}
-              {text && !showOnlyIcon && <span>{text}</span>}
-            </span>
-          </Link>
-        </div>
-      )}
-      {onClick && (
-        <div className={`${wrapperClasses}`}>
-          <button
-            onClick={() => onClick()}
-            className={`px-4 py-2 border-2 border-skin-inverted rounded-md cursor-pointer font-semibold transition duration-200 ease-in-out ${
-              showOnlyIcon
-                ? ''
-                : 'hover:bg-skin-accent hover:text-skin-inverted'
-            } ${styleClasses}`}
-          >
-            {icon && <Icon {...icon} size={icon.size || '20'} />}
-            {icon && text && !showOnlyIcon && <div className='w-2' />}
-            {text && !showOnlyIcon && <span>{text}</span>}
-          </button>
-        </div>
-      )}
-    </>
+    <div className={`${wrapperClasses}`}>
+      <button
+        onClick={() => {
+          if (link) {
+            router.push(link);
+          } else if (onClick) {
+            onClick();
+          }
+        }}
+        className={`cust-btn-base ${defautStyle} ${styleClasses}`}
+      >
+        {icon && <Icon {...icon} size={icon.size || '20'} />}
+        {icon && text && !showOnlyIcon && <div className='w-2' />}
+        {text && !showOnlyIcon && <span>{text}</span>}
+      </button>
+    </div>
   );
 };
 

@@ -5,9 +5,7 @@ import sanitizeHtml from 'sanitize-html';
 const Text: FC<Props> = ({
   content = 'Test Content',
   styleClasses = '',
-  wrapperStyleClasses = '',
-  tag: Tag = 'p',
-  wrapperTag: WT = 'span'
+  tag: Tag = 'span'
 }) => {
   let sanitizedContent = sanitizeHtml(content, {
     allowedClasses: {
@@ -16,12 +14,10 @@ const Text: FC<Props> = ({
     }
   });
   return (
-    <WT className={`${wrapperStyleClasses}`}>
-      <Tag
-        className={` ${styleClasses}`}
-        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-      />
-    </WT>
+    <Tag
+      className={` ${styleClasses}`}
+      dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+    />
   );
 };
 

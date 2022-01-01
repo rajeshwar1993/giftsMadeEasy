@@ -16,12 +16,13 @@ const ProfilePage = () => {
             />
           </div>
           <div className='p-2 flex flex-col justify-center items-center w-full'>
-            <Text
-              content='Aditya Vikram Chatterjee'
-              tag='h1'
-              styleClasses='text-xl font-semibold'
-              wrapperStyleClasses='my-2'
-            />
+            <div className='my-2'>
+              <Text
+                content='Aditya Vikram Chatterjee'
+                tag='h1'
+                styleClasses='text-xl font-semibold'
+              />
+            </div>
             <Button
               text='Add To Circle'
               wrapperClasses='w-full my-2'
@@ -32,12 +33,13 @@ const ProfilePage = () => {
         </div>
         {/* right section */}
         <div className='xl:w-4/5 p-2'>
-          <Text
-            content='About'
-            tag='h1'
-            styleClasses='text-xl font-semibold'
-            wrapperStyleClasses='my-2'
-          />
+          <div className='my-2'>
+            <Text
+              content='About'
+              tag='h1'
+              styleClasses='text-xl font-semibold'
+            />
+          </div>
         </div>
       </div>
     </section>

@@ -6,6 +6,7 @@ export interface ButtonType {
   icon?: IconType;
   onClick?: Function;
   wrapperClasses?: string;
+  defautStyle?: string;
   styleClasses?: string;
   showOnlyIcon?: boolean;
 }

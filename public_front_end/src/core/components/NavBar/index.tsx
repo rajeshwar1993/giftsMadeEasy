@@ -39,16 +39,7 @@ const NavBar: FC<Props> = ({ config }) => {
             </button>
             <div className='justify-start items-center lg:flex hidden '>
               {config.leftSideNav.map((btn, i) => (
-                <Button
-                  key={i}
-                  link={btn.link}
-                  onClick={btn.onClick}
-                  text={btn.text}
-                  icon={btn.icon}
-                  showOnlyIcon={btn.showOnlyIcon}
-                  wrapperClasses={`border-0  mx-2 ${btn.wrapperClasses}`}
-                  styleClasses={`hover:text-skin-accent ${btn.styleClasses}`}
-                />
+                <Button key={i} {...btn} defautStyle='cust-btn-link' />
               ))}
             </div>
           </div>
@@ -56,16 +47,7 @@ const NavBar: FC<Props> = ({ config }) => {
           {/* Right Section */}
           <div className='lg:w-1/5 w-2/5 flex justify-end items-center'>
             {config.rightSideNav.map((btn, i) => (
-              <Button
-                key={i}
-                link={btn.link}
-                onClick={btn.onClick}
-                text={btn.text}
-                icon={btn.icon}
-                showOnlyIcon={btn.showOnlyIcon}
-                wrapperClasses={`border-0  mx-2 ${btn.wrapperClasses}`}
-                styleClasses={`hover:text-skin-accent ${btn.styleClasses}`}
-              />
+              <Button key={i} {...btn} defautStyle='cust-btn-link' />
             ))}
           </div>
         </div>

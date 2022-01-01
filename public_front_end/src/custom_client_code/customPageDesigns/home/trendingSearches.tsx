@@ -7,12 +7,13 @@ const { Text } = AllComponents;
 const TrendingSearches = () => {
   return (
     <div className='flex flex-col justify-start items-start xl:items-start'>
-      <Text
-        content='Trending Searches'
-        tag='h3'
-        styleClasses='text-4xl xl:text-5xl font-light'
-        wrapperStyleClasses='mb-2'
-      />
+      <div className='mb-2'>
+        <Text
+          content='Trending Searches'
+          tag='h3'
+          styleClasses='text-4xl xl:text-5xl font-light'
+        />
+      </div>
       <div className='mt-4 w-full grid grid-cols-2 xl:grid-cols-4 grid-flow-row gap-4 xl:gap-10'>
         <TreandingSearchBox
           rel='Brother'
@@ -103,46 +104,18 @@ const TreandingSearchBox: FC<SearchBoxType> = ({
       className={`text-lg bg-opacity-30 hover:bg-opacity-80 hover:text-skin-inverted xl:text-2xl text-skin-primary flex justify-center items-center p-2 rounded-lg transition-all cursor-pointer ${styleClass}`}
     >
       <div className=''>
-        <Text
-          content='Gift for my '
-          tag='span'
-          styleClasses=''
-          wrapperStyleClasses='mr-2'
-        />
+        <Text content='Gift for my ' tag='span' styleClasses='' />
         <Text
           content={oc ? `${rel}'s ` : ''}
           tag='span'
           styleClasses=' font-bold'
-          wrapperStyleClasses='mr-2'
         />
-        {oc && (
-          <Text
-            content={`${oc} `}
-            tag='span'
-            styleClasses=' font-bold'
-            wrapperStyleClasses='mr-2'
-          />
-        )}
+        {oc && <Text content={`${oc} `} tag='span' styleClasses=' font-bold' />}
         {age && (
           <>
-            <Text
-              content='who is '
-              tag='span'
-              styleClasses=''
-              wrapperStyleClasses='mr-2'
-            />
-            <Text
-              content={age}
-              tag='span'
-              styleClasses=' font-bold'
-              wrapperStyleClasses='mr-2'
-            />
-            <Text
-              content=' years old.'
-              tag='span'
-              styleClasses=''
-              wrapperStyleClasses='mr-2'
-            />
+            <Text content='who is ' tag='span' styleClasses='' />
+            <Text content={age} tag='span' styleClasses=' font-bold' />
+            <Text content=' years old.' tag='span' styleClasses='' />
           </>
         )}
       </div>
