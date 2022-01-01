@@ -14,12 +14,12 @@ const NavBar: FC<Props> = ({ config }) => {
 
   return (
     <header className='sticky bg-skin-fill top-0 z-10 xl:flex'>
-      <div className='xl:w-[12%]' />
-      <nav aria-label='Top' className='mx-auto p-2 xl:w-[86%]'>
+      {/* <div className='xl:w-[12%]' /> */}
+      <nav aria-label='Top' className='mx-auto p-2 xl:px-8 w-full'>
         <div className='relative flex justify-between items-center xl:text-base text-sm text-md'>
           {/* Left Section */}
           <div className='w-3/5 flex items-center'>
-            <div className='lg:block hidden cursor-pointer'>
+            <div className='lg:block hidden cursor-pointer w-[15%]'>
               <span className='sr-only'>{config.title}</span>
               <Link href={'/'}>
                 <img
@@ -70,7 +70,7 @@ const NavBar: FC<Props> = ({ config }) => {
           </div>
         </div>
       </nav>
-      <div className='xl:w-[12%]' />
+      {/* <div className='xl:w-[12%]' /> */}
       {/* Mobile Menu */}
       <MobileNav
         config={config}

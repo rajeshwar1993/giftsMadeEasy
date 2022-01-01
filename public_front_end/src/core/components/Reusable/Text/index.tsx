@@ -7,7 +7,7 @@ const Text: FC<Props> = ({
   styleClasses = '',
   wrapperStyleClasses = '',
   tag: Tag = 'p',
-  wrapperTag: WT = Fragment
+  wrapperTag: WT = 'span'
 }) => {
   let sanitizedContent = sanitizeHtml(content, {
     allowedClasses: {
