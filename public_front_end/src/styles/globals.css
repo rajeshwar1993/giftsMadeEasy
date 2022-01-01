@@ -77,7 +77,7 @@
   }
 
   .cust-badge-styles {
-    @apply py-1 px-3 mr-2 rounded-2xl text-lg bg-skin-accent text-skin-inverted 
+    @apply py-1 px-3 mr-2 rounded-2xl text-lg bg-skin-accent text-skin-inverted;
   }
 }
 

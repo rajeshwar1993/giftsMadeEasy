@@ -74,6 +74,26 @@ const Icon: FC<Props> = ({
         IconToUse = MdFilterListAlt;
         break;
 
+      case 'OutlineFavoriteBorder':
+        let { MdOutlineFavoriteBorder } = await import('react-icons/md');
+        IconToUse = MdOutlineFavoriteBorder;
+        break;
+
+      case 'OutlineFavorite':
+        let { MdOutlineFavorite } = await import('react-icons/md');
+        IconToUse = MdOutlineFavorite;
+        break;
+
+      case 'BookmarkBorder':
+        let { MdBookmarkBorder } = await import('react-icons/md');
+        IconToUse = MdBookmarkBorder;
+        break;
+
+      case 'BookmarkAdded':
+        let { MdBookmarkAdded } = await import('react-icons/md');
+        IconToUse = MdBookmarkAdded;
+        break;
+
       default:
         let { MdDoDisturb } = await import('react-icons/md');
         IconToUse = MdDoDisturb;
