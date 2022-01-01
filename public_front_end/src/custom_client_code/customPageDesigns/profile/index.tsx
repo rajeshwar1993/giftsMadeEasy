@@ -1,5 +1,7 @@
 import React from 'react';
 import AllComponents from '../../../core_custom_mixer/components';
+import ProfileDetailsSection from './profileDetailsSection';
+import ProfileImageSection from './profileImageSection';
 
 const { ImageComponent, Text, Button } = AllComponents;
 
@@ -8,38 +10,12 @@ const ProfilePage = () => {
     <section>
       <div className='flex flex-col xl:flex-row'>
         {/* left section */}
-        <div className='flex flex-row xl:flex-col xl:w-1/5 w-full justify-center items-center'>
-          <div className='shadow-lg overflow-hidden border-4 rounded-full w-64 h-w-64 xl:w-full xl:h-full'>
-            <ImageComponent
-              src='/images/person.jpg'
-              alt='Aditya Vikram Chatterjee'
-            />
-          </div>
-          <div className='p-2 flex flex-col justify-center items-center w-full'>
-            <div className='my-2'>
-              <Text
-                content='Aditya Vikram Chatterjee'
-                tag='h1'
-                styleClasses='text-xl font-semibold'
-              />
-            </div>
-            <Button
-              text='Add To Circle'
-              wrapperClasses='w-full my-2'
-              styleClasses='w-full'
-              onClick={() => {}}
-            />
-          </div>
+        <div className=' xl:w-1/5 w-full'>
+          <ProfileImageSection />
         </div>
         {/* right section */}
-        <div className='xl:w-4/5 p-2'>
-          <div className='my-2'>
-            <Text
-              content='About'
-              tag='h1'
-              styleClasses='text-xl font-semibold'
-            />
-          </div>
+        <div className='xl:w-4/5 xl:pl-16'>
+          <ProfileDetailsSection />
         </div>
       </div>
     </section>

@@ -1,19 +1,13 @@
 import React, { FC } from 'react';
 import AllComponents from '../../../core_custom_mixer/components';
-import SearchProductItem from '../search/searchProductItem';
 
-const { Text } = AllComponents;
+const { Text, SectionTitle } = AllComponents;
 
 const TrendingSearches = () => {
   return (
     <div className='flex flex-col justify-start items-start xl:items-start'>
-      <div className='mb-2'>
-        <Text
-          content='Trending Searches'
-          tag='h3'
-          styleClasses='text-4xl xl:text-5xl font-light'
-        />
-      </div>
+      <SectionTitle content='Trending Searches' />
+
       <div className='mt-4 w-full grid grid-cols-2 xl:grid-cols-4 grid-flow-row gap-4 xl:gap-10'>
         <TreandingSearchBox
           rel='Brother'
