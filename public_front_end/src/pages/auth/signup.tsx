@@ -3,58 +3,18 @@ import React from 'react';
 import AllComponents from '../../core_custom_mixer/components';
 
 import { PageProps as Props } from '../../core/pageFormats/types';
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-import { auth } from '../../firebase';
-import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '../../redux/store';
-import { ur_logout } from '../../redux/user';
 
-const { Button } = AllComponents;
+import AuthComponent from '../../custom_client_code/component_overrides/AuthComponent';
+
+const { SectionTitle } = AllComponents;
 
 const Signup: NextPage<Props> = () => {
-  const { data: userData } = useSelector((state: RootState) => state.user);
-  const dispatch = useAppDispatch();
   return (
-    <section>
-      {!userData && (
-        <Button
-          text='Google'
-          onClick={() => {
-            const provider = new GoogleAuthProvider();
-            signInWithPopup(auth, provider)
-              .then(result => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential =
-                  GoogleAuthProvider.credentialFromResult(result);
-                const token = credential!.accessToken;
-                // The signed-in user info.
-                const user = result.user;
-                // ...
-                console.log(user);
-              })
-              .catch(error => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.email;
-                // The AuthCredential type that was used.
-                const credential =
-                  GoogleAuthProvider.credentialFromError(error);
-                // ...
-              });
-          }}
-        />
-      )}
-      {userData && (
-        <Button
-          text='Signout'
-          onClick={() => {
-            signOut(auth);
-            dispatch(ur_logout());
-          }}
-        />
-      )}
+    <section className='text-center'>
+      <div className='mb-20'>
+        <SectionTitle tag='h1' content='TOFA' styleClasses='!text-9xl' />
+      </div>
+      <AuthComponent />
     </section>
   );
 };
