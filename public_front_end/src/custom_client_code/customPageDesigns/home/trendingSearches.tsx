@@ -1,116 +1,81 @@
 import React, { FC } from 'react';
 import AllComponents from '../../../core_custom_mixer/components';
+import Badge from '../../component_overrides/Bagde';
 
 const { Text, SectionTitle } = AllComponents;
 
 const TrendingSearches = () => {
   return (
-    <div className='flex flex-col justify-start items-start xl:items-start'>
+    <div className=''>
       <SectionTitle content='Trending Searches' />
 
-      <div className='mt-4 w-full grid grid-cols-2 xl:grid-cols-4 grid-flow-row gap-4 xl:gap-10'>
+      <div className='mt-4 w-full grid grid-cols-2 xl:grid-cols-4 grid-flow-row gap-4 xl:gap-6'>
         <TreandingSearchBox
           rel='Brother'
           age='32'
           oc='Birthday'
-          styleClass='bg-teal-800 col-span-2'
+          styleClass='col-span-2'
+          fontSizeClass='text-2xl xl:text-5xl'
         />
+        <TreandingSearchBox rel='Brother' age='32' oc='Birthday' />
         <TreandingSearchBox
           rel='Brother'
           age='32'
           oc='Birthday'
-          styleClass='bg-red-800'
+          styleClass='row-span-2'
+          fontSizeClass='text-2xl xl:text-5xl'
         />
+        <TreandingSearchBox rel='Brother' age='32' oc='Birthday' />
+        <TreandingSearchBox rel='Brother' age='32' oc='Birthday' />
+        <TreandingSearchBox rel='Brother' age='32' oc='Birthday' />
         <TreandingSearchBox
           rel='Brother'
           age='32'
           oc='Birthday'
-          styleClass='bg-blue-800 row-span-2'
+          styleClass='row-span-2 col-span-2'
+          fontSizeClass='text-5xl xl:text-8xl'
         />
-        <TreandingSearchBox
-          rel='Brother'
-          age='32'
-          oc='Birthday'
-          styleClass='bg-yellow-800'
-        />
-        <TreandingSearchBox
-          rel='Brother'
-          age='32'
-          oc='Birthday'
-          styleClass='bg-green-800'
-        />
-        <TreandingSearchBox
-          rel='Brother'
-          age='32'
-          oc='Birthday'
-          styleClass='bg-indigo-800'
-        />
-        <TreandingSearchBox
-          rel='Brother'
-          age='32'
-          oc='Birthday'
-          styleClass='bg-rose-800 row-span-2 col-span-2'
-        />
-        <TreandingSearchBox
-          rel='Brother'
-          age='32'
-          oc='Birthday'
-          styleClass='bg-teal-800'
-        />
-        <TreandingSearchBox
-          rel='Brother'
-          age='32'
-          oc='Birthday'
-          styleClass='bg-purple-800'
-        />
-        <TreandingSearchBox
-          rel='Brother'
-          age='32'
-          oc='Birthday'
-          styleClass='bg-teal-800'
-        />
-        <TreandingSearchBox
-          rel='Brother'
-          age='32'
-          oc='Birthday'
-          styleClass='bg-cyan-800'
-        />
+        <TreandingSearchBox rel='Brother' age='32' oc='Birthday' />
+        <TreandingSearchBox rel='Brother' age='32' oc='Birthday' />
+        <TreandingSearchBox rel='Brother' age='32' oc='Birthday' />
+        <TreandingSearchBox rel='Brother' age='32' oc='Birthday' />
       </div>
     </div>
   );
 };
 
 type SearchBoxType = {
-  rel: string;
+  rel?: string;
   age?: string;
   oc?: string;
   styleClass?: string;
+  fontSizeClass?: string;
+  count?: number;
 };
 
 const TreandingSearchBox: FC<SearchBoxType> = ({
   rel,
   age,
   oc,
-  styleClass
+  styleClass,
+  fontSizeClass = 'text-xl xl:text-3xl',
+  count = 30
 }) => {
   return (
     <div
-      className={`text-lg bg-opacity-30 hover:bg-opacity-80 hover:text-skin-inverted xl:text-2xl text-skin-primary flex justify-center items-center p-2 rounded-lg transition-all cursor-pointer ${styleClass}`}
+      className={`relative bg-skin-accent bg-opacity-20 hover:text-skin-inverted hover:bg-opacity-100 text-skin-primary flex justify-center items-center p-2 rounded-lg transition-all cursor-pointer overflow-hidden ${styleClass} ${fontSizeClass}`}
     >
       <div className=''>
-        <Text content='Gift for my ' tag='span' styleClasses='' />
-        <Text
-          content={oc ? `${rel}'s ` : ''}
-          tag='span'
-          styleClasses=' font-bold'
-        />
-        {oc && <Text content={`${oc} `} tag='span' styleClasses=' font-bold' />}
+        {rel && (
+          <Text content={` ${rel} `} tag='span' styleClasses=' font-semibold' />
+        )}
         {age && (
           <>
-            <Text content='who is ' tag='span' styleClasses='' />
-            <Text content={age} tag='span' styleClasses=' font-bold' />
-            <Text content=' years old.' tag='span' styleClasses='' />
+            <Text content={` ${age} `} tag='span' styleClasses=' font-light' />
           </>
+        )}
+        {oc && (
+          <Text content={` ${oc} `} tag='span' styleClasses=' font-semibold' />
         )}
       </div>
     </div>
