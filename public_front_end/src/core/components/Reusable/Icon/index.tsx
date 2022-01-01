@@ -94,6 +94,11 @@ const Icon: FC<Props> = ({
         IconToUse = MdBookmarkAdded;
         break;
 
+      case 'Share':
+        let { MdShare } = await import('react-icons/md');
+        IconToUse = MdShare;
+        break;
+
       default:
         let { MdDoDisturb } = await import('react-icons/md');
         IconToUse = MdDoDisturb;

@@ -35,12 +35,8 @@ export const layoutConfig: LayoutConfigType = {
         link: '/profile'
       },
       {
-        text: 'Wishlist',
-        link: '/wishlist'
-      },
-      {
-        text: 'Shortlisted',
-        link: '/shortlisted'
+        text: 'Product',
+        link: '/product'
       }
     ],
     rightSideNav: [
