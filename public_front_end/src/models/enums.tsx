@@ -4,16 +4,41 @@ export enum Gender {
 }
 
 export enum AgeGroup {
-  Infant = '0-2',
-  Toddler = '3-7',
-  Kid = '8-12',
-  Teenager = '13-17',
-  YoungAdult = '18-22',
-  Adult = '23-27',
-  ResponsibleAdult = '28-32',
-  Settled = '33-40',
-  FinanciallySettled = '41-50',
-  ApproachingRetirement = '51-60',
-  Retired = '61-70',
-  Wisdom = '71-100'
+  Infant = 'Infant (0-2)',
+  Toddler = 'Toddler (3-7)',
+  Kid = 'Kid (8-12)',
+  Teenager = 'Teenager (13-17)',
+  YoungAdult = 'Young Adult (18-22)',
+  Adult = 'Adult (23-27)',
+  ResponsibleAdult = 'Responsible Adult (28-32)',
+  Settled = 'Settled (33-40)',
+  FinanciallySettled = 'Financially Settled (41-50)',
+  ApproachingRetirement = 'Approaching Retirement (51-60)',
+  Retired = 'Retired (61-70)',
+  Wisdom = 'Wisdom (71 and above)'
+}
+
+export enum Relationship {
+  Girlfriend = 'Girlfriend',
+  Boyfriend = 'Boyfriend',
+  Friend = 'Friend',
+  Husband = 'Husband',
+  Wife = 'Wife',
+  Son = 'Son',
+  Daughter = 'Daughter',
+  Brother = 'Brother',
+  Sister = 'Sister',
+  Father = 'Father',
+  Mother = 'Mother',
+  Grandfather = 'Grandfather',
+  Grandmother = 'Grandmother',
+  Colleague = 'Colleague',
+  Other = 'Other'
+}
+
+export enum Occasion {
+  Birthday = 'Birthday',
+  Anniversary = 'Anniversary',
+  Wedding = 'Wedding',
+  HouseWarming = 'House Warming'
 }

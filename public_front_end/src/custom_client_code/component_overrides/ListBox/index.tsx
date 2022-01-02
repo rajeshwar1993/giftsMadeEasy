@@ -16,13 +16,13 @@ const { Icon, Text } = AllComponents;
 
 const ListBoxComp: FC<Props> = ({
   title,
-  options,
-  selectedOption,
+  options = [{ name: 'DEFAULT', value: 'gf' }],
+  selectedOption = { name: 'DEFAULT', value: 'gf' },
   onSelected,
   buttonStyleClasses = '',
   optionsStyleClasses = ''
 }) => {
-  const [selected, setSelected] = useState(people[0]);
+  const [selected, setSelected] = useState(selectedOption);
 
   return (
     <Listbox value={selected} onChange={setSelected}>
@@ -54,9 +54,9 @@ const ListBoxComp: FC<Props> = ({
           <Listbox.Options
             className={`absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-skin-fill text-skin-primary rounded-md shadow-xl max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm ${optionsStyleClasses}`}
           >
-            {people.map((person, personIdx) => (
+            {options.map(option => (
               <Listbox.Option
-                key={personIdx}
+                key={option.value}
                 className={({ active }) =>
                   `${
                     active
@@ -65,7 +65,7 @@ const ListBoxComp: FC<Props> = ({
                   }
                     cursor-pointer select-none relative py-2 pl-10 pr-4`
                 }
-                value={person}
+                value={option.value}
               >
                 {({ selected, active }) => (
                   <>
@@ -74,7 +74,7 @@ const ListBoxComp: FC<Props> = ({
                         selected ? 'font-bold' : 'font-normal'
                       } block truncate`}
                     >
-                      {person.name}
+                      {option.name}
                     </span>
                     {selected ? (
                       <span
