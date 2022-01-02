@@ -114,6 +114,11 @@ const Icon: FC<Props> = ({
         IconToUse = MdCake;
         break;
 
+      case 'Camera':
+        let { MdCameraAlt } = await import('react-icons/md');
+        IconToUse = MdCameraAlt;
+        break;
+
       default:
         let { MdDoDisturb } = await import('react-icons/md');
         IconToUse = MdDoDisturb;

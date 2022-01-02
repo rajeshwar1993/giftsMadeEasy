@@ -66,11 +66,23 @@ const ProfileImpDatesSection: FC<Props> = ({ text, onSaveClick }) => {
           <div className='flex flex-row'>
             <div className='flex flex-col justify-center items-center pr-10'>
               <Icon iconName='Cake' size='80' />
-              <Text content='August 18th' styleClasses='text-lg' />
+              <Text content='August 18th' styleClasses='text-xl' />
+              <Button
+                text='Find Birthday Gifts'
+                link={'/search'}
+                styleClasses='text-sm'
+                defautStyle='cust-btn-link'
+              />
             </div>
             <div className='flex flex-col justify-center items-center'>
               <Icon iconName='OutlineFavorite' size='80' />
-              <Text content='May 18th' styleClasses='text-lg' />
+              <Text content='May 18th' styleClasses='text-xl' />
+              <Button
+                text='Find Anniversary Gifts'
+                link={'/search'}
+                styleClasses='text-sm'
+                defautStyle='cust-btn-link'
+              />
             </div>
           </div>
         )}
