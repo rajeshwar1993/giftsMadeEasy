@@ -109,6 +109,11 @@ const Icon: FC<Props> = ({
         IconToUse = MdModeEdit;
         break;
 
+      case 'Cake':
+        let { MdCake } = await import('react-icons/md');
+        IconToUse = MdCake;
+        break;
+
       default:
         let { MdDoDisturb } = await import('react-icons/md');
         IconToUse = MdDoDisturb;
