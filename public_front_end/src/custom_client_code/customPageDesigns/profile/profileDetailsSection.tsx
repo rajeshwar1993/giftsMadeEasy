@@ -3,6 +3,7 @@ import AllComponents from '../../../core_custom_mixer/components';
 import Badge from '../../component_overrides/Bagde';
 import BookmarksSection from './bookmakrs';
 import ProfileAboutSection from './profileAboutSection';
+import ProfileInterestedInSection from './profileInteredtedInSection';
 import WishListSection from './wishList';
 
 const { Button, SectionTitle } = AllComponents;
@@ -18,37 +19,27 @@ const ProfileDetailsSection = () => {
         }}
       />
       {/* Likes */}
-      <div className='mb-10'>
-        <SectionTitle content='Interested In' />
-
-        <div className='mb-2'>
-          <Badge
-            text={{
-              content: 'Tech'
-            }}
-          />
-          <Badge
-            text={{
-              content: 'Art'
-            }}
-          />
-          <Badge
-            text={{
-              content: 'Travel'
-            }}
-          />
-          <Badge
-            text={{
-              content: 'Books'
-            }}
-          />
-        </div>
-        <Button
-          text='Find Gifts for Aditya Vikram Chatterjee'
-          link={'/search'}
-          defautStyle='cust-btn-link'
-        />
-      </div>
+      <ProfileInterestedInSection
+        ints={[
+          {
+            id: '1',
+            text: 'Tech'
+          },
+          {
+            id: '2',
+            text: 'Tech'
+          },
+          {
+            id: '3',
+            text: 'Tech'
+          },
+          {
+            id: '4',
+            text: 'Tech'
+          }
+        ]}
+        onSaveClick={() => {}}
+      />
       <div className='mb-10'>
         <WishListSection />
       </div>
