@@ -63,7 +63,7 @@ const TreandingSearchBox: FC<SearchBoxType> = ({
 }) => {
   return (
     <div
-      className={`relative bg-skin-accent bg-opacity-20 hover:text-skin-inverted hover:bg-opacity-100 text-skin-primary flex justify-center items-center p-2 rounded-lg transition-all cursor-pointer overflow-hidden ${styleClass} ${fontSizeClass}`}
+      className={`relative bg-skin-accent bg-opacity-5 hover:text-skin-inverted hover:bg-opacity-100 text-skin-primary flex justify-center items-center p-2 rounded-lg transition-all duration-200 cursor-pointer overflow-hidden ${styleClass} ${fontSizeClass}`}
     >
       <div className=''>
         {rel && (

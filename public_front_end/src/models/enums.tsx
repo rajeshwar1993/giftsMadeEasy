@@ -4,16 +4,16 @@ export enum Gender {
 }
 
 export enum AgeGroup {
-  Infant = '0_2',
-  Toddler = '3_7',
-  Kid = '8_12',
-  Teenager = '13_17',
-  YoungAdult = '18_22',
-  Adult = '23_27',
-  ResponsibleAdult = '28_32',
-  Settled = '33_40',
-  FinanciallySettled = '41_50',
-  ApproachingRetirement = '51_60',
-  RetiredLife = '61_70',
-  Wisdom = '71_100'
+  Infant = '0-2',
+  Toddler = '3-7',
+  Kid = '8-12',
+  Teenager = '13-17',
+  YoungAdult = '18-22',
+  Adult = '23-27',
+  ResponsibleAdult = '28-32',
+  Settled = '33-40',
+  FinanciallySettled = '41-50',
+  ApproachingRetirement = '51-60',
+  Retired = '61-70',
+  Wisdom = '71-100'
 }

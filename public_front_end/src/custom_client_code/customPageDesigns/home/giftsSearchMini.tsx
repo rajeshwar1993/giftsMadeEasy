@@ -1,6 +1,7 @@
 import React from 'react';
 import AllComponents from '../../../core_custom_mixer/components';
 import { useRouter } from 'next/router';
+import ListBoxComp from '../../component_overrides/ListBox';
 
 let { Text, Button, SectionTitle } = AllComponents;
 
@@ -15,21 +16,13 @@ const GiftsSearchMini = () => {
         <Text content='I want a gift for' tag='h3' styleClasses='text-lg' />
       </div>
       <div className='my-2 flex items-center w-full'>
-        <select className='w-full text-xl lg:text-xl border-2 rounded-lg appearance-none'>
-          <option value={'rel'}>Relation</option>
-        </select>
+        <ListBoxComp buttonStyleClasses='text-lg xl:text-xl' />
       </div>
       <div className='my-2 flex items-center w-full'>
-        <input
-          type='number'
-          placeholder='Age'
-          className='w-full text-xl lg:text-xl border-2 rounded-lg appearance-none'
-        />
+        <ListBoxComp buttonStyleClasses='text-lg xl:text-xl' />
       </div>
       <div className='my-2 flex items-center w-full'>
-        <select className='w-full text-xl lg:text-xl border-2 rounded-lg appearance-none'>
-          <option value={'rel'}>Occassion</option>
-        </select>
+        <ListBoxComp buttonStyleClasses='text-lg xl:text-xl' />
       </div>
       <Button
         text='GO'
@@ -37,7 +30,7 @@ const GiftsSearchMini = () => {
           router.push('/search');
         }}
         wrapperClasses='w-full mt-4'
-        styleClasses='w-full'
+        styleClasses='w-full !py-2'
       />
     </div>
   );

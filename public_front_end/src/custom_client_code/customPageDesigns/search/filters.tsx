@@ -12,7 +12,7 @@ const Filters = () => {
         <div className='flex flex-col sticky top-20'>
           {/* Rel Filter */}
           <div className='mb-8'>
-            <ListBoxComp />
+            <ListBoxComp title={{ content: 'Gift For' }} />
           </div>
           {/* Rel Filter */}
           <div className='mb-8'>
