@@ -1,6 +1,7 @@
 export const UserDBKeys = {
   uid: 'uid',
   name: 'n',
+  aboutText: 'ab',
   isAnonymous: 'ia',
   email: 'e',
   isEmailVerified: 'ev',

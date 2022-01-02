@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 import AllComponents from '../../../core_custom_mixer/components';
+import User from '../../../models/User';
 import Badge from '../../component_overrides/Bagde';
 import BookmarksSection from './bookmakrs';
 import ProfileAboutSection from './profileAboutSection';
@@ -9,14 +10,20 @@ import WishListSection from './wishList';
 
 const { Button, SectionTitle } = AllComponents;
 
-const ProfileDetailsSection = () => {
+type Props = {
+  user: User;
+  updateAboutText: (text: string) => void;
+};
+
+const ProfileDetailsSection: FC<Props> = ({ user, updateAboutText }) => {
   return (
     <div>
       {/* About Section */}
       <ProfileAboutSection
-        text={'This is the sample text'}
+        text={user.aboutText}
         onSaveClick={(t: string) => {
           console.log(t);
+          updateAboutText(t);
         }}
       />
       {/* Likes */}

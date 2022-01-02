@@ -9,14 +9,17 @@ type Props = {
   onSaveClick: Function;
 };
 
-const ProfileAboutSection: FC<Props> = ({ text, onSaveClick }) => {
+const ProfileAboutSection: FC<Props> = ({
+  text = 'Tell us something about your likes or hobbies so that people can find the right gift for you ...',
+  onSaveClick
+}) => {
   const [editMode, toggleEditMode] = useState(false);
   const [aboutText, updateAboutText] = useState(text);
 
   return (
     <div>
       <div className='flex flex-row justify-between items-center'>
-        <SectionTitle content='About' />
+        <SectionTitle content='You' />
         <div>
           {!editMode && (
             <Button
@@ -68,7 +71,7 @@ const ProfileAboutSection: FC<Props> = ({ text, onSaveClick }) => {
         {editMode && (
           <div>
             <textarea
-              placeholder='Write something about yourself that will help others gift you gifts!'
+              placeholder='Tell us something about your likes or hobbies so that people can find the right gift for you ...'
               defaultValue={aboutText}
               rows={4}
               className='w-full border-2 border-skin-accent rounded-lg text-lg'

@@ -4,6 +4,7 @@ import { Gender } from './enums';
 class User {
   uid: string;
   name: string;
+  aboutText: string;
   isAnonymous: boolean;
   email: string;
   isEmailVerified: boolean;
@@ -18,6 +19,7 @@ class User {
   constructor() {
     this.uid = '';
     this.name = '';
+    this.aboutText = '';
     this.isAnonymous = false;
     this.email = '';
     this.isEmailVerified = false;
@@ -31,6 +33,7 @@ class User {
   convertToJson = () => ({
     [UserDBKeys.uid]: this.uid,
     [UserDBKeys.name]: this.name,
+    [UserDBKeys.aboutText]: this.aboutText,
     [UserDBKeys.isAnonymous]: this.isAnonymous,
     [UserDBKeys.email]: this.email,
     [UserDBKeys.isEmailVerified]: this.isEmailVerified,
@@ -45,6 +48,7 @@ class User {
     let u = new User();
     u.uid = inp[UserDBKeys.uid];
     u.name = inp[UserDBKeys.name];
+    u.aboutText = inp[UserDBKeys.aboutText];
     u.isAnonymous = inp[UserDBKeys.isAnonymous];
     u.email = inp[UserDBKeys.email];
     u.isEmailVerified = inp[UserDBKeys.isEmailVerified];

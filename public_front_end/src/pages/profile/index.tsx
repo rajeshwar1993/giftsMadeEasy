@@ -1,10 +1,32 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { HeaderType } from '../../core/pageFormats/types';
 
-import { PageProps as Props } from '../../core/pageFormats/types';
 import { ProfilePage } from '../../custom_client_code/customPageDesigns';
+import User from '../../models/User';
+import { RootState } from '../../redux/store';
 
-const Profile: NextPage<Props> = () => {
+type Props = {
+  headerData: HeaderType;
+  pageData: User;
+};
+
+const Profile: NextPage<Props> = ({ headerData, pageData }) => {
+  const router = useRouter();
+
+  const { data: user } = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    // mode user to profile page if already signed in
+    if (!user) {
+      // TODO check logic for redirecting
+      // router.replace('/auth/signup');
+    }
+  }, [user]);
+
   return (
     <div>
       <Head>
@@ -12,7 +34,7 @@ const Profile: NextPage<Props> = () => {
         <meta name='description' content={'Meta description'} />
         <link rel='icon' href={'/favicon.ico'} />
       </Head>
-      <ProfilePage />
+      {user && <ProfilePage user={user} />}
     </div>
   );
 };
