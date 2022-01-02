@@ -1,0 +1,88 @@
+import React, { FC, useState } from 'react';
+
+import AllComponents from '../../../core_custom_mixer/components';
+
+const { Text, SectionTitle, Button } = AllComponents;
+
+type Props = {
+  text: string;
+  onSaveClick: Function;
+};
+
+const ProfileAboutSection: FC<Props> = ({ text, onSaveClick }) => {
+  const [editMode, toggleEditMode] = useState(false);
+  const [aboutText, updateAboutText] = useState(text);
+
+  return (
+    <div>
+      <div className='flex flex-row justify-between items-center'>
+        <SectionTitle content='About' />
+        <div>
+          {!editMode && (
+            <Button
+              icon={{
+                iconName: 'Pencil'
+              }}
+              defautStyle='cust-btn-btn'
+              onClick={() => {
+                toggleEditMode(true);
+              }}
+              styleClasses='text-lg !rounded-full !py-2 !px-2'
+              wrapperClasses='mx-2'
+            />
+          )}
+          {editMode && (
+            <div className='flex'>
+              <Button
+                icon={{
+                  iconName: 'Close'
+                }}
+                defautStyle='cust-btn-btn'
+                onClick={() => {
+                  toggleEditMode(false);
+                }}
+                styleClasses='text-lg !rounded-full !py-2 !px-2'
+                wrapperClasses='mx-2'
+              />
+              <Button
+                icon={{
+                  iconName: 'Check'
+                }}
+                defautStyle='cust-btn-btn'
+                onClick={() => {
+                  toggleEditMode(false);
+                  onSaveClick(aboutText);
+                }}
+                styleClasses='text-lg !rounded-full !py-2 !px-2'
+                wrapperClasses='mx-2'
+              />
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className='mb-10'>
+        {!editMode && (
+          <Text content={aboutText} tag='h3' styleClasses='text-xl' />
+        )}
+        {editMode && (
+          <div>
+            <textarea
+              placeholder='Write something about yourself that will help others gift you gifts!'
+              defaultValue={aboutText}
+              rows={4}
+              className='w-full border-2 border-skin-accent rounded-lg text-lg'
+              maxLength={300}
+              onChange={e => {
+                updateAboutText(e.target.value);
+              }}
+            />
+            <Text content={`${aboutText.length}/300`} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ProfileAboutSection;

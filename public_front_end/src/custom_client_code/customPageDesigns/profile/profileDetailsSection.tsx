@@ -2,22 +2,21 @@ import React from 'react';
 import AllComponents from '../../../core_custom_mixer/components';
 import Badge from '../../component_overrides/Bagde';
 import BookmarksSection from './bookmakrs';
+import ProfileAboutSection from './profileAboutSection';
 import WishListSection from './wishList';
 
-const { ImageComponent, Text, Button, SectionTitle } = AllComponents;
+const { Button, SectionTitle } = AllComponents;
 
 const ProfileDetailsSection = () => {
   return (
     <div>
-      <SectionTitle content='About' />
-
-      <div className='mb-10'>
-        <Text
-          content='Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'
-          tag='h3'
-          styleClasses='text-xl'
-        />
-      </div>
+      {/* About Section */}
+      <ProfileAboutSection
+        text={'This is the sample text'}
+        onSaveClick={(t: string) => {
+          console.log(t);
+        }}
+      />
       {/* Likes */}
       <div className='mb-10'>
         <SectionTitle content='Interested In' />

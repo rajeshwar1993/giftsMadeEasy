@@ -69,6 +69,11 @@ const Icon: FC<Props> = ({
         IconToUse = MdCheckCircle;
         break;
 
+      case 'Check':
+        let { MdCheck } = await import('react-icons/md');
+        IconToUse = MdCheck;
+        break;
+
       case 'FilterListAlt':
         let { MdFilterListAlt } = await import('react-icons/md');
         IconToUse = MdFilterListAlt;
@@ -97,6 +102,11 @@ const Icon: FC<Props> = ({
       case 'Share':
         let { MdShare } = await import('react-icons/md');
         IconToUse = MdShare;
+        break;
+
+      case 'Pencil':
+        let { MdModeEdit } = await import('react-icons/md');
+        IconToUse = MdModeEdit;
         break;
 
       default:
