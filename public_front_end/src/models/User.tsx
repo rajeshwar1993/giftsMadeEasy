@@ -72,11 +72,23 @@ class User {
       case UserDBKeys.aboutText:
         this.aboutText = value;
         break;
+      case UserDBKeys.phoneNumber:
+        this.phoneNumber = value;
+        break;
+      case UserDBKeys.imgUrl:
+        this.imgUrl = value;
+        break;
+      case UserDBKeys.gender:
+        this.gender = value;
+        break;
       case UserDBKeys.dob:
         this.dob = value;
         break;
       case UserDBKeys.relDate:
         this.relDate = value;
+        break;
+      case UserDBKeys.interestedTags:
+        this.interestedTags = value;
         break;
       default:
       // do nothing

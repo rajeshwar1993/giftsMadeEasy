@@ -20,7 +20,8 @@ type Props = {
 const ProfileDetailsSection: FC<Props> = ({
   user,
   updateAboutText,
-  updateDates
+  updateDates,
+  updateInterestTags
 }) => {
   return (
     <div>
@@ -35,7 +36,7 @@ const ProfileDetailsSection: FC<Props> = ({
       <ProfileInterestedInSection
         ints={user.interestedTags}
         onSaveClick={(tags: Array<string>) => {
-          console.log(tags);
+          updateInterestTags(tags);
         }}
       />
       <div className='mb-10'>

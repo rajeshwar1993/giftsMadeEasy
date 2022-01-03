@@ -48,8 +48,29 @@ const ProfilePage: FC<Props> = ({ user }) => {
     }
   };
 
-  const updateInterestTags = async (tags: Array<string>) => {
-    // TODO - do thorough testing around this functionality (integration testing)
+  const updateInterestTags = async (updatedTags: Array<string>) => {
+    try {
+      // TODO - do thorough testing around this functionality (integration testing)
+      const ogTags = [...user.interestedTags];
+      console.log('From Index', updatedTags);
+
+      // used to update the count
+      let tagsToRemove = ogTags.filter(t => !updatedTags.includes(t));
+      let tagsToAdd = updatedTags.filter(t => !ogTags.includes(t));
+
+      // update user tags
+      const userRef = collection(db, FS_USER_DB);
+      await updateDoc(doc(userRef, user.uid), {
+        [UserDBKeys.interestedTags]: updatedTags
+      });
+
+      dispatch(
+        ur_updateUser({ key: UserDBKeys.interestedTags, value: updatedTags })
+      );
+    } catch (e) {
+      console.log(e);
+      // TODO handle error properly
+    }
   };
 
   return (

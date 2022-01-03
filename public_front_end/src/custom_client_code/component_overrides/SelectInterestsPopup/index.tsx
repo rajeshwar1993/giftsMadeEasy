@@ -18,15 +18,24 @@ const { SectionTitle, Button, Text } = AllComponents;
 
 type Props = {
   open: boolean;
-  onSave: (tags: Array<InterestTag>) => void;
+  selectedInts: Array<string>;
+  onSave: (tags: Array<string>) => void;
   onClose: () => void;
 };
 
-const SelectInterestsPopup: FC<Props> = ({ open, onSave, onClose }) => {
+const SelectInterestsPopup: FC<Props> = ({
+  open,
+  selectedInts,
+  onSave,
+  onClose
+}) => {
   const { tagHierarchyList: hStoreArray } = useSelector(
     (state: RootState) => state.interests
   );
   const dispatch = useAppDispatch();
+
+  const [selectedList, updateSelectedList] =
+    useState<Array<string>>(selectedInts);
 
   const [chosenInterest, updateChosenInterest] = useState<{
     it: InterestTag;
@@ -89,14 +98,16 @@ const SelectInterestsPopup: FC<Props> = ({ open, onSave, onClose }) => {
 
   useEffect(() => {
     if (!!chosenInterest) {
-      updateChosenInterest(ci => ci);
-
       const updatedChosenInterest = hStoreArray.find(
         hs => hs.it.uid === chosenInterest.it.uid
       );
       if (updatedChosenInterest) updateChosenInterest(updatedChosenInterest);
     }
   }, [hStoreArray]);
+
+  useEffect(() => {
+    updateSelectedList(selectedInts);
+  }, [selectedInts, open]);
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -168,6 +179,7 @@ const SelectInterestsPopup: FC<Props> = ({ open, onSave, onClose }) => {
                     }}
                     defautStyle='cust-btn-btn'
                     onClick={() => {
+                      onSave(selectedList);
                       onClose();
                     }}
                     styleClasses='text-lg !rounded-full !py-2 !px-2'
@@ -181,6 +193,7 @@ const SelectInterestsPopup: FC<Props> = ({ open, onSave, onClose }) => {
                 <div className={`${!!chosenInterest && 'hidden'}`}>
                   {hStoreArray.map(th => (
                     <Button
+                      key={th.it.uid}
                       text={th.it.value}
                       defautStyle='cust-btn-link'
                       onClick={() => updateChosenInterest(th)}
@@ -200,11 +213,31 @@ const SelectInterestsPopup: FC<Props> = ({ open, onSave, onClose }) => {
                     onClick={() => updateChosenInterest(null)}
                   />
                   <div className='mt-6'>Select all</div>
-                  <div className='mt-6'>
+                  <div className='mt-6 flex flex-col'>
                     {!!chosenInterest &&
-                      chosenInterest.subInterests.map(si => (
-                        <Text content={si.value} />
-                      ))}
+                      chosenInterest.subInterests.map(si => {
+                        let hasBeenSelected = selectedList.includes(si.uid);
+                        return (
+                          <Button
+                            key={si.uid}
+                            text={si.value}
+                            defautStyle='cust-btn-link'
+                            styleClasses={`!border-b-0 ${
+                              hasBeenSelected ? 'underline font-semibold' : ''
+                            } `}
+                            onClick={() => {
+                              console.log('Clicking');
+                              if (hasBeenSelected) {
+                                updateSelectedList(state =>
+                                  state.filter(s => s !== si.uid)
+                                );
+                              } else {
+                                updateSelectedList([...selectedList, si.uid]);
+                              }
+                            }}
+                          />
+                        );
+                      })}
                   </div>
                 </div>
               </div>

@@ -65,8 +65,8 @@ const Icon: FC<Props> = ({
         break;
 
       case 'CheckCircle':
-        let { MdCheckCircle } = await import('react-icons/md');
-        IconToUse = MdCheckCircle;
+        let { MdCheckCircleOutline } = await import('react-icons/md');
+        IconToUse = MdCheckCircleOutline;
         break;
 
       case 'Check':
@@ -127,6 +127,11 @@ const Icon: FC<Props> = ({
       case 'ArrowBack':
         let { MdArrowBack } = await import('react-icons/md');
         IconToUse = MdArrowBack;
+        break;
+
+      case 'AddCircle':
+        let { MdOutlineAddCircleOutline } = await import('react-icons/md');
+        IconToUse = MdOutlineAddCircleOutline;
         break;
 
       default:

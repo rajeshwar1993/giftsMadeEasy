@@ -112,7 +112,9 @@ const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
                 defautStyle='cust-btn-btn'
                 onClick={() => {
                   toggleEditMode(false);
-                  // onSaveClick();
+                  let finalInts = tempIntArray.map(i => i.uid);
+                  fetchAndUpdateInterests(finalInts);
+                  onSaveClick(finalInts);
                 }}
                 styleClasses='text-lg !rounded-full !py-2 !px-2'
                 wrapperClasses='mx-2'
@@ -123,6 +125,15 @@ const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
       </div>
 
       <div className='mb-10'>
+        {!editMode && intArray.length === 0 && (
+          <Text
+            content={
+              'Add some interest tags to let your circle know what you like ...'
+            }
+            tag='h3'
+            styleClasses='text-xl'
+          />
+        )}
         {editMode && (
           <div className='mb-4'>
             <Button
@@ -166,8 +177,13 @@ const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
 
       <SelectInterestsPopup
         open={popupOpen}
+        selectedInts={tempIntArray.map(i => i.uid)}
         onClose={() => updatePopupOpen(false)}
-        onSave={() => {}}
+        onSave={newTagsList => {
+          onSaveClick(newTagsList);
+          fetchAndUpdateInterests(newTagsList);
+          toggleEditMode(false);
+        }}
       />
     </div>
   );
