@@ -1,5 +1,4 @@
-import { Transition } from '@headlessui/react';
-import React, { FC, Fragment, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 
 import AllComponents from '../../../core_custom_mixer/components';
 
@@ -16,6 +15,8 @@ const ProfileAboutSection: FC<Props> = ({
 }) => {
   const [editMode, toggleEditMode] = useState(false);
   const [aboutText, updateAboutText] = useState(text);
+  const [count, updateCount] = useState(text.length);
+  const textRef = useRef<any>(null);
 
   return (
     <div>
@@ -55,7 +56,8 @@ const ProfileAboutSection: FC<Props> = ({
                 defautStyle='cust-btn-btn'
                 onClick={() => {
                   toggleEditMode(false);
-                  onSaveClick(aboutText);
+                  updateAboutText(textRef.current.value);
+                  onSaveClick(textRef.current.value);
                 }}
                 styleClasses='text-lg !rounded-full !py-2 !px-2'
                 wrapperClasses='mx-2'
@@ -77,11 +79,10 @@ const ProfileAboutSection: FC<Props> = ({
               rows={4}
               className='w-full border-2 border-skin-accent rounded-lg text-lg'
               maxLength={300}
-              onChange={e => {
-                updateAboutText(e.target.value);
-              }}
+              ref={textRef}
+              onChange={e => updateCount(e.target.value.length)}
             />
-            <Text content={`${aboutText.length}/300`} />
+            <Text content={`${count}/300`} />
           </div>
         )}
       </div>
