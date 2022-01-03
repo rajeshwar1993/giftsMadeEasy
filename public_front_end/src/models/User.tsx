@@ -13,7 +13,7 @@ class User {
   dob: string;
   imgUrl: string;
   gender: Gender;
-  anniversaryDate?: string;
+  relDate: string; // relationship date
   // datesToRemember: Array<string>; // TODO need to make a separate model for this
 
   constructor() {
@@ -28,6 +28,7 @@ class User {
     this.dob = '';
     this.imgUrl = '';
     this.gender = Gender.Female;
+    this.relDate = '';
   }
 
   convertToJson = () => ({
@@ -41,7 +42,8 @@ class User {
     [UserDBKeys.phoneNumber]: this.phoneNumber,
     [UserDBKeys.dob]: this.dob,
     [UserDBKeys.imgUrl]: this.imgUrl,
-    [UserDBKeys.gender]: this.gender.toString()
+    [UserDBKeys.gender]: this.gender.toString(),
+    [UserDBKeys.relDate]: this.relDate.toString()
   });
 
   static convertJsonToObj = (inp: any) => {
@@ -57,8 +59,26 @@ class User {
     u.dob = inp[UserDBKeys.dob];
     u.imgUrl = inp[UserDBKeys.imgUrl];
     u.gender = inp[UserDBKeys.gender];
+    u.relDate = inp[UserDBKeys.relDate];
 
     return u;
+  };
+
+  updateData = (key: string, value: any) => {
+    switch (key) {
+      case UserDBKeys.aboutText:
+        this.aboutText = value;
+        break;
+      case UserDBKeys.dob:
+        this.dob = value;
+        break;
+      case UserDBKeys.relDate:
+        this.relDate = value;
+        break;
+      default:
+      // do nothing
+    }
+    return this;
   };
 }
 

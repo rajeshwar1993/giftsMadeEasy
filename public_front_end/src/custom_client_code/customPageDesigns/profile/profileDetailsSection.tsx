@@ -13,16 +13,20 @@ const { Button, SectionTitle } = AllComponents;
 type Props = {
   user: User;
   updateAboutText: (text: string) => void;
+  updateDates: (dob: string, relDate: string) => void;
 };
 
-const ProfileDetailsSection: FC<Props> = ({ user, updateAboutText }) => {
+const ProfileDetailsSection: FC<Props> = ({
+  user,
+  updateAboutText,
+  updateDates
+}) => {
   return (
     <div>
       {/* About Section */}
       <ProfileAboutSection
         text={user.aboutText}
         onSaveClick={(t: string) => {
-          console.log(t);
           updateAboutText(t);
         }}
       />
@@ -50,9 +54,11 @@ const ProfileDetailsSection: FC<Props> = ({ user, updateAboutText }) => {
       />
       <div className='mb-10'>
         <ProfileImpDatesSection
-          text={'This is the sample text'}
-          onSaveClick={(t: string) => {
-            console.log(t);
+          dob={user.dob}
+          relDate={user.relDate}
+          onSaveClick={(dob: string, relDate: string) => {
+            console.log(dob, relDate);
+            updateDates(dob, relDate);
           }}
         />
       </div>

@@ -5,6 +5,8 @@ import { db } from '../../../firebase';
 import { UserDBKeys } from '../../../helpers/dbKeys';
 import { FS_USER_DB } from '../../../models/constants';
 import User from '../../../models/User';
+import { useAppDispatch } from '../../../redux/store';
+import { ur_updateUser } from '../../../redux/user';
 import ProfileDetailsSection from './profileDetailsSection';
 import ProfileImageSection from './profileImageSection';
 
@@ -15,12 +17,30 @@ type Props = {
 };
 
 const ProfilePage: FC<Props> = ({ user }) => {
+  const dispatch = useAppDispatch();
+
   const updateAboutText = async (text: string) => {
     try {
       const userRef = collection(db, FS_USER_DB);
       await updateDoc(doc(userRef, user.uid), {
         [UserDBKeys.aboutText]: text
       });
+      dispatch(ur_updateUser({ key: UserDBKeys.aboutText, value: text }));
+    } catch (e) {
+      console.log(e);
+      // TODO handle error properly
+    }
+  };
+
+  const updateDates = async (dob: string, relDate: string) => {
+    try {
+      const userRef = collection(db, FS_USER_DB);
+      await updateDoc(doc(userRef, user.uid), {
+        [UserDBKeys.dob]: dob,
+        [UserDBKeys.relDate]: relDate
+      });
+      dispatch(ur_updateUser({ key: UserDBKeys.dob, value: dob }));
+      dispatch(ur_updateUser({ key: UserDBKeys.relDate, value: relDate }));
     } catch (e) {
       console.log(e);
       // TODO handle error properly
@@ -39,6 +59,7 @@ const ProfilePage: FC<Props> = ({ user }) => {
           <ProfileDetailsSection
             user={user}
             updateAboutText={updateAboutText}
+            updateDates={updateDates}
           />
         </div>
       </div>

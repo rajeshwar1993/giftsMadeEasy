@@ -1,17 +1,23 @@
-import React, { FC, useState } from 'react';
+import { format } from 'date-fns';
+import React, { FC, useState, useRef } from 'react';
 
 import AllComponents from '../../../core_custom_mixer/components';
 
 const { Text, SectionTitle, Button, Icon } = AllComponents;
 
 type Props = {
-  text: string;
-  onSaveClick: Function;
+  dob: string;
+  relDate: string;
+  onSaveClick: (dob: string, relDate: string) => void;
 };
 
-const ProfileImpDatesSection: FC<Props> = ({ text, onSaveClick }) => {
+const ProfileImpDatesSection: FC<Props> = ({ dob, relDate, onSaveClick }) => {
   const [editMode, toggleEditMode] = useState(false);
-  const [aboutText, updateAboutText] = useState(text);
+  const [dobVal, updateDobVal] = useState(dob);
+  const [relVal, updateRelVal] = useState(relDate);
+
+  const dobRef = useRef<any>(null);
+  const relRef = useRef<any>(null);
 
   return (
     <div>
@@ -51,7 +57,11 @@ const ProfileImpDatesSection: FC<Props> = ({ text, onSaveClick }) => {
                 defautStyle='cust-btn-btn'
                 onClick={() => {
                   toggleEditMode(false);
-                  onSaveClick(aboutText);
+                  updateDobVal(dobRef.current!.value);
+                  updateRelVal(relRef.current!.value);
+                  const ds = new Date(dobRef.current!.value).toISOString();
+                  const rs = new Date(relRef.current!.value).toISOString();
+                  onSaveClick(ds, rs);
                 }}
                 styleClasses='text-lg !rounded-full !py-2 !px-2'
                 wrapperClasses='mx-2'
@@ -66,7 +76,12 @@ const ProfileImpDatesSection: FC<Props> = ({ text, onSaveClick }) => {
           <div className='flex flex-row'>
             <div className='flex flex-col justify-center items-center pr-10'>
               <Icon iconName='Cake' size='80' />
-              <Text content='August 18th' styleClasses='text-xl' />
+              <Text
+                content={
+                  dobVal ? format(new Date(dobVal), 'MMMM do') : 'Set Birthday'
+                }
+                styleClasses='text-xl'
+              />
               <Button
                 text='Find Birthday Gifts'
                 link={'/search'}
@@ -76,7 +91,14 @@ const ProfileImpDatesSection: FC<Props> = ({ text, onSaveClick }) => {
             </div>
             <div className='flex flex-col justify-center items-center'>
               <Icon iconName='OutlineFavorite' size='80' />
-              <Text content='May 18th' styleClasses='text-xl' />
+              <Text
+                content={
+                  relVal
+                    ? format(new Date(relVal), 'MMMM do')
+                    : 'Set Relationship Date'
+                }
+                styleClasses='text-xl'
+              />
               <Button
                 text='Find Anniversary Gifts'
                 link={'/search'}
@@ -92,7 +114,9 @@ const ProfileImpDatesSection: FC<Props> = ({ text, onSaveClick }) => {
               <Text content='Birthday' styleClasses='font-semibold text-lg' />
               <input
                 type={'date'}
+                defaultValue={format(new Date(dobVal), 'yyyy-MM-dd')}
                 className='mt-2 border-2 border-skin-accent rounded-lg'
+                ref={dobRef}
               />
               <Text
                 content='The Year is not displayed on profile.'
@@ -106,7 +130,9 @@ const ProfileImpDatesSection: FC<Props> = ({ text, onSaveClick }) => {
               />
               <input
                 type={'date'}
+                defaultValue={format(new Date(relVal), 'yyyy-MM-dd')}
                 className='mt-2 border-2 border-skin-accent rounded-lg'
+                ref={relRef}
               />
               <Text
                 content='The Year is not displayed on profile.'

@@ -11,8 +11,7 @@ export const UserDBKeys = {
   imgUrl: 'iu',
   gender: 'g',
   maritalStatus: 'ms',
-  anniversaryDate: 'ad',
-  datesToRemember: 'dtr'
+  relDate: 'rd'
 };
 
 export const FilterDBKeys = {
