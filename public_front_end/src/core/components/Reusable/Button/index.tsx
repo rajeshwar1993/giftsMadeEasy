@@ -26,7 +26,7 @@ const Button: FC<Props> = ({
             onClick();
           }
         }}
-        className={`cust-btn-base ${defautStyle} ${styleClasses}`}
+        className={`cust-btn-base flex items-center ${defautStyle} ${styleClasses}`}
       >
         {icon && <Icon {...icon} size={icon.size || '20'} />}
         {icon && text && !showOnlyIcon && <div className='w-2' />}

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import InterestTag from '../models/Interest';
 import User from '../models/User';
+import store from './store';
 
 const initialState: {
   tagArray: Array<InterestTag>;
@@ -31,13 +32,36 @@ export const interestTagSlice = createSlice({
     ) => {
       state.tagHierarchyList = action.payload;
     },
+    it_update_subInterestList: (
+      state,
+      action: PayloadAction<{
+        subInterests: Array<InterestTag>;
+        parentId: string;
+      }>
+    ) => {
+      const { subInterests, parentId } = action.payload;
+      state.tagHierarchyList = state.tagHierarchyList.map(hl => {
+        if (hl.it.uid !== parentId) {
+          return hl;
+        }
+
+        return {
+          ...hl,
+          subInterests
+        };
+      });
+    },
     it_add_tagArray: (state, action: PayloadAction<Array<InterestTag>>) => {
       state.tagArray = [...state.tagArray, ...action.payload];
     }
   }
 });
 
-export const { it_init_tagArray, it_init_HierarchyArray, it_add_tagArray } =
-  interestTagSlice.actions;
+export const {
+  it_init_tagArray,
+  it_init_HierarchyArray,
+  it_add_tagArray,
+  it_update_subInterestList
+} = interestTagSlice.actions;
 
 export default interestTagSlice.reducer;

@@ -8,7 +8,9 @@ const SectionTitle: FC<Props> = props => {
     <div className={`mb-4 ${props.wrapperClasses || ''}`}>
       <Text
         {...props}
-        styleClasses={`cust-section-title ${props.styleClasses || ''}`}
+        styleClasses={` text-4xl xl:text-5xl font-light ${
+          props.styleClasses || ''
+        }`}
         tag={props.tag || 'h2'}
       />
     </div>

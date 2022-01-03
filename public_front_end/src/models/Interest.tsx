@@ -5,7 +5,6 @@ class InterestTag {
   value: string;
   productCount: number;
   userCount: number;
-  subIntestests: Array<InterestTag>;
   parentId: string;
 
   constructor() {
@@ -13,7 +12,6 @@ class InterestTag {
     this.value = '';
     this.productCount = 0;
     this.userCount = 0;
-    this.subIntestests = [];
     this.parentId = '__PARENT__';
   }
 

@@ -9,17 +9,21 @@ import InterestTag from '../../../models/Interest';
 import { it_add_tagArray } from '../../../redux/interestTags';
 import { RootState, useAppDispatch } from '../../../redux/store';
 import Badge from '../../component_overrides/Bagde';
+import SelectInterestsPopup from '../../component_overrides/SelectInterestsPopup';
 
 const { Text, SectionTitle, Button } = AllComponents;
 
 type Props = {
   ints: Array<string>;
-  onSaveClick: Function;
+  onSaveClick: (tags: Array<string>) => void;
 };
 
 const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
   const [editMode, toggleEditMode] = useState(false);
   const [intArray, updateIntArray] = useState<Array<InterestTag>>([]);
+  const [tempIntArray, updateTempIntArray] = useState<Array<InterestTag>>([]);
+  const [popupOpen, updatePopupOpen] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
   const interestArray = useSelector(
     (state: RootState) => state.interests.tagArray
@@ -65,6 +69,11 @@ const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
     fetchAndUpdateInterests(ints);
   }, [ints]);
 
+  useEffect(() => {
+    // set variables for edit mode
+    updateTempIntArray(intArray);
+  }, [editMode]);
+
   return (
     <div>
       <div className='flex flex-row justify-between items-center'>
@@ -84,7 +93,7 @@ const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
             />
           )}
           {editMode && (
-            <div className='flex'>
+            <div className='flex '>
               <Button
                 icon={{
                   iconName: 'Close'
@@ -103,7 +112,7 @@ const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
                 defautStyle='cust-btn-btn'
                 onClick={() => {
                   toggleEditMode(false);
-                  onSaveClick();
+                  // onSaveClick();
                 }}
                 styleClasses='text-lg !rounded-full !py-2 !px-2'
                 wrapperClasses='mx-2'
@@ -114,27 +123,52 @@ const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
       </div>
 
       <div className='mb-10'>
-        {!editMode && (
-          <>
-            <div className='mb-2'>
-              {intArray.map(int => (
-                <Badge
-                  key={int.uid}
-                  text={{
-                    content: int.value
-                  }}
-                />
-              ))}
-            </div>
+        {editMode && (
+          <div className='mb-4'>
             <Button
-              text='Find Gifts for Aditya Vikram Chatterjee'
-              link={'/search'}
-              defautStyle='cust-btn-link'
+              text='Add Interests'
+              onClick={() => {
+                updatePopupOpen(true);
+              }}
+              defautStyle='cust-btn-btn'
+              icon={{
+                iconName: 'Add'
+              }}
             />
-          </>
+          </div>
         )}
-        {editMode && <div></div>}
+
+        <div className='mb-2 flex flex-wrap'>
+          {(editMode ? tempIntArray : intArray).map(int => (
+            <Badge
+              key={int.uid}
+              editMode={editMode}
+              onCancel={id => {
+                updateTempIntArray(state =>
+                  state.filter(item => item.uid !== id)
+                );
+              }}
+              id={int.uid}
+              text={{
+                content: int.value
+              }}
+            />
+          ))}
+        </div>
+        {!editMode && (
+          <Button
+            text='Find Gifts for Aditya Vikram Chatterjee'
+            link={'/search'}
+            defautStyle='cust-btn-link'
+          />
+        )}
       </div>
+
+      <SelectInterestsPopup
+        open={popupOpen}
+        onClose={() => updatePopupOpen(false)}
+        onSave={() => {}}
+      />
     </div>
   );
 };

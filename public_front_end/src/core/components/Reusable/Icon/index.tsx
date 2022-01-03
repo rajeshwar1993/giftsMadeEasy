@@ -119,6 +119,16 @@ const Icon: FC<Props> = ({
         IconToUse = MdCameraAlt;
         break;
 
+      case 'Add':
+        let { MdAdd } = await import('react-icons/md');
+        IconToUse = MdAdd;
+        break;
+
+      case 'ArrowBack':
+        let { MdArrowBack } = await import('react-icons/md');
+        IconToUse = MdArrowBack;
+        break;
+
       default:
         let { MdDoDisturb } = await import('react-icons/md');
         IconToUse = MdDoDisturb;

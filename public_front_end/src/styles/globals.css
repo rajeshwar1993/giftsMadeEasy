@@ -60,10 +60,7 @@
   .cust-paragraph-text {
     @apply text-base xl:text-lg;
   }
-  .cust-section-title {
-    @apply text-5xl font-light;
-  }
-
+  
   .cust-btn-base {
     @apply py-0.5 font-semibold transition duration-200 ease-in-out cursor-pointer;
   }
@@ -76,9 +73,7 @@
     @apply border-b-2 border-skin-accent border-opacity-10 hover:border-opacity-90;
   }
 
-  .cust-badge-styles {
-    @apply py-1 px-3 mr-2 rounded-2xl text-lg bg-skin-accent text-skin-inverted;
-  }
+
 }
 
 /* importing from custom code */
