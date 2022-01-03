@@ -1,21 +1,69 @@
-import React, { FC, useState } from 'react';
+import { getDoc, doc } from 'firebase/firestore';
+import React, { FC, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import AllComponents from '../../../core_custom_mixer/components';
+import { db } from '../../../firebase';
+import { FS_INTEREST_TAGS_DB } from '../../../models/constants';
+import InterestTag from '../../../models/Interest';
+import { it_add_tagArray } from '../../../redux/interestTags';
+import { RootState, useAppDispatch } from '../../../redux/store';
 import Badge from '../../component_overrides/Bagde';
 
 const { Text, SectionTitle, Button } = AllComponents;
 
 type Props = {
-  ints: Array<{
-    id: string;
-    text: string;
-  }>;
+  ints: Array<string>;
   onSaveClick: Function;
 };
 
 const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
   const [editMode, toggleEditMode] = useState(false);
-  const [intArray, updateIntArray] = useState(ints);
+  const [intArray, updateIntArray] = useState<Array<InterestTag>>([]);
+  const dispatch = useAppDispatch();
+  const interestArray = useSelector(
+    (state: RootState) => state.interests.tagArray
+  );
+
+  const fetchAndUpdateInterests = async (userInterests: Array<string>) => {
+    // ! POTENTIAL_ISSUE - revisit this logic, might get complicated if interests become too large
+
+    let finalList: Array<InterestTag> = [];
+    let fetchedList: Array<InterestTag> = [];
+
+    // check which intestest already present in store
+    let interestsToFetch = userInterests.filter(it => {
+      const seekIntrest = interestArray.find(i => i.uid === it);
+      if (seekIntrest) {
+        finalList.push(seekIntrest);
+        return false;
+      }
+      return true;
+    });
+
+    // ! POTENTIAL_ISSUE - aggregating too many promises might me an issue
+    const readPromises = interestsToFetch.map(it => {
+      console.log('Fetching interest: ', it);
+      return getDoc(doc(db, FS_INTEREST_TAGS_DB, it));
+    });
+
+    const allSnaps = await Promise.all(readPromises);
+    allSnaps.forEach(interestSnap => {
+      if (interestSnap.exists()) {
+        const intestest = InterestTag.convertJsonToObj(
+          interestSnap.data(),
+          interestSnap.id
+        );
+        fetchedList.push(intestest);
+      }
+    });
+    dispatch(it_add_tagArray(fetchedList));
+    updateIntArray([...finalList, ...fetchedList]);
+  };
+
+  useEffect(() => {
+    fetchAndUpdateInterests(ints);
+  }, [ints]);
 
   return (
     <div>
@@ -71,9 +119,9 @@ const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
             <div className='mb-2'>
               {intArray.map(int => (
                 <Badge
-                  key={int.id}
+                  key={int.uid}
                   text={{
-                    content: int.text
+                    content: int.value
                   }}
                 />
               ))}

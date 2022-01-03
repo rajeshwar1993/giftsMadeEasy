@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import counterReducer from './counter';
 import userReducer from './user';
+import interestsReducer from './interestTags';
 
 const store = configureStore({
   reducer: {
-    counter: counterReducer,
-    user: userReducer
+    user: userReducer,
+    interests: interestsReducer
   }
 });
 

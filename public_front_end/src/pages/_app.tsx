@@ -46,7 +46,7 @@ function WrapperComp(props: any) {
       const userSnap = await getDoc(docRef);
 
       if (userSnap.exists()) {
-        userData = User.convertJsonToObj(userSnap.data());
+        userData = User.convertJsonToObj(userSnap.data(), userSnap.id);
       }
       // if entry not found then create entry
       // TODO also run all first time functions -> welcome email, strong into algolia etc
@@ -77,7 +77,7 @@ function WrapperComp(props: any) {
   useEffect(() => {
     // TODO if error -> then setError state, ask user to refresh
     if (error) {
-      dispatch(ur_setError(error));
+      dispatch(ur_setError(error.message));
     }
 
     // TODO if user is null (not signed in) make him signin with anonymous login

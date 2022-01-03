@@ -1,6 +1,6 @@
 import { ProductDBKeys } from '../helpers/dbKeys';
 import { AgeGroup, Gender } from './enums';
-import InterestTags from './Interest';
+import InterestTag from './Interest';
 
 class Prodcut {
   uid: string;
@@ -10,7 +10,7 @@ class Prodcut {
   price: string;
   sourceUrl: string;
   affiliateUrl: string;
-  interestTags: Array<InterestTags>;
+  interestTags: Array<InterestTag>;
   genderTags: Array<Gender>;
   ageTags: Array<AgeGroup>;
 

@@ -1,30 +1,39 @@
 import { InterestTagDBKeys } from '../helpers/dbKeys';
 
-class InterestTags {
+class InterestTag {
   uid: string;
   value: string;
-  count: number;
+  productCount: number;
+  userCount: number;
+  subIntestests: Array<InterestTag>;
+  parentId: string;
 
   constructor() {
     this.uid = '';
     this.value = '';
-    this.count = 0;
+    this.productCount = 0;
+    this.userCount = 0;
+    this.subIntestests = [];
+    this.parentId = '__PARENT__';
   }
 
   convertToJson = () => ({
-    [InterestTagDBKeys.uid]: this.uid,
     [InterestTagDBKeys.value]: this.value,
-    [InterestTagDBKeys.count]: this.count
+    [InterestTagDBKeys.productCount]: this.productCount,
+    [InterestTagDBKeys.userCount]: this.userCount,
+    [InterestTagDBKeys.parentId]: this.parentId
   });
 
-  static convertJsonToObj = (inp: any) => {
-    let it = new InterestTags();
-    it.uid = inp[InterestTagDBKeys.uid];
+  static convertJsonToObj = (inp: any, id: string) => {
+    let it = new InterestTag();
+    it.uid = id;
     it.value = inp[InterestTagDBKeys.value];
-    it.count = inp[InterestTagDBKeys.count];
+    it.productCount = inp[InterestTagDBKeys.productCount];
+    it.userCount = inp[InterestTagDBKeys.userCount];
+    it.parentId = inp[InterestTagDBKeys.parentId];
 
     return it;
   };
 }
 
-export default InterestTags;
+export default InterestTag;

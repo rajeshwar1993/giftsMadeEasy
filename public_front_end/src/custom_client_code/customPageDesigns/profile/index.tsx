@@ -4,6 +4,7 @@ import AllComponents from '../../../core_custom_mixer/components';
 import { db } from '../../../firebase';
 import { UserDBKeys } from '../../../helpers/dbKeys';
 import { FS_USER_DB } from '../../../models/constants';
+import InterestTag from '../../../models/Interest';
 import User from '../../../models/User';
 import { useAppDispatch } from '../../../redux/store';
 import { ur_updateUser } from '../../../redux/user';
@@ -47,6 +48,10 @@ const ProfilePage: FC<Props> = ({ user }) => {
     }
   };
 
+  const updateInterestTags = async (tags: Array<string>) => {
+    // TODO - do thorough testing around this functionality (integration testing)
+  };
+
   return (
     <section>
       <div className='flex flex-col xl:flex-row'>
@@ -60,6 +65,7 @@ const ProfilePage: FC<Props> = ({ user }) => {
             user={user}
             updateAboutText={updateAboutText}
             updateDates={updateDates}
+            updateInterestTags={updateInterestTags}
           />
         </div>
       </div>

@@ -14,6 +14,7 @@ class User {
   imgUrl: string;
   gender: Gender;
   relDate: string; // relationship date
+  interestedTags: Array<string>; // array of interstTag ids
   // datesToRemember: Array<string>; // TODO need to make a separate model for this
 
   constructor() {
@@ -29,10 +30,10 @@ class User {
     this.imgUrl = '';
     this.gender = Gender.Female;
     this.relDate = '';
+    this.interestedTags = [];
   }
 
   convertToJson = () => ({
-    [UserDBKeys.uid]: this.uid,
     [UserDBKeys.name]: this.name,
     [UserDBKeys.aboutText]: this.aboutText,
     [UserDBKeys.isAnonymous]: this.isAnonymous,
@@ -43,12 +44,13 @@ class User {
     [UserDBKeys.dob]: this.dob,
     [UserDBKeys.imgUrl]: this.imgUrl,
     [UserDBKeys.gender]: this.gender.toString(),
-    [UserDBKeys.relDate]: this.relDate.toString()
+    [UserDBKeys.relDate]: this.relDate.toString(),
+    [UserDBKeys.interestedTags]: this.interestedTags
   });
 
-  static convertJsonToObj = (inp: any) => {
+  static convertJsonToObj = (inp: any, id: string) => {
     let u = new User();
-    u.uid = inp[UserDBKeys.uid];
+    u.uid = id;
     u.name = inp[UserDBKeys.name];
     u.aboutText = inp[UserDBKeys.aboutText];
     u.isAnonymous = inp[UserDBKeys.isAnonymous];
@@ -60,6 +62,7 @@ class User {
     u.imgUrl = inp[UserDBKeys.imgUrl];
     u.gender = inp[UserDBKeys.gender];
     u.relDate = inp[UserDBKeys.relDate];
+    u.interestedTags = inp[UserDBKeys.interestedTags];
 
     return u;
   };

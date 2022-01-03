@@ -14,6 +14,7 @@ type Props = {
   user: User;
   updateAboutText: (text: string) => void;
   updateDates: (dob: string, relDate: string) => void;
+  updateInterestTags: (tags: Array<string>) => void;
 };
 
 const ProfileDetailsSection: FC<Props> = ({
@@ -32,25 +33,10 @@ const ProfileDetailsSection: FC<Props> = ({
       />
       {/* Likes */}
       <ProfileInterestedInSection
-        ints={[
-          {
-            id: '1',
-            text: 'Tech'
-          },
-          {
-            id: '2',
-            text: 'Tech'
-          },
-          {
-            id: '3',
-            text: 'Tech'
-          },
-          {
-            id: '4',
-            text: 'Tech'
-          }
-        ]}
-        onSaveClick={() => {}}
+        ints={user.interestedTags}
+        onSaveClick={(tags: Array<string>) => {
+          console.log(tags);
+        }}
       />
       <div className='mb-10'>
         <ProfileImpDatesSection

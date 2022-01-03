@@ -11,7 +11,8 @@ export const UserDBKeys = {
   imgUrl: 'iu',
   gender: 'g',
   maritalStatus: 'ms',
-  relDate: 'rd'
+  relDate: 'rd',
+  interestedTags: 'it'
 };
 
 export const FilterDBKeys = {
@@ -38,5 +39,7 @@ export const ProductDBKeys = {
 export const InterestTagDBKeys = {
   uid: 'uid',
   value: 'v',
-  count: 'c'
+  productCount: 'pc',
+  userCount: 'uc',
+  parentId: 'pid'
 };
