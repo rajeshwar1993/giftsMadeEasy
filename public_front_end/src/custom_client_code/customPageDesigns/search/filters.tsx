@@ -8,13 +8,16 @@ import {
 } from '../../component_overrides/ListBox/utils';
 import DataConfig from '../../pageConfigs/dataConfig';
 
-const { Button } = AllComponents;
+const { Button, Text } = AllComponents;
 
 const Filters = () => {
   return (
     <>
       <aside className='w-1/5 pr-2 hidden xl:block p-4 '>
-        <div className='flex flex-col sticky top-20'>
+        <div className='flex flex-col sticky top-[88px]'>
+          <div className='mb-4'>
+            <Text content='Filter By:' styleClasses='font-semibold' />
+          </div>
           {/* Relationship Filter */}
           <div className='mb-8'>
             <ListBoxComp

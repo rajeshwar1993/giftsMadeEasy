@@ -74,7 +74,7 @@ const Icon: FC<Props> = ({
         IconToUse = MdCheck;
         break;
 
-      case 'FilterListAlt':
+      case 'Filter':
         let { MdFilterListAlt } = await import('react-icons/md');
         IconToUse = MdFilterListAlt;
         break;

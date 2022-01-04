@@ -1,33 +1,75 @@
 import React from 'react';
 import AllComponents from '../../../core_custom_mixer/components';
+import ListBoxComp from '../../component_overrides/ListBox';
+import { DEFAULT_LIST_VALUE } from '../../component_overrides/ListBox/utils';
+import DataConfig from '../../pageConfigs/dataConfig';
 import Filters from './filters';
 import ProductListing from './productListsing';
 
-const { Text, Button } = AllComponents;
+const { Text, Button, SectionTitle } = AllComponents;
 
 const SearchPage = () => {
   return (
-    <section className=''>
-      <div className='p-2 flex justify-between items-center sticky top-14 xl:static bg-skin-fill'>
-        <Text
-          styleClasses='text-sm xl:text-lg'
-          content='Gift fot your Brother who is 25 years old for his/her Birthday'
-        />
-
-        {/* Mobile Filter Button */}
-
-        <Button
-          wrapperClasses='xl:hidden'
-          styleClasses='!border-0'
-          onClick={() => {}}
-          icon={{ iconName: 'FilterListAlt' }}
+    <section className='py-0'>
+      <div className='xl:hidden'>
+        <SectionTitle
+          wrapperClasses='text-center xl:text-left'
+          content='Find the perfect gift'
         />
       </div>
+      <div className='py-2  flex justify-between xl:justify-end items-center sticky top-[62px] xl:static bg-skin-fill '>
+        <div className='flex justify-between items-center xl:items-end w-full xl:w-4/5 xl:px-6'>
+          <div className='flex flex-row items-center '>
+            {/* <Text content='Filter By:' styleClasses='font-semibold' /> */}
+            {/* Mobile Filter Button */}
+            <div className='xl:hidden mr-4'>
+              <Button
+                text='Filters (3)'
+                defautStyle='cust-btn-link'
+                styleClasses='text-base'
+              />
+            </div>
+            <div className='xl:hidden'>
+              <Button
+                text='Interests (4)'
+                defautStyle='cust-btn-link'
+                styleClasses='text-base'
+              />
+            </div>
+            <div className='hidden xl:block'>
+              <SectionTitle
+                wrapperClasses='text-center xl:text-left !mb-10'
+                content='Find the perfect gift'
+              />
+              <div className='flex items-center'>
+                <Button
+                  text='Filter By Interests:'
+                  defautStyle='cust-btn-link'
+                  styleClasses='text-base'
+                  wrapperClasses=''
+                />
+                <span>Electronics</span>
+              </div>
+            </div>
+          </div>
+          <div className=''>
+            <ListBoxComp
+              selectedOption={{
+                name: 'Sort by',
+                value: DEFAULT_LIST_VALUE
+              }}
+              onSelected={() => {}}
+              options={[]}
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Filter and List */}
-      <div className='flex flex-row mt-4'>
+      <div className='flex flex-row xl:mt-0 mt-4'>
         <Filters />
 
-        <div className='flex flex-row flex-wrap xl:px-4 w-full xl:w-4/5'>
+        <div className='xl:px-4 w-full xl:w-4/5'>
           <ProductListing />
         </div>
       </div>
