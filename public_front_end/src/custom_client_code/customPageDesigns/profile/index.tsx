@@ -68,6 +68,7 @@ const ProfilePage: FC<Props> = ({ user }) => {
         ur_updateUser({ key: UserDBKeys.interestedTags, value: updatedTags })
       );
 
+      // TODO - make this count update happen as part of cloud functions on change in tags
       // update the tag counts in db
       let promises: any[] = [];
       const tagRef = collection(db, FS_INTEREST_TAGS_DB);

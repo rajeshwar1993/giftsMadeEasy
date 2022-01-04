@@ -47,13 +47,15 @@ const GiftsSearchMini = () => {
           options={createListboxOptions(DataConfig.occasion, 'Occasion')}
         />
       </div>
+
       <Button
-        text='GO'
+        text='Search'
         onClick={() => {
           router.push('/search');
         }}
-        wrapperClasses='w-full mt-4'
-        styleClasses='w-full !py-2'
+        defautStyle='cust-btn-btn'
+        wrapperClasses='w-full m-auto mt-4'
+        styleClasses='w-full justify-center !py-2'
       />
     </div>
   );
