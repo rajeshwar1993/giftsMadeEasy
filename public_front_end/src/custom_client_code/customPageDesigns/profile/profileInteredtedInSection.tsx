@@ -161,7 +161,8 @@ const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
               }}
               id={int.uid}
               text={{
-                content: int.value
+                content:
+                  int.parentId === '__PARENT__' ? `All ${int.value}` : int.value
               }}
             />
           ))}

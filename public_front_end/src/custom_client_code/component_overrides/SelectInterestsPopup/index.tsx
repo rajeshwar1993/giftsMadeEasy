@@ -145,7 +145,7 @@ const SelectInterestsPopup: FC<Props> = ({
             leaveFrom='opacity-100 scale-100'
             leaveTo='opacity-0 scale-95'
           >
-            <div className='h-[600px] inline-block w-full max-w-5xl p-4 xl:p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-skin-fill text-skin-primary shadow-xl rounded-2xl'>
+            <div className='h-[600px] inline-block w-full max-w-lg p-4 xl:p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-skin-fill text-skin-primary shadow-xl rounded-2xl'>
               <Dialog.Title
                 as='h3'
                 className='flex flex-row justify-between items-center leading-6'
@@ -190,12 +190,18 @@ const SelectInterestsPopup: FC<Props> = ({
               <div className='mt-4 flex flex-col'>
                 {/* Main Options */}
 
-                <div className={`${!!chosenInterest && 'hidden'}`}>
+                <div
+                  className={`px-4 grid grid-cols-2 gap-8 mt-12 ${
+                    !!chosenInterest ? 'hidden' : ''
+                  }`}
+                >
                   {hStoreArray.map(th => (
                     <Button
                       key={th.it.uid}
                       text={th.it.value}
-                      defautStyle='cust-btn-link'
+                      defautStyle='cust-btn-btn'
+                      styleClasses='w-full justify-center text-right text-lg xl:text-2xl'
+                      wrapperClasses=''
                       onClick={() => updateChosenInterest(th)}
                     />
                   ))}
@@ -212,7 +218,32 @@ const SelectInterestsPopup: FC<Props> = ({
                     defautStyle='cust-btn-link'
                     onClick={() => updateChosenInterest(null)}
                   />
-                  <div className='mt-6'>Select all</div>
+                  <div className='mt-6'>
+                    {!!chosenInterest && (
+                      <Button
+                        text={`Select All ${chosenInterest!.it.value}`}
+                        defautStyle='cust-btn-link'
+                        styleClasses={`!border-b-0 ${
+                          selectedList.includes(chosenInterest!.it.uid)
+                            ? 'underline font-semibold'
+                            : ''
+                        } `}
+                        onClick={() => {
+                          console.log('Clicking');
+                          if (selectedList.includes(chosenInterest!.it.uid)) {
+                            updateSelectedList(state =>
+                              state.filter(s => s !== chosenInterest!.it.uid)
+                            );
+                          } else {
+                            updateSelectedList([
+                              ...selectedList,
+                              chosenInterest!.it.uid
+                            ]);
+                          }
+                        }}
+                      />
+                    )}
+                  </div>
                   <div className='mt-6 flex flex-col'>
                     {!!chosenInterest &&
                       chosenInterest.subInterests.map(si => {
@@ -222,8 +253,8 @@ const SelectInterestsPopup: FC<Props> = ({
                             key={si.uid}
                             text={si.value}
                             defautStyle='cust-btn-link'
-                            styleClasses={`!border-b-0 ${
-                              hasBeenSelected ? 'underline font-semibold' : ''
+                            styleClasses={` ${
+                              hasBeenSelected ? ' !font-bold' : ''
                             } `}
                             onClick={() => {
                               console.log('Clicking');

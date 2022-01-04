@@ -134,6 +134,11 @@ const Icon: FC<Props> = ({
         IconToUse = MdOutlineAddCircleOutline;
         break;
 
+      case 'ArrowForward':
+        let { MdArrowForward } = await import('react-icons/md');
+        IconToUse = MdArrowForward;
+        break;
+
       default:
         let { MdDoDisturb } = await import('react-icons/md');
         IconToUse = MdDoDisturb;
