@@ -21,7 +21,10 @@ const NavBar: FC<Props> = ({ config }) => {
   return (
     <header className='sticky bg-skin-fill top-0 z-10 xl:flex'>
       {/* <div className='xl:w-[12%]' /> */}
-      <nav aria-label='Top' className='mx-auto p-2 xl:px-8 w-full'>
+      <nav
+        aria-label='Top'
+        className='bg-skin-accent bg-opacity-10 mx-auto p-2 xl:px-8 w-full'
+      >
         <div className='relative flex justify-between items-center xl:text-base text-sm text-md'>
           {/* Left Section */}
           <div className='w-3/5 flex items-center'>

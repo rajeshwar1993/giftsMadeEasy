@@ -37,7 +37,7 @@ const NavNotificationsMenu: FC<Props> = ({ open, closeModal }) => {
             leaveFrom='w-full'
             leaveTo='w-0'
           >
-            <div className='fixed right-0 w-3/4 xl:w-2/5 min-h-screen bg-skin-fill pb-12 flex flex-col overflow-y-auto'>
+            <div className=' fixed right-0 w-3/4 xl:w-2/5 min-h-screen bg-skin-fill pb-12 flex flex-col'>
               <div className='px-4 pt-5 pb-2 flex items-center justify-between '>
                 <SectionTitle content='Notifications' />
                 <Button
