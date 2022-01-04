@@ -187,7 +187,7 @@ const SelectInterestsPopup: FC<Props> = ({
                   />
                 </div>
               </Dialog.Title>
-              <div className='mt-4 flex flex-col'>
+              <div className='m-2 flex flex-col'>
                 {/* Main Options */}
 
                 <div
@@ -200,7 +200,7 @@ const SelectInterestsPopup: FC<Props> = ({
                       key={th.it.uid}
                       text={th.it.value}
                       defautStyle='cust-btn-btn'
-                      styleClasses='w-full justify-center text-right text-lg xl:text-2xl'
+                      styleClasses='w-full justify-center text-lg xl:text-2xl'
                       wrapperClasses=''
                       onClick={() => updateChosenInterest(th)}
                     />
@@ -215,17 +215,19 @@ const SelectInterestsPopup: FC<Props> = ({
                       iconName: 'ArrowBack'
                     }}
                     text={'Back to All Interests'}
+                    styleClasses='text-sm'
                     defautStyle='cust-btn-link'
                     onClick={() => updateChosenInterest(null)}
                   />
-                  <div className='mt-6'>
+                  <div className='px-4 grid grid-cols-2 gap-8 mt-12'>
                     {!!chosenInterest && (
                       <Button
                         text={`Select All ${chosenInterest!.it.value}`}
-                        defautStyle='cust-btn-link'
-                        styleClasses={`!border-b-0 ${
+                        defautStyle='cust-btn-btn'
+                        wrapperClasses='col-span-2 m-auto'
+                        styleClasses={` ${
                           selectedList.includes(chosenInterest!.it.uid)
-                            ? 'underline font-semibold'
+                            ? 'bg-skin-accent bg-opacity-80 text-skin-inverted'
                             : ''
                         } `}
                         onClick={() => {
@@ -243,18 +245,20 @@ const SelectInterestsPopup: FC<Props> = ({
                         }}
                       />
                     )}
-                  </div>
-                  <div className='mt-6 flex flex-col'>
                     {!!chosenInterest &&
                       chosenInterest.subInterests.map(si => {
-                        let hasBeenSelected = selectedList.includes(si.uid);
+                        let hasBeenSelected =
+                          selectedList.includes(si.uid) ||
+                          selectedList.includes(si.parentId);
                         return (
                           <Button
                             key={si.uid}
                             text={si.value}
-                            defautStyle='cust-btn-link'
-                            styleClasses={` ${
-                              hasBeenSelected ? ' !font-bold' : ''
+                            defautStyle='cust-btn-btn'
+                            styleClasses={`w-full justify-center ${
+                              hasBeenSelected
+                                ? 'bg-skin-accent bg-opacity-80 text-skin-inverted'
+                                : ''
                             } `}
                             onClick={() => {
                               console.log('Clicking');
@@ -270,6 +274,9 @@ const SelectInterestsPopup: FC<Props> = ({
                         );
                       })}
                   </div>
+                  {/* <div className='mt-6 flex flex-col'>
+                   
+                  </div> */}
                 </div>
               </div>
             </div>
