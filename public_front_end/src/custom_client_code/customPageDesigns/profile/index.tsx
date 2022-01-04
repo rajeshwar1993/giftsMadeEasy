@@ -1,9 +1,9 @@
-import { collection, doc, updateDoc } from 'firebase/firestore';
+import { collection, doc, increment, updateDoc } from 'firebase/firestore';
 import React, { FC } from 'react';
 import AllComponents from '../../../core_custom_mixer/components';
 import { db } from '../../../firebase';
-import { UserDBKeys } from '../../../helpers/dbKeys';
-import { FS_USER_DB } from '../../../models/constants';
+import { InterestTagDBKeys, UserDBKeys } from '../../../helpers/dbKeys';
+import { FS_INTEREST_TAGS_DB, FS_USER_DB } from '../../../models/constants';
 import InterestTag from '../../../models/Interest';
 import User from '../../../models/User';
 import { useAppDispatch } from '../../../redux/store';
@@ -67,6 +67,27 @@ const ProfilePage: FC<Props> = ({ user }) => {
       dispatch(
         ur_updateUser({ key: UserDBKeys.interestedTags, value: updatedTags })
       );
+
+      // update the tag counts in db
+      let promises: any[] = [];
+      const tagRef = collection(db, FS_INTEREST_TAGS_DB);
+      tagsToRemove.forEach(t => {
+        promises.push(
+          updateDoc(doc(tagRef, t), {
+            [InterestTagDBKeys.userCount]: increment(-1)
+          })
+        );
+      });
+
+      tagsToAdd.map(t => {
+        promises.push(
+          updateDoc(doc(tagRef, t), {
+            [InterestTagDBKeys.userCount]: increment(1)
+          })
+        );
+      });
+
+      await Promise.all(promises);
     } catch (e) {
       console.log(e);
       // TODO handle error properly
