@@ -139,6 +139,21 @@ const Icon: FC<Props> = ({
         IconToUse = MdArrowForward;
         break;
 
+      case 'Notifications':
+        let { MdNotifications } = await import('react-icons/md');
+        IconToUse = MdNotifications;
+        break;
+
+      case 'Person':
+        let { MdPerson } = await import('react-icons/md');
+        IconToUse = MdPerson;
+        break;
+
+      case 'Exit':
+        let { MdExitToApp } = await import('react-icons/md');
+        IconToUse = MdExitToApp;
+        break;
+
       default:
         let { MdDoDisturb } = await import('react-icons/md');
         IconToUse = MdDoDisturb;

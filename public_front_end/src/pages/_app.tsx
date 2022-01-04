@@ -7,7 +7,7 @@ import { auth, db } from '../firebase';
 import store, { useAppDispatch } from '../redux/store';
 import { Provider } from 'react-redux';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { ur_init, ur_setLoading, ur_setError } from '../redux/user';
+import { ur_init, ur_setLoading, ur_setError, ur_logout } from '../redux/user';
 import { User as FirebaseUser } from 'firebase/auth';
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import User from '../models/User';
@@ -82,7 +82,10 @@ function WrapperComp(props: any) {
 
     // TODO if user is null (not signed in) make him signin with anonymous login
     else if (!user) {
-      // TODO anonymous login
+      // TODO anonymous login ?
+
+      // dispatching logout
+      dispatch(ur_logout());
     } else {
       getUserDataFromFirestore(user);
     }

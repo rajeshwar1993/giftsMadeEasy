@@ -3,14 +3,20 @@ import Link from 'next/link';
 import MobileNav from './mobileNav';
 import { NavConfig } from './type';
 import AllComponents from '../../../core_custom_mixer/components';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
+import NavProfileMenu from './navProfileMenu';
+import NavNotificationsMenu from './navNotificationsMenu';
 type Props = {
   config: NavConfig;
 };
 
 const NavBar: FC<Props> = ({ config }) => {
+  const { Icon, Button } = AllComponents;
   const [menuOpen, toggleMenuOpen] = useState(false);
+  const [notificationsOpen, toggleNotificationsOpen] = useState(false);
 
-  let { Icon, Button } = AllComponents;
+  const { data: user } = useSelector((state: RootState) => state.user);
 
   return (
     <header className='sticky bg-skin-fill top-0 z-10 xl:flex'>
@@ -50,15 +56,29 @@ const NavBar: FC<Props> = ({ config }) => {
           </div>
 
           {/* Right Section */}
-          <div className='lg:w-1/5 w-2/5 flex justify-end items-center'>
-            {config.rightSideNav.map((btn, i) => (
+          <div className='lg:w-1/5 w-2/5 flex flex-row justify-end items-center'>
+            {!user && (
               <Button
-                key={i}
-                {...btn}
+                text='Signin'
+                link='/auth/signup'
                 defautStyle='cust-btn-link'
                 styleClasses='mx-2 px-2'
               />
-            ))}
+            )}
+            {user && (
+              <>
+                <Button
+                  icon={{
+                    iconName: 'Notifications',
+                    size: '26'
+                  }}
+                  onClick={() => toggleNotificationsOpen(true)}
+                  defautStyle='cust-btn-link'
+                  styleClasses='!border-b-0 mx-2 px-2'
+                />
+                <NavProfileMenu />
+              </>
+            )}
           </div>
         </div>
       </nav>
@@ -68,6 +88,11 @@ const NavBar: FC<Props> = ({ config }) => {
         config={config}
         menuOpen={menuOpen}
         toggleMenuOpen={toggleMenuOpen}
+      />
+      {/* Notification Menu */}
+      <NavNotificationsMenu
+        open={notificationsOpen}
+        closeModal={() => toggleNotificationsOpen(false)}
       />
     </header>
   );
