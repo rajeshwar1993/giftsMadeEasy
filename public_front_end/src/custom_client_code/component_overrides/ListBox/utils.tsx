@@ -1,3 +1,5 @@
+import { ListBoxOption } from './types';
+
 export const DEFAULT_LIST_VALUE = '__DEFAULT__';
 
 export const createListboxOptions = (
@@ -11,4 +13,20 @@ export const createListboxOptions = (
   });
 
   return options;
+};
+
+export const getOptionFromValue = (
+  dataObj: { [key: string]: any },
+  value: any,
+  defaultName: string
+) => {
+  let option: ListBoxOption = { name: defaultName, value: DEFAULT_LIST_VALUE };
+
+  Object.keys(dataObj).forEach(key => {
+    if (dataObj[key] === value) {
+      option = { name: key, value };
+    }
+  });
+
+  return option;
 };

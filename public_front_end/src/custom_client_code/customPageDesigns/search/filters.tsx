@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import ListBoxComp from '../../component_overrides/ListBox';
 import AllComponents from '../../../core_custom_mixer/components';
 import MobileFilters from './mobileFilters';
 import {
   createListboxOptions,
-  DEFAULT_LIST_VALUE
+  DEFAULT_LIST_VALUE,
+  getOptionFromValue
 } from '../../component_overrides/ListBox/utils';
 import DataConfig from '../../pageConfigs/dataConfig';
+import { FilterDBKeys } from '../../../helpers/dbKeys';
+import Filter from '../../../models/Filter';
 
-const { Button, Text } = AllComponents;
+const { Text } = AllComponents;
 
-const Filters = () => {
+type Props = {
+  filterValues: Filter;
+};
+
+const Filters: FC<Props> = ({ filterValues }) => {
+  const [values, updateValues] = useState(filterValues.convertToJson());
+
+  useEffect(() => {
+    updateValues(filterValues.convertToJson());
+  }, [filterValues]);
+
   return (
     <>
       <aside className='w-1/5 pr-2 hidden xl:block p-4 '>
@@ -21,11 +34,13 @@ const Filters = () => {
           {/* Relationship Filter */}
           <div className='mb-8'>
             <ListBoxComp
+              filterKey={FilterDBKeys.relationship}
               title={{ content: 'Relationship' }}
-              selectedOption={{
-                name: 'Relationship',
-                value: DEFAULT_LIST_VALUE
-              }}
+              selectedOption={getOptionFromValue(
+                DataConfig.relationship,
+                values[FilterDBKeys.relationship],
+                'Relationship'
+              )}
               onSelected={() => {}}
               options={createListboxOptions(
                 DataConfig.relationship,
@@ -36,8 +51,13 @@ const Filters = () => {
           {/* Age Filter */}
           <div className='mb-8'>
             <ListBoxComp
+              filterKey={FilterDBKeys.ageGrp}
               title={{ content: 'Age Group' }}
-              selectedOption={{ name: 'Age Group', value: DEFAULT_LIST_VALUE }}
+              selectedOption={getOptionFromValue(
+                DataConfig.ageGrp,
+                values[FilterDBKeys.ageGrp],
+                'Age Group'
+              )}
               onSelected={() => {}}
               options={createListboxOptions(DataConfig.ageGrp, 'Age Group')}
             />
@@ -45,8 +65,13 @@ const Filters = () => {
           {/* Rel Filter */}
           <div className='mb-8'>
             <ListBoxComp
+              filterKey={FilterDBKeys.occasion}
               title={{ content: 'Occasion' }}
-              selectedOption={{ name: 'Occasion', value: DEFAULT_LIST_VALUE }}
+              selectedOption={getOptionFromValue(
+                DataConfig.occasion,
+                values[FilterDBKeys.occasion],
+                'Occasion'
+              )}
               onSelected={() => {}}
               options={createListboxOptions(DataConfig.occasion, 'Occasion')}
             />

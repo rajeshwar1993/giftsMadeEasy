@@ -15,16 +15,16 @@ const ListBoxComp: FC<Props> = ({
   buttonStyleClasses = '',
   optionsStyleClasses = ''
 }) => {
-  const [selected, setSelected] = useState(selectedOption);
+  // const [selected, setSelected] = useState(selectedOption);
 
-  useEffect(() => {
-    if (selected.value !== selectedOption.value) {
-      onSelected(selected, filterKey);
-    }
-  }, [selected]);
+  // useEffect(() => {
+  //   if (selected.value !== selectedOption.value) {
+  //     onSelected(selected, filterKey);
+  //   }
+  // }, [selected]);
 
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox value={selectedOption} onChange={so => onSelected(so, filterKey)}>
       {title && (
         <div className='mb-2'>
           <Listbox.Label>
@@ -39,7 +39,7 @@ const ListBoxComp: FC<Props> = ({
         <Listbox.Button
           className={`relative w-full py-1 xl:py-2 pl-3 pr-10 text-left bg-skin-fill text-skin-primary rounded-lg border-2 border-skin-accent cursor-pointer focus:outline-none focus-visible:ring-3 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm ${buttonStyleClasses}`}
         >
-          <span className='block truncate'>{selected.name}</span>
+          <span className='block truncate'>{selectedOption.name}</span>
           <span className='absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
             <Icon iconName='ExpandMore' size='20' />
           </span>
