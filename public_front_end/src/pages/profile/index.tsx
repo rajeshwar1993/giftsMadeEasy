@@ -3,11 +3,11 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { HeaderType } from '../../core/pageFormats/types';
 
-import { ProfilePage } from '../../custom_client_code/customPageDesigns';
+import { ProfilePage } from '../../pageContainers';
 import User from '../../models/User';
 import { RootState } from '../../redux/store';
+import { HeaderType } from '../../common/types';
 
 type Props = {
   headerData: HeaderType;

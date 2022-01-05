@@ -1,4 +1,4 @@
-import { FilterDBKeys } from '../helpers/dbKeys';
+import { FilterDBKeys } from '../common/dbKeys';
 import { AgeGroup, Gender } from './enums';
 
 class Filter {

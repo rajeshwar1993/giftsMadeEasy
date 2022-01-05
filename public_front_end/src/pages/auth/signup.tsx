@@ -1,13 +1,13 @@
 import { NextPage } from 'next';
 import React, { useEffect } from 'react';
 
-import { PageProps as Props } from '../../core/pageFormats/types';
+import { PageProps as Props } from '../../common/types';
 
-import AuthComponent from '../../custom_client_code/component_overrides/AuthComponent';
+import AuthComponent from '../../components/Reusable/AuthComponent';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { SectionTitle } from '../../core/components';
+import { SectionTitle } from '../../components';
 
 const Signup: NextPage<Props> = () => {
   const router = useRouter();

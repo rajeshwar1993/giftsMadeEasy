@@ -1,4 +1,4 @@
-import { UserDBKeys } from '../helpers/dbKeys';
+import { UserDBKeys } from '../common/dbKeys';
 import { Gender } from './enums';
 
 class User {

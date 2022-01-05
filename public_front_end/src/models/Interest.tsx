@@ -1,4 +1,4 @@
-import { InterestTagDBKeys } from '../helpers/dbKeys';
+import { InterestTagDBKeys } from '../common/dbKeys';
 
 class InterestTag {
   uid: string;

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 
-import { layoutConfig } from '../custom_client_code/pageConfigs';
+import { layoutConfig } from '../common/layoutConfig';
 import { auth, db } from '../firebase';
 import store, { useAppDispatch } from '../redux/store';
 import { Provider } from 'react-redux';
@@ -12,7 +12,7 @@ import { User as FirebaseUser } from 'firebase/auth';
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import User from '../models/User';
 import { FS_USER_DB } from '../models/constants';
-import { Layout } from '../core/components';
+import { Layout } from '../components';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

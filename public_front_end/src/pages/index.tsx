@@ -1,8 +1,8 @@
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 
-import { PageProps as Props } from '../core/pageFormats/types';
-import { HomePage } from '../custom_client_code/customPageDesigns';
+import { PageProps as Props } from '../common/types';
+import { HomePage } from '../pageContainers';
 import { RootState } from '../redux/store';
 import { useSelector } from 'react-redux';
 

@@ -1,4 +1,4 @@
-import { ProductDBKeys } from '../helpers/dbKeys';
+import { ProductDBKeys } from '../common/dbKeys';
 import { AgeGroup, Gender } from './enums';
 import InterestTag from './Interest';
 
