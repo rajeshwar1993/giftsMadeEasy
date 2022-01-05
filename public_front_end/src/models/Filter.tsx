@@ -5,14 +5,14 @@ class Filter {
   relationship: string;
   occasion: string;
   ageGrp: Array<AgeGroup>;
-  gender?: Gender;
+  gender?: Array<Gender>;
   interests: Array<string>;
 
   constructor() {
     this.relationship = '';
     this.occasion = '';
     this.ageGrp = [];
-    this.gender = undefined;
+    this.gender = [];
     this.interests = [];
   }
 

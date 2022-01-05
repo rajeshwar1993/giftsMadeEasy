@@ -1,28 +1,27 @@
-import React, { FC, Fragment, useState } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import AllComponents from '../../../core_custom_mixer/components';
 import { ListBoxType as Props } from './types';
-
-const people = [
-  { name: 'Wade Cooper' },
-  { name: 'Arlene Mccoy' },
-  { name: 'Devon Webb' },
-  { name: 'Tom Cook' },
-  { name: 'Tanya Fox' },
-  { name: 'Hellen Schmidt' }
-];
+import { DEFAULT_LIST_VALUE } from './utils';
 
 const { Icon, Text } = AllComponents;
 
 const ListBoxComp: FC<Props> = ({
+  filterKey,
   title,
-  options = [{ name: 'DEFAULT', value: 'gf' }],
-  selectedOption = { name: 'DEFAULT', value: 'gf' },
+  options = [{ name: 'DEFAULT', value: DEFAULT_LIST_VALUE }],
+  selectedOption = { name: 'DEFAULT', value: DEFAULT_LIST_VALUE },
   onSelected,
   buttonStyleClasses = '',
   optionsStyleClasses = ''
 }) => {
   const [selected, setSelected] = useState(selectedOption);
+
+  useEffect(() => {
+    if (selected.value !== selectedOption.value) {
+      onSelected(selected, filterKey);
+    }
+  }, [selected]);
 
   return (
     <Listbox value={selected} onChange={setSelected}>
@@ -54,40 +53,43 @@ const ListBoxComp: FC<Props> = ({
           <Listbox.Options
             className={`absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-skin-fill text-skin-primary rounded-md shadow-xl max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm ${optionsStyleClasses}`}
           >
-            {options.map(option => (
-              <Listbox.Option
-                key={option.value}
-                className={({ active }) =>
-                  `${
-                    active
-                      ? 'text-skin-inverted bg-skin-accent'
-                      : 'text-skin-primary'
+            {options.map(option => {
+              const isDefault = option.value === DEFAULT_LIST_VALUE;
+
+              return (
+                <Listbox.Option
+                  key={option.value}
+                  className={({ active }) =>
+                    `${
+                      active
+                        ? 'text-skin-inverted bg-skin-accent'
+                        : 'text-skin-primary'
+                    }
+                    cursor-pointer select-none relative py-2 ${
+                      isDefault ? 'pl-4' : 'pl-10'
+                    } pr-4`
                   }
-                    cursor-pointer select-none relative py-2 pl-10 pr-4`
-                }
-                value={option.value}
-              >
-                {({ selected, active }) => (
-                  <>
-                    <span
-                      className={`${
-                        selected ? 'font-bold' : 'font-normal'
-                      } block truncate`}
-                    >
-                      {option.name}
-                    </span>
-                    {selected ? (
+                  value={option}
+                >
+                  {({ selected, active }) => (
+                    <>
                       <span
                         className={`${
-                          active ? 'text-amber-600' : 'text-amber-600'
-                        }
-                          absolute inset-y-0 left-0 flex items-center pl-3`}
-                      ></span>
-                    ) : null}
-                  </>
-                )}
-              </Listbox.Option>
-            ))}
+                          selected ? 'font-bold' : 'font-normal'
+                        } block truncate`}
+                      >
+                        <Text
+                          content={option.name}
+                          styleClasses={`font-semibold ${
+                            isDefault ? 'text-lg' : ''
+                          }`}
+                        />
+                      </span>
+                    </>
+                  )}
+                </Listbox.Option>
+              );
+            })}
           </Listbox.Options>
         </Transition>
       </div>

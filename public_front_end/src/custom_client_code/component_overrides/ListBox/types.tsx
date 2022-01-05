@@ -6,10 +6,11 @@ export interface ListBoxOption {
 }
 
 export interface ListBoxType {
+  filterKey: string;
   title?: TextType;
   options: Array<ListBoxOption>;
   selectedOption: ListBoxOption;
-  onSelected: Function;
+  onSelected: (value: ListBoxOption, filterKey: string) => void;
   buttonStyleClasses?: string;
   optionsStyleClasses?: string;
 }
