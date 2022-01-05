@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import AllComponents from '../../../../core_custom_mixer/components';
+import { Icon, SectionTitle, Text } from '../..';
+
 import { TableSectionType as Props } from './type';
 
 const TableSection: FC<Props> = ({
@@ -13,23 +14,11 @@ const TableSection: FC<Props> = ({
   tableData,
   id
 }) => {
-  let { SectionTitle, Text, Icon } = AllComponents;
-
   return (
     <section id={id} className={`mx-4 md:mx-0 ${sectionWrapperClasses}`}>
-      {sectionTitle && (
-        <SectionTitle
-          {...sectionTitle}
-          wrapperStyleClasses={`${sectionTitle.wrapperStyleClasses}`}
-        />
-      )}
+      {sectionTitle && <SectionTitle {...sectionTitle} />}
 
-      {desc && (
-        <Text
-          {...desc}
-          wrapperStyleClasses={`text-center mb-6 ${desc.wrapperStyleClasses}`}
-        />
-      )}
+      {desc && <Text {...desc} />}
       <div
         className={`table table-fixed w-full max-w-4xl mx-auto shadow-lg rounded-lg overflow-hidden ${tableWrapperStyleClasses}`}
       >

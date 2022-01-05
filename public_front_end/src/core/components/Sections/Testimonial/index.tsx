@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
+import { ImageComponent, Text } from '../..';
 import { TestimonialType as Props } from './type';
-import AllComponents from '../../../../core_custom_mixer/components';
 
 const Testimonial: FC<Props> = ({
   sectionWrapperClasses,
@@ -12,7 +12,6 @@ const Testimonial: FC<Props> = ({
   imageWrapperStyles,
   id
 }) => {
-  let { ImageComponent, Text } = AllComponents;
   return (
     <section
       id={id}

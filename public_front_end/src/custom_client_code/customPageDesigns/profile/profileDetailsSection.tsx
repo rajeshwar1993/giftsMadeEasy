@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import AllComponents from '../../../core_custom_mixer/components';
+
 import User from '../../../models/User';
 import Badge from '../../component_overrides/Bagde';
 import BookmarksSection from './bookmakrs';
@@ -7,8 +7,6 @@ import ProfileAboutSection from './profileAboutSection';
 import ProfileImpDatesSection from './profileImpDates';
 import ProfileInterestedInSection from './profileInteredtedInSection';
 import WishListSection from './wishList';
-
-const { Button, SectionTitle } = AllComponents;
 
 type Props = {
   user: User;

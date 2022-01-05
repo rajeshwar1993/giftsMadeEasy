@@ -1,9 +1,6 @@
 import { format } from 'date-fns';
 import React, { FC, useState, useRef } from 'react';
-
-import AllComponents from '../../../core_custom_mixer/components';
-
-const { Text, SectionTitle, Button, Icon } = AllComponents;
+import { Button, Icon, SectionTitle, Text } from '../../../core/components';
 
 type Props = {
   dob: string;

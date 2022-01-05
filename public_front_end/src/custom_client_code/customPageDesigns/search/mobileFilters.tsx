@@ -1,8 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment } from 'react';
-import AllComponents from '../../../core_custom_mixer/components';
-
-let { Icon, Button } = AllComponents;
+import { Button } from '../../../core/components';
 
 const MobileFilters = () => {
   return (

@@ -2,7 +2,6 @@ import { Dialog, Transition } from '@headlessui/react';
 import React, { FC, Fragment, useEffect, useState } from 'react';
 import InterestTag from '../../../models/Interest';
 
-import AllComponents from '../../../core_custom_mixer/components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../../redux/store';
 import { collection, getDocs, query, where } from 'firebase/firestore';
@@ -13,8 +12,7 @@ import {
   it_init_HierarchyArray,
   it_update_subInterestList
 } from '../../../redux/interestTags';
-
-const { SectionTitle, Button, Text } = AllComponents;
+import { Button, SectionTitle } from '../../../core/components';
 
 type Props = {
   open: boolean;

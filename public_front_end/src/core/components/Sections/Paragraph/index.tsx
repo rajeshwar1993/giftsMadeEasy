@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import AllComponents from '../../../../core_custom_mixer/components';
+import { BannerImage, Button, ImageComponent, SectionTitle, Text } from '../..';
 
 import { ParagraphType as Props } from './type';
 
@@ -14,8 +14,6 @@ const Paragraph: FC<Props> = ({
   imageWrapperClasses,
   id
 }) => {
-  let { BannerImage, SectionTitle, Button, ImageComponent, Text } =
-    AllComponents;
   return (
     <section id={id} className={`mx-4 md:mx-0   ${sectionWrapperClasses}`}>
       {banner && (
@@ -39,7 +37,6 @@ const Paragraph: FC<Props> = ({
             <Text
               key={i}
               {...para}
-              wrapperStyleClasses={`pb-2 ${para.wrapperStyleClasses}`}
               styleClasses={`cust-paragraph-text ${para.styleClasses}`}
             />
           ))}

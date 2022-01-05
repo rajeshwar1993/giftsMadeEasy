@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import AllComponents from '../../../../core_custom_mixer/components';
+import { Button, ImageComponent, SectionTitle, Text } from '../..';
+
 import { ParagraphImageSplitType as Props } from './types';
 
 const ParagraphImageSplit: FC<Props> = ({
@@ -12,7 +13,6 @@ const ParagraphImageSplit: FC<Props> = ({
   button,
   id
 }) => {
-  let { SectionTitle, ImageComponent, Button, Text } = AllComponents;
   return (
     <section
       id={id}

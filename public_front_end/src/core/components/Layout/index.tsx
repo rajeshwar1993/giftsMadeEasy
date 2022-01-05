@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import AllComponents from '../../../core_custom_mixer/components';
+import { Footer, NavBar } from '..';
+
 import { LayoutConfigType } from './type';
 
 type Props = {
@@ -8,7 +9,6 @@ type Props = {
 };
 
 const Layout: FC<Props> = ({ children, config }) => {
-  let { Footer, NavBar } = AllComponents;
   return (
     <div className='bg-skin-fill text-skin-primary'>
       <NavBar config={config.navbar} />

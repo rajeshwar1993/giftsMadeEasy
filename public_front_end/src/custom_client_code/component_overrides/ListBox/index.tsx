@@ -1,10 +1,9 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
-import AllComponents from '../../../core_custom_mixer/components';
+
 import { ListBoxType as Props } from './types';
 import { DEFAULT_LIST_VALUE } from './utils';
-
-const { Icon, Text } = AllComponents;
+import { Icon, Text } from '../../../core/components';
 
 const ListBoxComp: FC<Props> = ({
   filterKey,

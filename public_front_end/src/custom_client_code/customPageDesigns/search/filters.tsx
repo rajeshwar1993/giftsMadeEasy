@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import ListBoxComp from '../../component_overrides/ListBox';
-import AllComponents from '../../../core_custom_mixer/components';
+
 import MobileFilters from './mobileFilters';
 import {
   createListboxOptions,
@@ -10,8 +10,7 @@ import {
 import DataConfig from '../../pageConfigs/dataConfig';
 import { FilterDBKeys } from '../../../helpers/dbKeys';
 import Filter from '../../../models/Filter';
-
-const { Text } = AllComponents;
+import { Text } from '../../../core/components';
 
 type Props = {
   filterValues: Filter;

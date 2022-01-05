@@ -1,7 +1,5 @@
 import React from 'react';
-import AllComponents from '../../../core_custom_mixer/components';
-
-const { ImageComponent, Text, Button } = AllComponents;
+import { Button, ImageComponent, Text } from '../../../core/components';
 
 const ProfileImageSection = () => {
   return (

@@ -1,8 +1,5 @@
 import React, { FC, useRef, useState } from 'react';
-
-import AllComponents from '../../../core_custom_mixer/components';
-
-const { Text, SectionTitle, Button } = AllComponents;
+import { Button, SectionTitle, Text } from '../../../core/components';
 
 type Props = {
   text: string;

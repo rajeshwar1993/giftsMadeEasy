@@ -2,10 +2,10 @@ import React from 'react';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '../../../firebase';
 import { useSelector } from 'react-redux';
-import AllComponents from '../../../core_custom_mixer/components';
-import { RootState } from '../../../redux/store';
 
-const { Button, SectionTitle } = AllComponents;
+import { RootState } from '../../../redux/store';
+import { Button } from '../../../core/components';
+
 const AuthComponent = () => {
   const { data: userData } = useSelector((state: RootState) => state.user);
 

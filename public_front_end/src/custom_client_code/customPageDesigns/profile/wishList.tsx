@@ -1,8 +1,7 @@
 import React from 'react';
-import AllComponents from '../../../core_custom_mixer/components';
-import ProductListItem from '../../component_overrides/ProductListItem';
+import { SectionTitle, Text } from '../../../core/components';
 
-const { SectionTitle, Text } = AllComponents;
+import ProductListItem from '../../component_overrides/ProductListItem';
 
 const WishListSection = () => {
   return (

@@ -16,7 +16,7 @@ import SectionTitle from './Reusable/SectionTitle';
 import TableSection from './Sections/TableSection';
 import VideoSection from './Sections/Video';
 
-const CoreComponents = {
+export {
   Layout,
   NavBar,
   Footer,
@@ -35,5 +35,3 @@ const CoreComponents = {
   TableSection,
   VideoSection
 };
-
-export default CoreComponents;

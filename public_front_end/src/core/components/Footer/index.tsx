@@ -1,14 +1,13 @@
 import Link from 'next/link';
 import React, { FC } from 'react';
+import { Button, Icon, Text } from '..';
 import { FooterConfig } from './type';
-import AllComponents from '../../../core_custom_mixer/components';
 
 type Props = {
   config: FooterConfig;
 };
 
 const Footer: FC<Props> = ({ config }) => {
-  let { Icon, Button, Text } = AllComponents;
   return (
     <div id={'footer'} className='bg-skin-fill mt-6'>
       <footer className='pt-8 border-t-2 mx-auto p-4 stext-base xl:flex'>

@@ -2,7 +2,8 @@ import React, { FC, Fragment } from 'react';
 import Link from 'next/link';
 import { Dialog, Transition } from '@headlessui/react';
 import { NavConfig } from './type';
-import AllComponents from '../../../core_custom_mixer/components';
+import { Button, Icon } from '..';
+
 type Props = {
   config: NavConfig;
   menuOpen: boolean;
@@ -10,8 +11,6 @@ type Props = {
 };
 
 const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
-  let { Icon, Button } = AllComponents;
-
   return (
     <Transition.Root show={menuOpen} as={Fragment}>
       <Dialog

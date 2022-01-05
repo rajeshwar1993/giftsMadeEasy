@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import React, { useEffect } from 'react';
-import AllComponents from '../../core_custom_mixer/components';
 
 import { PageProps as Props } from '../../core/pageFormats/types';
 
@@ -8,8 +7,7 @@ import AuthComponent from '../../custom_client_code/component_overrides/AuthComp
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-
-const { SectionTitle } = AllComponents;
+import { SectionTitle } from '../../core/components';
 
 const Signup: NextPage<Props> = () => {
   const router = useRouter();

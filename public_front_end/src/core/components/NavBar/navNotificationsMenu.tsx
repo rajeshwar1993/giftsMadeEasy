@@ -1,7 +1,7 @@
 import React, { FC, Fragment, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
-import AllComponents from '../../../core_custom_mixer/components';
+import { Button, SectionTitle } from '..';
 
 type Props = {
   open: boolean;
@@ -9,7 +9,6 @@ type Props = {
 };
 
 const NavNotificationsMenu: FC<Props> = ({ open, closeModal }) => {
-  const { SectionTitle, Button } = AllComponents;
   const router = useRouter();
 
   return (

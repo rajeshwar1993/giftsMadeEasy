@@ -3,8 +3,9 @@ import {
   DisclosureListType,
   DiscolusreListComponentType as Props
 } from './type';
-import AllComponents from '../../../../core_custom_mixer/components';
+
 import { Disclosure, Transition } from '@headlessui/react';
+import { Icon, SectionTitle, Text } from '../..';
 
 const DisclosureList: FC<Props> = ({
   sectionTitle,
@@ -13,8 +14,6 @@ const DisclosureList: FC<Props> = ({
   listWrapperClasses,
   id
 }) => {
-  let { SectionTitle, Icon, Text } = AllComponents;
-
   return (
     <section
       id={id}
@@ -36,7 +35,6 @@ const DisclosureList: FC<Props> = ({
                       {...l.title}
                       styleClasses={`md:text-xl text-base ${l.title.styleClasses}`}
                       tag={l.title.tag || 'h4'}
-                      wrapperStyleClasses={`w-[90%] ${l.title.wrapperStyleClasses}`}
                     />
                     <Icon
                       iconName={'ExpandMore'}
@@ -58,7 +56,6 @@ const DisclosureList: FC<Props> = ({
                       <Text
                         {...l.body}
                         styleClasses={`cust-paragraph-text ${l.title.styleClasses}`}
-                        wrapperStyleClasses={`w-[90%] ${l.title.wrapperStyleClasses}`}
                       />
                     </Disclosure.Panel>
                   </Transition>

@@ -1,9 +1,8 @@
 import React from 'react';
-import AllComponents from '../../../core_custom_mixer/components';
+import { Text } from '../../../core/components';
+
 import GiftsSearchMini from './giftsSearchMini';
 import TrendingSearches from './trendingSearches';
-
-const { Text } = AllComponents;
 
 const HomePage = () => {
   return (

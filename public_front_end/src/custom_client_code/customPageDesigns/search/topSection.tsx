@@ -1,9 +1,7 @@
 import React from 'react';
+import { Button, SectionTitle } from '../../../core/components';
 import ListBoxComp from '../../component_overrides/ListBox';
 import { DEFAULT_LIST_VALUE } from '../../component_overrides/ListBox/utils';
-import AllComponents from '../../../core_custom_mixer/components';
-
-const { Text, Button, SectionTitle } = AllComponents;
 
 const SearchTopSection = () => {
   return (

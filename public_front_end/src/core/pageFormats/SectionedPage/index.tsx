@@ -1,5 +1,13 @@
 import React, { FC } from 'react';
-import AllComponents from '../../../core_custom_mixer/components';
+import {
+  ColumnList,
+  DisclosureList,
+  Paragraph,
+  ParagraphImageSplit,
+  TableSection,
+  Testimonial,
+  VideoSection
+} from '../../components';
 
 import { BannerImageType } from '../../components/Reusable/BannerImage/type';
 import { ColumnListType } from '../../components/Sections/ColumnList/types';
@@ -16,16 +24,6 @@ type Props = {
 };
 
 const SectionedPages: FC<Props> = ({ sections }) => {
-  let {
-    Paragraph,
-    ParagraphImageSplit,
-    Testimonial,
-    ColumnList,
-    DisclosureList,
-    TableSection,
-    VideoSection
-  } = AllComponents;
-
   const renderSection = (section: any) => {
     // TODO: Need to find out the correct typescript way to define this
     let data;

@@ -1,6 +1,6 @@
 import { collection, doc, increment, updateDoc } from 'firebase/firestore';
 import React, { FC } from 'react';
-import AllComponents from '../../../core_custom_mixer/components';
+
 import { db } from '../../../firebase';
 import { InterestTagDBKeys, UserDBKeys } from '../../../helpers/dbKeys';
 import { FS_INTEREST_TAGS_DB, FS_USER_DB } from '../../../models/constants';
@@ -10,8 +10,6 @@ import { useAppDispatch } from '../../../redux/store';
 import { ur_updateUser } from '../../../redux/user';
 import ProfileDetailsSection from './profileDetailsSection';
 import ProfileImageSection from './profileImageSection';
-
-const { ImageComponent, Text, Button } = AllComponents;
 
 type Props = {
   user: User;

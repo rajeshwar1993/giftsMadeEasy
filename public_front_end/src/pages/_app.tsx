@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import AllComponents from '../core_custom_mixer/components';
+
 import { layoutConfig } from '../custom_client_code/pageConfigs';
 import { auth, db } from '../firebase';
 import store, { useAppDispatch } from '../redux/store';
@@ -12,10 +12,9 @@ import { User as FirebaseUser } from 'firebase/auth';
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import User from '../models/User';
 import { FS_USER_DB } from '../models/constants';
+import { Layout } from '../core/components';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { Layout } = AllComponents;
-
   return (
     <div className='text-skin-primary bg-skin-fill'>
       <Provider store={store}>

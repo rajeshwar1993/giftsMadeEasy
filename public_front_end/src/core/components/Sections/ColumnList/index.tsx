@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
+import { Button, ImageComponent, SectionTitle, Text } from '../..';
 import { ColumnListType as Props } from './types';
-import AllComponents from '../../../../core_custom_mixer/components/';
 
 const ColumnList: FC<Props> = ({
   sectionWrapperClasses = '',
@@ -9,15 +9,9 @@ const ColumnList: FC<Props> = ({
   sectionTitle,
   id
 }) => {
-  let { Button, ImageComponent, SectionTitle, Text } = AllComponents;
   return (
     <section id={id} className={`mx-4 xl:mx-0 ${sectionWrapperClasses}`}>
-      {sectionTitle && (
-        <SectionTitle
-          {...sectionTitle}
-          wrapperStyleClasses={`mb-0 lg:mb-4 ${sectionTitle.wrapperStyleClasses}`}
-        />
-      )}
+      {sectionTitle && <SectionTitle {...sectionTitle} />}
       {/* flex flex-col xl:flex-row flex-wrap justify-around items-center */}
       <div
         className={`flex flex-col lg:flex-row flex-wrap justify-evenly items-center lg:items-start ${colWrapperStyleClasses}`}
@@ -39,13 +33,11 @@ const ColumnList: FC<Props> = ({
                 <Text
                   {...c.colTitle}
                   tag={c.colTitle.tag || 'h3'}
-                  wrapperStyleClasses={`mb-2 border-b-2 border-skin-accent border-opacity-60 ${c.colTitle.wrapperStyleClasses}`}
                   styleClasses={`font-semibold text-xl ${c.colTitle.styleClasses}`}
                 />
               )}
               <Text
                 {...c.body}
-                wrapperStyleClasses={`max-w-xl inline-block px-8 ${c.body.wrapperStyleClasses}`}
                 styleClasses={`cust-paragraph-text ${c.body.styleClasses}`}
               />
             </div>

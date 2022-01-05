@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
+import { Icon, Text } from '../../../core/components';
 import { BadgeType as Props } from './type';
-import AllComponents from '../../../core_custom_mixer/components';
-
-const { Text, Icon } = AllComponents;
 
 const Badge: FC<Props> = ({
   text,

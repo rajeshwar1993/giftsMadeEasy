@@ -2,17 +2,17 @@ import React, { FC, useState } from 'react';
 import Link from 'next/link';
 import MobileNav from './mobileNav';
 import { NavConfig } from './type';
-import AllComponents from '../../../core_custom_mixer/components';
+
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import NavProfileMenu from './navProfileMenu';
 import NavNotificationsMenu from './navNotificationsMenu';
+import { Button, Icon } from '..';
 type Props = {
   config: NavConfig;
 };
 
 const NavBar: FC<Props> = ({ config }) => {
-  const { Icon, Button } = AllComponents;
   const [menuOpen, toggleMenuOpen] = useState(false);
   const [notificationsOpen, toggleNotificationsOpen] = useState(false);
 

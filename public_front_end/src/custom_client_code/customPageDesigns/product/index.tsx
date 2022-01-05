@@ -1,8 +1,10 @@
 import React from 'react';
-
-import AllComponents from '../../../core_custom_mixer/components';
-
-const { ImageComponent, SectionTitle, Text, Button } = AllComponents;
+import {
+  Button,
+  ImageComponent,
+  SectionTitle,
+  Text
+} from '../../../core/components';
 
 const ProductPage = () => {
   return (

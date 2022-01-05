@@ -1,8 +1,8 @@
 import { getDoc, doc } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Button, SectionTitle, Text } from '../../../core/components';
 
-import AllComponents from '../../../core_custom_mixer/components';
 import { db } from '../../../firebase';
 import { FS_INTEREST_TAGS_DB } from '../../../models/constants';
 import InterestTag from '../../../models/Interest';
@@ -10,8 +10,6 @@ import { it_add_tagArray } from '../../../redux/interestTags';
 import { RootState, useAppDispatch } from '../../../redux/store';
 import Badge from '../../component_overrides/Bagde';
 import SelectInterestsPopup from '../../component_overrides/SelectInterestsPopup';
-
-const { Text, SectionTitle, Button } = AllComponents;
 
 type Props = {
   ints: Array<string>;

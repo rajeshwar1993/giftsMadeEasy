@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
+import { SectionTitle, Text } from '../..';
 import { VideoSectionType as Props } from './type';
-import AllComponents from '../../../../core_custom_mixer/components';
 
 const VideoSection: FC<Props> = ({
   sectionTitle,
@@ -9,23 +9,11 @@ const VideoSection: FC<Props> = ({
   videoID,
   id
 }) => {
-  let { SectionTitle, Text } = AllComponents;
-
   return (
     <section id={id} className={`mx-4 md:mx-0 ${sectionWrapperClasses}`}>
-      {sectionTitle && (
-        <SectionTitle
-          {...sectionTitle}
-          wrapperStyleClasses={`${sectionTitle.wrapperStyleClasses}`}
-        />
-      )}
+      {sectionTitle && <SectionTitle {...sectionTitle} />}
 
-      {desc && (
-        <Text
-          {...desc}
-          wrapperStyleClasses={`text-center mb-6 ${desc.wrapperStyleClasses}`}
-        />
-      )}
+      {desc && <Text {...desc} />}
 
       <div>
         <iframe

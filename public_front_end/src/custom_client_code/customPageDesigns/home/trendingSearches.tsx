@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import AllComponents from '../../../core_custom_mixer/components';
-import Badge from '../../component_overrides/Bagde';
+import { SectionTitle } from '../../../core/components';
 
-const { Text, SectionTitle } = AllComponents;
+import Badge from '../../component_overrides/Bagde';
 
 const TrendingSearches = () => {
   return (

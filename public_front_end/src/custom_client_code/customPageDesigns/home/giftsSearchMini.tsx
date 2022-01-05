@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AllComponents from '../../../core_custom_mixer/components';
+
 import { useRouter } from 'next/router';
 import ListBoxComp from '../../component_overrides/ListBox';
 import DataConfig from '../../pageConfigs/dataConfig';
@@ -9,8 +9,7 @@ import {
 } from '../../component_overrides/ListBox/utils';
 import { FilterDBKeys } from '../../../helpers/dbKeys';
 import { ListBoxOption } from '../../component_overrides/ListBox/types';
-
-let { Button, SectionTitle } = AllComponents;
+import { Button, SectionTitle } from '../../../core/components';
 
 const GiftsSearchMini = () => {
   const router = useRouter();

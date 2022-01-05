@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import AllComponents from '../../../core_custom_mixer/components';
+import { Button, ImageComponent, Text } from '../../../core/components';
+
 import { ProductListItemType as Props } from './type';
-const { ImageComponent, Text, Button } = AllComponents;
 
 const ProductListItem: FC<Props> = ({ title, price = '1199' }) => {
   return (

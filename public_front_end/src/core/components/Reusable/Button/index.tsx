@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import { ButtonType as Props } from './type';
-import AllComponents from '../../../../core_custom_mixer/components';
+
 import { useRouter } from 'next/router';
+import { Icon } from '../..';
 
 const Button: FC<Props> = ({
   text,
@@ -13,7 +14,6 @@ const Button: FC<Props> = ({
   icon,
   showOnlyIcon = false
 }) => {
-  const { Icon } = AllComponents;
   const router = useRouter();
 
   return (

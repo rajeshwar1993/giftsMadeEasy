@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
+import { Text } from '../../';
 import { SectionTitleType as Props } from './type';
-import AllComponents from '../../../../core_custom_mixer/components';
 
 const SectionTitle: FC<Props> = props => {
-  let { Text } = AllComponents;
   return (
     <div className={`mb-4 ${props.wrapperClasses || ''}`}>
       <Text

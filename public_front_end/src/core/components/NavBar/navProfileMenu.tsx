@@ -2,11 +2,11 @@ import { Menu, Transition } from '@headlessui/react';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import React, { Fragment } from 'react';
-import AllComponents from '../../../core_custom_mixer/components';
+import { Button, Icon } from '..';
+
 import { auth } from '../../../firebase';
 
 const NavProfileMenu = () => {
-  const { Icon, Button } = AllComponents;
   const router = useRouter();
   return (
     <div className='text-right'>
