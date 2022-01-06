@@ -48,7 +48,7 @@ const SearchTopSection: FC<Props> = ({
       <div className='xl:hidden'>
         <SectionTitle
           wrapperClasses='text-center xl:text-left'
-          content='Find the perfect gift'
+          content='Search the perfect gift'
         />
       </div>
       <div className='py-2  flex justify-between xl:justify-end items-center sticky top-[62px] xl:static bg-skin-fill '>
@@ -79,7 +79,7 @@ const SearchTopSection: FC<Props> = ({
             <div className='hidden xl:block'>
               <SectionTitle
                 wrapperClasses='text-center xl:text-left !mb-10'
-                content='Find the perfect gift'
+                content='Search the perfect gift'
               />
               <div className='flex flex-col items-start'>
                 <Button

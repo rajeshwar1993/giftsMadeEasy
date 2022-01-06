@@ -189,7 +189,7 @@ const SelectInterestsPopup: FC<Props> = ({
                 {/* Main Options */}
 
                 <div
-                  className={`px-4 grid grid-cols-2 gap-8 mt-12 ${
+                  className={`grid grid-cols-2 gap-y-8 gap-x-2 xl:gap-x-8 mt-12 ${
                     !!chosenInterest ? 'hidden' : ''
                   }`}
                 >
@@ -198,7 +198,7 @@ const SelectInterestsPopup: FC<Props> = ({
                       key={th.it.uid}
                       text={th.it.value}
                       defautStyle='cust-btn-btn'
-                      styleClasses='w-full justify-center text-lg xl:text-2xl'
+                      styleClasses='w-full justify-center'
                       wrapperClasses=''
                       onClick={() => updateChosenInterest(th)}
                     />
@@ -217,7 +217,7 @@ const SelectInterestsPopup: FC<Props> = ({
                     defautStyle='cust-btn-link'
                     onClick={() => updateChosenInterest(null)}
                   />
-                  <div className='px-4 grid grid-cols-2 gap-8 mt-12'>
+                  <div className='px-4 grid grid-cols-2 gap-y-8 gap-x-2 xl:gap-x-8 mt-12'>
                     {!!chosenInterest && (
                       <Button
                         text={`Select All ${chosenInterest!.it.value}`}

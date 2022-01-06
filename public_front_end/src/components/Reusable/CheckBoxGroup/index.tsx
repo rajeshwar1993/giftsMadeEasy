@@ -43,24 +43,27 @@ const CheckBoxGroup: FC<Props> = ({
           styleClasses={`font-semibold ${title.styleClasses}`}
         />
       )}
-      {checkList.map((cl, i) => (
-        <div className='form-check mt-2 ml-2'>
-          <input
-            className='form-check-input appearance-none h-5 w-5 border-2 border-skin-accent rounded-sm bg-skin-fill checked:bg-skin-accent checked:border-skin-accent focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
-            type='checkbox'
-            value={cl.value}
-            checked={selected.includes(cl.value)}
-            id={filterKey}
-            onChange={e => handleClick(e.target.value, e.target.checked)}
-          />
-          <label
-            className='form-check-label inline-block text-skin-primary text-lg'
-            htmlFor={filterKey}
-          >
-            {cl.text}
-          </label>
-        </div>
-      ))}
+      <div className='flex flex-row xl:flex-col'>
+        {checkList.map((cl, i) => (
+          <div key={i} className='form-check mt-2 ml-2 pr-4 flex'>
+            <input
+              className='form-check-input appearance-none h-5 w-5 border-2 border-skin-accent rounded-sm bg-skin-fill checked:bg-skin-accent checked:border-skin-accent focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
+              type='checkbox'
+              value={cl.value}
+              checked={selected.includes(cl.value)}
+              id={cl.text}
+              onChange={e => handleClick(e.target.value, e.target.checked)}
+              name={cl.text}
+            />
+            <label
+              className='form-check-label inline-block text-skin-primary text-lg'
+              htmlFor={cl.text}
+            >
+              {cl.text}
+            </label>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

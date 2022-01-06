@@ -46,7 +46,7 @@ const MobileFilters: FC<Props> = ({ show, children, onClose }) => {
             </div>
 
             {/* Links */}
-            <div className='overlow-y-auto h-full flex justify-center items-center'>
+            <div className='overlow-y-auto h-full flex flex-col justify-center items-center'>
               {children}
             </div>
             {/* Bottom buttons */}

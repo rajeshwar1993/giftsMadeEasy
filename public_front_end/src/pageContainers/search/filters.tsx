@@ -49,7 +49,10 @@ const Filters: FC<Props> = ({
   return (
     <>
       <aside className='w-1/5 pr-2 hidden xl:block p-4 '>
-        <div className='sticky top-[88px]'>
+        <div className='sticky top-10'>
+          <div className='mb-4'>
+            <Text content='Filter By:' styleClasses='font-semibold' />
+          </div>
           <FilterBody
             values={values}
             updateListValues={updateListValues}
@@ -70,22 +73,19 @@ const Filters: FC<Props> = ({
   );
 };
 
-type BodyProp = {
+type FilterBodyProp = {
   values: any;
   updateListValues: (data: ListBoxOption, key: string) => void;
   updateCheckboxValues: (key: string, value: Array<string>) => void;
 };
 
-const FilterBody: FC<BodyProp> = ({
+const FilterBody: FC<FilterBodyProp> = ({
   values,
   updateListValues,
   updateCheckboxValues
 }) => {
   return (
-    <div className='flex flex-col'>
-      <div className='mb-4'>
-        <Text content='Filter By:' styleClasses='font-semibold' />
-      </div>
+    <div className='flex flex-col w-full'>
       {/* Relationship Filter */}
       <div className='mb-8'>
         <ListBoxComp
