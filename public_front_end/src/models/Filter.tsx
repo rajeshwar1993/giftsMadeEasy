@@ -20,7 +20,7 @@ class Filter {
     [FilterDBKeys.relationship]: this.relationship,
     [FilterDBKeys.occasion]: this.occasion,
     [FilterDBKeys.ageGrp]: this.ageGrp,
-    [FilterDBKeys.gender]: this.gender || [],
+    [FilterDBKeys.gender]: this.gender,
     [FilterDBKeys.interests]: this.interests
   });
 
@@ -29,8 +29,16 @@ class Filter {
     f.relationship = inp[FilterDBKeys.relationship];
     f.occasion = inp[FilterDBKeys.occasion];
     f.ageGrp = inp[FilterDBKeys.ageGrp];
-    f.gender = inp[FilterDBKeys.gender] || [];
-    f.interests = inp[FilterDBKeys.interests];
+    f.gender = inp[FilterDBKeys.gender]
+      ? Array.isArray(inp[FilterDBKeys.gender])
+        ? inp[FilterDBKeys.gender]
+        : [inp[FilterDBKeys.gender]]
+      : [];
+    f.interests = inp[FilterDBKeys.interests]
+      ? Array.isArray(inp[FilterDBKeys.interests])
+        ? inp[FilterDBKeys.interests]
+        : [inp[FilterDBKeys.interests]]
+      : [];
 
     return f;
   };

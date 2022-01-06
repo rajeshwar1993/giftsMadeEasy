@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { Icon, Text } from '../../../components';
+import { Icon, Text } from '../..';
 import { BadgeType as Props } from './type';
 
-const Badge: FC<Props> = ({
+const Chip: FC<Props> = ({
   text,
   onClick,
   onCancel,
@@ -35,4 +35,4 @@ const Badge: FC<Props> = ({
   );
 };
 
-export default Badge;
+export default Chip;

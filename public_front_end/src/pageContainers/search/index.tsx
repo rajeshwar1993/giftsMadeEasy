@@ -39,7 +39,10 @@ const SearchPage = () => {
 
   return (
     <section className='py-0'>
-      <SearchTopSection />
+      <SearchTopSection
+        filterValues={filterValues}
+        updateParentState={handleFilterChange}
+      />
       {/* Filter and List */}
       <div className='flex flex-row xl:mt-0 mt-4'>
         <Filters

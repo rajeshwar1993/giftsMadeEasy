@@ -1,4 +1,4 @@
-import { TextType } from '../../../components/Reusable/Text/type';
+import { TextType } from '../Text/type';
 
 export interface BadgeType {
   text: TextType;

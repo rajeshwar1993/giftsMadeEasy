@@ -2,7 +2,7 @@ import { getDoc, doc } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, SectionTitle, Text } from '../../components';
-import Badge from '../../components/Reusable/Bagde';
+import Chip from '../../components/Reusable/Chip';
 import SelectInterestsPopup from '../../components/Reusable/SelectInterestsPopup';
 
 import { db } from '../../firebase';
@@ -149,7 +149,7 @@ const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
 
         <div className='mb-2 flex flex-wrap'>
           {(editMode ? tempIntArray : intArray).map(int => (
-            <Badge
+            <Chip
               key={int.uid}
               editMode={editMode}
               onCancel={id => {

@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { FilterDBKeys } from '../../common/dbKeys';
 import { Button, SectionTitle } from '../../components';
 import ListBoxComp from '../../components/Reusable/ListBox';
 import { DEFAULT_LIST_VALUE } from '../../components/Reusable/ListBox/utils';
+import SelectInterestsPopup from '../../components/Reusable/SelectInterestsPopup';
+import Filter from '../../models/Filter';
+import ShowSelectedInterests from './showSelectedInterests';
 
-const SearchTopSection = () => {
+type Props = {
+  filterValues: Filter;
+  updateParentState: (key: string, value: string | Array<string>) => void;
+};
+
+const SearchTopSection: FC<Props> = ({ filterValues, updateParentState }) => {
+  const [interestPopoverOpen, updateInterestPopeverOpen] = useState(false);
+
+  const [values, updateValues] = useState(filterValues.convertToJson());
+
+  useEffect(() => {
+    updateValues(filterValues.convertToJson());
+  }, [filterValues]);
+
+  const updateInterestsToParent = (values: Array<string>) => {
+    updateParentState(FilterDBKeys.interests, values);
+  };
+
   return (
     <>
       <div className='xl:hidden'>
@@ -38,12 +59,26 @@ const SearchTopSection = () => {
               />
               <div className='flex items-center'>
                 <Button
-                  text='Filter By Interests:'
-                  defautStyle='cust-btn-link'
+                  text={`Filter By Interests${
+                    values[FilterDBKeys.interests]!.length
+                      ? ` (${values[FilterDBKeys.interests]!.length})`
+                      : ''
+                  }`}
+                  defautStyle='cust-btn-btn'
                   styleClasses='text-base'
                   wrapperClasses=''
+                  onClick={() => updateInterestPopeverOpen(true)}
                 />
-                <span>Electronics</span>
+                <ShowSelectedInterests
+                  values={
+                    values[FilterDBKeys.interests]
+                      ? (values[FilterDBKeys.interests] as Array<string>)
+                      : []
+                  }
+                  onCancel={updated => {
+                    updateInterestsToParent(updated);
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -60,6 +95,16 @@ const SearchTopSection = () => {
           </div>
         </div>
       </div>
+      <SelectInterestsPopup
+        open={interestPopoverOpen}
+        selectedInts={
+          values[FilterDBKeys.interests]
+            ? (values[FilterDBKeys.interests] as Array<string>)
+            : []
+        }
+        onSave={updateInterestsToParent}
+        onClose={() => updateInterestPopeverOpen(false)}
+      />
     </>
   );
 };
