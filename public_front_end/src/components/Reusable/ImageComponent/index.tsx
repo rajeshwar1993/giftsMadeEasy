@@ -12,8 +12,9 @@ const ImageComponent: FC<Props> = ({
   styleClasses = ''
 }) => {
   return (
+    // TODO Need to make use of Image component from next!!
     <>
-      {EXPORT_MODE === 'DYNAMIC' && (
+      {/* {EXPORT_MODE === 'DYNAMIC' && (
         <div
           className={`w-full h-full overflow-hidden flex justify-center items-center ${styleClasses}`}
         >
@@ -25,18 +26,14 @@ const ImageComponent: FC<Props> = ({
             objectPosition={'center'}
           />
         </div>
-      )}
-      {/* {EXPORT_MODE === 'STATIC' && (
-        <div
-          className={`w-full h-full overflow-hidden flex justify-center items-center ${styleClasses}`}
-        >
-          <img
-            src={src}
-            alt={alt}
-            className='w-full min-h-full flex-shrink-0'
-          />
-        </div>
       )} */}
+      {/* {EXPORT_MODE === 'STATIC' && ( */}
+      <div
+        className={`w-full h-full overflow-hidden flex justify-center items-center ${styleClasses}`}
+      >
+        <img src={src} alt={alt} className='w-full min-h-full flex-shrink-0' />
+      </div>
+      {/* )} */}
     </>
   );
 };
