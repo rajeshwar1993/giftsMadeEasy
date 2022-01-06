@@ -31,6 +31,8 @@ export const interestTagSlice = createSlice({
       >
     ) => {
       state.tagHierarchyList = action.payload;
+
+      // TODO : optimization - save this in tagArray so that it doesn't need to be fetched while displaying
     },
     it_update_subInterestList: (
       state,
@@ -50,6 +52,7 @@ export const interestTagSlice = createSlice({
           subInterests
         };
       });
+      // TODO : optimization - save these in tagArray so that it doesn't need to be fetched while displaying
     },
     it_add_tagArray: (state, action: PayloadAction<Array<InterestTag>>) => {
       state.tagArray = [...state.tagArray, ...action.payload];

@@ -62,7 +62,7 @@ const ShowSelectedInterests: FC<Props> = ({ values, onCancel }) => {
   }, [values]);
 
   return (
-    <div className='flex'>
+    <div className='flex flex-wrap'>
       {intArray.map(int => (
         <Chip
           key={int.uid}
@@ -73,7 +73,8 @@ const ShowSelectedInterests: FC<Props> = ({ values, onCancel }) => {
           id={int.uid}
           text={{
             content:
-              int.parentId === '__PARENT__' ? `All ${int.value}` : int.value
+              int.parentId === '__PARENT__' ? `All ${int.value}` : int.value,
+            styleClasses: 'text-sm'
           }}
         />
       ))}

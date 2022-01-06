@@ -57,7 +57,7 @@ const SearchTopSection: FC<Props> = ({ filterValues, updateParentState }) => {
                 wrapperClasses='text-center xl:text-left !mb-10'
                 content='Find the perfect gift'
               />
-              <div className='flex items-center'>
+              <div className='flex flex-col items-start'>
                 <Button
                   text={`Filter By Interests${
                     values[FilterDBKeys.interests]!.length
@@ -69,16 +69,18 @@ const SearchTopSection: FC<Props> = ({ filterValues, updateParentState }) => {
                   wrapperClasses=''
                   onClick={() => updateInterestPopeverOpen(true)}
                 />
-                <ShowSelectedInterests
-                  values={
-                    values[FilterDBKeys.interests]
-                      ? (values[FilterDBKeys.interests] as Array<string>)
-                      : []
-                  }
-                  onCancel={updated => {
-                    updateInterestsToParent(updated);
-                  }}
-                />
+                <div className=' mt-2'>
+                  <ShowSelectedInterests
+                    values={
+                      values[FilterDBKeys.interests]
+                        ? (values[FilterDBKeys.interests] as Array<string>)
+                        : []
+                    }
+                    onCancel={updated => {
+                      updateInterestsToParent(updated);
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
