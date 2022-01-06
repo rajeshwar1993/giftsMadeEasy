@@ -10,9 +10,14 @@ import ShowSelectedInterests from './showSelectedInterests';
 type Props = {
   filterValues: Filter;
   updateParentState: (key: string, value: string | Array<string>) => void;
+  openMobileFilter: () => void;
 };
 
-const SearchTopSection: FC<Props> = ({ filterValues, updateParentState }) => {
+const SearchTopSection: FC<Props> = ({
+  filterValues,
+  updateParentState,
+  openMobileFilter
+}) => {
   const [interestPopoverOpen, updateInterestPopeverOpen] = useState(false);
 
   const [values, updateValues] = useState(filterValues.convertToJson());
@@ -43,6 +48,7 @@ const SearchTopSection: FC<Props> = ({ filterValues, updateParentState }) => {
                 text='Filters (3)'
                 defautStyle='cust-btn-link'
                 styleClasses='text-base'
+                onClick={openMobileFilter}
               />
             </div>
             <div className='xl:hidden'>
@@ -50,6 +56,7 @@ const SearchTopSection: FC<Props> = ({ filterValues, updateParentState }) => {
                 text='Interests (4)'
                 defautStyle='cust-btn-link'
                 styleClasses='text-base'
+                onClick={() => updateInterestPopeverOpen(true)}
               />
             </div>
             <div className='hidden xl:block'>

@@ -18,9 +18,16 @@ import { Gender } from '../../models/enums';
 type Props = {
   filterValues: Filter;
   updateParentState: (key: string, value: string | Array<string>) => void;
+  showMobileFilters: boolean;
+  onCloseMobileFilters: () => void;
 };
 
-const Filters: FC<Props> = ({ filterValues, updateParentState }) => {
+const Filters: FC<Props> = ({
+  filterValues,
+  updateParentState,
+  showMobileFilters,
+  onCloseMobileFilters
+}) => {
   const [values, updateValues] = useState(filterValues.convertToJson());
 
   useEffect(() => {
@@ -42,78 +49,106 @@ const Filters: FC<Props> = ({ filterValues, updateParentState }) => {
   return (
     <>
       <aside className='w-1/5 pr-2 hidden xl:block p-4 '>
-        <div className='flex flex-col sticky top-[88px]'>
-          <div className='mb-4'>
-            <Text content='Filter By:' styleClasses='font-semibold' />
-          </div>
-          {/* Relationship Filter */}
-          <div className='mb-8'>
-            <ListBoxComp
-              filterKey={FilterDBKeys.relationship}
-              title={{ content: 'Relationship' }}
-              selectedOption={getOptionFromValue(
-                DataConfig.relationship,
-                values[FilterDBKeys.relationship],
-                'Relationship'
-              )}
-              onSelected={updateListValues}
-              options={createListboxOptions(
-                DataConfig.relationship,
-                'Relationship'
-              )}
-            />
-          </div>
-          {/* Age Filter */}
-          <div className='mb-8'>
-            <ListBoxComp
-              filterKey={FilterDBKeys.ageGrp}
-              title={{ content: 'Age Group' }}
-              selectedOption={getOptionFromValue(
-                DataConfig.ageGrp,
-                values[FilterDBKeys.ageGrp],
-                'Age Group'
-              )}
-              onSelected={updateListValues}
-              options={createListboxOptions(DataConfig.ageGrp, 'Age Group')}
-            />
-          </div>
-          {/* Rel Filter */}
-          <div className='mb-8'>
-            <ListBoxComp
-              filterKey={FilterDBKeys.occasion}
-              title={{ content: 'Occasion' }}
-              selectedOption={getOptionFromValue(
-                DataConfig.occasion,
-                values[FilterDBKeys.occasion],
-                'Occasion'
-              )}
-              onSelected={updateListValues}
-              options={createListboxOptions(DataConfig.occasion, 'Occasion')}
-            />
-          </div>
-          {/* Gender Filter */}
-          <div className='mb-8'>
-            <CheckBoxGroup
-              title={{ content: 'Gender' }}
-              filterKey={FilterDBKeys.gender}
-              checkList={[
-                { text: 'Female', value: Gender.Female },
-                { text: 'Male', value: Gender.Male }
-              ]}
-              selected={
-                values[FilterDBKeys.gender]
-                  ? (values[FilterDBKeys.gender] as Array<string>)
-                  : []
-              }
-              onChangeHandler={updateCheckboxValues}
-            />
-          </div>
+        <div className='sticky top-[88px]'>
+          <FilterBody
+            values={values}
+            updateListValues={updateListValues}
+            updateCheckboxValues={updateCheckboxValues}
+          />
         </div>
       </aside>
 
       {/* Mobile Filters */}
-      <MobileFilters />
+      <MobileFilters show={showMobileFilters} onClose={onCloseMobileFilters}>
+        <FilterBody
+          values={values}
+          updateListValues={updateListValues}
+          updateCheckboxValues={updateCheckboxValues}
+        />
+      </MobileFilters>
     </>
+  );
+};
+
+type BodyProp = {
+  values: any;
+  updateListValues: (data: ListBoxOption, key: string) => void;
+  updateCheckboxValues: (key: string, value: Array<string>) => void;
+};
+
+const FilterBody: FC<BodyProp> = ({
+  values,
+  updateListValues,
+  updateCheckboxValues
+}) => {
+  return (
+    <div className='flex flex-col'>
+      <div className='mb-4'>
+        <Text content='Filter By:' styleClasses='font-semibold' />
+      </div>
+      {/* Relationship Filter */}
+      <div className='mb-8'>
+        <ListBoxComp
+          filterKey={FilterDBKeys.relationship}
+          title={{ content: 'Relationship' }}
+          selectedOption={getOptionFromValue(
+            DataConfig.relationship,
+            values[FilterDBKeys.relationship],
+            'Relationship'
+          )}
+          onSelected={updateListValues}
+          options={createListboxOptions(
+            DataConfig.relationship,
+            'Relationship'
+          )}
+        />
+      </div>
+      {/* Age Filter */}
+      <div className='mb-8'>
+        <ListBoxComp
+          filterKey={FilterDBKeys.ageGrp}
+          title={{ content: 'Age Group' }}
+          selectedOption={getOptionFromValue(
+            DataConfig.ageGrp,
+            values[FilterDBKeys.ageGrp],
+            'Age Group'
+          )}
+          onSelected={updateListValues}
+          options={createListboxOptions(DataConfig.ageGrp, 'Age Group')}
+        />
+      </div>
+      {/* Rel Filter */}
+      <div className='mb-8'>
+        <ListBoxComp
+          filterKey={FilterDBKeys.occasion}
+          title={{ content: 'Occasion' }}
+          selectedOption={getOptionFromValue(
+            DataConfig.occasion,
+            values[FilterDBKeys.occasion],
+            'Occasion'
+          )}
+          onSelected={updateListValues}
+          options={createListboxOptions(DataConfig.occasion, 'Occasion')}
+        />
+      </div>
+      {/* Gender Filter */}
+      <div className='mb-8'>
+        <CheckBoxGroup
+          title={{ content: 'Gender' }}
+          filterKey={FilterDBKeys.gender}
+          checkList={[
+            { text: 'Female', value: Gender.Female },
+            { text: 'Male', value: Gender.Male }
+          ]}
+          selected={
+            values[FilterDBKeys.gender]
+              ? (values[FilterDBKeys.gender] as Array<string>)
+              : []
+          }
+          onChangeHandler={updateCheckboxValues}
+        />
+      </div>
+    </div>
   );
 };
 

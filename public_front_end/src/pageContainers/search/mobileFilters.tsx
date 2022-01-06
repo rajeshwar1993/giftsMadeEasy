@@ -1,14 +1,19 @@
 import { Dialog, Transition } from '@headlessui/react';
-import React, { Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 import { Button } from '../../components';
 
-const MobileFilters = () => {
+type Props = {
+  show: boolean;
+  onClose: () => void;
+};
+
+const MobileFilters: FC<Props> = ({ show, children, onClose }) => {
   return (
-    <Transition.Root show={false} as={Fragment}>
+    <Transition.Root show={show} as={Fragment}>
       <Dialog
         as='div'
         className='fixed inset-0 flex z-40 lg:hidden '
-        onClose={() => {}}
+        onClose={onClose}
       >
         <Transition.Child
           as={Fragment}
@@ -25,7 +30,7 @@ const MobileFilters = () => {
               <Button
                 wrapperClasses='-m-2 p-2 rounded-md inline-flex text-skin-primary'
                 styleClasses='!border-0 !px-2'
-                onClick={() => {}}
+                onClick={onClose}
                 icon={{
                   size: '26',
                   iconName: 'Close'
@@ -42,14 +47,14 @@ const MobileFilters = () => {
 
             {/* Links */}
             <div className='overlow-y-auto h-full flex justify-center items-center'>
-              Filters
+              {children}
             </div>
             {/* Bottom buttons */}
             <div className='flex justify-between items-center'>
               <Button
                 wrapperClasses='p-2 rounded-md inline-flex text-skin-primary w-full'
                 styleClasses=' !px-2 text-lg w-full'
-                onClick={() => {}}
+                onClick={onClose}
                 text='Cancel'
               />
               <Button

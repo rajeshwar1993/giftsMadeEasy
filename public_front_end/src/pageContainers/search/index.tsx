@@ -8,6 +8,7 @@ import SearchTopSection from './topSection';
 const SearchPage = () => {
   const router = useRouter();
   const [filterValues, updateFilterValues] = useState<Filter>(new Filter());
+  const [showMobileFilters, updateShowMobileFilters] = useState(false);
 
   // read URL values on first render
   useEffect(() => {
@@ -42,12 +43,15 @@ const SearchPage = () => {
       <SearchTopSection
         filterValues={filterValues}
         updateParentState={handleFilterChange}
+        openMobileFilter={() => updateShowMobileFilters(true)}
       />
       {/* Filter and List */}
       <div className='flex flex-row xl:mt-0 mt-4'>
         <Filters
           filterValues={filterValues}
           updateParentState={handleFilterChange}
+          showMobileFilters={showMobileFilters}
+          onCloseMobileFilters={() => updateShowMobileFilters(false)}
         />
 
         <div className='xl:px-4 w-full xl:w-4/5'>
