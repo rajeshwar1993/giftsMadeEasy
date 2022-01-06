@@ -34,24 +34,6 @@ export const layoutConfig: LayoutConfigType = {
         text: 'Product',
         link: '/product'
       }
-    ],
-    rightSideNav: [
-      {
-        text: 'Contact Us',
-        link: `mailto:${CONTACT_EMAIL}`,
-        icon: {
-          iconName: 'Email'
-        },
-        showOnlyIcon: true
-      },
-      {
-        icon: {
-          iconName: 'Lightbulb'
-        },
-        onClick: toggleTheme,
-        showOnlyIcon: true,
-        styleClasses: '!border-0'
-      }
     ]
   },
   footer: {

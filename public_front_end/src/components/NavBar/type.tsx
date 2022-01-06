@@ -8,5 +8,4 @@ export interface NavConfig {
     alt: string;
   };
   leftSideNav: Array<ButtonType>;
-  rightSideNav: Array<ButtonType>;
 }

@@ -8,9 +8,9 @@ export const createListboxOptions = (
 ) => {
   let options = [{ name: defaultValue, value: DEFAULT_LIST_VALUE }];
 
-  Object.keys(dataObj).map(key => {
+  for (const key in dataObj) {
     options.push({ name: key, value: dataObj[key] });
-  });
+  }
 
   return options;
 };
@@ -22,11 +22,11 @@ export const getOptionFromValue = (
 ) => {
   let option: ListBoxOption = { name: defaultName, value: DEFAULT_LIST_VALUE };
 
-  Object.keys(dataObj).forEach(key => {
+  for (const key in dataObj) {
     if (dataObj[key] === value) {
       option = { name: key, value };
     }
-  });
+  }
 
   return option;
 };
