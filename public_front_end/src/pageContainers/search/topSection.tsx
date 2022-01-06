@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { FilterDBKeys } from '../../common/dbKeys';
 import { Button, SectionTitle } from '../../components';
 import ListBoxComp from '../../components/Reusable/ListBox';
@@ -30,6 +30,19 @@ const SearchTopSection: FC<Props> = ({
     updateParentState(FilterDBKeys.interests, values);
   };
 
+  let filterCount = useMemo(() => {
+    let count = 0;
+    for (let key in values) {
+      if (key !== FilterDBKeys.interests)
+        if (Array.isArray(values[key]) && values[key]!.length > 0) {
+          count += 1;
+        } else if (!Array.isArray(values[key]) && values[key] !== '') {
+          count += 1;
+        }
+    }
+    return count;
+  }, [values]);
+
   return (
     <>
       <div className='xl:hidden'>
@@ -45,7 +58,7 @@ const SearchTopSection: FC<Props> = ({
             {/* Mobile Filter Button */}
             <div className='xl:hidden mr-4'>
               <Button
-                text='Filters (3)'
+                text={`Filters${filterCount ? ` (${filterCount})` : ''}`}
                 defautStyle='cust-btn-link'
                 styleClasses='text-base'
                 onClick={openMobileFilter}
@@ -53,7 +66,11 @@ const SearchTopSection: FC<Props> = ({
             </div>
             <div className='xl:hidden'>
               <Button
-                text='Interests (4)'
+                text={`Interests ${
+                  values[FilterDBKeys.interests]!.length
+                    ? ` (${values[FilterDBKeys.interests]!.length})`
+                    : ''
+                }`}
                 defautStyle='cust-btn-link'
                 styleClasses='text-base'
                 onClick={() => updateInterestPopeverOpen(true)}
