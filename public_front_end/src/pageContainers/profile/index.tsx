@@ -7,8 +7,9 @@ import { FS_INTEREST_TAGS_DB, FS_USER_DB } from '../../models/constants';
 import User from '../../models/User';
 import { useAppDispatch } from '../../redux/store';
 import { ur_updateUser } from '../../redux/user';
-import ProfileDetailsSection from './profileDetailsSection';
 import ProfileImageSection from './profileImageSection';
+import ProfileDetailsSection from './profileDetailsSection';
+import { Gender } from '../../models/enums';
 
 type Props = {
   user: User;
@@ -24,6 +25,19 @@ const ProfilePage: FC<Props> = ({ user }) => {
         [UserDBKeys.aboutText]: text
       });
       dispatch(ur_updateUser({ key: UserDBKeys.aboutText, value: text }));
+    } catch (e) {
+      console.log(e);
+      // TODO handle error properly
+    }
+  };
+
+  const updateGender = async (g: Gender) => {
+    try {
+      const userRef = collection(db, FS_USER_DB);
+      await updateDoc(doc(userRef, user.uid), {
+        [UserDBKeys.gender]: g.toString()
+      });
+      dispatch(ur_updateUser({ key: UserDBKeys.gender, value: g.toString() }));
     } catch (e) {
       console.log(e);
       // TODO handle error properly
@@ -106,6 +120,7 @@ const ProfilePage: FC<Props> = ({ user }) => {
             updateAboutText={updateAboutText}
             updateDates={updateDates}
             updateInterestTags={updateInterestTags}
+            updateGender={updateGender}
           />
         </div>
       </div>

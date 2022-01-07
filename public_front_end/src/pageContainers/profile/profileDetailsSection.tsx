@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
+import { Gender } from '../../models/enums';
 
 import User from '../../models/User';
 import BookmarksSection from './bookmakrs';
 import ProfileAboutSection from './profileAboutSection';
+import ProfileGenderSection from './profileGenderSection';
 import ProfileImpDatesSection from './profileImpDates';
 import ProfileInterestedInSection from './profileInteredtedInSection';
 import WishListSection from './wishList';
@@ -12,13 +14,15 @@ type Props = {
   updateAboutText: (text: string) => void;
   updateDates: (dob: string, relDate: string) => void;
   updateInterestTags: (tags: Array<string>) => void;
+  updateGender: (g: Gender) => void;
 };
 
 const ProfileDetailsSection: FC<Props> = ({
   user,
   updateAboutText,
   updateDates,
-  updateInterestTags
+  updateInterestTags,
+  updateGender
 }) => {
   return (
     <div>
@@ -36,15 +40,23 @@ const ProfileDetailsSection: FC<Props> = ({
           updateInterestTags(tags);
         }}
       />
-      <div className='mb-10'>
-        <ProfileImpDatesSection
-          dob={user.dob}
-          relDate={user.relDate}
-          onSaveClick={(dob: string, relDate: string) => {
-            console.log(dob, relDate);
-            updateDates(dob, relDate);
-          }}
-        />
+      <div className='flex flex-col xl:flex-row justify-between mb-10'>
+        <div className='w-full xl:w-2/5'>
+          <ProfileImpDatesSection
+            dob={user.dob}
+            relDate={user.relDate}
+            onSaveClick={(dob: string, relDate: string) => {
+              console.log(dob, relDate);
+              updateDates(dob, relDate);
+            }}
+          />
+        </div>
+        <div className='w-full xl:w-2/5'>
+          <ProfileGenderSection
+            gender={user.gender}
+            onSaveClick={updateGender}
+          />
+        </div>
       </div>
       <div className='mb-10'>
         <WishListSection />

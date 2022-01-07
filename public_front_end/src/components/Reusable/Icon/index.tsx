@@ -154,6 +154,16 @@ const Icon: FC<Props> = ({
         IconToUse = MdExitToApp;
         break;
 
+      case 'Male':
+        let { MdMale } = await import('react-icons/md');
+        IconToUse = MdMale;
+        break;
+
+      case 'Female':
+        let { MdFemale } = await import('react-icons/md');
+        IconToUse = MdFemale;
+        break;
+
       default:
         let { MdDoDisturb } = await import('react-icons/md');
         IconToUse = MdDoDisturb;

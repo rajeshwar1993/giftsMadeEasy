@@ -60,7 +60,10 @@ class User {
     u.phoneNumber = inp[UserDBKeys.phoneNumber];
     u.dob = inp[UserDBKeys.dob];
     u.imgUrl = inp[UserDBKeys.imgUrl];
-    u.gender = inp[UserDBKeys.gender];
+    u.gender =
+      inp[UserDBKeys.gender] === Gender.Female.toString()
+        ? Gender.Female
+        : Gender.Male;
     u.relDate = inp[UserDBKeys.relDate];
     u.interestedTags = inp[UserDBKeys.interestedTags];
 
