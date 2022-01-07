@@ -41,7 +41,7 @@ const ProfileDetailsSection: FC<Props> = ({
         }}
       />
       <div className='flex flex-col xl:flex-row justify-between mb-10'>
-        <div className='w-full xl:w-2/5'>
+        <div className='xl:mr-40 xl:min-w-[520px]'>
           <ProfileImpDatesSection
             dob={user.dob}
             relDate={user.relDate}
@@ -51,7 +51,7 @@ const ProfileDetailsSection: FC<Props> = ({
             }}
           />
         </div>
-        <div className='w-full xl:w-2/5'>
+        <div className='xl:min-w-[320px]'>
           <ProfileGenderSection
             gender={user.gender}
             onSaveClick={updateGender}

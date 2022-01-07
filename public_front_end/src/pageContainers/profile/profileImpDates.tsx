@@ -17,8 +17,8 @@ const ProfileImpDatesSection: FC<Props> = ({ dob, relDate, onSaveClick }) => {
   const relRef = useRef<any>(null);
 
   return (
-    <div>
-      <div className='flex flex-row justify-between items-center'>
+    <div className='xl:max-w-fit'>
+      <div className={`flex flex-row justify-between items-center`}>
         <SectionTitle content='Dates' />
         <div>
           {!editMode && (
@@ -68,9 +68,9 @@ const ProfileImpDatesSection: FC<Props> = ({ dob, relDate, onSaveClick }) => {
         </div>
       </div>
 
-      <div className='mb-10'>
+      <div className='mb-10 '>
         {!editMode && (
-          <div className='flex flex-row'>
+          <div className='flex flex-row xl:mr-20'>
             <div className='flex flex-col justify-center items-center pr-10'>
               <Icon iconName='Cake' size='80' />
               <Text
