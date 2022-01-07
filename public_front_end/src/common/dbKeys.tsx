@@ -1,5 +1,4 @@
 export const UserDBKeys = {
-  uid: 'uid',
   name: 'n',
   aboutText: 'ab',
   isAnonymous: 'ia',
@@ -24,13 +23,17 @@ export const FilterDBKeys = {
 };
 
 export const ProductDBKeys = {
-  uid: 'uid',
+  apid: 'apid',
   title: 't',
   desc: 'd',
-  productImgUrl: 'piu',
+  productImgUrls: 'piu',
   price: 'p',
-  sourceUrl: 'su',
+  productUrl: 'su',
   affiliateUrl: 'au',
+  occasionTags: 'ot',
+  overviewPoints: 'op',
+  featureList: 'fl',
+  relationshipTags: 'rt',
   interestTags: 'it',
   genderTags: 'gt',
   ageTags: 'at'

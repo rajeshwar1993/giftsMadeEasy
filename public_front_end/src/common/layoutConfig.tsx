@@ -19,11 +19,7 @@ export const layoutConfig: LayoutConfigType = {
         link: '/search'
       },
       {
-        text: 'Login',
-        link: '/login'
-      },
-      {
-        text: 'Signup',
+        text: 'Signin',
         link: '/auth/signup'
       },
       {

@@ -1,8 +1,9 @@
 import React, { FC, Fragment } from 'react';
-import Link from 'next/link';
 import { Dialog, Transition } from '@headlessui/react';
 import { NavConfig } from './type';
-import { Button, Icon } from '..';
+import { Button, Icon, SectionTitle } from '..';
+import { APP_NAME } from '../../common/appConfig';
+import { useRouter } from 'next/router';
 
 type Props = {
   config: NavConfig;
@@ -11,6 +12,7 @@ type Props = {
 };
 
 const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
+  const router = useRouter();
   return (
     <Transition.Root show={menuOpen} as={Fragment}>
       <Dialog
@@ -41,22 +43,21 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
             {/* Links */}
 
             <div className=' flex flex-col items-center py-6 px-4 space-y-6'>
+              <SectionTitle content={APP_NAME} />
               {config.leftSideNav.map((btn, i) => (
                 <div key={i} className='flow-root p-2'>
                   <Button
                     key={i}
-                    link={btn.link}
                     onClick={() => {
+                      router.push(`${btn.link}`);
                       toggleMenuOpen(false);
-                      if (btn.onClick) {
-                        btn.onClick();
-                      }
                     }}
                     text={btn.text}
                     icon={btn.icon}
                     showOnlyIcon={btn.showOnlyIcon}
                     wrapperClasses={`border-0 ${btn.wrapperClasses}`}
                     styleClasses={`text-skin-primary ${btn.styleClasses}`}
+                    defautStyle='cust-btn-link'
                   />
                 </div>
               ))}
