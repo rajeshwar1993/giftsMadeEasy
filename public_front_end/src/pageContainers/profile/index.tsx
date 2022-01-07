@@ -1,5 +1,5 @@
 import { collection, doc, increment, updateDoc } from 'firebase/firestore';
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 
 import { db } from '../../firebase';
 import { InterestTagDBKeys, UserDBKeys } from '../../common/dbKeys';
@@ -59,6 +59,19 @@ const ProfilePage: FC<Props> = ({ user }) => {
     }
   };
 
+  const saveProfileImgUrl = async (url: string) => {
+    try {
+      const userRef = collection(db, FS_USER_DB);
+      await updateDoc(doc(userRef, user.uid), {
+        [UserDBKeys.imgUrl]: url
+      });
+      dispatch(ur_updateUser({ key: UserDBKeys.imgUrl, value: url }));
+    } catch (e) {
+      console.log(e);
+      // TODO handle error properly
+    }
+  };
+
   const updateInterestTags = async (updatedTags: Array<string>) => {
     try {
       // TODO - do thorough testing around this functionality (integration testing)
@@ -111,7 +124,12 @@ const ProfilePage: FC<Props> = ({ user }) => {
       <div className='flex flex-col xl:flex-row'>
         {/* left section */}
         <div className=' xl:w-1/5 w-full'>
-          <ProfileImageSection />
+          <ProfileImageSection
+            uid={user.uid}
+            name={user.name}
+            imgUrl={user.imgUrl}
+            saveImgUrl={saveProfileImgUrl}
+          />
         </div>
         {/* right section */}
         <div className='xl:w-4/5 xl:pl-16'>
