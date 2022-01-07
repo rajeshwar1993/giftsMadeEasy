@@ -27,6 +27,7 @@ const SearchPage = () => {
     }
   }, [router.query]);
 
+  // check window width on change
   useEffect(() => {
     if (debounce) {
       clearTimeout(debounce);
@@ -42,6 +43,7 @@ const SearchPage = () => {
     }, 200);
   }, [size]);
 
+  // update the filter copy when opening mobile filters
   useEffect(() => {
     if (showMobileFilters) {
       filterCopy.current = { ...filterValues.convertToJson() };
@@ -49,6 +51,22 @@ const SearchPage = () => {
       filterCopy.current = {};
     }
   }, [showMobileFilters]);
+
+  const handleApplyFilters = () => {
+    // close filter overlay
+    updateShowMobileFilters(false);
+    // create a new Filter Object
+    const fValObj = {
+      ...filterValues.convertToJson()
+    };
+    // update URL state
+    router.replace({
+      pathname: '/search',
+      query: fValObj
+    });
+
+    // TODO make query to get results
+  };
 
   const handleFilterChange = (key: string, value: string | Array<string>) => {
     // create a new Filter Object
@@ -68,7 +86,7 @@ const SearchPage = () => {
         query: fValObj
       });
 
-      // make query
+      // TODO make query to get results
     }
     console.log(Filter.convertJsonToObj(fValObj));
   };
@@ -86,6 +104,7 @@ const SearchPage = () => {
           filterValues={filterValues}
           updateParentState={handleFilterChange}
           showMobileFilters={showMobileFilters}
+          applyMobileFilters={handleApplyFilters}
           onCloseMobileFilters={() => {
             const f = Filter.convertJsonToObj(filterCopy.current);
             updateFilterValues(f);

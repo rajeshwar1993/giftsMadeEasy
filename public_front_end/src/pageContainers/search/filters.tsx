@@ -19,6 +19,7 @@ type Props = {
   filterValues: Filter;
   updateParentState: (key: string, value: string | Array<string>) => void;
   showMobileFilters: boolean;
+  applyMobileFilters: () => void;
   onCloseMobileFilters: () => void;
 };
 
@@ -26,6 +27,7 @@ const Filters: FC<Props> = ({
   filterValues,
   updateParentState,
   showMobileFilters,
+  applyMobileFilters,
   onCloseMobileFilters
 }) => {
   const [values, updateValues] = useState(filterValues.convertToJson());
@@ -62,7 +64,11 @@ const Filters: FC<Props> = ({
       </aside>
 
       {/* Mobile Filters */}
-      <MobileFilters show={showMobileFilters} onClose={onCloseMobileFilters}>
+      <MobileFilters
+        show={showMobileFilters}
+        applyMobileFilters={applyMobileFilters}
+        onClose={onCloseMobileFilters}
+      >
         <FilterBody
           values={values}
           updateListValues={updateListValues}

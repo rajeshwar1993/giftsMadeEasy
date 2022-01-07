@@ -4,10 +4,16 @@ import { Button } from '../../components';
 
 type Props = {
   show: boolean;
+  applyMobileFilters: () => void;
   onClose: () => void;
 };
 
-const MobileFilters: FC<Props> = ({ show, children, onClose }) => {
+const MobileFilters: FC<Props> = ({
+  show,
+  children,
+  applyMobileFilters,
+  onClose
+}) => {
   return (
     <Transition.Root show={show} as={Fragment}>
       <Dialog
@@ -60,7 +66,7 @@ const MobileFilters: FC<Props> = ({ show, children, onClose }) => {
               <Button
                 wrapperClasses='p-2 rounded-md inline-flex text-skin-primary w-full'
                 styleClasses=' !px-2 text-lg w-full'
-                onClick={() => {}}
+                onClick={applyMobileFilters}
                 text='Apply'
               />
             </div>
