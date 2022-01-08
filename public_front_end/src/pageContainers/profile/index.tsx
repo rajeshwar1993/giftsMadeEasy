@@ -1,7 +1,7 @@
 import { collection, doc, increment, updateDoc } from 'firebase/firestore';
-import React, { FC, useRef } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
-import { db } from '../../firebase';
+import { auth, db } from '../../firebase';
 import { InterestTagDBKeys, UserDBKeys } from '../../common/dbKeys';
 import { FS_INTEREST_TAGS_DB, FS_USER_DB } from '../../models/constants';
 import User from '../../models/User';
@@ -10,13 +10,24 @@ import { ur_updateUser } from '../../redux/user';
 import ProfileImageSection from './profileImageSection';
 import ProfileDetailsSection from './profileDetailsSection';
 import { Gender } from '../../models/enums';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 type Props = {
   user: User;
 };
 
 const ProfilePage: FC<Props> = ({ user }) => {
+  const fbAuth = useAuthState(auth);
+
+  const [isMe, updateIsMe] = useState(false);
+
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (user.uid === fbAuth[0]?.uid) {
+      updateIsMe(true);
+    }
+  }, [user, fbAuth]);
 
   const updateAboutText = async (text: string) => {
     try {
@@ -129,6 +140,7 @@ const ProfilePage: FC<Props> = ({ user }) => {
             name={user.name}
             imgUrl={user.imgUrl}
             saveImgUrl={saveProfileImgUrl}
+            isMe={isMe}
           />
         </div>
         {/* right section */}
@@ -139,6 +151,7 @@ const ProfilePage: FC<Props> = ({ user }) => {
             updateDates={updateDates}
             updateInterestTags={updateInterestTags}
             updateGender={updateGender}
+            isMe={isMe}
           />
         </div>
       </div>

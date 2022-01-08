@@ -6,9 +6,15 @@ type Props = {
   dob: string;
   relDate: string;
   onSaveClick: (dob: string, relDate: string) => void;
+  isMe: boolean;
 };
 
-const ProfileImpDatesSection: FC<Props> = ({ dob, relDate, onSaveClick }) => {
+const ProfileImpDatesSection: FC<Props> = ({
+  dob,
+  relDate,
+  onSaveClick,
+  isMe
+}) => {
   const [editMode, toggleEditMode] = useState(false);
   const [dobVal, updateDobVal] = useState(dob);
   const [relVal, updateRelVal] = useState(relDate);
@@ -21,7 +27,7 @@ const ProfileImpDatesSection: FC<Props> = ({ dob, relDate, onSaveClick }) => {
       <div className={`flex flex-row justify-between items-center`}>
         <SectionTitle content='Dates' />
         <div>
-          {!editMode && (
+          {!editMode && isMe && (
             <Button
               icon={{
                 iconName: 'Pencil'

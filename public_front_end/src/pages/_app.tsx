@@ -55,7 +55,7 @@ function WrapperComp(props: any) {
         userData.email = fbUser.email || '';
         userData.isEmailVerified = fbUser.emailVerified;
         userData.isAnonymous = fbUser.isAnonymous;
-        userData.name = fbUser.displayName || '';
+        userData.name = fbUser.displayName || 'Your Name';
 
         // creating entry in firestore
 

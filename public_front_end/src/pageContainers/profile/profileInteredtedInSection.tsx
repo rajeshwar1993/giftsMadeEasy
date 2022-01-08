@@ -14,9 +14,14 @@ import { RootState, useAppDispatch } from '../../redux/store';
 type Props = {
   ints: Array<string>;
   onSaveClick: (tags: Array<string>) => void;
+  isMe: boolean;
 };
 
-const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
+const ProfileInterestedInSection: FC<Props> = ({
+  ints = [],
+  onSaveClick,
+  isMe
+}) => {
   const [editMode, toggleEditMode] = useState(false);
   const [intArray, updateIntArray] = useState<Array<InterestTag>>([]);
   const [tempIntArray, updateTempIntArray] = useState<Array<InterestTag>>([]);
@@ -77,7 +82,7 @@ const ProfileInterestedInSection: FC<Props> = ({ ints = [], onSaveClick }) => {
       <div className='flex flex-row justify-between items-center'>
         <SectionTitle content='Interested In' />
         <div>
-          {!editMode && (
+          {!editMode && isMe && (
             <Button
               icon={{
                 iconName: 'Pencil'

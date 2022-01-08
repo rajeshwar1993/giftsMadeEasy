@@ -8,9 +8,16 @@ type Props = {
   name: string;
   imgUrl: string;
   saveImgUrl: (url: string) => void;
+  isMe: boolean;
 };
 
-const ProfileImageSection: FC<Props> = ({ uid, name, imgUrl, saveImgUrl }) => {
+const ProfileImageSection: FC<Props> = ({
+  uid,
+  name,
+  imgUrl,
+  saveImgUrl,
+  isMe
+}) => {
   const [newImg, updateNewImg] = useState<any>(imgUrl || null);
   const [newImgFile, updateNewImgFile] = useState<any>(null);
   const imgUploadRef = useRef<any>();
@@ -78,7 +85,7 @@ const ProfileImageSection: FC<Props> = ({ uid, name, imgUrl, saveImgUrl }) => {
         <div className='shadow-lg w-40 h-40 xl:w-64 xl:h-64  overflow-hidden border-4 rounded-full '>
           <ImageComponent src={newImg || '/images/person.jpg'} alt={name} />
         </div>
-        {!newImgFile && (
+        {!newImgFile && isMe && (
           <div className='absolute top-2 xl:top-6 left-28 xl:left-[calc(100%-70px)]'>
             <label className='block text-skin-primary bg-skin-fill p-1 rounded-full border-2 border-skin-inverted'>
               <Icon iconName='Camera' />
@@ -129,12 +136,14 @@ const ProfileImageSection: FC<Props> = ({ uid, name, imgUrl, saveImgUrl }) => {
         <div className='my-2 text-center'>
           <Text content={name} tag='h1' styleClasses='text-2xl font-semibold' />
         </div>
-        <Button
-          text='Add To Circle'
-          wrapperClasses='w-full my-2'
-          styleClasses='w-full'
-          onClick={() => {}}
-        />
+        {!isMe && (
+          <Button
+            text='Add To Circle'
+            wrapperClasses='w-full my-2'
+            styleClasses='w-full'
+            onClick={() => {}}
+          />
+        )}
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { Gender } from '../../models/enums';
 type Props = {
   gender: Gender;
   onSaveClick: (g: Gender) => void;
+  isMe: boolean;
 };
 
 const options = [
@@ -23,7 +24,7 @@ const options = [
   }
 ];
 
-const ProfileGenderSection: FC<Props> = ({ gender, onSaveClick }) => {
+const ProfileGenderSection: FC<Props> = ({ gender, onSaveClick, isMe }) => {
   const [editMode, toggleEditMode] = useState(false);
   const [selected, updateSelected] = useState<Gender>(gender);
 
@@ -32,7 +33,7 @@ const ProfileGenderSection: FC<Props> = ({ gender, onSaveClick }) => {
       <div className='flex flex-row justify-between items-center'>
         <SectionTitle content='Gender' />
         <div>
-          {!editMode && (
+          {!editMode && isMe && (
             <Button
               icon={{
                 iconName: 'Pencil'

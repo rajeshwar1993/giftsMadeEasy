@@ -14,7 +14,7 @@ type Props = {
   pageData: User;
 };
 
-const Profile: NextPage<Props> = ({ headerData, pageData }) => {
+const MyProfile: NextPage<Props> = ({ headerData, pageData }) => {
   const router = useRouter();
 
   const { data: user } = useSelector((state: RootState) => state.user);
@@ -39,4 +39,4 @@ const Profile: NextPage<Props> = ({ headerData, pageData }) => {
   );
 };
 
-export default Profile;
+export default MyProfile;

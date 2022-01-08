@@ -15,6 +15,7 @@ type Props = {
   updateDates: (dob: string, relDate: string) => void;
   updateInterestTags: (tags: Array<string>) => void;
   updateGender: (g: Gender) => void;
+  isMe: boolean;
 };
 
 const ProfileDetailsSection: FC<Props> = ({
@@ -22,7 +23,8 @@ const ProfileDetailsSection: FC<Props> = ({
   updateAboutText,
   updateDates,
   updateInterestTags,
-  updateGender
+  updateGender,
+  isMe
 }) => {
   return (
     <div>
@@ -32,6 +34,7 @@ const ProfileDetailsSection: FC<Props> = ({
         onSaveClick={(t: string) => {
           updateAboutText(t);
         }}
+        isMe={isMe}
       />
       {/* Likes */}
       <ProfileInterestedInSection
@@ -39,6 +42,7 @@ const ProfileDetailsSection: FC<Props> = ({
         onSaveClick={(tags: Array<string>) => {
           updateInterestTags(tags);
         }}
+        isMe={isMe}
       />
       <div className='flex flex-col xl:flex-row justify-between mb-10'>
         <div className='xl:mr-40 xl:min-w-[520px]'>
@@ -49,12 +53,14 @@ const ProfileDetailsSection: FC<Props> = ({
               console.log(dob, relDate);
               updateDates(dob, relDate);
             }}
+            isMe={isMe}
           />
         </div>
         <div className='xl:min-w-[320px]'>
           <ProfileGenderSection
             gender={user.gender}
             onSaveClick={updateGender}
+            isMe={isMe}
           />
         </div>
       </div>

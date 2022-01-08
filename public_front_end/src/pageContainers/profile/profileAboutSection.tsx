@@ -4,11 +4,13 @@ import { Button, SectionTitle, Text } from '../../components';
 type Props = {
   text: string;
   onSaveClick: Function;
+  isMe: boolean;
 };
 
 const ProfileAboutSection: FC<Props> = ({
   text = 'Tell us something about your likes or hobbies so that people can find the right gift for you ...',
-  onSaveClick
+  onSaveClick,
+  isMe
 }) => {
   const [editMode, toggleEditMode] = useState(false);
   const [aboutText, updateAboutText] = useState(text);
@@ -20,7 +22,7 @@ const ProfileAboutSection: FC<Props> = ({
       <div className='flex flex-row justify-between items-center'>
         <SectionTitle content='You' />
         <div>
-          {!editMode && (
+          {!editMode && isMe && (
             <Button
               icon={{
                 iconName: 'Pencil'
@@ -66,7 +68,14 @@ const ProfileAboutSection: FC<Props> = ({
 
       <div className='mb-10'>
         {!editMode && (
-          <Text content={aboutText} tag='h3' styleClasses='text-xl' />
+          <Text
+            content={
+              aboutText ||
+              'Tell us something about your likes or hobbies so that people can find the right gift for you ...'
+            }
+            tag='h3'
+            styleClasses='text-xl'
+          />
         )}
         {editMode && (
           <div>

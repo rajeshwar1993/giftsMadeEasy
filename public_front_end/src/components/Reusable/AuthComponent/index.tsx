@@ -1,5 +1,10 @@
 import React from 'react';
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut
+} from 'firebase/auth';
 import { auth } from '../../../firebase';
 import { useSelector } from 'react-redux';
 
@@ -9,8 +14,36 @@ import { Button } from '../..';
 const AuthComponent = () => {
   const { data: userData } = useSelector((state: RootState) => state.user);
 
+  const onSubmitForm = (e: any) => {
+    e.preventDefault();
+    // console.log(e.target[0]);
+    let email = e.target[0].value;
+    let password = e.target[1].value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  };
+
   return (
     <div className='flex flex-col'>
+      <div className='flex flex-col'>
+        <form onSubmit={onSubmitForm}>
+          <input type='email' id='email' placeholder='email' />
+          <input type='password' id='password' placeholder='password' />
+          <button type='submit' id='submit'>
+            Submit
+          </button>
+        </form>
+      </div>
       <Button
         text='Sign in with Google'
         styleClasses='text-xl'
