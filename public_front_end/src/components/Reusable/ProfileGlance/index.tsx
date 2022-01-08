@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { Text, ImageComponent } from '../..';
+import DataConfig from '../../../common/componentConfig';
 import CircleUser from '../../../models/CircleUser';
 import Button from '../Button';
+import { getOptionFromValue } from '../ListBox/utils';
 
 type Props = {
   data: CircleUser;
@@ -20,7 +22,10 @@ const ProfileGlance: FC<Props> = ({ data }) => {
         styleClasses='text-xl font-semibold'
       />
       <Text
-        content={data.relation}
+        content={
+          'My ' +
+          getOptionFromValue(DataConfig.relationship, data.relation, '').name
+        }
         tag='h3'
         styleClasses='text-lg font-light'
       />

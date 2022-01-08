@@ -12,7 +12,8 @@ const Button: FC<Props> = ({
   defautStyle = 'cust-btn-btn',
   styleClasses = '',
   icon,
-  showOnlyIcon = false
+  showOnlyIcon = false,
+  type = 'button'
 }) => {
   const router = useRouter();
 
@@ -27,6 +28,7 @@ const Button: FC<Props> = ({
           }
         }}
         className={`cust-btn-base flex justify-center items-center ${defautStyle} ${styleClasses}`}
+        type={type}
       >
         {icon && <Icon {...icon} size={icon.size || '20'} />}
         {icon && text && !showOnlyIcon && <div className='w-2' />}

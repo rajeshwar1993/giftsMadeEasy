@@ -54,7 +54,7 @@ const ListBoxComp: FC<Props> = ({
           leaveTo='opacity-0'
         >
           <Listbox.Options
-            className={`absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-skin-fill text-skin-primary rounded-md shadow-xl max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm ${optionsStyleClasses}`}
+            className={`absolute z-30 w-full py-1 mt-1 overflow-auto text-base bg-skin-fill text-skin-primary rounded-md shadow-xl max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm ${optionsStyleClasses}`}
           >
             {options.map(option => {
               const isDefault = option.value === DEFAULT_LIST_VALUE;
