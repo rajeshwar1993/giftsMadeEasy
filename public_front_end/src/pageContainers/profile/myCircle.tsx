@@ -29,7 +29,11 @@ import User from '../../models/User';
 import { cu_addUser, cu_init } from '../../redux/myCircleList';
 import { RootState, useAppDispatch } from '../../redux/store';
 
-const MyCircle = () => {
+type Props = {
+  isMe: boolean;
+};
+
+const MyCircle: FC<Props> = ({ isMe }) => {
   const circleUsers = useSelector((state: RootState) => state.circleUser.list);
   const user = useSelector((state: RootState) => state.user.data);
   const dispatch = useAppDispatch();
@@ -129,19 +133,21 @@ const MyCircle = () => {
   return (
     <>
       <div className='grid grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-8'>
-        <div className='flex flex-col space-y-10 justify-center items-center'>
-          <Button
-            icon={{
-              iconName: 'Add',
-              size: '40'
-            }}
-            defautStyle='cust-btn-btn'
-            onClick={() => setOpenModal(true)}
-            styleClasses='text-lg !rounded-full !py-2 !px-2'
-            wrapperClasses='mx-2'
-          />
-          <Text content='Add to Circle' />
-        </div>
+        {isMe && (
+          <div className='flex flex-col space-y-10 justify-center items-center'>
+            <Button
+              icon={{
+                iconName: 'Add',
+                size: '40'
+              }}
+              defautStyle='cust-btn-btn'
+              onClick={() => setOpenModal(true)}
+              styleClasses='text-lg !rounded-full !py-2 !px-2'
+              wrapperClasses='mx-2'
+            />
+            <Text content='Add to Circle' />
+          </div>
+        )}
         {circleUsers.map(cu => (
           <ProfileGlance data={cu} key={cu.uid} />
         ))}
@@ -150,6 +156,9 @@ const MyCircle = () => {
         open={openModal}
         onClose={closeModal}
         userObj={modalUser}
+        userAlreadyinCircle={
+          !!modalUser && !!circleUsers.find(cu => cu.uid === modalUser.uid)
+        }
         searchUser={searchUser}
         addUserToCircle={addUserToCircle}
         resetModalUser={resetModalUser}
@@ -165,6 +174,7 @@ type AddToCircleDialogProps = {
   searchUser: (itendifier: string) => void;
   addUserToCircle: (userToAdd: User, rel: string) => void;
   resetModalUser: () => void;
+  userAlreadyinCircle: boolean;
 };
 
 const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
@@ -173,7 +183,8 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
   userObj,
   searchUser,
   addUserToCircle,
-  resetModalUser
+  resetModalUser,
+  userAlreadyinCircle
 }) => {
   const [relVal, setRelVal] = useState({
     name: 'Relationship',
@@ -305,7 +316,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
                   styleClasses='text-lg mx-auto'
                   wrapperClasses='mx-2'
                 />
-                {userObj && (
+                {userObj && !userAlreadyinCircle && (
                   <Button
                     text={'Add to Circle'}
                     defautStyle='cust-btn-btn'
@@ -318,6 +329,12 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
                     }}
                     styleClasses='text-lg mx-auto'
                     wrapperClasses='mx-2'
+                  />
+                )}
+                {userObj && userAlreadyinCircle && (
+                  <Text
+                    content={'Already in your Circle'}
+                    styleClasses='text-base font-semibold'
                   />
                 )}
               </div>
