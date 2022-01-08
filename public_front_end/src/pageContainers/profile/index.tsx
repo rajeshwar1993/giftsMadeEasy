@@ -136,9 +136,7 @@ const ProfilePage: FC<Props> = ({ user }) => {
         {/* left section */}
         <div className=' xl:w-1/5 w-full'>
           <ProfileImageSection
-            uid={user.uid}
-            name={user.name}
-            imgUrl={user.imgUrl}
+            user={user}
             saveImgUrl={saveProfileImgUrl}
             isMe={isMe}
           />

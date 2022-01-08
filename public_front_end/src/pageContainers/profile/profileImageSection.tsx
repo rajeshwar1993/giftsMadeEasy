@@ -1,26 +1,79 @@
+import { collection, deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { FC, useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Button, Icon, ImageComponent, Text } from '../../components';
-import { storage } from '../../firebase';
+import AddToCircleDialog from '../../components/Reusable/AddToCircleDialog';
+import { db, storage } from '../../firebase';
+import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../models/constants';
+import User from '../../models/User';
+import { cu_removeUser } from '../../redux/myCircleList';
+import { RootState, useAppDispatch } from '../../redux/store';
 
 type Props = {
-  uid: string;
-  name: string;
-  imgUrl: string;
+  user: User;
   saveImgUrl: (url: string) => void;
   isMe: boolean;
 };
 
-const ProfileImageSection: FC<Props> = ({
-  uid,
-  name,
-  imgUrl,
-  saveImgUrl,
-  isMe
-}) => {
-  const [newImg, updateNewImg] = useState<any>(imgUrl || null);
+const ProfileImageSection: FC<Props> = ({ user, saveImgUrl, isMe }) => {
+  const dispatch = useAppDispatch();
+
+  const [newImg, updateNewImg] = useState<any>(user.imgUrl || null);
   const [newImgFile, updateNewImgFile] = useState<any>(null);
   const imgUploadRef = useRef<any>();
+
+  const [inMyCircle, setInMyCircle] = useState(false);
+  const [openAddCircle, setOpenAddCircle] = useState(false);
+  const [activateRemove, setActivteRemove] = useState(false);
+
+  const currentUser = useSelector((state: RootState) => state.user.data);
+  const circleUsers = useSelector((state: RootState) => state.circleUser.list);
+
+  const checkUserAlreadyInCircle = async () => {
+    try {
+      if (circleUsers.length > 0) {
+        if (!!circleUsers.find(cu => cu.uid === user.uid)) {
+          setInMyCircle(true);
+        }
+      } else {
+        const snap = await getDoc(
+          doc(
+            db,
+            `${FS_USER_DB}/${currentUser?.uid}/${FS_USER_MYCIRCLE_DB}`,
+            user.uid
+          )
+        );
+        if (snap.exists()) {
+          setInMyCircle(true);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+      // TODO handle this error
+    }
+  };
+
+  const removeUserFromCircle = async () => {
+    try {
+      setInMyCircle(false);
+      await deleteDoc(
+        doc(
+          db,
+          `${FS_USER_DB}/${currentUser?.uid}/${FS_USER_MYCIRCLE_DB}`,
+          user.uid
+        )
+      );
+      dispatch(cu_removeUser(user.uid));
+    } catch (e) {
+      console.log(e);
+      // TODO handle this error
+    }
+  };
+
+  const closeModal = () => {
+    setOpenAddCircle(false);
+  };
 
   const imgChange = () => {
     let file;
@@ -54,7 +107,7 @@ const ProfileImageSection: FC<Props> = ({
 
       const imageStoreRef = ref(
         storage,
-        `/images/user/PP_${uid}.${
+        `/images/user/PP_${user.uid}.${
           file.name.split('.')[file.name.split('.').length - 1]
         }`
       );
@@ -78,74 +131,142 @@ const ProfileImageSection: FC<Props> = ({
       // TODO handle error
     }
   };
+
+  useEffect(() => {
+    checkUserAlreadyInCircle();
+  }, [currentUser, circleUsers]);
+
   // TODO update the default image
   return (
-    <div className='flex flex-row xl:flex-col justify-center items-center'>
-      <div className='relative'>
-        <div className='shadow-lg w-40 h-40 xl:w-64 xl:h-64  overflow-hidden border-4 rounded-full '>
-          <ImageComponent src={newImg || '/images/person.jpg'} alt={name} />
-        </div>
-        {!newImgFile && isMe && (
-          <div className='absolute top-2 xl:top-6 left-28 xl:left-[calc(100%-70px)]'>
-            <label className='block text-skin-primary bg-skin-fill p-1 rounded-full border-2 border-skin-inverted'>
-              <Icon iconName='Camera' />
-              <input
-                type='file'
-                accept='image/*'
-                className='hidden'
-                name={'galleryimg'}
-                ref={imgUploadRef}
-                onChange={() => imgChange()}
-              />
-            </label>
+    <>
+      <div className='flex flex-row xl:flex-col justify-center items-center'>
+        <div className='relative'>
+          <div className='shadow-lg w-40 h-40 xl:w-64 xl:h-64  overflow-hidden border-4 rounded-full '>
+            <ImageComponent
+              src={newImg || '/images/person.jpg'}
+              alt={user.name}
+            />
           </div>
-        )}
-        {newImgFile && (
-          <>
+          {!newImgFile && isMe && (
             <div className='absolute top-2 xl:top-6 left-28 xl:left-[calc(100%-70px)]'>
-              <Button
-                icon={{
-                  iconName: 'Check'
-                }}
-                defautStyle='cust-btn-btn'
-                onClick={() => {
-                  onImageSave();
-                }}
-                styleClasses='text-lg !rounded-full !py-2 !px-2 text-skin-primary bg-skin-fill'
-                wrapperClasses='mx-2'
-              />
+              <label className='block text-skin-primary bg-skin-fill p-1 rounded-full border-2 border-skin-inverted'>
+                <Icon iconName='Camera' />
+                <input
+                  type='file'
+                  accept='image/*'
+                  className='hidden'
+                  name={'galleryimg'}
+                  ref={imgUploadRef}
+                  onChange={() => imgChange()}
+                />
+              </label>
             </div>
-            <div className='absolute top-2 xl:top-6 left-28 xl:left-2'>
-              <Button
-                icon={{
-                  iconName: 'Close'
-                }}
-                defautStyle='cust-btn-btn'
-                onClick={() => {
-                  updateNewImg(imgUrl);
-                  updateNewImgFile(null);
-                }}
-                styleClasses='text-lg !rounded-full !py-2 !px-2 text-skin-primary bg-skin-fill'
-                wrapperClasses='mx-2'
-              />
-            </div>
-          </>
-        )}
-      </div>
-      <div className='p-2 flex flex-col justify-center items-center w-full'>
-        <div className='my-2 text-center'>
-          <Text content={name} tag='h1' styleClasses='text-2xl font-semibold' />
+          )}
+          {newImgFile && (
+            <>
+              <div className='absolute top-2 xl:top-6 left-28 xl:left-[calc(100%-70px)]'>
+                <Button
+                  icon={{
+                    iconName: 'Check'
+                  }}
+                  defautStyle='cust-btn-btn'
+                  onClick={() => {
+                    onImageSave();
+                  }}
+                  styleClasses='text-lg !rounded-full !py-2 !px-2 text-skin-primary bg-skin-fill'
+                  wrapperClasses='mx-2'
+                />
+              </div>
+              <div className='absolute top-2 xl:top-6 left-28 xl:left-2'>
+                <Button
+                  icon={{
+                    iconName: 'Close'
+                  }}
+                  defautStyle='cust-btn-btn'
+                  onClick={() => {
+                    updateNewImg(user.imgUrl);
+                    updateNewImgFile(null);
+                  }}
+                  styleClasses='text-lg !rounded-full !py-2 !px-2 text-skin-primary bg-skin-fill'
+                  wrapperClasses='mx-2'
+                />
+              </div>
+            </>
+          )}
         </div>
-        {!isMe && (
-          <Button
-            text='Add To Circle'
-            wrapperClasses='w-full my-2'
-            styleClasses='w-full'
-            onClick={() => {}}
-          />
-        )}
+        <div className='p-2 flex flex-col justify-center items-center w-full'>
+          <div className='my-2 text-center'>
+            <Text
+              content={user.name}
+              tag='h1'
+              styleClasses='text-2xl font-semibold'
+            />
+          </div>
+          {!isMe && !inMyCircle && (
+            <Button
+              text='Add To Circle'
+              wrapperClasses='w-full my-2'
+              styleClasses='w-full'
+              onClick={() => setOpenAddCircle(true)}
+            />
+          )}
+          {!isMe && inMyCircle && (
+            <>
+              {!activateRemove && (
+                <Button
+                  icon={{ iconName: 'Check' }}
+                  text='Addded to your circle'
+                  wrapperClasses='w-full my-2'
+                  styleClasses='w-full'
+                  onClick={() => setActivteRemove(true)}
+                />
+              )}
+              {activateRemove && (
+                <div className='flex flex-col items-center space-y-2'>
+                  <Text
+                    content={'Remove from Circle?'}
+                    styleClasses='text-2xl font-semibold'
+                  />
+                  <div className='flex flex-row justify-around '>
+                    <Button
+                      icon={{
+                        iconName: 'Check'
+                      }}
+                      defautStyle='cust-btn-btn'
+                      onClick={() => {
+                        removeUserFromCircle();
+                        setActivteRemove(false);
+                      }}
+                      styleClasses='text-lg !rounded-full !py-2 !px-2'
+                      wrapperClasses='mx-2'
+                    />
+                    <Button
+                      icon={{
+                        iconName: 'Close'
+                      }}
+                      defautStyle='cust-btn-btn'
+                      onClick={() => {
+                        setActivteRemove(false);
+                      }}
+                      styleClasses='text-lg !rounded-full !py-2 !px-2'
+                      wrapperClasses='mx-2'
+                    />
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </div>
-    </div>
+
+      <AddToCircleDialog
+        open={openAddCircle}
+        onClose={closeModal}
+        currentUser={currentUser}
+        isPresentInCircle={inMyCircle}
+        modalUserFromParent={user}
+      />
+    </>
   );
 };
 

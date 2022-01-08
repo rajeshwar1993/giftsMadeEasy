@@ -13,8 +13,8 @@ export const circleUserSlice = createSlice({
     cu_addUser: (state, action: PayloadAction<CircleUser>) => {
       state.list = [...state.list, action.payload];
     },
-    cu_removeUser: (state, action: PayloadAction<CircleUser>) => {
-      state.list = state.list.filter(s => s.uid !== action.payload.uid);
+    cu_removeUser: (state, action: PayloadAction<string>) => {
+      state.list = state.list.filter(s => s.uid !== action.payload);
     }
   }
 });
