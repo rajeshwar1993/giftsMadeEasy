@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import CircleUser from '../models/CircleUser';
 
-const initialState: Array<CircleUser> = [];
+const initialState: { list: Array<CircleUser> } = { list: [] };
 
 export const circleUserSlice = createSlice({
   name: 'circleUser',
   initialState,
   reducers: {
     cu_init: (state, action: PayloadAction<Array<CircleUser>>) => {
-      state = action.payload;
+      state.list = [...action.payload];
     },
     cu_addUser: (state, action: PayloadAction<CircleUser>) => {
-      state = [...state, action.payload];
+      state.list = [...state.list, action.payload];
     },
     cu_removeUser: (state, action: PayloadAction<CircleUser>) => {
-      state = state.filter(s => s.uid !== action.payload.uid);
+      state.list = state.list.filter(s => s.uid !== action.payload.uid);
     }
   }
 });

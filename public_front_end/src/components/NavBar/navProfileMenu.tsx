@@ -60,7 +60,12 @@ const NavProfileMenu = () => {
               </Menu.Item>
             </div>
             <div className='px-1'>
-              <Menu.Item onClick={() => signOut(auth)}>
+              <Menu.Item
+                onClick={() => {
+                  // TODO need to clear all redux stores related to user
+                  signOut(auth);
+                }}
+              >
                 <Button
                   icon={{ iconName: 'Exit' }}
                   text='Signout'
