@@ -40,9 +40,14 @@ export const ProductDBKeys = {
 };
 
 export const InterestTagDBKeys = {
-  uid: 'uid',
   value: 'v',
   productCount: 'pc',
   userCount: 'uc',
   parentId: 'pid'
+};
+
+export const CircleUserDBKeys = {
+  relation: 'rel',
+  imgUrl: 'iu',
+  name: 'n'
 };

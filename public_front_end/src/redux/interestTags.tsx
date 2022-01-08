@@ -15,7 +15,7 @@ const initialState: {
 };
 
 export const interestTagSlice = createSlice({
-  name: 'counter',
+  name: 'interestTags',
   initialState,
   reducers: {
     it_init_tagArray: (state, action: PayloadAction<Array<InterestTag>>) => {
