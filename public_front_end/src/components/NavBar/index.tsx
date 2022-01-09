@@ -1,13 +1,17 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import MobileNav from './mobileNav';
 import { NavConfig } from './type';
-
+import { ref, onValue, update } from 'firebase/database';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import NavProfileMenu from './navProfileMenu';
 import NavNotificationsMenu from './navNotificationsMenu';
 import { Button, Icon } from '..';
+import { rdb } from '../../firebase';
+import { RDB_NOTIFICATIONS_DB } from '../../models/constants';
+import Notifications from '../../models/Notifications';
+import { NotificationDBKeys } from '../../common/dbKeys';
 type Props = {
   config: NavConfig;
 };
@@ -15,8 +19,44 @@ type Props = {
 const NavBar: FC<Props> = ({ config }) => {
   const [menuOpen, toggleMenuOpen] = useState(false);
   const [notificationsOpen, toggleNotificationsOpen] = useState(false);
+  const [notifications, updateNotifications] = useState<Array<Notifications>>(
+    []
+  );
+  const user = useSelector((state: RootState) => state.user.data);
 
-  const { data: user } = useSelector((state: RootState) => state.user);
+  const listenToNotifications = () => {
+    const notificationDbRef = ref(rdb, `${RDB_NOTIFICATIONS_DB}/${user?.uid}`);
+    onValue(notificationDbRef, snapshot => {
+      const data = snapshot.val();
+      console.log(data);
+      let notis: Array<Notifications> = [];
+      for (let key in data) {
+        notis.push(new Notifications(data[key], key));
+      }
+      updateNotifications(notis);
+    });
+  };
+
+  const markNotification = async (op: 'read' | 'dismiss', notiId: string) => {
+    const updates: any = {};
+    switch (op) {
+      case 'read':
+        updates[
+          `${RDB_NOTIFICATIONS_DB}/${user?.uid}/${notiId}/${NotificationDBKeys.read}`
+        ] = true;
+        break;
+
+      case 'dismiss':
+        updates[`${RDB_NOTIFICATIONS_DB}/${user?.uid}/${notiId}`] = null;
+        break;
+    }
+
+    update(ref(rdb), updates);
+  };
+
+  useEffect(() => {
+    if (user?.uid) listenToNotifications();
+  }, [user]);
 
   return (
     <header className='sticky bg-skin-fill top-0 z-10 xl:flex'>
@@ -78,7 +118,7 @@ const NavBar: FC<Props> = ({ config }) => {
                   onClick={() => toggleNotificationsOpen(true)}
                   defautStyle='cust-btn-link'
                   styleClasses='!border-b-0 mx-2 px-2'
-                  topScript={4}
+                  topScript={notifications.filter(n => !n.read).length}
                 />
                 <NavProfileMenu />
               </>
@@ -96,6 +136,8 @@ const NavBar: FC<Props> = ({ config }) => {
       {/* Notification Menu */}
       <NavNotificationsMenu
         open={notificationsOpen}
+        notifications={notifications}
+        markNotification={markNotification}
         closeModal={() => toggleNotificationsOpen(false)}
       />
     </header>

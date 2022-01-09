@@ -10,7 +10,7 @@ export const MeInWhosCircleDBKeys = {
 };
 
 export const NotificationDBKeys = {
-  type: 't', // added in circle
+  type: 't',
   redirectLink: 'rl',
   text: 't',
   read: 'r',

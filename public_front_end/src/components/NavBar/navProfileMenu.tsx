@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
-import React, { Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 import { Button, Icon } from '..';
 
 import { auth } from '../../firebase';

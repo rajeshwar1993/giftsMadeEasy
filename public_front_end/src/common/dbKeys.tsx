@@ -51,3 +51,11 @@ export const CircleUserDBKeys = {
   imgUrl: 'iu',
   name: 'n'
 };
+
+export const NotificationDBKeys = {
+  type: 't',
+  redirectLink: 'rl',
+  text: 't',
+  read: 'r',
+  createdTS: 'ts'
+};

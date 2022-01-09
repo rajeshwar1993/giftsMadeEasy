@@ -1,14 +1,22 @@
-import React, { FC, Fragment, useState } from 'react';
-import { Dialog, Menu, Transition } from '@headlessui/react';
+import React, { FC, Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import { Button, SectionTitle } from '..';
+import Notifications from '../../models/Notifications';
 
 type Props = {
   open: boolean;
+  notifications: Array<Notifications>;
   closeModal: () => void;
+  markNotification: (op: 'read' | 'dismiss', notiId: string) => void;
 };
 
-const NavNotificationsMenu: FC<Props> = ({ open, closeModal }) => {
+const NavNotificationsMenu: FC<Props> = ({
+  open,
+  closeModal,
+  markNotification,
+  notifications
+}) => {
   const router = useRouter();
 
   return (
@@ -49,25 +57,30 @@ const NavNotificationsMenu: FC<Props> = ({ open, closeModal }) => {
 
               {/* Links */}
 
-              <div className=' flex flex-col  items-start py-2 pl-4 pr-12 space-y-6'>
-                <Button
-                  text="Rajeshwar has added you in your circle. See Rajeshwar's profile and add them to your circle as well!"
-                  defautStyle='cust-btn-btn'
-                  wrapperClasses='w-full !mt-2'
-                  styleClasses='w-full !py-3 text-left !border-0 !justify-start'
-                />
-                <Button
-                  text='Rajeshwar has added you in your circle!'
-                  defautStyle='cust-btn-btn'
-                  wrapperClasses='w-full !mt-2'
-                  styleClasses='w-full !py-3 text-left !border-0 !justify-start'
-                />
-                <Button
-                  text='Rajeshwar has added you in your circle!'
-                  defautStyle='cust-btn-btn'
-                  wrapperClasses='w-full !mt-2'
-                  styleClasses='w-full !py-3 text-left !border-0 !justify-start'
-                />
+              <div className=' flex flex-col  items-start py-2 xl:pl-4 pr-6 space-y-6'>
+                {notifications.map(n => (
+                  <div className='flex items-center' key={n.uid}>
+                    <Button
+                      text={n.text}
+                      link={n.redirectLink}
+                      onClick={() => {
+                        markNotification('read', n.uid);
+                        closeModal();
+                      }}
+                      defautStyle='cust-btn-btn'
+                      wrapperClasses='w-full !mt-2'
+                      styleClasses={`w-full !py-3 text-left !border-0 !justify-start ${
+                        n.read ? '!font-light' : '!font-semibold'
+                      }`}
+                    />
+                    <Button
+                      icon={{ iconName: 'Check', size: '20' }}
+                      onClick={() => markNotification('dismiss', n.uid)}
+                      defautStyle='cust-btn-link'
+                      styleClasses='!border-b-0'
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </Transition.Child>
