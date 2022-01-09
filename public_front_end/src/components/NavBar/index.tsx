@@ -78,6 +78,7 @@ const NavBar: FC<Props> = ({ config }) => {
                   onClick={() => toggleNotificationsOpen(true)}
                   defautStyle='cust-btn-link'
                   styleClasses='!border-b-0 mx-2 px-2'
+                  topScript={4}
                 />
                 <NavProfileMenu />
               </>

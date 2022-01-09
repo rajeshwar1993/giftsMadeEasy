@@ -9,5 +9,6 @@ export interface ButtonType {
   defautStyle?: 'cust-btn-btn' | 'cust-btn-link';
   styleClasses?: string;
   showOnlyIcon?: boolean;
+  topScript?: string | number;
   type?: 'button' | 'reset' | 'submit';
 }
