@@ -86,7 +86,6 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
       let cu = CircleUser.convertJsonToObj(
         {
           [CircleUserDBKeys.name]: userToAdd.name,
-          [CircleUserDBKeys.imgUrl]: userToAdd.imgUrl,
           [CircleUserDBKeys.relation]: rel
         },
         userToAdd.uid
@@ -98,7 +97,6 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
       );
       await setDoc(doc(col, userToAdd.uid), {
         [CircleUserDBKeys.name]: userToAdd.name,
-        [CircleUserDBKeys.imgUrl]: userToAdd.imgUrl,
         [CircleUserDBKeys.relation]: rel
       });
 

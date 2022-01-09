@@ -22,7 +22,7 @@ export const generateNotification = async (
       notiObj[NotificationDBKeys.type] =
         NotificationTypes.FirstRegister.toString();
       notiObj[NotificationDBKeys.redirectLink] = '/profile';
-      notiObj[NotificationDBKeys.text] = `You've done it! `;
+      notiObj[NotificationDBKeys.text] = `You've done it! You're here!!`;
       break;
     case NotificationTypes.CompleteProfile:
       notiObj[NotificationDBKeys.type] =

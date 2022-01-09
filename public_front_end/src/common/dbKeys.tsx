@@ -48,7 +48,6 @@ export const InterestTagDBKeys = {
 
 export const CircleUserDBKeys = {
   relation: 'rel',
-  imgUrl: 'iu',
   name: 'n'
 };
 

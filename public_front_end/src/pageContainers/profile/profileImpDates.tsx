@@ -117,7 +117,9 @@ const ProfileImpDatesSection: FC<Props> = ({
               <Text content='Birthday' styleClasses='font-semibold text-lg' />
               <input
                 type={'date'}
-                defaultValue={format(new Date(dobVal), 'yyyy-MM-dd')}
+                defaultValue={
+                  dobVal ? format(new Date(dobVal), 'yyyy-MM-dd') : ''
+                }
                 className='mt-2 border-2 border-skin-accent rounded-lg'
                 ref={dobRef}
               />
@@ -133,7 +135,9 @@ const ProfileImpDatesSection: FC<Props> = ({
               />
               <input
                 type={'date'}
-                defaultValue={format(new Date(relVal), 'yyyy-MM-dd')}
+                defaultValue={
+                  relVal ? format(new Date(relVal), 'yyyy-MM-dd') : ''
+                }
                 className='mt-2 border-2 border-skin-accent rounded-lg'
                 ref={relRef}
               />
