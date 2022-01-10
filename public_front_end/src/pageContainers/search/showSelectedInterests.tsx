@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Chip from '../../components/Reusable/Chip';
 import { db } from '../../firebase';
-import { FS_INTEREST_TAGS_DB } from '../../models/constants';
+import { FS_INTEREST_TAGS_DB } from '../../common/constants';
 import InterestTag from '../../models/Interest';
 import { it_add_tagArray } from '../../redux/interestTags';
 import { RootState, useAppDispatch } from '../../redux/store';

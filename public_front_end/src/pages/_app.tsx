@@ -11,7 +11,7 @@ import { ur_init, ur_setLoading, ur_setError, ur_logout } from '../redux/user';
 import { User as FirebaseUser } from 'firebase/auth';
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import User from '../models/User';
-import { FS_USER_DB } from '../models/constants';
+import { FS_USER_DB } from '../common/constants';
 import { Layout } from '../components';
 
 function MyApp({ Component, pageProps }: AppProps) {

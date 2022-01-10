@@ -8,7 +8,7 @@ import AddToCircleDialog from '../../components/Reusable/AddToCircleDialog';
 import ProfileGlance from '../../components/Reusable/ProfileGlance';
 import { db } from '../../firebase';
 import CircleUser from '../../models/CircleUser';
-import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../models/constants';
+import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../common/constants';
 import { cu_addUser, cu_init } from '../../redux/myCircleList';
 import { RootState, useAppDispatch } from '../../redux/store';
 

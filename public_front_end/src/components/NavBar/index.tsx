@@ -9,7 +9,7 @@ import NavProfileMenu from './navProfileMenu';
 import NavNotificationsMenu from './navNotificationsMenu';
 import { Button, Icon } from '..';
 import { rdb } from '../../firebase';
-import { RDB_NOTIFICATIONS_DB } from '../../models/constants';
+import { RDB_NOTIFICATIONS_DB } from '../../common/constants';
 import Notifications from '../../models/Notifications';
 import { NotificationDBKeys } from '../../common/dbKeys';
 type Props = {

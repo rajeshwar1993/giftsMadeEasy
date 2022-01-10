@@ -1,4 +1,17 @@
-export const APP_NAME = 'TOFA';
-export const CONTACT_EMAIL = 'contact@email.com';
-export const CONTACT_NUMBER = '9999999999';
-export const EXPORT_MODE = 'DYNAMIC';
+import { APP_NAME, CONTACT_EMAIL, CONTACT_NUMBER } from './constants';
+
+const AppConfig = {
+  COMMON: {
+    appName: APP_NAME,
+    relationshipLabel: 'Relationship',
+    ageGroupLabel: 'Age Group',
+    occasionLabel: 'Occasion',
+    genderLabel: 'Gender'
+  },
+  INFO: {
+    contact_email: CONTACT_EMAIL,
+    contact_number: CONTACT_NUMBER
+  }
+};
+
+export default AppConfig;

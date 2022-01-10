@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../../redux/store';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../../firebase';
-import { FS_INTEREST_TAGS_DB } from '../../../models/constants';
+import { FS_INTEREST_TAGS_DB } from '../../../common/constants';
 import { InterestTagDBKeys } from '../../../common/dbKeys';
 import {
   it_init_HierarchyArray,

@@ -2,7 +2,7 @@ import React, { FC, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { NavConfig } from './type';
 import { Button, Icon, SectionTitle } from '..';
-import { APP_NAME } from '../../common/appConfig';
+import AppConfig from '../../common/appConfig';
 import { useRouter } from 'next/router';
 
 type Props = {
@@ -43,7 +43,7 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
             {/* Links */}
 
             <div className=' flex flex-col items-center py-6 px-4 space-y-6'>
-              <SectionTitle content={APP_NAME} />
+              <SectionTitle content={AppConfig.COMMON.appName} />
               {config.leftSideNav.map((btn, i) => (
                 <div key={i} className='flow-root p-2'>
                   <Button

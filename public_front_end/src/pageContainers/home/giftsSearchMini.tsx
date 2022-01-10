@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { useRouter } from 'next/router';
 import DataConfig from '../../common/componentConfig';
+import AppConfig from '../../common/appConfig';
 
 import { FilterDBKeys } from '../../common/dbKeys';
 import { Button, SectionTitle } from '../../components';
@@ -17,14 +18,17 @@ const GiftsSearchMini = () => {
 
   const [searchParams, updateSearchParams] = useState({
     [FilterDBKeys.relationship]: {
-      name: 'Relationship',
+      name: AppConfig.COMMON.relationshipLabel,
       value: DEFAULT_LIST_VALUE
     },
     [FilterDBKeys.ageGrp]: {
-      name: 'Age Group',
+      name: AppConfig.COMMON.ageGroupLabel,
       value: DEFAULT_LIST_VALUE
     },
-    [FilterDBKeys.occasion]: { name: 'Occasion', value: DEFAULT_LIST_VALUE }
+    [FilterDBKeys.occasion]: {
+      name: AppConfig.COMMON.occasionLabel,
+      value: DEFAULT_LIST_VALUE
+    }
   });
 
   const handleListboxOnChange = (data: ListBoxOption, key: string) => {
@@ -36,7 +40,7 @@ const GiftsSearchMini = () => {
 
   return (
     <div className='flex flex-col justify-center items-start w-full'>
-      <SectionTitle content='Quick Search' />
+      <SectionTitle content={'Quick Search'} />
 
       <div className='my-2 flex items-center w-full'>
         <ListBoxComp
@@ -46,7 +50,7 @@ const GiftsSearchMini = () => {
           onSelected={handleListboxOnChange}
           options={createListboxOptions(
             DataConfig.relationship,
-            'Relationship'
+            AppConfig.COMMON.relationshipLabel
           )}
         />
       </div>
@@ -56,7 +60,10 @@ const GiftsSearchMini = () => {
           buttonStyleClasses='text-lg xl:text-xl'
           selectedOption={searchParams[FilterDBKeys.ageGrp]}
           onSelected={handleListboxOnChange}
-          options={createListboxOptions(DataConfig.ageGrp, 'Age Group')}
+          options={createListboxOptions(
+            DataConfig.ageGrp,
+            AppConfig.COMMON.ageGroupLabel
+          )}
         />
       </div>
       <div className='my-2 flex items-center w-full'>
@@ -65,12 +72,15 @@ const GiftsSearchMini = () => {
           buttonStyleClasses='text-lg xl:text-xl'
           selectedOption={searchParams[FilterDBKeys.occasion]}
           onSelected={handleListboxOnChange}
-          options={createListboxOptions(DataConfig.occasion, 'Occasion')}
+          options={createListboxOptions(
+            DataConfig.occasion,
+            AppConfig.COMMON.occasionLabel
+          )}
         />
       </div>
 
       <Button
-        text='Search'
+        text={'Search'}
         onClick={() => {
           router.push({
             pathname: '/search',

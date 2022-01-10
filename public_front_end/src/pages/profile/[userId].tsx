@@ -16,7 +16,7 @@ import { RootState } from '../../redux/store';
 import { HeaderType } from '../../common/types';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { FS_USER_DB } from '../../models/constants';
+import { FS_USER_DB } from '../../common/constants';
 import { ParsedUrlQuery } from 'querystring';
 
 interface Props {

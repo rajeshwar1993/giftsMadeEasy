@@ -1,13 +1,12 @@
 import { LayoutConfigType } from '../components/Layout/type';
-import { scrollToId, toggleTheme } from './utils';
-import { APP_NAME, CONTACT_EMAIL, CONTACT_NUMBER } from './appConfig';
+import AppConfig from './appConfig';
 
 export const layoutConfig: LayoutConfigType = {
   navbar: {
-    title: APP_NAME,
+    title: AppConfig.COMMON.appName,
     logo: {
       img: '/images/logo.png',
-      alt: APP_NAME
+      alt: AppConfig.COMMON.appName
     },
     leftSideNav: [
       {
@@ -64,8 +63,8 @@ export const layoutConfig: LayoutConfigType = {
       }
     ],
     contactInfo: {
-      email: CONTACT_EMAIL,
-      phone: CONTACT_NUMBER
+      email: AppConfig.INFO.contact_email,
+      phone: AppConfig.INFO.contact_number
     }
   }
 };

@@ -23,7 +23,7 @@ import {
   where
 } from 'firebase/firestore';
 import { db } from '../../../firebase';
-import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../../models/constants';
+import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../../common/constants';
 import CircleUser from '../../../models/CircleUser';
 import { useAppDispatch } from '../../../redux/store';
 import { cu_addUser } from '../../../redux/myCircleList';
