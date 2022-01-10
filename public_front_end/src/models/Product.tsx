@@ -1,14 +1,15 @@
 import { ProductDBKeys } from '../common/dbKeys';
 import { AgeGroup, Gender } from './enums';
-import InterestTag from './Interest';
 
 class Prodcut {
   uid: string;
   apid: string; // amazom product id
   title: string;
   desc: string;
+  rating: string;
   productImgUrls: Array<string>;
   price: string;
+  ogPrice: string;
   productUrl: string;
   affiliateUrl: string;
   overviewPoints: Array<{
@@ -27,8 +28,10 @@ class Prodcut {
     this.apid = '';
     this.title = '';
     this.desc = '';
+    this.rating = '';
     this.productImgUrls = [];
     this.price = '';
+    this.ogPrice = '';
     this.productUrl = '';
     this.affiliateUrl = '';
     this.overviewPoints = [];
@@ -44,7 +47,9 @@ class Prodcut {
     [ProductDBKeys.apid]: this.apid,
     [ProductDBKeys.title]: this.title,
     [ProductDBKeys.desc]: this.desc,
+    [ProductDBKeys.rating]: this.rating,
     [ProductDBKeys.price]: this.price,
+    [ProductDBKeys.ogPrice]: this.ogPrice,
     [ProductDBKeys.productUrl]: this.productUrl,
     [ProductDBKeys.affiliateUrl]: this.affiliateUrl,
     [ProductDBKeys.featureList]: this.featureList,
@@ -61,8 +66,10 @@ class Prodcut {
     p.uid = uid;
     p.apid = inp[ProductDBKeys.apid];
     p.title = inp[ProductDBKeys.title];
+    p.rating = inp[ProductDBKeys.rating];
     p.desc = inp[ProductDBKeys.desc];
     p.price = inp[ProductDBKeys.price];
+    p.ogPrice = inp[ProductDBKeys.ogPrice];
     p.productUrl = inp[ProductDBKeys.productUrl];
     p.affiliateUrl = inp[ProductDBKeys.affiliateUrl];
     p.overviewPoints = inp[ProductDBKeys.overviewPoints];

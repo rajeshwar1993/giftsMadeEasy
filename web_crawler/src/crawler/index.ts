@@ -22,16 +22,16 @@ const getWebData = async (page: Page, url: string) => {
   const allData: {
     title: string;
     price: string;
+    ogPrice: string;
     rating: string;
-    totalRatings: string;
     overview: Array<any>;
     description: Array<string>;
     images: Array<string>;
   } = {
     title: '',
     price: '',
+    ogPrice: '',
     rating: '',
-    totalRatings: '',
     overview: [],
     description: [],
     images: []
@@ -41,19 +41,25 @@ const getWebData = async (page: Page, url: string) => {
   allData.title = $(selectors.title).text().trim();
 
   // get price
-  allData.price = $(selectors.price).text();
+  const priceRows = $(selectors.price).find('tr');
 
-  if (!allData.price) {
-    allData.price = $(selectors.deal_price).text();
+  if (priceRows.length > 0) {
+    let ogPrice = $(priceRows[0]).find('.a-offscreen').text();
+    allData.ogPrice = ogPrice;
+    let finalPrice = $(priceRows[1]).find('.a-offscreen').text();
+    allData.price = finalPrice;
+    if (!finalPrice) {
+      allData.price = ogPrice;
+    }
   }
 
   // get rating
   allData.rating = $(selectors.rating).text().split(' ')[0];
 
   // get totalRatings
-  allData.totalRatings = $(selectors.totalRatings).text().split(' ')[0];
+  // allData.totalRatings = $(selectors.totalRatings).text().split(' ')[0];
 
-  // get totalRatings
+  // get overview
   const rows = $(selectors.overview);
 
   // get overview
