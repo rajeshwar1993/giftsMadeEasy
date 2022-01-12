@@ -13,8 +13,8 @@ class Prodcut {
   productUrl: string;
   affiliateUrl: string;
   overviewPoints: Array<{
-    title: string;
-    value: string;
+    key: string;
+    val: string;
   }>;
   featureList: Array<string>;
   relationshipTags: Array<string>;

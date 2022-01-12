@@ -3,7 +3,7 @@ import cheerio from 'cheerio';
 import { selectors } from './dataSectors';
 
 const initPage = async () => {
-  const browser: Browser = await puppeteer.launch();
+  const browser: Browser = await puppeteer.launch({ headless: true });
   const page: Page = await browser.newPage();
   await page.setViewport({ width: 1366, height: 800 });
 
@@ -80,12 +80,21 @@ const getWebData = async (page: Page, url: string) => {
   });
 
   // get images
-  const imgs = $(selectors.images);
+  const imgsTh = await page.$$(selectors.imageThubms);
+  for (let th of imgsTh) {
+    //hover on each element handle
+    await th.hover();
+    await page.waitForTimeout(100);
+  }
+  await page.waitForTimeout(1000);
 
-  imgs.each((i, img) => {
-    const val = $(img).attr('src')?.trim() || '';
-    allData.images.push(val);
-  });
+  const imgs = await page.$$(selectors.images);
+
+  for (let img of imgs) {
+    // allData.images.push(src);
+    let src: any = await (await img.getProperty('src')).jsonValue();
+    allData.images.push(src);
+  }
 
   return allData;
 };

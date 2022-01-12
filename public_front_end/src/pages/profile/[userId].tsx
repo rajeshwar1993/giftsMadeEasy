@@ -1,18 +1,8 @@
-import type {
-  GetStaticProps,
-  GetStaticPropsContext,
-  GetServerSideProps,
-  NextPage,
-  PreviewData
-} from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 import { ProfilePage } from '../../pageContainers';
 import User from '../../models/User';
-import { RootState } from '../../redux/store';
 import { HeaderType } from '../../common/types';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
@@ -48,7 +38,6 @@ export const getServerSideProps: GetServerSideProps<
 > = async context => {
   // must be async
   let { userId } = context.params!;
-  console.log('USERID: ', userId);
 
   let headerData, pageData;
 

@@ -5,5 +5,6 @@ export const selectors = {
   totalRatings: 'span#acrCustomerReviewText',
   overview: '#productOverview_feature_div div table tr',
   description: 'div#feature-bullets ul li',
-  images: 'li.image.item div img'
+  images: '.image.item img',
+  imageThubms: '.item.imageThumbnail'
 };

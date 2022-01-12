@@ -32,33 +32,22 @@ const fetchDataForEachProduct = async () => {
     let data = await getWebData(page, list[i].url);
     console.log(data);
 
-    await docRef.add({
-      [ProductDBKeys.apid]: list[i].id,
-      [ProductDBKeys.productUrl]: list[i].url,
-      [ProductDBKeys.title]: data.title,
-      [ProductDBKeys.price]: data.price,
-      [ProductDBKeys.ogPrice]: data.ogPrice,
-      [ProductDBKeys.rating]: data.rating,
-      [ProductDBKeys.overviewPoints]: data.overview,
-      [ProductDBKeys.featureList]: data.description
-    });
+    // await docRef.add({
+    //   [ProductDBKeys.apid]: list[i].id,
+    //   [ProductDBKeys.productUrl]: list[i].url,
+    //   [ProductDBKeys.title]: data.title,
+    //   [ProductDBKeys.price]: data.price,
+    //   [ProductDBKeys.ogPrice]: data.ogPrice,
+    //   [ProductDBKeys.rating]: data.rating,
+    //   [ProductDBKeys.overviewPoints]: data.overview,
+    //   [ProductDBKeys.featureList]: data.description
+    // });
   }
 
   console.log('Ending parsing');
   console.timeEnd('Op');
   closeBrowser(browser);
 };
-
-// const readTheFile = () => {
-//   return new Promise((resolve, reject) => {
-//     // get all the data
-//     fs.createReadStream('Gifts.csv')
-//       .pipe(parse({ headers: true }))
-//       .on('error', error => reject(error))
-//       .on('data', gatherlist)
-//       .on('end', () => resolve('Done'));
-//   });
-// };
 
 const startProcess = async () => {
   // await readTheFile();
