@@ -32,16 +32,18 @@ const fetchDataForEachProduct = async () => {
     let data = await getWebData(page, list[i].url);
     console.log(data);
 
-    // await docRef.add({
-    //   [ProductDBKeys.apid]: list[i].id,
-    //   [ProductDBKeys.productUrl]: list[i].url,
-    //   [ProductDBKeys.title]: data.title,
-    //   [ProductDBKeys.price]: data.price,
-    //   [ProductDBKeys.ogPrice]: data.ogPrice,
-    //   [ProductDBKeys.rating]: data.rating,
-    //   [ProductDBKeys.overviewPoints]: data.overview,
-    //   [ProductDBKeys.featureList]: data.description
-    // });
+    await docRef.add({
+      [ProductDBKeys.apid]: list[i].id,
+      [ProductDBKeys.productUrl]: list[i].url,
+      [ProductDBKeys.title]: data.title,
+      [ProductDBKeys.price]: data.price,
+      [ProductDBKeys.ogPrice]: data.ogPrice,
+      [ProductDBKeys.rating]: data.rating,
+      [ProductDBKeys.overviewPoints]: data.overview,
+      [ProductDBKeys.featureList]: data.description,
+      [ProductDBKeys.productImgUrls]: data.images,
+      [ProductDBKeys.affiliateUrl]: list[i].url
+    });
   }
 
   console.log('Ending parsing');

@@ -29,7 +29,7 @@ export const ProductDBKeys = {
   productImgUrls: 'piu',
   rating: 'p',
   price: 'p',
-  ogPrice: 'op',
+  ogPrice: 'ogp',
   productUrl: 'su',
   affiliateUrl: 'au',
   occasionTags: 'ot',
