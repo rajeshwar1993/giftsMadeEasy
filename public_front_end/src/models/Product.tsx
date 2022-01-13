@@ -79,6 +79,7 @@ class Prodcut {
     p.interestTags = inp[ProductDBKeys.interestTags];
     p.genderTags = inp[ProductDBKeys.genderTags];
     p.ageTags = inp[ProductDBKeys.ageTags];
+    p.productImgUrls = inp[ProductDBKeys.productImgUrls];
 
     return p;
   };
