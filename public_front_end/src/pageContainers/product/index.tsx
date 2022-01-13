@@ -3,6 +3,7 @@ import { Button, ImageComponent, SectionTitle, Text } from '../../components';
 import useWindowSize from '../../hooks/useWindowSize';
 import Prodcut from '../../models/Product';
 import ImageCarouselSection from './ImageCarouselSection';
+import ProductTitle from './ProductTitle';
 
 type Props = {
   product: Prodcut;
@@ -32,7 +33,7 @@ const ProductPage: FC<Props> = ({ product }) => {
 
   return (
     <section>
-      <div className='flex flex-col xl:flex-row xl:space-x-6'>
+      <div className='flex flex-col space-y-6 xl:flex-row xl:space-x-12'>
         {/* Product Image */}
         <ImageCarouselSection
           images={product.productImgUrls}
@@ -40,55 +41,59 @@ const ProductPage: FC<Props> = ({ product }) => {
         />
 
         {/* Details Section */}
-        <div className='w-full xl:w-3/5 flex flex-row'>
-          <div className='flex flex-col space-y-4'>
-            <Text
-              tag='h1'
-              content={product.title}
-              styleClasses='text-xl xl:text-4xl !font-semibold'
-            />
-            <Text content='Rs 1199' styleClasses='text-3xl font-light' />
-            <div className='flex space-x-4'>
-              <Button
-                text='Buy Now'
-                onClick={() => {}}
-                styleClasses='text-lg'
-              />
-              <Button
-                text='See Details'
-                onClick={() => {}}
-                styleClasses='text-lg'
-              />
+        <div className='flex flex-col space-y-4'>
+          <ProductTitle title={product.title} isDesktop={isDesktop} />
+
+          <div className='flex flex-col space-y-8 xl:flex-row xl:space-x-40 xl:space-y-0'>
+            <div className='flex flex-col justify-between space-y-4'>
+              <div className='flex flex-col space-y-1'>
+                <Text
+                  content={'MRP: ' + product.ogPrice}
+                  styleClasses='text-xl font-light line-through'
+                />
+                <Text
+                  content={'Price: ' + product.price}
+                  styleClasses='text-3xl'
+                />
+              </div>
+
+              <div className='flex flex-col space-y-4 '>
+                <Button
+                  text='Buy Now'
+                  onClick={() => {}}
+                  styleClasses='text-xl w-full'
+                  wrapperClasses='w-full'
+                />
+                <Button
+                  text='See Details'
+                  onClick={() => {}}
+                  styleClasses='text-lg w-full'
+                  wrapperClasses='w-full'
+                />
+              </div>
+            </div>
+            <div>
+              <table className='table-auto'>
+                <tbody>
+                  {product.overviewPoints.map((op, i) => (
+                    <tr key={i}>
+                      <td className='font-bold px-4 py-3'>{op.key}</td>
+                      <td className='font-medium px-4 py-3'>{op.val}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
-          <div>
-            <Button
-              icon={{
-                iconName: 'OutlineFavoriteBorder'
-              }}
-              defautStyle='cust-btn-btn'
-              onClick={() => {}}
-              styleClasses='text-lg !rounded-full !py-2 !px-2'
-              wrapperClasses='mt-2'
-            />
-            <Button
-              icon={{
-                iconName: 'BookmarkBorder'
-              }}
-              defautStyle='cust-btn-btn'
-              onClick={() => {}}
-              styleClasses='text-lg !rounded-full !py-2 !px-2'
-              wrapperClasses='mt-4'
-            />
-            <Button
-              icon={{
-                iconName: 'Share'
-              }}
-              defautStyle='cust-btn-btn'
-              onClick={() => {}}
-              styleClasses='text-lg !rounded-full !py-2 !px-2'
-              wrapperClasses='mt-4'
-            />
+          <div className='pt-4'>
+            <SectionTitle content='Features' styleClasses='!text-3xl' />
+            <ul className='list-disc list-inside'>
+              {product.featureList.map((fl, i) => (
+                <li key={i}>
+                  <Text content={fl} />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

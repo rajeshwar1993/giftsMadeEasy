@@ -10,13 +10,13 @@ const ImageCarouselSection: FC<Props> = ({ images, isDesktop }) => {
   const [selected, setSelected] = useState<number>(0);
 
   return (
-    <div className='w-full xl:w-2/5 flex flex-col space-y-6'>
+    <div className='flex flex-col space-y-6'>
       <div className='rounded-lg overflow-hidden'>
         <ImageComponent
           src={images[selected]}
           alt='product'
-          width={isDesktop ? 600 : 300}
-          height={isDesktop ? 600 : 300}
+          width={isDesktop ? 500 : 300}
+          height={isDesktop ? 500 : 300}
           layout='fixed'
         />
       </div>
