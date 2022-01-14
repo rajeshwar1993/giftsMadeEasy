@@ -9,10 +9,20 @@ import { Provider } from 'react-redux';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { ur_init, ur_setLoading, ur_setError, ur_logout } from '../redux/user';
 import { User as FirebaseUser } from 'firebase/auth';
-import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
-import UserType, { convertUserJsonToObj } from '../models/User';
+import {
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  serverTimestamp
+} from 'firebase/firestore';
+import UserType, {
+  convertUserJsonToObj,
+  convertUserToJson
+} from '../models/User';
 import { FS_USER_DB } from '../common/constants';
 import { Layout } from '../components';
+import { UserDBKeys } from '../common/dbKeys';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -64,7 +74,10 @@ function WrapperComp(props: any) {
 
         const userRef = collection(db, FS_USER_DB);
 
-        await setDoc(doc(userRef, userID), userData);
+        await setDoc(doc(userRef, userID), {
+          ...convertUserToJson(userData),
+          [UserDBKeys.createdTS]: serverTimestamp()
+        });
       }
 
       // then update redux with new or existing data

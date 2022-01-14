@@ -1,4 +1,3 @@
-import { serverTimestamp } from 'firebase/firestore';
 import { UserDBKeys } from '../common/dbKeys';
 import { Gender } from './enums';
 
@@ -35,8 +34,7 @@ export const convertUserToJson = (user: UserType) => ({
   [UserDBKeys.relDate]: user.relDate.toString(),
   [UserDBKeys.interestedTags]: user.interestedTags,
   [UserDBKeys.wishlist]: user.wishlist,
-  [UserDBKeys.bookmarks]: user.bookmarks,
-  [UserDBKeys.createdTS]: user.createdTS
+  [UserDBKeys.bookmarks]: user.bookmarks
 });
 
 export const convertUserJsonToObj = (inp: any, id: string) => {
@@ -59,7 +57,9 @@ export const convertUserJsonToObj = (inp: any, id: string) => {
     interestedTags: inp[UserDBKeys.interestedTags] || [],
     wishlist: inp[UserDBKeys.wishlist] || [],
     bookmarks: inp[UserDBKeys.bookmarks] || [],
-    createdTS: inp[UserDBKeys.createdTS] || serverTimestamp()
+    createdTS: inp[UserDBKeys.createdTS]
+      ? inp[UserDBKeys.createdTS].toDate().toISOString()
+      : ''
   };
 
   return u;
