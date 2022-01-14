@@ -2,6 +2,25 @@ import { serverTimestamp } from 'firebase/firestore';
 import { UserDBKeys } from '../common/dbKeys';
 import { Gender } from './enums';
 
+export interface UserObj {
+  uid: string;
+  name: string;
+  aboutText: string;
+  isAnonymous: boolean;
+  email: string;
+  isEmailVerified: boolean;
+  phoneExt: string;
+  phoneNumber: string;
+  dob: string;
+  imgUrl: string;
+  gender: Gender;
+  relDate: string; // relationship date
+  interestedTags: Array<string>; // array of interstTag ids
+  wishlist: Array<string>;
+  bookmarks: Array<string>;
+  createdTS: any;
+}
+
 class User {
   uid: string;
   name: string;
