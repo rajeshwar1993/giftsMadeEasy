@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import InterestTag from '../models/Interest';
+import InterestTagType from '../models/Interest';
 
 const initialState: {
-  tagArray: Array<InterestTag>;
+  tagArray: Array<InterestTagType>;
   tagHierarchyList: Array<{
-    it: InterestTag;
-    subInterests: Array<InterestTag>;
+    it: InterestTagType;
+    subInterests: Array<InterestTagType>;
   }>;
 } = {
   tagArray: [],
@@ -16,15 +16,18 @@ export const interestTagSlice = createSlice({
   name: 'interestTags',
   initialState,
   reducers: {
-    it_init_tagArray: (state, action: PayloadAction<Array<InterestTag>>) => {
+    it_init_tagArray: (
+      state,
+      action: PayloadAction<Array<InterestTagType>>
+    ) => {
       state.tagArray = action.payload;
     },
     it_init_HierarchyArray: (
       state,
       action: PayloadAction<
         Array<{
-          it: InterestTag;
-          subInterests: Array<InterestTag>;
+          it: InterestTagType;
+          subInterests: Array<InterestTagType>;
         }>
       >
     ) => {
@@ -35,7 +38,7 @@ export const interestTagSlice = createSlice({
     it_update_subInterestList: (
       state,
       action: PayloadAction<{
-        subInterests: Array<InterestTag>;
+        subInterests: Array<InterestTagType>;
         parentId: string;
       }>
     ) => {
@@ -52,7 +55,7 @@ export const interestTagSlice = createSlice({
       });
       // TODO : optimization - save these in tagArray so that it doesn't need to be fetched while displaying
     },
-    it_add_tagArray: (state, action: PayloadAction<Array<InterestTag>>) => {
+    it_add_tagArray: (state, action: PayloadAction<Array<InterestTagType>>) => {
       state.tagArray = [...state.tagArray, ...action.payload];
     }
   }

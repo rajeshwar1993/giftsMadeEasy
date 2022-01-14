@@ -7,7 +7,7 @@ import SelectInterestsPopup from '../../components/Reusable/SelectInterestsPopup
 
 import { db } from '../../firebase';
 import { FS_INTEREST_TAGS_DB } from '../../common/constants';
-import InterestTag from '../../models/Interest';
+import InterestTagType, { convertITJsonToObj } from '../../models/Interest';
 import { it_add_tagArray } from '../../redux/interestTags';
 import { RootState, useAppDispatch } from '../../redux/store';
 
@@ -23,8 +23,10 @@ const ProfileInterestedInSection: FC<Props> = ({
   isMe
 }) => {
   const [editMode, toggleEditMode] = useState(false);
-  const [intArray, updateIntArray] = useState<Array<InterestTag>>([]);
-  const [tempIntArray, updateTempIntArray] = useState<Array<InterestTag>>([]);
+  const [intArray, updateIntArray] = useState<Array<InterestTagType>>([]);
+  const [tempIntArray, updateTempIntArray] = useState<Array<InterestTagType>>(
+    []
+  );
   const [popupOpen, updatePopupOpen] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -35,8 +37,8 @@ const ProfileInterestedInSection: FC<Props> = ({
   const fetchAndUpdateInterests = async (userInterests: Array<string>) => {
     // ! POTENTIAL_ISSUE - revisit this logic, might get complicated if interests become too large
 
-    let finalList: Array<InterestTag> = [];
-    let fetchedList: Array<InterestTag> = [];
+    let finalList: Array<InterestTagType> = [];
+    let fetchedList: Array<InterestTagType> = [];
 
     // check which intestest already present in store
     let interestsToFetch = userInterests.filter(it => {
@@ -57,7 +59,7 @@ const ProfileInterestedInSection: FC<Props> = ({
     const allSnaps = await Promise.all(readPromises);
     allSnaps.forEach(interestSnap => {
       if (interestSnap.exists()) {
-        const intestest = InterestTag.convertJsonToObj(
+        const intestest = convertITJsonToObj(
           interestSnap.data(),
           interestSnap.id
         );

@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { FC, Fragment, useEffect, useState } from 'react';
-import InterestTag from '../../../models/Interest';
+import InterestTagType, { convertITJsonToObj } from '../../../models/Interest';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../../redux/store';
@@ -36,8 +36,8 @@ const SelectInterestsPopup: FC<Props> = ({
     useState<Array<string>>(selectedInts);
 
   const [chosenInterest, updateChosenInterest] = useState<{
-    it: InterestTag;
-    subInterests: Array<InterestTag>;
+    it: InterestTagType;
+    subInterests: Array<InterestTagType>;
   } | null>(null);
 
   const fetchHierarchyInterestList = async () => {
@@ -50,13 +50,13 @@ const SelectInterestsPopup: FC<Props> = ({
     const snaps = await getDocs(primaryDocQuery);
 
     let hList: Array<{
-      it: InterestTag;
-      subInterests: Array<InterestTag>;
+      it: InterestTagType;
+      subInterests: Array<InterestTagType>;
     }> = [];
 
     snaps.forEach(s => {
       hList.push({
-        it: InterestTag.convertJsonToObj(s.data(), s.id),
+        it: convertITJsonToObj(s.data(), s.id),
         subInterests: []
       });
     });
@@ -72,10 +72,10 @@ const SelectInterestsPopup: FC<Props> = ({
     );
     const snaps = await getDocs(primaryDocQuery);
 
-    let sList: Array<InterestTag> = [];
+    let sList: Array<InterestTagType> = [];
 
     snaps.forEach(s => {
-      sList.push(InterestTag.convertJsonToObj(s.data(), s.id));
+      sList.push(convertITJsonToObj(s.data(), s.id));
     });
     dispatch(it_update_subInterestList({ subInterests: sList, parentId }));
   };

@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { Text } from '../..';
 import { SectionTitleType as Props } from './type';
 
-const SectionTitle: FC<Props> = props => {
+const SectionTitle: FC<Props> = ({ wrapperClasses, ...props }) => {
   return (
-    <div className={`mb-4 ${props.wrapperClasses || ''}`}>
+    <div className={`mb-4 ${wrapperClasses || ''}`}>
       <Text
         {...props}
         styleClasses={` text-4xl xl:text-5xl font-light ${

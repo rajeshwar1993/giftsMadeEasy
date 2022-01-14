@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Chip from '../../components/Reusable/Chip';
 import { db } from '../../firebase';
 import { FS_INTEREST_TAGS_DB } from '../../common/constants';
-import InterestTag from '../../models/Interest';
+import InterestTagType, { convertITJsonToObj } from '../../models/Interest';
 import { it_add_tagArray } from '../../redux/interestTags';
 import { RootState, useAppDispatch } from '../../redux/store';
 
@@ -14,7 +14,7 @@ type Props = {
 };
 
 const ShowSelectedInterests: FC<Props> = ({ values, onCancel }) => {
-  const [intArray, updateIntArray] = useState<Array<InterestTag>>([]);
+  const [intArray, updateIntArray] = useState<Array<InterestTagType>>([]);
 
   const dispatch = useAppDispatch();
   const interestArray = useSelector(
@@ -24,8 +24,8 @@ const ShowSelectedInterests: FC<Props> = ({ values, onCancel }) => {
   const fetchAndUpdateInterests = async (userInterests: Array<string>) => {
     // ! POTENTIAL_ISSUE - revisit this logic, might get complicated if interests become too large
 
-    let finalList: Array<InterestTag> = [];
-    let fetchedList: Array<InterestTag> = [];
+    let finalList: Array<InterestTagType> = [];
+    let fetchedList: Array<InterestTagType> = [];
 
     // check which intestest already present in store
     let interestsToFetch = userInterests.filter(it => {
@@ -46,7 +46,7 @@ const ShowSelectedInterests: FC<Props> = ({ values, onCancel }) => {
     const allSnaps = await Promise.all(readPromises);
     allSnaps.forEach(interestSnap => {
       if (interestSnap.exists()) {
-        const intestest = InterestTag.convertJsonToObj(
+        const intestest = convertITJsonToObj(
           interestSnap.data(),
           interestSnap.id
         );
