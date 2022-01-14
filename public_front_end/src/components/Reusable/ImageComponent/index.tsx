@@ -21,7 +21,7 @@ const ImageComponent: FC<Props> = ({
         src={src}
         alt={alt}
         layout={layout}
-        objectFit='cover'
+        objectFit='contain'
         objectPosition={'center'}
         {...props}
       />

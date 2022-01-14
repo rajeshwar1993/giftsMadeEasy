@@ -145,6 +145,9 @@ const ProfileImageSection: FC<Props> = ({ user, saveImgUrl, isMe }) => {
             <ImageComponent
               src={newImg || '/images/person.jpg'}
               alt={user.name}
+              width={300}
+              height={300}
+              layout='fixed'
             />
           </div>
           {!newImgFile && isMe && (

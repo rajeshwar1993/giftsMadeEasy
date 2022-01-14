@@ -7,7 +7,7 @@ import AddToCircleDialog from '../../components/Reusable/AddToCircleDialog';
 
 import ProfileGlance from '../../components/Reusable/ProfileGlance';
 import { db } from '../../firebase';
-import CircleUser from '../../models/CircleUser';
+import CircleUserType, { convertCUJsonToObj } from '../../models/CircleUser';
 import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../common/constants';
 import { cu_addUser, cu_init } from '../../redux/myCircleList';
 import { RootState, useAppDispatch } from '../../redux/store';
@@ -29,14 +29,14 @@ const MyCircle: FC<Props> = ({ isMe }) => {
 
   const fetchAndUpdateCircleUsers = async () => {
     try {
-      const dbCU: Array<CircleUser> = [];
+      const dbCU: Array<CircleUserType> = [];
 
       const querySnapshot = await getDocs(
         collection(db, `${FS_USER_DB}/${user?.uid}/${FS_USER_MYCIRCLE_DB}`)
       );
       querySnapshot.forEach(doc => {
         // doc.data() is never undefined for query doc snapshots
-        dbCU.push(CircleUser.convertJsonToObj(doc.data(), doc.id));
+        dbCU.push(convertCUJsonToObj(doc.data(), doc.id));
       });
 
       dispatch(cu_init(dbCU));

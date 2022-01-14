@@ -10,7 +10,13 @@ const ProductListItem: FC<Props> = ({ title, price = '1199' }) => {
         className={`flex flex-row xl:flex-col w-full cursor-pointer transition-all duration-200 rounded-lg xl:px-4 xl:hover:shadow-2xl`}
       >
         <div className='rounded-lg overflow-hidden w-[40%] xl:w-full'>
-          <ImageComponent src='/images/product.jpg' alt='product name' />
+          <ImageComponent
+            src='/images/product.jpg'
+            alt='product name'
+            width={300}
+            height={300}
+            layout='fixed'
+          />
         </div>
         <div className='pl-3 w-[60%] xl:w-full xl:pl-0 xl:mt-4'>
           <Text

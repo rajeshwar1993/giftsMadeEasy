@@ -24,7 +24,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../../common/constants';
-import CircleUser from '../../../models/CircleUser';
+import CircleUserType, { convertCUJsonToObj } from '../../../models/CircleUser';
 import { useAppDispatch } from '../../../redux/store';
 import { cu_addUser } from '../../../redux/myCircleList';
 
@@ -83,7 +83,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
     try {
       // logic to add userToAdd to current user's circle
 
-      let cu = CircleUser.convertJsonToObj(
+      let cu = convertCUJsonToObj(
         {
           [CircleUserDBKeys.name]: userToAdd.name,
           [CircleUserDBKeys.relation]: rel
@@ -229,6 +229,9 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
                         <ImageComponent
                           src={modalUser.imgUrl || '/images/person.jpg'}
                           alt={'alt'}
+                          width={60}
+                          height={60}
+                          layout='fixed'
                         />
                       </div>
                       <Text
