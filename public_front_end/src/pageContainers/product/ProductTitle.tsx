@@ -4,9 +4,16 @@ import { Button, Text } from '../../components';
 type Props = {
   title: string;
   isDesktop: boolean;
+  isBookMarked: boolean;
+  toggleBookmark: (isBookMarked: boolean) => void;
 };
 
-const ProductTitle: FC<Props> = ({ title, isDesktop }) => {
+const ProductTitle: FC<Props> = ({
+  title,
+  isDesktop,
+  isBookMarked,
+  toggleBookmark
+}) => {
   return (
     <div className='flex'>
       <Text
@@ -30,7 +37,8 @@ const ProductTitle: FC<Props> = ({ title, isDesktop }) => {
             size: isDesktop ? '20' : '16'
           }}
           defautStyle='cust-btn-btn'
-          onClick={() => {}}
+          activated={isBookMarked}
+          onClick={() => toggleBookmark(isBookMarked)}
           styleClasses='text-lg !rounded-full !py-2 !px-2'
         />
         <Button

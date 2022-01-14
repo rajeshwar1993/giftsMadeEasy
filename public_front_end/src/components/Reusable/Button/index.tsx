@@ -10,6 +10,7 @@ const Button: FC<Props> = ({
   onClick,
   wrapperClasses = '',
   defautStyle = 'cust-btn-btn',
+  activated = false,
   styleClasses = '',
   icon,
   showOnlyIcon = false,
@@ -29,7 +30,12 @@ const Button: FC<Props> = ({
             router.push(link);
           }
         }}
-        className={`relative cust-btn-base flex justify-center items-center ${defautStyle} ${styleClasses}`}
+        className={`relative py-0.5 font-semibold transition duration-200 ease-in-out cursor-pointer flex justify-center items-center ${styleClasses} ${
+          defautStyle === 'cust-btn-link'
+            ? 'border-b-2 border-skin-accent border-opacity-10 hover:border-opacity-90'
+            : 'px-4 border-2 rounded-md border-skin-inverted hover:bg-skin-accent hover:text-skin-inverted'
+        }
+        ${activated ? 'bg-skin-accent text-skin-inverted' : ''}`}
         type={type}
       >
         {icon && <Icon {...icon} size={icon.size || '20'} />}

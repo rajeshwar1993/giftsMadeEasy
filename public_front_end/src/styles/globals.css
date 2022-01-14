@@ -60,18 +60,7 @@
   .cust-paragraph-text {
     @apply text-base xl:text-lg;
   }
-  
-  .cust-btn-base {
-    @apply py-0.5 font-semibold transition duration-200 ease-in-out cursor-pointer;
-  }
 
-  .cust-btn-btn {
-    @apply px-4 border-2 rounded-md border-skin-inverted hover:bg-skin-accent hover:text-skin-inverted;
-  }
-
-  .cust-btn-link {
-    @apply border-b-2 border-skin-accent border-opacity-10 hover:border-opacity-90;
-  }
 
 
 }

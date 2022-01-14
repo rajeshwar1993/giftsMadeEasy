@@ -41,6 +41,15 @@ export const userSlice = createSlice({
       const { key, value } = action.payload;
       state.data = state.data ? state.data.updateData(key, value) : state.data;
     },
+    ur_updateBookmarks: (
+      state,
+      action: PayloadAction<{ productID: any; toDo: 'add' | 'remove' }>
+    ) => {
+      const { productID, toDo } = action.payload;
+      state.data = state.data
+        ? state.data.updateBookmark(productID, toDo)
+        : state.data;
+    },
     ur_logout: state => {
       state.error = null;
       state.loading = false;
@@ -49,7 +58,13 @@ export const userSlice = createSlice({
   }
 });
 
-export const { ur_init, ur_setLoading, ur_setError, ur_updateUser, ur_logout } =
-  userSlice.actions;
+export const {
+  ur_init,
+  ur_setLoading,
+  ur_setError,
+  ur_updateUser,
+  ur_updateBookmarks,
+  ur_logout
+} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,3 +1,4 @@
+import { serverTimestamp } from 'firebase/firestore';
 import { UserDBKeys } from '../common/dbKeys';
 import { Gender } from './enums';
 
@@ -15,7 +16,9 @@ class User {
   gender: Gender;
   relDate: string; // relationship date
   interestedTags: Array<string>; // array of interstTag ids
-  // datesToRemember: Array<string>; // TODO need to make a separate model for this
+  wishlist: Array<string>;
+  bookmarks: Array<string>;
+  createdTS: any;
 
   constructor() {
     this.uid = '';
@@ -31,6 +34,9 @@ class User {
     this.gender = Gender.Female;
     this.relDate = '';
     this.interestedTags = [];
+    this.wishlist = [];
+    this.bookmarks = [];
+    this.createdTS = serverTimestamp();
   }
 
   convertToJson = () => ({
@@ -45,7 +51,10 @@ class User {
     [UserDBKeys.imgUrl]: this.imgUrl,
     [UserDBKeys.gender]: this.gender.toString(),
     [UserDBKeys.relDate]: this.relDate.toString(),
-    [UserDBKeys.interestedTags]: this.interestedTags
+    [UserDBKeys.interestedTags]: this.interestedTags,
+    [UserDBKeys.wishlist]: this.wishlist,
+    [UserDBKeys.bookmarks]: this.bookmarks,
+    [UserDBKeys.createdTS]: this.createdTS
   });
 
   static convertJsonToObj = (inp: any, id: string) => {
@@ -66,6 +75,9 @@ class User {
         : Gender.Male;
     u.relDate = inp[UserDBKeys.relDate];
     u.interestedTags = inp[UserDBKeys.interestedTags];
+    u.wishlist = inp[UserDBKeys.wishlist] || [];
+    u.bookmarks = inp[UserDBKeys.bookmarks] || [];
+    u.createdTS = inp[UserDBKeys.createdTS];
 
     return u;
   };
@@ -96,6 +108,16 @@ class User {
       default:
       // do nothing
     }
+    return this;
+  };
+
+  updateBookmark = (productID: any, toDo: 'add' | 'remove') => {
+    if (toDo === 'add') {
+      this.bookmarks.push(productID);
+    } else {
+      this.bookmarks = this.bookmarks.filter(b => b !== productID);
+    }
+
     return this;
   };
 }

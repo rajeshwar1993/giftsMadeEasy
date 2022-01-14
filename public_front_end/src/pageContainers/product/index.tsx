@@ -1,7 +1,20 @@
+import {
+  arrayRemove,
+  arrayUnion,
+  collection,
+  doc,
+  updateDoc
+} from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { FS_USER_DB } from '../../common/constants';
+import { UserDBKeys } from '../../common/dbKeys';
 import { Button, ImageComponent, SectionTitle, Text } from '../../components';
+import { db } from '../../firebase';
 import useWindowSize from '../../hooks/useWindowSize';
 import Prodcut from '../../models/Product';
+import { RootState, useAppDispatch } from '../../redux/store';
+import { ur_updateBookmarks } from '../../redux/user';
 import ImageCarouselSection from './ImageCarouselSection';
 import ProductTitle from './ProductTitle';
 
@@ -12,8 +25,39 @@ type Props = {
 let debounce: any = null;
 
 const ProductPage: FC<Props> = ({ product }) => {
+  const dispatch = useAppDispatch();
   const size = useWindowSize();
   const [isDesktop, toggleIsDesktop] = useState(true);
+  const [isThisProductInUserBookmark, toggleIsThisProductInUserBookmark] =
+    useState(false);
+
+  const user = useSelector((state: RootState) => state.user.data);
+
+  const toggleBookmark = async (isBookMarked: boolean) => {
+    // TODO: have a check of user is present, launch signin if not present
+    if (!user) return;
+
+    const userRef = collection(db, FS_USER_DB);
+    const toDo = isBookMarked ? 'remove' : 'add';
+    dispatch(ur_updateBookmarks({ productID: product.uid, toDo }));
+    if (toDo === 'add') {
+      await updateDoc(doc(userRef, user.uid), {
+        [UserDBKeys.bookmarks]: arrayUnion(product.uid)
+      });
+    } else {
+      await updateDoc(doc(userRef, user.uid), {
+        [UserDBKeys.bookmarks]: arrayRemove(product.uid)
+      });
+    }
+  };
+
+  useEffect(() => {
+    console.log(user);
+    // if (user) {
+    //   const present = user.bookmarks.find(b => b === product.uid);
+    //   toggleIsThisProductInUserBookmark(!!present);
+    // }
+  }, [user]);
 
   // check window width on change
   useEffect(() => {
@@ -42,7 +86,12 @@ const ProductPage: FC<Props> = ({ product }) => {
 
         {/* Details Section */}
         <div className='flex flex-col space-y-4'>
-          <ProductTitle title={product.title} isDesktop={isDesktop} />
+          <ProductTitle
+            title={product.title}
+            isDesktop={isDesktop}
+            isBookMarked={!!user?.bookmarks.find(b => b === product.uid)}
+            toggleBookmark={toggleBookmark}
+          />
 
           <div className='flex flex-col space-y-8 xl:flex-row xl:space-x-40 xl:space-y-0'>
             <div className='flex flex-col justify-between space-y-4'>

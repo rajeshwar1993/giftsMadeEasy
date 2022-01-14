@@ -11,7 +11,10 @@ export const UserDBKeys = {
   gender: 'g',
   maritalStatus: 'ms',
   relDate: 'rd',
-  interestedTags: 'it'
+  interestedTags: 'it',
+  wishlist: 'wl',
+  bookmarks: 'bk',
+  createdTS: 'cTS'
 };
 
 export const FilterDBKeys = {
