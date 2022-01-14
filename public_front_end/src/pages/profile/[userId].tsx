@@ -2,12 +2,12 @@ import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 
 import { ProfilePage } from '../../pageContainers';
-import User from '../../models/User';
 import { HeaderType } from '../../common/types';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { FS_USER_DB } from '../../common/constants';
 import { ParsedUrlQuery } from 'querystring';
+import { convertUserJsonToObj } from '../../models/User';
 
 interface Props {
   headerData: HeaderType;
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const UserProfile: NextPage<Props> = ({ headerData, pageData }) => {
-  let user = User.convertJsonToObj(pageData, pageData.uid);
+  let user = convertUserJsonToObj(pageData, pageData.uid);
   return (
     <div>
       <Head>

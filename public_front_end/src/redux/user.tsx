@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import User from '../models/User';
+import UserType, { updateUserBookmark, updateUserData } from '../models/User';
 
 type UserState = {
-  data: User | null;
+  data: UserType | null;
   loading: boolean;
   error: null | {
     message: string;
@@ -23,7 +23,7 @@ export const userSlice = createSlice({
       state.error = null;
       state.loading = action.payload;
     },
-    ur_init: (state, action: PayloadAction<User>) => {
+    ur_init: (state, action: PayloadAction<UserType>) => {
       state.error = null;
       state.loading = false;
       state.data = action.payload;
@@ -39,7 +39,9 @@ export const userSlice = createSlice({
       action: PayloadAction<{ key: string; value: any }>
     ) => {
       const { key, value } = action.payload;
-      state.data = state.data ? state.data.updateData(key, value) : state.data;
+      state.data = state.data
+        ? updateUserData(state.data, key, value)
+        : state.data;
     },
     ur_updateBookmarks: (
       state,
@@ -47,7 +49,7 @@ export const userSlice = createSlice({
     ) => {
       const { productID, toDo } = action.payload;
       state.data = state.data
-        ? state.data.updateBookmark(productID, toDo)
+        ? updateUserBookmark(state.data, productID, toDo)
         : state.data;
     },
     ur_logout: state => {

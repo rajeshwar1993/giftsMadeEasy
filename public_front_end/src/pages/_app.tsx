@@ -10,7 +10,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { ur_init, ur_setLoading, ur_setError, ur_logout } from '../redux/user';
 import { User as FirebaseUser } from 'firebase/auth';
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
-import User from '../models/User';
+import UserType, { convertUserJsonToObj } from '../models/User';
 import { FS_USER_DB } from '../common/constants';
 import { Layout } from '../components';
 
@@ -37,7 +37,7 @@ function WrapperComp(props: any) {
       // check if user is valid
       if (!fbUser) return;
 
-      let userData: User;
+      let userData: UserType;
 
       // check firebase db for entry and get data
       const userID = fbUser.uid;
@@ -45,25 +45,26 @@ function WrapperComp(props: any) {
       const userSnap = await getDoc(docRef);
 
       if (userSnap.exists()) {
-        userData = User.convertJsonToObj(userSnap.data(), userSnap.id);
+        userData = convertUserJsonToObj(userSnap.data(), userSnap.id);
       }
       // if entry not found then create entry
       // TODO also run all first time functions -> welcome email, strong into algolia etc
       else {
-        userData = new User();
-        userData.uid = fbUser.uid;
-        userData.email = fbUser.email || '';
-        userData.isEmailVerified = fbUser.emailVerified;
-        userData.isAnonymous = fbUser.isAnonymous;
-        userData.name = fbUser.displayName || 'Your Name';
+        userData = convertUserJsonToObj(
+          {
+            email: fbUser.email || '',
+            isEmailVerified: fbUser.emailVerified,
+            isAnonymous: fbUser.isAnonymous,
+            name: fbUser.displayName || 'Your Name'
+          },
+          fbUser.uid
+        );
 
         // creating entry in firestore
 
         const userRef = collection(db, FS_USER_DB);
-        const dbData = {
-          ...userData.convertToJson()
-        };
-        await setDoc(doc(userRef, userID), dbData);
+
+        await setDoc(doc(userRef, userID), userData);
       }
 
       // then update redux with new or existing data

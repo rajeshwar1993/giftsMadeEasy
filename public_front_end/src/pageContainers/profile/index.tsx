@@ -4,7 +4,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { auth, db } from '../../firebase';
 import { InterestTagDBKeys, UserDBKeys } from '../../common/dbKeys';
 import { FS_INTEREST_TAGS_DB, FS_USER_DB } from '../../common/constants';
-import User from '../../models/User';
+import UserType from '../../models/User';
 import { useAppDispatch } from '../../redux/store';
 import { ur_updateUser } from '../../redux/user';
 import ProfileImageSection from './profileImageSection';
@@ -13,7 +13,7 @@ import { Gender } from '../../models/enums';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 type Props = {
-  user: User;
+  user: UserType;
 };
 
 const ProfilePage: FC<Props> = ({ user }) => {

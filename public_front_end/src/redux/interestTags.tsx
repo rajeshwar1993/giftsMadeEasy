@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import InterestTag from '../models/Interest';
-import User from '../models/User';
-import store from './store';
 
 const initialState: {
   tagArray: Array<InterestTag>;

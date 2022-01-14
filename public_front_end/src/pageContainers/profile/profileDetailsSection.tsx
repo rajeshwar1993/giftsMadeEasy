@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { Gender } from '../../models/enums';
 
-import User from '../../models/User';
+import UserType from '../../models/User';
 import CircleWishBookTabs from './circleWishBookTabs';
 import ProfileAboutSection from './profileAboutSection';
 import ProfileGenderSection from './profileGenderSection';
@@ -10,7 +10,7 @@ import ProfileImpDatesSection from './profileImpDates';
 import ProfileInterestedInSection from './profileInteredtedInSection';
 
 type Props = {
-  user: User;
+  user: UserType;
   updateAboutText: (text: string) => void;
   updateDates: (dob: string, relDate: string) => void;
   updateInterestTags: (tags: Array<string>) => void;

@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { ProfilePage } from '../../pageContainers';
-import User from '../../models/User';
+import UserType from '../../models/User';
 import { RootState } from '../../redux/store';
 import { HeaderType } from '../../common/types';
 

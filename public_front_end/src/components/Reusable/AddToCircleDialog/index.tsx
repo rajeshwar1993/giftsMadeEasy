@@ -1,7 +1,7 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
-import User from '../../../models/User';
+import UserType, { convertUserJsonToObj } from '../../../models/User';
 import { createListboxOptions, DEFAULT_LIST_VALUE } from '../ListBox/utils';
 import SectionTitle from '../SectionTitle';
 import Button from '../Button';
@@ -31,8 +31,8 @@ import { cu_addUser } from '../../../redux/myCircleList';
 type AddToCircleDialogProps = {
   open: boolean;
   onClose: () => void;
-  modalUserFromParent?: User | null;
-  currentUser: User | null;
+  modalUserFromParent?: UserType | null;
+  currentUser: UserType | null;
   isPresentInCircle: boolean;
   circleUserIds?: Array<string>;
 };
@@ -55,7 +55,9 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
   const [userAlreadyinCircle, setUserAlreadyinCircle] =
     useState(isPresentInCircle);
 
-  const [modalUser, setModalUser] = useState<User | null>(modalUserFromParent);
+  const [modalUser, setModalUser] = useState<UserType | null>(
+    modalUserFromParent
+  );
 
   const searchUser = async (itendifier: string) => {
     // check if me, then return
@@ -63,7 +65,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
 
     // logic to find user by email
     // TODO add logic to find by phone number
-    let foundUser: User;
+    let foundUser: UserType;
     const userRef = collection(db, FS_USER_DB);
     const primaryDocQuery = query(
       userRef,
@@ -72,14 +74,14 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
     const snaps = await getDocs(primaryDocQuery);
 
     if (!snaps.empty) {
-      foundUser = User.convertJsonToObj(snaps.docs[0].data(), snaps.docs[0].id);
+      foundUser = convertUserJsonToObj(snaps.docs[0].data(), snaps.docs[0].id);
       setModalUser(foundUser);
     } else {
       setModalUser(null);
     }
   };
 
-  const addUserToCircle = async (userToAdd: User, rel: string) => {
+  const addUserToCircle = async (userToAdd: UserType, rel: string) => {
     try {
       // logic to add userToAdd to current user's circle
 
