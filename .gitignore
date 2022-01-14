@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+/web_crawler/giftsmadeeasy-75edd-fc87d0f10099.json
+cloud_functions/giftsmadeeasy-75edd-fc87d0f10099.json

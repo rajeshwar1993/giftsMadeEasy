@@ -6,13 +6,17 @@ type Props = {
   isDesktop: boolean;
   isBookMarked: boolean;
   toggleBookmark: (isBookMarked: boolean) => void;
+  isWishlist: boolean;
+  toggleWishlist: (isWishlist: boolean) => void;
 };
 
 const ProductTitle: FC<Props> = ({
   title,
   isDesktop,
   isBookMarked,
-  toggleBookmark
+  toggleBookmark,
+  isWishlist,
+  toggleWishlist
 }) => {
   return (
     <div className='flex'>
@@ -28,7 +32,8 @@ const ProductTitle: FC<Props> = ({
             size: isDesktop ? '20' : '16'
           }}
           defautStyle='cust-btn-btn'
-          onClick={() => {}}
+          activated={isWishlist}
+          onClick={() => toggleWishlist(isWishlist)}
           styleClasses='text-lg !rounded-full !py-2 !px-2'
         />
         <Button

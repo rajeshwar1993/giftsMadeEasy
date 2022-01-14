@@ -28,6 +28,7 @@ module.exports = {
     'object-curly-spacing': ['error', 'always'],
     'comma-dangle': ['error', 'never'],
     'linebreak-style': ['off'],
+    'arrow-parens': ['off'],
     indent: ['off']
   }
 };

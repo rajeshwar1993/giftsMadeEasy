@@ -107,6 +107,19 @@ export const updateUserBookmark = (
 
   return user;
 };
+export const updateUserWishlist = (
+  user: UserType,
+  productID: any,
+  toDo: 'add' | 'remove'
+) => {
+  if (toDo === 'add') {
+    user.wishlist.push(productID);
+  } else {
+    user.wishlist = user.wishlist.filter(b => b !== productID);
+  }
+
+  return user;
+};
 
 // class User {
 //   uid: string;

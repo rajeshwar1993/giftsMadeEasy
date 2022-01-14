@@ -9,12 +9,12 @@ import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FS_USER_DB } from '../../common/constants';
 import { UserDBKeys } from '../../common/dbKeys';
-import { Button, ImageComponent, SectionTitle, Text } from '../../components';
+import { Button, SectionTitle, Text } from '../../components';
 import { db } from '../../firebase';
 import useWindowSize from '../../hooks/useWindowSize';
 import Prodcut from '../../models/Product';
 import { RootState, useAppDispatch } from '../../redux/store';
-import { ur_updateBookmarks } from '../../redux/user';
+import { ur_updateBookmarks, ur_updateWishlist } from '../../redux/user';
 import ImageCarouselSection from './ImageCarouselSection';
 import ProductTitle from './ProductTitle';
 
@@ -28,9 +28,6 @@ const ProductPage: FC<Props> = ({ product }) => {
   const dispatch = useAppDispatch();
   const size = useWindowSize();
   const [isDesktop, toggleIsDesktop] = useState(true);
-  const [isThisProductInUserBookmark, toggleIsThisProductInUserBookmark] =
-    useState(false);
-
   const user = useSelector((state: RootState) => state.user.data);
 
   const toggleBookmark = async (isBookMarked: boolean) => {
@@ -51,13 +48,23 @@ const ProductPage: FC<Props> = ({ product }) => {
     }
   };
 
-  useEffect(() => {
-    console.log(user);
-    // if (user) {
-    //   const present = user.bookmarks.find(b => b === product.uid);
-    //   toggleIsThisProductInUserBookmark(!!present);
-    // }
-  }, [user]);
+  const toggleWishlist = async (isWishlist: boolean) => {
+    // TODO: have a check of user is present, launch signin if not present
+    if (!user) return;
+
+    const userRef = collection(db, FS_USER_DB);
+    const toDo = isWishlist ? 'remove' : 'add';
+    dispatch(ur_updateWishlist({ productID: product.uid, toDo }));
+    if (toDo === 'add') {
+      await updateDoc(doc(userRef, user.uid), {
+        [UserDBKeys.wishlist]: arrayUnion(product.uid)
+      });
+    } else {
+      await updateDoc(doc(userRef, user.uid), {
+        [UserDBKeys.wishlist]: arrayRemove(product.uid)
+      });
+    }
+  };
 
   // check window width on change
   useEffect(() => {
@@ -91,6 +98,8 @@ const ProductPage: FC<Props> = ({ product }) => {
             isDesktop={isDesktop}
             isBookMarked={!!user?.bookmarks.find(b => b === product.uid)}
             toggleBookmark={toggleBookmark}
+            isWishlist={!!user?.wishlist.find(b => b === product.uid)}
+            toggleWishlist={toggleWishlist}
           />
 
           <div className='flex flex-col space-y-8 xl:flex-row xl:space-x-40 xl:space-y-0'>

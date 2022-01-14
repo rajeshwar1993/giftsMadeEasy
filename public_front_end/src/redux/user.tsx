@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import UserType, { updateUserBookmark, updateUserData } from '../models/User';
+import UserType, {
+  updateUserBookmark,
+  updateUserData,
+  updateUserWishlist
+} from '../models/User';
 
 type UserState = {
   data: UserType | null;
@@ -52,6 +56,15 @@ export const userSlice = createSlice({
         ? updateUserBookmark(state.data, productID, toDo)
         : state.data;
     },
+    ur_updateWishlist: (
+      state,
+      action: PayloadAction<{ productID: any; toDo: 'add' | 'remove' }>
+    ) => {
+      const { productID, toDo } = action.payload;
+      state.data = state.data
+        ? updateUserWishlist(state.data, productID, toDo)
+        : state.data;
+    },
     ur_logout: state => {
       state.error = null;
       state.loading = false;
@@ -66,6 +79,7 @@ export const {
   ur_setError,
   ur_updateUser,
   ur_updateBookmarks,
+  ur_updateWishlist,
   ur_logout
 } = userSlice.actions;
 
