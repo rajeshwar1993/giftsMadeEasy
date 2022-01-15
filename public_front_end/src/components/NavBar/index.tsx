@@ -120,7 +120,7 @@ const NavBar: FC<Props> = ({ config }) => {
                   styleClasses='!border-b-0 mx-2 px-2'
                   topScript={notifications.filter(n => !n.read).length}
                 />
-                <NavProfileMenu />
+                <NavProfileMenu imgSrc={user.imgUrl} name={user.name} />
               </>
             )}
           </div>
