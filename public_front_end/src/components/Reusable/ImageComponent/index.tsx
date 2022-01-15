@@ -15,7 +15,7 @@ const ImageComponent: FC<Props> = ({
     // TODO Need to make use of Image component from next!!
 
     <div
-      className={`w-full h-full overflow-hidden flex justify-center items-center bg-skin-accent bg-opacity-40 ${styleClasses}`}
+      className={`w-full h-full overflow-hidden flex justify-center items-center ${styleClasses}`}
     >
       <Image
         src={src}
@@ -23,6 +23,8 @@ const ImageComponent: FC<Props> = ({
         layout={layout}
         objectFit='contain'
         objectPosition={'center'}
+        placeholder={'blur'}
+        blurDataURL='/images/logo.png'
         {...props}
       />
     </div>
