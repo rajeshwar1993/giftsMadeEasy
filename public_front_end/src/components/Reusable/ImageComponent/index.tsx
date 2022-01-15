@@ -15,7 +15,7 @@ const ImageComponent: FC<Props> = ({
     // TODO Need to make use of Image component from next!!
 
     <div
-      className={`w-full h-full overflow-hidden flex justify-center items-center ${styleClasses}`}
+      className={`w-full h-full overflow-hidden flex justify-center items-center bg-skin-accent bg-opacity-40 ${styleClasses}`}
     >
       <Image
         src={src}
