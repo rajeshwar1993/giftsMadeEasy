@@ -34,6 +34,11 @@ const Icon: FC<Props> = ({
         IconToUse = BsInstagram;
         break;
 
+      case 'Google':
+        let { BsGoogle } = await import('react-icons/bs');
+        IconToUse = BsGoogle;
+        break;
+
       case 'Close':
         let { MdOutlineClose } = await import('react-icons/md');
         IconToUse = MdOutlineClose;
