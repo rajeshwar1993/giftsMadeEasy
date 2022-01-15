@@ -2,18 +2,12 @@ import React from 'react';
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithPopup,
-  signOut
+  signInWithPopup
 } from 'firebase/auth';
 import { auth } from '../../../firebase';
-import { useSelector } from 'react-redux';
-
-import { RootState } from '../../../redux/store';
 import { Button } from '../..';
 
 const AuthComponent = () => {
-  const { data: userData } = useSelector((state: RootState) => state.user);
-
   const onSubmitForm = (e: any) => {
     e.preventDefault();
     // console.log(e.target[0]);

@@ -4,7 +4,7 @@ import MobileNav from './mobileNav';
 import { NavConfig } from './type';
 import { ref, onValue, update } from 'firebase/database';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { RootState, useAppDispatch } from '../../redux/store';
 import NavProfileMenu from './navProfileMenu';
 import NavNotificationsMenu from './navNotificationsMenu';
 import { Button, Icon } from '..';
@@ -12,6 +12,7 @@ import { rdb } from '../../firebase';
 import { RDB_NOTIFICATIONS_DB } from '../../common/constants';
 import Notifications from '../../models/Notifications';
 import { NotificationDBKeys } from '../../common/dbKeys';
+import { app_toggle_isSigupOpen } from '../../redux/appCommon';
 type Props = {
   config: NavConfig;
 };
@@ -23,6 +24,7 @@ const NavBar: FC<Props> = ({ config }) => {
     []
   );
   const user = useSelector((state: RootState) => state.user.data);
+  const dispatch = useAppDispatch();
 
   const listenToNotifications = () => {
     const notificationDbRef = ref(rdb, `${RDB_NOTIFICATIONS_DB}/${user?.uid}`);
@@ -103,9 +105,9 @@ const NavBar: FC<Props> = ({ config }) => {
             {!user && (
               <Button
                 text='Signin'
-                link='/auth/signup'
                 defautStyle='cust-btn-link'
                 styleClasses='mx-2 px-2'
+                onClick={() => dispatch(app_toggle_isSigupOpen(true))}
               />
             )}
             {user && (

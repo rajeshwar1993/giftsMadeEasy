@@ -27,6 +27,7 @@ import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../../common/constants';
 import CircleUserType, { convertCUJsonToObj } from '../../../models/CircleUser';
 import { useAppDispatch } from '../../../redux/store';
 import { cu_addUser } from '../../../redux/myCircleList';
+import DialogContainer from '../DialogContainer';
 
 type AddToCircleDialogProps = {
   open: boolean;
@@ -143,160 +144,121 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
   }, [modalUser, circleUserIds, isPresentInCircle]);
 
   return (
-    <Transition appear show={open} as={Fragment}>
-      <Dialog
-        as='div'
-        className='fixed inset-0 z-10 overflow-y-auto'
-        onClose={closeModal}
+    <DialogContainer open={open} closeModal={closeModal}>
+      <Dialog.Title
+        as='h3'
+        className='text-lg font-medium leading-6 text-gray-900'
       >
-        <div className='min-h-screen px-4 text-center'>
-          <Transition.Child
-            as={Fragment}
-            enter='ease-out duration-300'
-            enterFrom='opacity-0'
-            enterTo='opacity-100'
-            leave='ease-in duration-200'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
-          >
-            <Dialog.Overlay className='fixed inset-0 bg-skin-accent bg-opacity-60' />
-          </Transition.Child>
+        <SectionTitle content='Search user' />
+      </Dialog.Title>
+      <div className='mt-2'>
+        <form
+          className='flex'
+          onSubmit={(e: any) => {
+            e.preventDefault();
+            let email = e.target[0].value;
+            searchUser(email);
+          }}
+        >
+          <input
+            type='email'
+            id='userEmail'
+            className='rounded-lg w-full'
+            placeholder={`Search with email id`}
+          />
+          {!modalUser && (
+            <Button
+              icon={{
+                iconName: 'ArrowForward'
+              }}
+              defautStyle='cust-btn-btn'
+              type='submit'
+              styleClasses='text-lg !rounded-full !py-2 !px-2'
+              wrapperClasses='mx-2'
+            />
+          )}
+          {modalUser && (
+            <Button
+              icon={{
+                iconName: 'Close'
+              }}
+              defautStyle='cust-btn-btn'
+              onClick={resetModalUser}
+              styleClasses='text-lg !rounded-full !py-2 !px-2'
+              wrapperClasses='mx-2'
+            />
+          )}
+        </form>
 
-          {/* This element is to trick the browser into centering the modal contents. */}
-          <span
-            className='inline-block h-screen align-middle'
-            aria-hidden='true'
-          >
-            &#8203;
-          </span>
-          <Transition.Child
-            as={Fragment}
-            enter='ease-out duration-300'
-            enterFrom='opacity-0 scale-95'
-            enterTo='opacity-100 scale-100'
-            leave='ease-in duration-200'
-            leaveFrom='opacity-100 scale-100'
-            leaveTo='opacity-0 scale-95'
-          >
-            <div className='inline-block w-full max-w-md p-6 my-8  text-left align-middle transition-all transform bg-skin-fill shadow-xl rounded-2xl'>
-              <Dialog.Title
-                as='h3'
-                className='text-lg font-medium leading-6 text-gray-900'
-              >
-                <SectionTitle content='Search user' />
-              </Dialog.Title>
-              <div className='mt-2'>
-                <form
-                  className='flex'
-                  onSubmit={(e: any) => {
-                    e.preventDefault();
-                    let email = e.target[0].value;
-                    searchUser(email);
-                  }}
-                >
-                  <input
-                    type='email'
-                    id='userEmail'
-                    className='rounded-lg w-full'
-                    placeholder={`Search with email id`}
-                  />
-                  {!modalUser && (
-                    <Button
-                      icon={{
-                        iconName: 'ArrowForward'
-                      }}
-                      defautStyle='cust-btn-btn'
-                      type='submit'
-                      styleClasses='text-lg !rounded-full !py-2 !px-2'
-                      wrapperClasses='mx-2'
-                    />
-                  )}
-                  {modalUser && (
-                    <Button
-                      icon={{
-                        iconName: 'Close'
-                      }}
-                      defautStyle='cust-btn-btn'
-                      onClick={resetModalUser}
-                      styleClasses='text-lg !rounded-full !py-2 !px-2'
-                      wrapperClasses='mx-2'
-                    />
-                  )}
-                </form>
-
-                {modalUser && (
-                  <div className='mt-4 border-2 rounded-lg p-4 '>
-                    <div className='flex items-center space-x-4 '>
-                      <div className='shadow-lg w-16 h-16 overflow-hidden border-4 rounded-full'>
-                        <ImageComponent
-                          src={modalUser.imgUrl || '/images/person.jpg'}
-                          alt={'alt'}
-                          width={60}
-                          height={60}
-                          layout='fixed'
-                        />
-                      </div>
-                      <Text
-                        content={modalUser.name || 'No Name yet'}
-                        tag='h3'
-                        styleClasses='text-xl font-semibold'
-                      />
-                    </div>
-                    <div className='my-2 flex items-center w-full'>
-                      <ListBoxComp
-                        filterKey={FilterDBKeys.relationship}
-                        buttonStyleClasses='text-lg '
-                        selectedOption={relVal}
-                        onSelected={(value, filterKey) => {
-                          setRelVal(value);
-                        }}
-                        options={createListboxOptions(
-                          DataConfig.relationship,
-                          'Relationship'
-                        )}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className='mt-4 flex justify-around'>
-                <Button
-                  text={'Cancel'}
-                  defautStyle='cust-btn-btn'
-                  onClick={() => {
-                    closeModal();
-                  }}
-                  styleClasses='text-lg mx-auto'
-                  wrapperClasses='mx-2'
+        {modalUser && (
+          <div className='mt-4 border-2 rounded-lg p-4 '>
+            <div className='flex items-center space-x-4 '>
+              <div className='shadow-lg w-16 h-16 overflow-hidden border-4 rounded-full'>
+                <ImageComponent
+                  src={modalUser.imgUrl || '/images/person.jpg'}
+                  alt={'alt'}
+                  width={60}
+                  height={60}
+                  layout='fixed'
                 />
-                {modalUser && !userAlreadyinCircle && (
-                  <Button
-                    text={'Add to Circle'}
-                    defautStyle='cust-btn-btn'
-                    onClick={() => {
-                      if (relVal.value !== DEFAULT_LIST_VALUE) {
-                        addUserToCircle(modalUser, relVal.value);
-                      } else {
-                        // TODO show error to choose relationship
-                      }
-                    }}
-                    styleClasses='text-lg mx-auto'
-                    wrapperClasses='mx-2'
-                  />
-                )}
-                {modalUser && userAlreadyinCircle && (
-                  <Text
-                    content={'Already in your Circle'}
-                    styleClasses='text-base font-semibold'
-                  />
-                )}
               </div>
+              <Text
+                content={modalUser.name || 'No Name yet'}
+                tag='h3'
+                styleClasses='text-xl font-semibold'
+              />
             </div>
-          </Transition.Child>
-        </div>
-      </Dialog>
-    </Transition>
+            <div className='my-2 flex items-center w-full'>
+              <ListBoxComp
+                filterKey={FilterDBKeys.relationship}
+                buttonStyleClasses='text-lg '
+                selectedOption={relVal}
+                onSelected={(value, filterKey) => {
+                  setRelVal(value);
+                }}
+                options={createListboxOptions(
+                  DataConfig.relationship,
+                  'Relationship'
+                )}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className='mt-4 flex justify-around'>
+        <Button
+          text={'Cancel'}
+          defautStyle='cust-btn-btn'
+          onClick={() => {
+            closeModal();
+          }}
+          styleClasses='text-lg mx-auto'
+          wrapperClasses='mx-2'
+        />
+        {modalUser && !userAlreadyinCircle && (
+          <Button
+            text={'Add to Circle'}
+            defautStyle='cust-btn-btn'
+            onClick={() => {
+              if (relVal.value !== DEFAULT_LIST_VALUE) {
+                addUserToCircle(modalUser, relVal.value);
+              } else {
+                // TODO show error to choose relationship
+              }
+            }}
+            styleClasses='text-lg mx-auto'
+            wrapperClasses='mx-2'
+          />
+        )}
+        {modalUser && userAlreadyinCircle && (
+          <Text
+            content={'Already in your Circle'}
+            styleClasses='text-base font-semibold'
+          />
+        )}
+      </div>
+    </DialogContainer>
   );
 };
 
