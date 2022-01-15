@@ -1,19 +1,18 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
-import useWindowSize from '../../hooks/useWindowSize';
+import { useSelector } from 'react-redux';
 import Filter from '../../models/Filter';
+import { RootState } from '../../redux/store';
 import Filters from './filters';
 import ProductListing from './productListsing';
 import SearchTopSection from './topSection';
 
-let debounce: any = null;
-
 const SearchPage = () => {
-  const size = useWindowSize();
-  const [isDesktop, toggleIsDesktop] = useState(true);
   const router = useRouter();
   const [filterValues, updateFilterValues] = useState<Filter>(new Filter());
   const [showMobileFilters, updateShowMobileFilters] = useState(false);
+
+  const isDesktop = useSelector((state: RootState) => state.app.isDesktop);
 
   const filterCopy = useRef({});
 
@@ -26,22 +25,6 @@ const SearchPage = () => {
       updateFilterValues(f);
     }
   }, [router.query]);
-
-  // check window width on change
-  useEffect(() => {
-    if (debounce) {
-      clearTimeout(debounce);
-    }
-    debounce = setTimeout(() => {
-      if (size.width && size?.width >= 1280) {
-        toggleIsDesktop(true);
-        console.log(true);
-      } else {
-        toggleIsDesktop(false);
-        console.log(false);
-      }
-    }, 200);
-  }, [size]);
 
   // update the filter copy when opening mobile filters
   useEffect(() => {

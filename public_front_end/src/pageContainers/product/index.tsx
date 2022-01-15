@@ -5,7 +5,7 @@ import {
   doc,
   updateDoc
 } from 'firebase/firestore';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { FS_USER_DB } from '../../common/constants';
 import { UserDBKeys } from '../../common/dbKeys';
@@ -22,12 +22,8 @@ type Props = {
   product: Prodcut;
 };
 
-let debounce: any = null;
-
 const ProductPage: FC<Props> = ({ product }) => {
   const dispatch = useAppDispatch();
-  const size = useWindowSize();
-  const [isDesktop, toggleIsDesktop] = useState(true);
   const user = useSelector((state: RootState) => state.user.data);
 
   const toggleBookmark = async (isBookMarked: boolean) => {
@@ -66,36 +62,16 @@ const ProductPage: FC<Props> = ({ product }) => {
     }
   };
 
-  // check window width on change
-  useEffect(() => {
-    if (debounce) {
-      clearTimeout(debounce);
-    }
-    debounce = setTimeout(() => {
-      if (size.width && size?.width >= 1280) {
-        toggleIsDesktop(true);
-        console.log(true);
-      } else {
-        toggleIsDesktop(false);
-        console.log(false);
-      }
-    }, 200);
-  }, [size]);
-
   return (
     <section>
       <div className='flex flex-col space-y-6 xl:flex-row xl:space-x-12'>
         {/* Product Image */}
-        <ImageCarouselSection
-          images={product.productImgUrls}
-          isDesktop={isDesktop}
-        />
+        <ImageCarouselSection images={product.productImgUrls} />
 
         {/* Details Section */}
         <div className='flex flex-col space-y-4'>
           <ProductTitle
             title={product.title}
-            isDesktop={isDesktop}
             isBookMarked={!!user?.bookmarks.find(b => b === product.uid)}
             toggleBookmark={toggleBookmark}
             isWishlist={!!user?.wishlist.find(b => b === product.uid)}

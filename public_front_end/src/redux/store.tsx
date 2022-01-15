@@ -3,9 +3,11 @@ import { useDispatch } from 'react-redux';
 import userReducer from './user';
 import interestsReducer from './interestTags';
 import circleUserReducer from './myCircleList';
+import appReducer from './appCommon';
 
 const store = configureStore({
   reducer: {
+    app: appReducer,
     user: userReducer,
     interests: interestsReducer,
     circleUser: circleUserReducer

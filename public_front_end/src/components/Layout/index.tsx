@@ -1,5 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Footer, NavBar } from '..';
+import useWindowSize from '../../hooks/useWindowSize';
+import { app_toggle_isDesktop } from '../../redux/appCommon';
+import { useAppDispatch } from '../../redux/store';
 
 import { LayoutConfigType } from './type';
 
@@ -8,7 +11,26 @@ type Props = {
   config: LayoutConfigType;
 };
 
+let debounce: any = null;
+
 const Layout: FC<Props> = ({ children, config }) => {
+  const size = useWindowSize();
+  const dispatch = useAppDispatch();
+
+  // check window width on change
+  useEffect(() => {
+    if (debounce) {
+      clearTimeout(debounce);
+    }
+    debounce = setTimeout(() => {
+      if (size.width && size?.width >= 1280) {
+        dispatch(app_toggle_isDesktop(true));
+      } else {
+        dispatch(app_toggle_isDesktop(false));
+      }
+    }, 200);
+  }, [size]);
+
   return (
     <div className='bg-skin-fill text-skin-primary'>
       <NavBar config={config.navbar} />

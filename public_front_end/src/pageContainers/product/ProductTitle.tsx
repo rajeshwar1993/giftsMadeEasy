@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 import { Button, Text } from '../../components';
+import { RootState } from '../../redux/store';
 
 type Props = {
   title: string;
-  isDesktop: boolean;
   isBookMarked: boolean;
   toggleBookmark: (isBookMarked: boolean) => void;
   isWishlist: boolean;
@@ -12,12 +13,13 @@ type Props = {
 
 const ProductTitle: FC<Props> = ({
   title,
-  isDesktop,
   isBookMarked,
   toggleBookmark,
   isWishlist,
   toggleWishlist
 }) => {
+  const isDesktop = useSelector((state: RootState) => state.app.isDesktop);
+
   return (
     <div className='flex'>
       <Text

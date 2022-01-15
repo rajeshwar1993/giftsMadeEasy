@@ -1,13 +1,16 @@
 import React, { FC, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { ImageComponent } from '../../components';
+import { RootState } from '../../redux/store';
 
 type Props = {
   images: Array<string>;
-  isDesktop: boolean;
 };
 
-const ImageCarouselSection: FC<Props> = ({ images, isDesktop }) => {
+const ImageCarouselSection: FC<Props> = ({ images }) => {
   const [selected, setSelected] = useState<number>(0);
+
+  const isDesktop = useSelector((state: RootState) => state.app.isDesktop);
 
   return (
     <div className='flex flex-col space-y-6'>
