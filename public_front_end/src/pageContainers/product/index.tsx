@@ -9,7 +9,7 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { FS_USER_DB } from '../../common/constants';
 import { UserDBKeys } from '../../common/dbKeys';
-import { Button, SectionTitle, Text } from '../../components';
+import { Button, Icon, SectionTitle, Text } from '../../components';
 import { db } from '../../firebase';
 import useWindowSize from '../../hooks/useWindowSize';
 import Prodcut from '../../models/Product';
@@ -78,19 +78,25 @@ const ProductPage: FC<Props> = ({ product }) => {
             toggleWishlist={toggleWishlist}
           />
 
-          <div className='flex flex-col space-y-8 xl:flex-row xl:space-x-40 xl:space-y-0'>
+          <div className='flex flex-col space-y-8 xl:flex-row xl:space-x-24 xl:space-y-0'>
             <div className='flex flex-col justify-between space-y-4'>
-              <div className='flex flex-col space-y-1'>
-                <Text
-                  content={'MRP: ' + product.ogPrice}
-                  styleClasses='text-xl font-light line-through'
-                />
-                <Text
-                  content={'Price: ' + product.price}
-                  styleClasses='text-3xl'
-                />
-              </div>
+              <div className='flex flex-row xl:flex-col space-x-8 items-end xl:space-y-4 xl:items-start xl:space-x-0'>
+                <div className='flex flex-col space-y-1'>
+                  <Text
+                    content={'MRP: ' + product.ogPrice}
+                    styleClasses='text-xl font-light line-through'
+                  />
 
+                  <SectionTitle content={product.price} />
+                </div>
+                <div className='flex space-x-2 items-end'>
+                  <Icon iconName='Star' size='40' />
+                  <Text
+                    content={product.rating}
+                    styleClasses='text-4xl font-light'
+                  />
+                </div>
+              </div>
               <div className='flex flex-col space-y-4 '>
                 <Button
                   text='Buy Now'
@@ -111,8 +117,8 @@ const ProductPage: FC<Props> = ({ product }) => {
                 <tbody>
                   {product.overviewPoints.map((op, i) => (
                     <tr key={i}>
-                      <td className='font-bold px-4 py-3'>{op.key}</td>
-                      <td className='font-medium px-4 py-3'>{op.val}</td>
+                      <td className='font-bold px-4 py-2'>{op.key}</td>
+                      <td className='font-medium px-4 py-2'>{op.val}</td>
                     </tr>
                   ))}
                 </tbody>

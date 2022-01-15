@@ -30,7 +30,7 @@ export const ProductDBKeys = {
   title: 't',
   desc: 'd',
   productImgUrls: 'piu',
-  rating: 'p',
+  rating: 'r',
   price: 'p',
   ogPrice: 'ogp',
   productUrl: 'su',
