@@ -21,8 +21,12 @@ const NavNotificationsMenu: FC<Props> = ({
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as='div' className='fixed inset-0 z-40' onClose={closeModal}>
-        <div className='min-h-screen justify-end px-4 text-center'>
+      <Dialog
+        as='div'
+        className='fixed inset-0 z-40 overflow-y-auto'
+        onClose={closeModal}
+      >
+        <div className='min-h-screen text-center'>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -35,52 +39,63 @@ const NavNotificationsMenu: FC<Props> = ({
             <Dialog.Overlay className='fixed inset-0 bg-skin-accent bg-opacity-70' />
           </Transition.Child>
 
+          {/* This element is to trick the browser into centering the modal contents. */}
+          {/* <span
+            className='inline-block h-screen align-middle'
+            aria-hidden='true'
+          >
+            &#8203;
+          </span> */}
+
           <Transition.Child
             as={Fragment}
-            enter='transition-all ease-out duration-300 transform'
-            enterFrom='w-0'
-            enterTo='w-full'
-            leave='transition-all ease-in-out duration-300 transform'
-            leaveFrom='w-full'
-            leaveTo='w-0'
+            enter='transition-all ease-in-out duration-300 transform'
+            enterFrom='opacity-0 translate-x-64'
+            enterTo='opacity-100 translate-x-0'
+            leave='transition ease-in-out duration-300 transform'
+            leaveFrom='opacity-100 translate-x-0'
+            leaveTo='opacity-0 translate-x-64'
           >
-            <div className=' fixed right-0 w-3/4 xl:w-2/5 min-h-screen bg-skin-fill pb-12 flex flex-col'>
-              <div className='px-4 pt-5 pb-2 flex items-center justify-between '>
-                <SectionTitle content='Notifications' />
-                <Button
-                  icon={{ iconName: 'Close', size: '30' }}
-                  onClick={closeModal}
-                  defautStyle='cust-btn-link'
-                  styleClasses='!border-b-0'
-                />
-              </div>
+            <div className='fixed right-0 w-64 xl:w-1/5 h-full bg-skin-fill pb-12 '>
+              <div className='flex flex-col'>
+                <div className='px-4 pt-5 pb-2 flex items-center justify-between '>
+                  <SectionTitle content='Notifications' />
+                  <Button
+                    icon={{ iconName: 'Close', size: '30' }}
+                    onClick={closeModal}
+                    defautStyle='cust-btn-link'
+                    styleClasses='!border-b-0'
+                  />
+                </div>
 
-              {/* Links */}
+                <div className=' flex flex-col  items-start py-2 xl:pl-4 pr-6 space-y-6'>
+                  {notifications.map(n => (
+                    <div className='flex flex-col items-start' key={n.uid}>
+                      <Button
+                        text={
+                          'This is a sample notification that is just for testing out things.'
+                        }
+                        link={'/profile'}
+                        onClick={() => {
+                          markNotification('read', '123');
+                          closeModal();
+                        }}
+                        defautStyle='cust-btn-btn'
+                        wrapperClasses='w-full'
+                        styleClasses={`w-full !py-3 text-left !border-0 !justify-start ${
+                          n.read ? '!font-normal' : '!font-semibold'
+                        }`}
+                      />
 
-              <div className=' flex flex-col  items-start py-2 xl:pl-4 pr-6 space-y-6'>
-                {notifications.map(n => (
-                  <div className='flex items-center' key={n.uid}>
-                    <Button
-                      text={n.text}
-                      link={n.redirectLink}
-                      onClick={() => {
-                        markNotification('read', n.uid);
-                        closeModal();
-                      }}
-                      defautStyle='cust-btn-btn'
-                      wrapperClasses='w-full !mt-2'
-                      styleClasses={`w-full !py-3 text-left !border-0 !justify-start ${
-                        n.read ? '!font-light' : '!font-semibold'
-                      }`}
-                    />
-                    <Button
-                      icon={{ iconName: 'Check', size: '20' }}
-                      onClick={() => markNotification('dismiss', n.uid)}
-                      defautStyle='cust-btn-link'
-                      styleClasses='!border-b-0'
-                    />
-                  </div>
-                ))}
+                      <Button
+                        text='Remove'
+                        onClick={() => markNotification('dismiss', n.uid)}
+                        defautStyle='cust-btn-link'
+                        styleClasses='text-xs ml-4'
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </Transition.Child>

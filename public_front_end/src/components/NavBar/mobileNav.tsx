@@ -42,7 +42,7 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
 
             {/* Links */}
 
-            <div className=' flex flex-col items-center py-6 px-4 space-y-6'>
+            <div className='flex flex-col items-center py-6 px-4 space-y-6'>
               <SectionTitle content={AppConfig.COMMON.appName} />
               {config.leftSideNav.map((btn, i) => (
                 <div key={i} className='flow-root p-2'>
