@@ -104,16 +104,16 @@ const NavBar: FC<Props> = ({ config }) => {
             {!user && (
               <>
                 <Button
-                  text='Login'
-                  defautStyle='cust-btn-link'
-                  styleClasses='mx-2 px-2 !border-b-0'
-                  onClick={() => dispatch(app_toggle_isSigupOpen('login'))}
-                />
-                <Button
                   text='Signup'
                   defautStyle='cust-btn-link'
                   styleClasses='mx-2 px-2 !border-b-0'
                   onClick={() => dispatch(app_toggle_isSigupOpen('signup'))}
+                />
+                <Button
+                  text='Login'
+                  defautStyle='cust-btn-link'
+                  styleClasses='mx-2 px-2 !border-b-0'
+                  onClick={() => dispatch(app_toggle_isSigupOpen('login'))}
                 />
               </>
             )}

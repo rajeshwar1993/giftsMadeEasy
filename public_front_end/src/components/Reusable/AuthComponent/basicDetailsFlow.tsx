@@ -32,24 +32,31 @@ type Props = {
 const BasicDetailsFlow: FC<Props> = ({ userId }) => {
   const dispatch = useAppDispatch();
   const [selected, updateSelected] = useState<Gender>(Gender.Female);
+  const [loading, setLoading] = useState(false);
 
   const saveForm = async (e: any) => {
     e.preventDefault();
-    const name = e.target[0].value;
-    const gender = selected.toString();
-    const dob = new Date(e.target[1].value).toISOString();
-    console.log(name, gender, dob);
+    try {
+      setLoading(true);
+      const name = e.target[0].value;
+      const gender = selected.toString();
+      const dob = new Date(e.target[1].value).toISOString();
 
-    const userRef = collection(db, FS_USER_DB);
-    await updateDoc(doc(userRef, userId), {
-      [UserDBKeys.name]: name,
-      [UserDBKeys.gender]: gender,
-      [UserDBKeys.dob]: dob
-    });
-
-    dispatch(ur_updateUser({ key: UserDBKeys.name, value: name }));
-    dispatch(ur_updateUser({ key: UserDBKeys.gender, value: gender }));
-    dispatch(ur_updateUser({ key: UserDBKeys.dob, value: dob }));
+      const userRef = collection(db, FS_USER_DB);
+      await updateDoc(doc(userRef, userId), {
+        [UserDBKeys.name]: name,
+        [UserDBKeys.gender]: gender,
+        [UserDBKeys.dob]: dob
+      });
+      setLoading(false);
+      dispatch(ur_updateUser({ key: UserDBKeys.name, value: name }));
+      dispatch(ur_updateUser({ key: UserDBKeys.gender, value: gender }));
+      dispatch(ur_updateUser({ key: UserDBKeys.dob, value: dob }));
+    } catch (error) {
+      console.log(error);
+      // TODO handle this error
+      setLoading(false);
+    }
   };
 
   return (
@@ -129,7 +136,12 @@ const BasicDetailsFlow: FC<Props> = ({ userId }) => {
           required
         />
       </label>
-      <Button text='Save' styleClasses=' w-48' type='submit' />
+      <Button
+        text='Save'
+        styleClasses=' w-48'
+        type='submit'
+        loading={loading}
+      />
     </form>
   );
 };

@@ -174,6 +174,11 @@ const Icon: FC<Props> = ({
         IconToUse = MdStarRate;
         break;
 
+      case 'Spinner':
+        let { CgSpinnerTwo } = await import('react-icons/cg');
+        IconToUse = CgSpinnerTwo;
+        break;
+
       default:
         let { MdDoDisturb } = await import('react-icons/md');
         IconToUse = MdDoDisturb;

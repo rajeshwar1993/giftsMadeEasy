@@ -91,6 +91,12 @@ export const updateUserData = (user: UserType, key: string, value: any) => {
     case UserDBKeys.interestedTags:
       user.interestedTags = value;
       break;
+    case UserDBKeys.phoneNumber:
+      user.phoneNumber = value;
+      break;
+    case UserDBKeys.phoneExt:
+      user.phoneExt = value;
+      break;
     default:
     // do nothing
   }

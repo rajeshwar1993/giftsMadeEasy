@@ -12,4 +12,7 @@ export interface ButtonType {
   showOnlyIcon?: boolean;
   topScript?: string | number;
   type?: 'button' | 'reset' | 'submit';
+  disabled?: boolean;
+  id?: string;
+  loading?: boolean;
 }

@@ -15,13 +15,18 @@ const Button: FC<Props> = ({
   icon,
   showOnlyIcon = false,
   type = 'button',
-  topScript = 0
+  topScript = 0,
+  disabled = false,
+  loading = false,
+  ...props
 }) => {
   const router = useRouter();
 
   return (
     <div className={`${wrapperClasses}`}>
       <button
+        {...props}
+        disabled={disabled || loading}
         onClick={() => {
           if (onClick) {
             onClick();
@@ -35,14 +40,26 @@ const Button: FC<Props> = ({
             ? 'border-b-2 border-skin-accent border-opacity-10 hover:border-opacity-90'
             : 'px-4 border-2 rounded-md border-skin-inverted hover:bg-skin-accent hover:text-skin-inverted'
         }
-        ${activated ? 'bg-skin-accent text-skin-inverted' : ''}`}
+        ${activated ? 'bg-skin-accent text-skin-inverted' : ''}
+        ${
+          disabled || loading
+            ? 'opacity-50 !cursor-default hover:bg-skin-fill hover:text-skin-primary'
+            : ''
+        }`}
         type={type}
       >
-        {icon && <Icon {...icon} size={icon.size || '20'} />}
-        {icon && text && !showOnlyIcon && <div className='w-2' />}
+        {loading && (
+          <Icon
+            styleClasses='animate-spin'
+            iconName='Spinner'
+            size={icon?.size || '20'}
+          />
+        )}
+        {icon && !loading && <Icon {...icon} size={icon.size || '20'} />}
+        {(icon || loading) && text && !showOnlyIcon && <div className='w-2' />}
         {text && !showOnlyIcon && <span>{text}</span>}
         {topScript !== 0 && topScript !== '' && (
-          <span className='flex absolute -top-1 -right-1 h-4 w-4 text-xs text-skin-inverted'>
+          <span className='flex absolute -top-1 -right-1 h-4 w-4 text-xs text-skin-inverted '>
             <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-skin-accent opacity-75'></span>
             <span className='relative rounded-full h-4 w-4 bg-skin-accent'>
               {topScript}

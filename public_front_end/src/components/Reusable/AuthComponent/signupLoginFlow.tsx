@@ -16,6 +16,7 @@ import { RootState } from '../../../redux/store';
 
 const SignupLoginFlow = () => {
   const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState(false);
 
   const { isDesktop, signUpOpen } = useSelector(
     (state: RootState) => state.app
@@ -24,6 +25,7 @@ const SignupLoginFlow = () => {
   const onSubmitSignupForm = (e: any) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
     // console.log(e.target[0]);
     let email = e.target[0].value;
     let password = e.target[1].value;
@@ -39,17 +41,22 @@ const SignupLoginFlow = () => {
         // Signed in
         const user = userCredential.user;
         // ...
+        setLoading(false);
       })
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
         setError(errorMessage);
+        setLoading(false);
+
         // ..
       });
   };
   const onSubmitLoginForm = (e: any) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
+
     let email = e.target[0].value;
     let password = e.target[1].value;
 
@@ -58,12 +65,15 @@ const SignupLoginFlow = () => {
         // Signed in
         const user = userCredential.user;
         // ...
+        setLoading(false);
       })
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // TODO create end-user meaningfull message
         setError(errorMessage);
+        setLoading(false);
+
         // ..
       });
   };
@@ -98,7 +108,12 @@ const SignupLoginFlow = () => {
 
   return (
     <div className='flex flex-col items-center space-y-4'>
-      <Tab.Group defaultIndex={signUpOpen === 'signup' ? 0 : 1}>
+      <Tab.Group
+        defaultIndex={signUpOpen === 'signup' ? 0 : 1}
+        onChange={index => {
+          setError('');
+        }}
+      >
         <Tab.List className='flex p-1 space-x-16 '>
           <Tab
             className={({ selected }) =>
@@ -156,7 +171,12 @@ const SignupLoginFlow = () => {
                 placeholder='confirm password'
                 className='rounded-lg w-full'
               />
-              <Button text='Signup' styleClasses=' w-48' type='submit' />
+              <Button
+                text='Signup'
+                styleClasses=' w-48'
+                type='submit'
+                loading={loading}
+              />
             </form>
           </Tab.Panel>
           <Tab.Panel
@@ -181,7 +201,12 @@ const SignupLoginFlow = () => {
                 placeholder='password'
                 className='rounded-lg w-full'
               />
-              <Button text='Login' styleClasses=' w-48' type='submit' />
+              <Button
+                text='Login'
+                styleClasses=' w-48'
+                type='submit'
+                loading={loading}
+              />
             </form>
           </Tab.Panel>
         </Tab.Panels>
