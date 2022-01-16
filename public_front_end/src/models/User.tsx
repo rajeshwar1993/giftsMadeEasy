@@ -67,6 +67,9 @@ export const convertUserJsonToObj = (inp: any, id: string) => {
 
 export const updateUserData = (user: UserType, key: string, value: any) => {
   switch (key) {
+    case UserDBKeys.name:
+      user.name = value;
+      break;
     case UserDBKeys.aboutText:
       user.aboutText = value;
       break;

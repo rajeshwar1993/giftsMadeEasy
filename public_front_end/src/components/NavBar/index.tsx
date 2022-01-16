@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../redux/store';
 import NavProfileMenu from './navProfileMenu';
 import NavNotificationsMenu from './navNotificationsMenu';
-import { Button, Icon } from '..';
+import { Button, Icon, Text } from '..';
 import { rdb } from '../../firebase';
 import { RDB_NOTIFICATIONS_DB } from '../../common/constants';
 import Notifications from '../../models/Notifications';
@@ -61,8 +61,7 @@ const NavBar: FC<Props> = ({ config }) => {
   }, [user]);
 
   return (
-    <header className='sticky bg-skin-fill top-0 z-10 xl:flex'>
-      {/* <div className='xl:w-[12%]' /> */}
+    <header className='sticky bg-skin-fill top-0 z-10'>
       <nav
         aria-label='Top'
         className='bg-skin-accent bg-opacity-10 mx-auto p-2 xl:px-8 w-full'
@@ -103,12 +102,20 @@ const NavBar: FC<Props> = ({ config }) => {
           {/* Right Section */}
           <div className='lg:w-1/5 w-2/5 flex flex-row justify-end items-center'>
             {!user && (
-              <Button
-                text='Signin'
-                defautStyle='cust-btn-link'
-                styleClasses='mx-2 px-2'
-                onClick={() => dispatch(app_toggle_isSigupOpen(true))}
-              />
+              <>
+                <Button
+                  text='Login'
+                  defautStyle='cust-btn-link'
+                  styleClasses='mx-2 px-2 !border-b-0'
+                  onClick={() => dispatch(app_toggle_isSigupOpen('login'))}
+                />
+                <Button
+                  text='Signup'
+                  defautStyle='cust-btn-link'
+                  styleClasses='mx-2 px-2 !border-b-0'
+                  onClick={() => dispatch(app_toggle_isSigupOpen('signup'))}
+                />
+              </>
             )}
             {user && (
               <>
@@ -128,7 +135,34 @@ const NavBar: FC<Props> = ({ config }) => {
           </div>
         </div>
       </nav>
-      {/* <div className='xl:w-[12%]' /> */}
+
+      {!!user && !user.isEmailVerified && (
+        <div className='bg-skin-accent text-skin-inverted text-center flex flex-col py-0.5'>
+          <div>
+            <Text
+              content={`We have sent a verification mail on ${user?.email}. Please verify and then`}
+            />
+            <Button
+              text='Click Here.'
+              defautStyle='cust-btn-link'
+              styleClasses='px-2 border-skin-primary'
+              wrapperClasses='inline-block'
+              onClick={() => {}}
+            />
+          </div>
+          <div>
+            <Text content={`Didn't get the mail?`} styleClasses='text-xs' />
+            <Button
+              text='Click Here to Resend.'
+              defautStyle='cust-btn-link'
+              styleClasses='px-2 border-skin-primary text-xs'
+              wrapperClasses='inline-block'
+              onClick={() => {}}
+            />
+          </div>
+        </div>
+      )}
+
       {/* Mobile Menu */}
       <MobileNav
         config={config}

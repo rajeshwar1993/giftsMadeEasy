@@ -72,10 +72,8 @@ const NavNotificationsMenu: FC<Props> = ({
                   {notifications.map(n => (
                     <div className='flex flex-col items-start' key={n.uid}>
                       <Button
-                        text={
-                          'This is a sample notification that is just for testing out things.'
-                        }
-                        link={'/profile'}
+                        text={n.text}
+                        link={n.redirectLink}
                         onClick={() => {
                           markNotification('read', '123');
                           closeModal();

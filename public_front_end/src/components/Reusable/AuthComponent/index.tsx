@@ -1,91 +1,34 @@
-import React from 'react';
-import {
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup
-} from 'firebase/auth';
-import { auth } from '../../../firebase';
-import { Button } from '../..';
-import SectionTitle from '../SectionTitle';
-import Text from '../Text';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Gender } from '../../../models/enums';
+import { RootState } from '../../../redux/store';
+import BasicDetailsFlow from './basicDetailsFlow';
+
+import SignupLoginFlow from './signupLoginFlow';
 
 const AuthComponent = () => {
-  const onSubmitForm = (e: any) => {
-    e.preventDefault();
-    // console.log(e.target[0]);
-    let email = e.target[0].value;
-    let password = e.target[1].value;
+  const user = useSelector((state: RootState) => state.user.data);
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-      })
-      .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
-  };
+  const [step, setStep] = useState<number>(1);
 
-  const createUserWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then(result => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential!.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // ...
-      })
-      .catch(error => {
-        // TODO handle if not signin
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
-  };
-
-  const createUserWithFacebook = () => {};
+  useEffect(() => {
+    if (!user) {
+      setStep(1);
+    } else if (user && user.name && user.phoneNumber) {
+      // TODO if phone number is also done
+    } else if (user && user.name) {
+      setStep(3);
+    } else if (user) {
+      setStep(2);
+    }
+  }, [user]);
 
   return (
-    <div className='flex flex-col items-center space-y-6'>
-      <SectionTitle content='Login / Signup' />
-      <div className='flex flex-col'>
-        <form onSubmit={onSubmitForm}>
-          <input type='email' id='email' placeholder='email' />
-          <input type='password' id='password' placeholder='password' />
-          <button type='submit' id='submit'>
-            Submit
-          </button>
-        </form>
-      </div>
-      <Button
-        icon={{ iconName: 'Google' }}
-        text='Google'
-        styleClasses='text-xl w-48'
-        onClick={createUserWithGoogle}
-      />
-      <Button
-        icon={{ iconName: 'Facebook' }}
-        text='Facebok'
-        styleClasses='text-xl w-48'
-        onClick={createUserWithFacebook}
-      />
-      <Text
-        content={
-          'We offer only social logins to ensure fast onboarding and genuine users.'
-        }
-        styleClasses='text-center !text-xs'
-      />
-    </div>
+    <>
+      {step === 1 && <SignupLoginFlow />}
+      {step === 2 && user && <BasicDetailsFlow userId={user.uid} />}
+      {step === 3 && user && <span>Phone Number</span>}
+    </>
   );
 };
 

@@ -58,7 +58,7 @@ const Layout: FC<Props> = ({ children, config }) => {
         <Footer config={config.footer} />
       </div>
 
-      <DialogContainer open={signUpOpen} closeModal={closeSignup}>
+      <DialogContainer open={!!signUpOpen} closeModal={closeSignup}>
         <AuthComponent />
       </DialogContainer>
     </>
