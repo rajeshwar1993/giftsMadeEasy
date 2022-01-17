@@ -42,111 +42,91 @@ export const layoutConfig: LayoutConfigType = {
           items: [
             {
               title: 'Electronics',
-              link: '#',
+
               items: [
                 {
-                  title: 'Laptops',
-                  link: '#'
+                  title: 'Laptops'
                 },
                 {
-                  title: 'Watches',
-                  link: '#'
+                  title: 'Watches'
                 },
                 {
-                  title: 'Tablets',
-                  link: '#'
+                  title: 'Tablets'
                 },
                 {
-                  title: 'Phones',
-                  link: '#'
+                  title: 'Phones'
                 }
               ]
             },
             {
               title: 'Toys & Games',
-              link: '#',
+
               items: [
                 {
-                  title: 'Outdoor sports',
-                  link: '#'
+                  title: 'Outdoor sports'
                 },
                 {
-                  title: 'Card Games',
-                  link: '#'
+                  title: 'Card Games'
                 },
                 {
-                  title: 'Educational Toys',
-                  link: '#'
+                  title: 'Educational Toys'
                 },
                 {
-                  title: 'RC Toys',
-                  link: '#'
+                  title: 'RC Toys'
                 }
               ]
             },
             {
               title: 'Toys & Games',
-              link: '#',
+
               items: [
                 {
-                  title: 'Outdoor sports',
-                  link: '#'
+                  title: 'Outdoor sports'
                 },
                 {
-                  title: 'Card Games',
-                  link: '#'
+                  title: 'Card Games'
                 },
                 {
-                  title: 'Educational Toys',
-                  link: '#'
+                  title: 'Educational Toys'
                 },
                 {
-                  title: 'RC Toys',
-                  link: '#'
+                  title: 'RC Toys'
                 }
               ]
             },
             {
               title: 'Toys & Games',
-              link: '#',
+
               items: [
                 {
-                  title: 'Outdoor sports',
-                  link: '#'
+                  title: 'Outdoor sports'
                 },
                 {
-                  title: 'Card Games',
-                  link: '#'
+                  title: 'Card Games'
                 },
                 {
-                  title: 'Educational Toys',
-                  link: '#'
+                  title: 'Educational Toys'
                 },
                 {
-                  title: 'RC Toys',
-                  link: '#'
+                  title: 'RC Toys'
                 }
               ]
             },
             {
               title: 'Toys & Games',
-              link: '#',
+
               items: [
                 {
-                  title: 'Outdoor sports',
-                  link: '#'
+                  title: 'Outdoor sports'
                 },
                 {
-                  title: 'Card Games',
-                  link: '#'
+                  title: 'Card Games'
                 },
                 {
-                  title: 'Educational Toys',
-                  link: '#'
+                  title: 'Educational Toys'
                 },
                 {
-                  title: 'RC Toys',
-                  link: '#'
+                  title: 'RC Toys'
                 }
               ]
             }
