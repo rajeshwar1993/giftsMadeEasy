@@ -10,20 +10,156 @@ export const layoutConfig: LayoutConfigType = {
     },
     leftSideNav: [
       {
-        text: 'Home',
-        link: '/'
+        type: 'expand',
+        depth: 1,
+        data: {
+          title: 'Relation',
+          items: [
+            {
+              title: 'Boyfriend',
+              link: '#'
+            },
+            {
+              title: 'Girlfriend',
+              link: '#'
+            },
+            {
+              title: 'Mother',
+              link: '#'
+            },
+            {
+              title: 'Father',
+              link: '#'
+            }
+          ]
+        }
       },
       {
-        text: 'Search',
-        link: '/search'
+        type: 'expand',
+        depth: 2,
+        data: {
+          title: 'Interests',
+          items: [
+            {
+              title: 'Electronics',
+              link: '#',
+              items: [
+                {
+                  title: 'Laptops',
+                  link: '#'
+                },
+                {
+                  title: 'Watches',
+                  link: '#'
+                },
+                {
+                  title: 'Tablets',
+                  link: '#'
+                },
+                {
+                  title: 'Phones',
+                  link: '#'
+                }
+              ]
+            },
+            {
+              title: 'Toys & Games',
+              link: '#',
+              items: [
+                {
+                  title: 'Outdoor sports',
+                  link: '#'
+                },
+                {
+                  title: 'Card Games',
+                  link: '#'
+                },
+                {
+                  title: 'Educational Toys',
+                  link: '#'
+                },
+                {
+                  title: 'RC Toys',
+                  link: '#'
+                }
+              ]
+            },
+            {
+              title: 'Toys & Games',
+              link: '#',
+              items: [
+                {
+                  title: 'Outdoor sports',
+                  link: '#'
+                },
+                {
+                  title: 'Card Games',
+                  link: '#'
+                },
+                {
+                  title: 'Educational Toys',
+                  link: '#'
+                },
+                {
+                  title: 'RC Toys',
+                  link: '#'
+                }
+              ]
+            },
+            {
+              title: 'Toys & Games',
+              link: '#',
+              items: [
+                {
+                  title: 'Outdoor sports',
+                  link: '#'
+                },
+                {
+                  title: 'Card Games',
+                  link: '#'
+                },
+                {
+                  title: 'Educational Toys',
+                  link: '#'
+                },
+                {
+                  title: 'RC Toys',
+                  link: '#'
+                }
+              ]
+            },
+            {
+              title: 'Toys & Games',
+              link: '#',
+              items: [
+                {
+                  title: 'Outdoor sports',
+                  link: '#'
+                },
+                {
+                  title: 'Card Games',
+                  link: '#'
+                },
+                {
+                  title: 'Educational Toys',
+                  link: '#'
+                },
+                {
+                  title: 'RC Toys',
+                  link: '#'
+                }
+              ]
+            }
+          ]
+        }
       },
       {
-        text: 'Profile',
-        link: '/profile'
-      },
-      {
-        text: 'Product',
-        link: '/product'
+        type: 'link',
+        depth: 0,
+        data: {
+          text: 'Search All Categories',
+          link: '/search'
+        }
       }
     ]
   },

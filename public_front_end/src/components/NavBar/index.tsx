@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import MobileNav from './mobileNav';
-import { NavConfig } from './type';
+import { ExpandMenuItem, NavConfig } from './type';
 import { ref, onValue, update } from 'firebase/database';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../redux/store';
@@ -13,6 +13,8 @@ import { RDB_NOTIFICATIONS_DB } from '../../common/constants';
 import Notifications from '../../models/Notifications';
 import { NotificationDBKeys } from '../../common/dbKeys';
 import { app_toggle_isSigupOpen } from '../../redux/appCommon';
+import { ButtonType } from '../Reusable/Button/type';
+import MenuPopover from './menuExpandPopover';
 type Props = {
   config: NavConfig;
 };
@@ -87,15 +89,29 @@ const NavBar: FC<Props> = ({ config }) => {
             >
               <Icon iconName='Menu' />
             </button>
-            <div className='justify-start items-center lg:flex hidden '>
-              {config.leftSideNav.map((btn, i) => (
-                <Button
-                  key={i}
-                  {...btn}
-                  defautStyle='cust-btn-link'
-                  styleClasses='mx-2 px-2'
-                />
-              ))}
+            <div className='justify-start items-center lg:flex hidden'>
+              {config.leftSideNav.map((item, i) => {
+                if (item.type === 'link') {
+                  let data = item.data as ButtonType;
+                  return (
+                    <Button
+                      key={i}
+                      {...data}
+                      defautStyle='cust-btn-link'
+                      styleClasses='mx-2 px-2'
+                    />
+                  );
+                } else {
+                  let data = item.data as ExpandMenuItem;
+                  return (
+                    <MenuPopover
+                      buttonText={data.title}
+                      items={data.items}
+                      depth={item.depth}
+                    />
+                  );
+                }
+              })}
             </div>
           </div>
 
