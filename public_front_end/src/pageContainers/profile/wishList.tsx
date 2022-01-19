@@ -1,19 +1,19 @@
 import React from 'react';
-import { SectionTitle, Text } from '../../components';
-import ProductListItem from '../../components/Reusable/ProductListItem';
+import { Text } from '../../components';
+import ProductListItemMini from '../../components/Reusable/ProductListItem/listItemMini';
 
 const WishListSection = () => {
   return (
     <div id={'wishlist'}>
-      <Text content="Your wishlist where you can add items you'd like as a gift. It can be seen by people in who's circle you are." />
-      <div className='grid grid-cols-1 xl:grid-cols-4 gap-6 w-full'>
-        <ProductListItem title={{ content: 'text' }} />
-        <ProductListItem title={{ content: 'text' }} />
-        <ProductListItem title={{ content: 'text' }} />
-        <ProductListItem title={{ content: 'text' }} />
-        <ProductListItem title={{ content: 'text' }} />
-        <ProductListItem title={{ content: 'text' }} />
-        <ProductListItem title={{ content: 'text' }} />
+      <Text content='This is a public wishlist. Your connections can choose to gift you one of these items.' />
+      <div className='grid grid-cols-1 xl:grid-cols-6 gap-2 w-full'>
+        <ProductListItemMini title={{ content: 'text' }} />
+        <ProductListItemMini title={{ content: 'text' }} />
+        <ProductListItemMini title={{ content: 'text' }} />
+        <ProductListItemMini title={{ content: 'text' }} />
+        <ProductListItemMini title={{ content: 'text' }} />
+        <ProductListItemMini title={{ content: 'text' }} />
+        <ProductListItemMini title={{ content: 'text' }} />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Tab } from '@headlessui/react';
 import { classNames } from '../../common/utils';
 import { Text } from '../../components';
@@ -11,9 +11,15 @@ type Props = {
 };
 
 const CircleWishBookTabs: FC<Props> = ({ isMe }) => {
+  const [defautIndex, setDefaultIndex] = useState(0);
+
+  useEffect(() => {
+    setDefaultIndex(0);
+  }, [isMe]);
+
   // TODO set default tab if navigating from menu to specific tab
   return (
-    <Tab.Group>
+    <Tab.Group defaultIndex={defautIndex}>
       <Tab.List className='flex p-1 space-x-10 '>
         {isMe && (
           <Tab
@@ -26,7 +32,7 @@ const CircleWishBookTabs: FC<Props> = ({ isMe }) => {
           >
             <Text
               styleClasses='text-base xl:text-4xl font-light'
-              content='Circle'
+              content='MyCircle'
             />
           </Tab>
         )}

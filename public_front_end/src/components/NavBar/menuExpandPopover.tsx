@@ -47,8 +47,8 @@ const MenuPopover: FC<Props> = ({ buttonText, items = [], depth = 1 }) => {
                         styleClasses='font-normal'
                       />
                     </div> */}
-                    {items.map(item => (
-                      <div className='w-40'>
+                    {items.map((item, i) => (
+                      <div className='w-40' key={i}>
                         <div className='mb-1'>
                           <Link href={item.link || '#'}>
                             <Text
@@ -60,8 +60,8 @@ const MenuPopover: FC<Props> = ({ buttonText, items = [], depth = 1 }) => {
                           </Link>
                         </div>
 
-                        {item.items?.map(it => (
-                          <div className='my-0.5'>
+                        {item.items?.map((it, i) => (
+                          <div className='my-0.5' key={i}>
                             <Link href={it.link || '#'}>
                               <Text
                                 content={it.title}

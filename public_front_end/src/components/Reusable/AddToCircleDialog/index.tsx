@@ -48,6 +48,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
+  const [loading, setLoading] = useState(false);
   const [relVal, setRelVal] = useState({
     name: 'Relationship',
     value: DEFAULT_LIST_VALUE
@@ -61,31 +62,40 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
   );
 
   const searchUser = async (itendifier: string) => {
-    // check if me, then return
-    if (user?.email === itendifier) return;
+    try {
+      setLoading(true);
+      // check if me, then return
+      if (user?.email === itendifier) return;
 
-    // logic to find user by email
-    // TODO add logic to find by phone number
-    let foundUser: UserType;
-    const userRef = collection(db, FS_USER_DB);
-    const primaryDocQuery = query(
-      userRef,
-      where(UserDBKeys.email, '==', itendifier)
-    );
-    const snaps = await getDocs(primaryDocQuery);
+      // logic to find user by email
+      // TODO add logic to find by phone number
+      let foundUser: UserType;
+      const userRef = collection(db, FS_USER_DB);
+      const primaryDocQuery = query(
+        userRef,
+        where(UserDBKeys.email, '==', itendifier)
+      );
+      const snaps = await getDocs(primaryDocQuery);
 
-    if (!snaps.empty) {
-      foundUser = convertUserJsonToObj(snaps.docs[0].data(), snaps.docs[0].id);
-      setModalUser(foundUser);
-    } else {
-      setModalUser(null);
+      if (!snaps.empty) {
+        foundUser = convertUserJsonToObj(
+          snaps.docs[0].data(),
+          snaps.docs[0].id
+        );
+        setModalUser(foundUser);
+      } else {
+        setModalUser(null);
+      }
+      setLoading(false);
+    } catch (e) {
+      // TODO handle errors
     }
   };
 
   const addUserToCircle = async (userToAdd: UserType, rel: string) => {
     try {
       // logic to add userToAdd to current user's circle
-
+      setLoading(true);
       let cu = convertCUJsonToObj(
         {
           [CircleUserDBKeys.name]: userToAdd.name,
@@ -104,7 +114,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
       });
 
       dispatch(cu_addUser(cu));
-
+      setLoading(false);
       closeModal();
     } catch (e) {
       console.log(e);
@@ -175,6 +185,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
               type='submit'
               styleClasses='text-lg !rounded-full !py-2 !px-2'
               wrapperClasses='mx-2'
+              loading={loading}
             />
           )}
           {modalUser && (
