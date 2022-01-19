@@ -139,16 +139,16 @@ const ProfilePage: FC<Props> = ({ user }) => {
             user={user}
             saveImgUrl={saveProfileImgUrl}
             isMe={isMe}
+            updateAboutText={updateAboutText}
+            updateDates={updateDates}
+            updateGender={updateGender}
           />
         </div>
         {/* right section */}
         <div className='xl:w-3/4 xl:pl-16'>
           <ProfileDetailsSection
             user={user}
-            updateAboutText={updateAboutText}
-            updateDates={updateDates}
             updateInterestTags={updateInterestTags}
-            updateGender={updateGender}
             isMe={isMe}
           />
         </div>

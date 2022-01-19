@@ -11,19 +11,13 @@ import ProfileInterestedInSection from './profileInteredtedInSection';
 
 type Props = {
   user: UserType;
-  updateAboutText: (text: string) => void;
-  updateDates: (dob: string, relDate: string) => void;
   updateInterestTags: (tags: Array<string>) => void;
-  updateGender: (g: Gender) => void;
   isMe: boolean;
 };
 
 const ProfileDetailsSection: FC<Props> = ({
   user,
-  updateAboutText,
-  updateDates,
   updateInterestTags,
-  updateGender,
   isMe
 }) => {
   return (

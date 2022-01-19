@@ -13,11 +13,15 @@ import ProfileAboutSection from './profileAboutSection';
 import ProfileGenderSection from './profileGenderSection';
 import OKCancelBtn from '../../components/Reusable/OKCancelBtn';
 import ProfileImpDatesSection from './profileImpDates';
+import { Gender } from '../../models/enums';
 
 type Props = {
   user: UserType;
   saveImgUrl: (url: string) => void;
   isMe: boolean;
+  updateAboutText: (text: string) => void;
+  updateDates: (dob: string, relDate: string) => void;
+  updateGender: (g: Gender) => void;
 };
 
 const ProfileImageSection: FC<Props> = ({ user, saveImgUrl, isMe }) => {
