@@ -9,6 +9,10 @@ import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../common/constants';
 import UserType from '../../models/User';
 import { cu_removeUser } from '../../redux/myCircleList';
 import { RootState, useAppDispatch } from '../../redux/store';
+import ProfileAboutSection from './profileAboutSection';
+import ProfileGenderSection from './profileGenderSection';
+import OKCancelBtn from '../../components/Reusable/OKCancelBtn';
+import ProfileImpDatesSection from './profileImpDates';
 
 type Props = {
   user: UserType;
@@ -29,6 +33,8 @@ const ProfileImageSection: FC<Props> = ({ user, saveImgUrl, isMe }) => {
 
   const currentUser = useSelector((state: RootState) => state.user.data);
   const circleUsers = useSelector((state: RootState) => state.circleUser.list);
+
+  const [editMode, toggleEditMode] = useState(false);
 
   const checkUserAlreadyInCircle = async () => {
     try {
@@ -139,129 +145,185 @@ const ProfileImageSection: FC<Props> = ({ user, saveImgUrl, isMe }) => {
   // TODO update the default image
   return (
     <>
-      <div className='flex flex-row xl:flex-col justify-center items-center'>
-        <div className='relative'>
-          <div className='shadow-lg w-40 h-40 xl:w-64 xl:h-64  overflow-hidden border-4 rounded-full '>
-            <ImageComponent
-              src={newImg || '/images/person.jpg'}
-              alt={user.name}
-              width={300}
-              height={300}
-              layout='fixed'
-            />
-          </div>
-          {!newImgFile && isMe && (
-            <div className='absolute top-2 xl:top-6 left-28 xl:left-[calc(100%-70px)]'>
-              <label className='block text-skin-primary bg-skin-fill p-1 rounded-full border-2 border-skin-inverted'>
-                <Icon iconName='Camera' />
-                <input
-                  type='file'
-                  accept='image/*'
-                  className='hidden'
-                  name={'galleryimg'}
-                  ref={imgUploadRef}
-                  onChange={() => imgChange()}
-                />
-              </label>
+      <div className='flex flex-col'>
+        <div className='flex flex-row xl:flex-col justify-center items-center'>
+          <div className='relative'>
+            <div className='shadow-lg w-40 h-40 xl:w-64 xl:h-64  overflow-hidden border-4 rounded-full '>
+              <ImageComponent
+                src={newImg || '/images/person.jpg'}
+                alt={user.name}
+                width={300}
+                height={300}
+                layout='fixed'
+              />
             </div>
-          )}
-          {newImgFile && (
-            <>
+            {!newImgFile && isMe && (
               <div className='absolute top-2 xl:top-6 left-28 xl:left-[calc(100%-70px)]'>
-                <Button
-                  icon={{
-                    iconName: 'Check'
-                  }}
-                  defautStyle='cust-btn-btn'
-                  onClick={() => {
-                    onImageSave();
-                  }}
-                  styleClasses='text-lg !rounded-full !py-2 !px-2 text-skin-primary bg-skin-fill'
-                  wrapperClasses='mx-2'
-                />
-              </div>
-              <div className='absolute top-2 xl:top-6 left-28 xl:left-2'>
-                <Button
-                  icon={{
-                    iconName: 'Close'
-                  }}
-                  defautStyle='cust-btn-btn'
-                  onClick={() => {
-                    updateNewImg(user.imgUrl);
-                    updateNewImgFile(null);
-                  }}
-                  styleClasses='text-lg !rounded-full !py-2 !px-2 text-skin-primary bg-skin-fill'
-                  wrapperClasses='mx-2'
-                />
-              </div>
-            </>
-          )}
-        </div>
-        <div className='p-2 flex flex-col justify-center items-center w-full'>
-          <div className='my-2 text-center'>
-            <Text
-              content={user.name}
-              tag='h1'
-              styleClasses='text-2xl font-semibold'
-            />
-          </div>
-          {!isMe && !inMyCircle && (
-            <Button
-              text='Add To Circle'
-              wrapperClasses='w-full my-2'
-              styleClasses='w-full'
-              onClick={() => setOpenAddCircle(true)}
-            />
-          )}
-          {!isMe && inMyCircle && (
-            <>
-              {!activateRemove && (
-                <Button
-                  icon={{ iconName: 'Check' }}
-                  text='Addded to your circle'
-                  wrapperClasses='w-full my-2'
-                  styleClasses='w-full'
-                  onClick={() => setActivteRemove(true)}
-                />
-              )}
-              {activateRemove && (
-                <div className='flex flex-col items-center space-y-2'>
-                  <Text
-                    content={'Remove from Circle?'}
-                    styleClasses='text-2xl font-semibold'
+                <label className='block text-skin-primary bg-skin-fill p-1 rounded-full border-2 border-skin-inverted'>
+                  <Icon iconName='Camera' />
+                  <input
+                    type='file'
+                    accept='image/*'
+                    className='hidden'
+                    name={'galleryimg'}
+                    ref={imgUploadRef}
+                    onChange={() => imgChange()}
                   />
-                  <div className='flex flex-row justify-around '>
-                    <Button
-                      icon={{
-                        iconName: 'Check'
-                      }}
-                      defautStyle='cust-btn-btn'
-                      onClick={() => {
-                        removeUserFromCircle();
-                        setActivteRemove(false);
-                      }}
-                      styleClasses='text-lg !rounded-full !py-2 !px-2'
-                      wrapperClasses='mx-2'
-                    />
-                    <Button
-                      icon={{
-                        iconName: 'Close'
-                      }}
-                      defautStyle='cust-btn-btn'
-                      onClick={() => {
-                        setActivteRemove(false);
-                      }}
-                      styleClasses='text-lg !rounded-full !py-2 !px-2'
-                      wrapperClasses='mx-2'
-                    />
-                  </div>
+                </label>
+              </div>
+            )}
+            {newImgFile && (
+              <>
+                <div className='absolute top-2 xl:top-6 left-28 xl:left-[calc(100%-70px)]'>
+                  <Button
+                    icon={{
+                      iconName: 'Check'
+                    }}
+                    defautStyle='cust-btn-btn'
+                    onClick={() => {
+                      onImageSave();
+                    }}
+                    styleClasses='text-lg !rounded-full !py-2 !px-2 text-skin-primary bg-skin-fill'
+                    wrapperClasses='mx-2'
+                  />
                 </div>
-              )}
-            </>
-          )}
-        </div>
-      </div>
+                <div className='absolute top-2 xl:top-6 left-28 xl:left-2'>
+                  <Button
+                    icon={{
+                      iconName: 'Close'
+                    }}
+                    defautStyle='cust-btn-btn'
+                    onClick={() => {
+                      updateNewImg(user.imgUrl);
+                      updateNewImgFile(null);
+                    }}
+                    styleClasses='text-lg !rounded-full !py-2 !px-2 text-skin-primary bg-skin-fill'
+                    wrapperClasses='mx-2'
+                  />
+                </div>
+              </>
+            )}
+          </div>
+          <div className='p-2 flex flex-col justify-center items-center w-full'>
+            {!editMode && isMe && (
+              <Button
+                icon={{
+                  iconName: 'Pencil'
+                }}
+                defautStyle='cust-btn-btn'
+                onClick={() => {
+                  toggleEditMode(true);
+                }}
+                styleClasses='text-lg !rounded-full !py-2 !px-2'
+                wrapperClasses='mx-2 ml-auto'
+              />
+            )}
+            {editMode && isMe && (
+              <OKCancelBtn
+                onClose={() => {
+                  toggleEditMode(false);
+                  // updateSelected(gender);
+                }}
+                onSave={() => {
+                  toggleEditMode(false);
+                  // onSaveClick(selected);
+                }}
+              />
+            )}
 
+            <div
+              className={`my-2 text-center flex ${
+                editMode ? 'flex-col space-y-6' : 'flex-row'
+              }`}
+            >
+              <Text
+                content={user.name}
+                tag='h1'
+                styleClasses='text-2xl font-semibold'
+              />
+              <ProfileGenderSection
+                gender={user.gender}
+                onSaveClick={() => {}}
+                isMe={isMe}
+                editMode={editMode}
+              />
+            </div>
+            {!isMe && !inMyCircle && (
+              <Button
+                text='Add To Circle'
+                wrapperClasses='w-full my-2'
+                styleClasses='w-full'
+                onClick={() => setOpenAddCircle(true)}
+              />
+            )}
+            {!isMe && inMyCircle && (
+              <>
+                {!activateRemove && (
+                  <Button
+                    icon={{ iconName: 'Check' }}
+                    text='In your Circle'
+                    wrapperClasses='w-full my-2'
+                    styleClasses='w-full'
+                    onClick={() => setActivteRemove(true)}
+                  />
+                )}
+                {activateRemove && (
+                  <div className='flex flex-col items-center space-y-2'>
+                    <Text
+                      content={'Remove from Circle?'}
+                      styleClasses='text-2xl font-semibold'
+                    />
+                    <div className='flex flex-row justify-around '>
+                      <Button
+                        icon={{
+                          iconName: 'Check'
+                        }}
+                        defautStyle='cust-btn-btn'
+                        onClick={() => {
+                          removeUserFromCircle();
+                          setActivteRemove(false);
+                        }}
+                        styleClasses='text-lg !rounded-full !py-2 !px-2'
+                        wrapperClasses='mx-2'
+                      />
+                      <Button
+                        icon={{
+                          iconName: 'Close'
+                        }}
+                        defautStyle='cust-btn-btn'
+                        onClick={() => {
+                          setActivteRemove(false);
+                        }}
+                        styleClasses='text-lg !rounded-full !py-2 !px-2'
+                        wrapperClasses='mx-2'
+                      />
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+        {/* About Section */}
+        <ProfileAboutSection
+          text={user.aboutText}
+          onSaveClick={(t: string) => {
+            // updateAboutText(t);
+          }}
+          isMe={isMe}
+          editMode={editMode}
+        />
+        <ProfileImpDatesSection
+          dob={user.dob}
+          relDate={user.relDate}
+          onSaveClick={(dob: string, relDate: string) => {
+            console.log(dob, relDate);
+            // updateDates(dob, relDate);
+          }}
+          isMe={isMe}
+          editMode={editMode}
+        />
+      </div>
       <AddToCircleDialog
         open={openAddCircle}
         onClose={closeModal}

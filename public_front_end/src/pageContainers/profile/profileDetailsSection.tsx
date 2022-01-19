@@ -28,14 +28,6 @@ const ProfileDetailsSection: FC<Props> = ({
 }) => {
   return (
     <div>
-      {/* About Section */}
-      <ProfileAboutSection
-        text={user.aboutText}
-        onSaveClick={(t: string) => {
-          updateAboutText(t);
-        }}
-        isMe={isMe}
-      />
       {/* Likes */}
       <ProfileInterestedInSection
         ints={user.interestedTags}
@@ -44,26 +36,7 @@ const ProfileDetailsSection: FC<Props> = ({
         }}
         isMe={isMe}
       />
-      <div className='flex flex-col xl:flex-row justify-between mb-10'>
-        <div className='xl:mr-40 xl:min-w-[520px]'>
-          <ProfileImpDatesSection
-            dob={user.dob}
-            relDate={user.relDate}
-            onSaveClick={(dob: string, relDate: string) => {
-              console.log(dob, relDate);
-              updateDates(dob, relDate);
-            }}
-            isMe={isMe}
-          />
-        </div>
-        <div className='xl:min-w-[320px]'>
-          <ProfileGenderSection
-            gender={user.gender}
-            onSaveClick={updateGender}
-            isMe={isMe}
-          />
-        </div>
-      </div>
+
       <div className='mb-10'>
         <CircleWishBookTabs isMe={isMe} />
       </div>

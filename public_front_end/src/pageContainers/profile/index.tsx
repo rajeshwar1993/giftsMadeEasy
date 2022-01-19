@@ -134,7 +134,7 @@ const ProfilePage: FC<Props> = ({ user }) => {
     <section>
       <div className='flex flex-col xl:flex-row'>
         {/* left section */}
-        <div className=' xl:w-1/5 w-full'>
+        <div className=' xl:w-1/4 w-full'>
           <ProfileImageSection
             user={user}
             saveImgUrl={saveProfileImgUrl}
@@ -142,7 +142,7 @@ const ProfilePage: FC<Props> = ({ user }) => {
           />
         </div>
         {/* right section */}
-        <div className='xl:w-4/5 xl:pl-16'>
+        <div className='xl:w-3/4 xl:pl-16'>
           <ProfileDetailsSection
             user={user}
             updateAboutText={updateAboutText}

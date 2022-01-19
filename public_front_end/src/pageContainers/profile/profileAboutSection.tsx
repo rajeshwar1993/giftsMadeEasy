@@ -5,22 +5,23 @@ type Props = {
   text: string;
   onSaveClick: Function;
   isMe: boolean;
+  editMode: boolean;
 };
 
 const ProfileAboutSection: FC<Props> = ({
   text = 'Tell us something about your likes or hobbies so that people can find the right gift for you ...',
   onSaveClick,
-  isMe
+  isMe,
+  editMode
 }) => {
-  const [editMode, toggleEditMode] = useState(false);
   const [aboutText, updateAboutText] = useState(text);
   const [count, updateCount] = useState(text.length);
   const textRef = useRef<any>(null);
 
   return (
     <div>
-      <div className='flex flex-row justify-between items-center'>
-        <SectionTitle content='You' />
+      {/* <div className='flex flex-row justify-between items-center'>
+     
         <div>
           {!editMode && isMe && (
             <Button
@@ -64,7 +65,7 @@ const ProfileAboutSection: FC<Props> = ({
             </div>
           )}
         </div>
-      </div>
+      </div> */}
 
       <div className='mb-10'>
         {!editMode && (
@@ -74,7 +75,7 @@ const ProfileAboutSection: FC<Props> = ({
               'Tell us something about your likes or hobbies so that people can find the right gift for you ...'
             }
             tag='h3'
-            styleClasses='text-xl'
+            styleClasses='text-lg'
           />
         )}
         {editMode && (

@@ -1,12 +1,14 @@
 import { RadioGroup } from '@headlessui/react';
 import React, { FC, useState } from 'react';
 import { Button, Icon, SectionTitle, Text } from '../../components';
+import OKCancelBtn from '../../components/Reusable/OKCancelBtn';
 import { Gender } from '../../models/enums';
 
 type Props = {
   gender: Gender;
   onSaveClick: (g: Gender) => void;
   isMe: boolean;
+  editMode: boolean;
 };
 
 const options = [
@@ -24,72 +26,22 @@ const options = [
   }
 ];
 
-const ProfileGenderSection: FC<Props> = ({ gender, onSaveClick, isMe }) => {
-  const [editMode, toggleEditMode] = useState(false);
+const ProfileGenderSection: FC<Props> = ({
+  gender,
+  onSaveClick,
+  isMe,
+  editMode
+}) => {
   const [selected, updateSelected] = useState<Gender>(gender);
 
   return (
-    <div>
-      <div className='flex flex-row justify-between items-center'>
-        <SectionTitle content='Gender' />
-        <div>
-          {!editMode && isMe && (
-            <Button
-              icon={{
-                iconName: 'Pencil'
-              }}
-              defautStyle='cust-btn-btn'
-              onClick={() => {
-                toggleEditMode(true);
-              }}
-              styleClasses='text-lg !rounded-full !py-2 !px-2'
-              wrapperClasses='mx-2'
-            />
-          )}
-          {editMode && (
-            <div className='flex'>
-              <Button
-                icon={{
-                  iconName: 'Close'
-                }}
-                defautStyle='cust-btn-btn'
-                onClick={() => {
-                  toggleEditMode(false);
-                  updateSelected(gender);
-                }}
-                styleClasses='text-lg !rounded-full !py-2 !px-2'
-                wrapperClasses='mx-2'
-              />
-              <Button
-                icon={{
-                  iconName: 'Check'
-                }}
-                defautStyle='cust-btn-btn'
-                onClick={() => {
-                  toggleEditMode(false);
-                  onSaveClick(selected);
-                }}
-                styleClasses='text-lg !rounded-full !py-2 !px-2'
-                wrapperClasses='mx-2'
-              />
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className='mb-10'>
-        {!editMode && (
-          <div className='flex flex-row'>
-            <div className='flex flex-col justify-center items-center pr-10'>
-              <Icon iconName={selected.toString()} size='80' />
-              <Text content={selected.toString()} styleClasses='text-xl' />
-            </div>
-          </div>
-        )}
+    <>
+      <div className=''>
+        {!editMode && <Icon iconName={selected.toString()} size='26' />}
         {editMode && (
           <RadioGroup value={selected} onChange={updateSelected}>
             <RadioGroup.Label className='sr-only'>Gender</RadioGroup.Label>
-            <div className='flex flex-col  xl:flex-row space-y-2 xl:space-x-2'>
+            <div className='flex flex-row space-x-2'>
               {options.map(option => (
                 <RadioGroup.Option
                   key={option.text}
@@ -105,7 +57,7 @@ const ProfileGenderSection: FC<Props> = ({ gender, onSaveClick, isMe }) => {
                       ? 'bg-skin-accent text-skin-primary'
                       : 'bg-skin-fill'
                   }
-                    relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none`
+                    relative rounded-lg shadow-md px-2 py-1 cursor-pointer flex focus:outline-none`
                   }
                 >
                   {({ active, checked }) => (
@@ -145,7 +97,7 @@ const ProfileGenderSection: FC<Props> = ({ gender, onSaveClick, isMe }) => {
           </RadioGroup>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

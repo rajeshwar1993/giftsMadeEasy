@@ -7,15 +7,16 @@ type Props = {
   relDate: string;
   onSaveClick: (dob: string, relDate: string) => void;
   isMe: boolean;
+  editMode: boolean;
 };
 
 const ProfileImpDatesSection: FC<Props> = ({
   dob,
   relDate,
   onSaveClick,
-  isMe
+  isMe,
+  editMode
 }) => {
-  const [editMode, toggleEditMode] = useState(false);
   const [dobVal, updateDobVal] = useState(dob);
   const [relVal, updateRelVal] = useState(relDate);
 
@@ -23,67 +24,17 @@ const ProfileImpDatesSection: FC<Props> = ({
   const relRef = useRef<any>(null);
 
   return (
-    <div className='xl:max-w-fit'>
-      <div className={`flex flex-row justify-between items-center`}>
-        <SectionTitle content='Dates' />
-        <div>
-          {!editMode && isMe && (
-            <Button
-              icon={{
-                iconName: 'Pencil'
-              }}
-              defautStyle='cust-btn-btn'
-              onClick={() => {
-                toggleEditMode(true);
-              }}
-              styleClasses='text-lg !rounded-full !py-2 !px-2'
-              wrapperClasses='mx-2'
-            />
-          )}
-          {editMode && (
-            <div className='flex'>
-              <Button
-                icon={{
-                  iconName: 'Close'
-                }}
-                defautStyle='cust-btn-btn'
-                onClick={() => {
-                  toggleEditMode(false);
-                }}
-                styleClasses='text-lg !rounded-full !py-2 !px-2'
-                wrapperClasses='mx-2'
-              />
-              <Button
-                icon={{
-                  iconName: 'Check'
-                }}
-                defautStyle='cust-btn-btn'
-                onClick={() => {
-                  toggleEditMode(false);
-                  updateDobVal(dobRef.current!.value);
-                  updateRelVal(relRef.current!.value);
-                  const ds = new Date(dobRef.current!.value).toISOString();
-                  const rs = new Date(relRef.current!.value).toISOString();
-                  onSaveClick(ds, rs);
-                }}
-                styleClasses='text-lg !rounded-full !py-2 !px-2'
-                wrapperClasses='mx-2'
-              />
-            </div>
-          )}
-        </div>
-      </div>
-
+    <div className=''>
       <div className='mb-10 '>
         {!editMode && (
-          <div className='flex flex-row xl:mr-20'>
-            <div className='flex flex-col justify-center items-center pr-10'>
-              <Icon iconName='Cake' size='80' />
+          <div className='flex flex-row justify-around'>
+            <div className='flex flex-col justify-center items-center '>
+              <Icon iconName='Cake' size='60' />
               <Text
                 content={
                   dobVal ? format(new Date(dobVal), 'MMMM do') : 'Set Birthday'
                 }
-                styleClasses='text-xl'
+                styleClasses='text-base'
               />
               <Button
                 text='Find Birthday Gifts'
@@ -93,14 +44,14 @@ const ProfileImpDatesSection: FC<Props> = ({
               />
             </div>
             <div className='flex flex-col justify-center items-center'>
-              <Icon iconName='OutlineFavorite' size='80' />
+              <Icon iconName='OutlineFavorite' size='60' />
               <Text
                 content={
                   relVal
                     ? format(new Date(relVal), 'MMMM do')
                     : 'Set Relationship Date'
                 }
-                styleClasses='text-xl'
+                styleClasses='text-base'
               />
               <Button
                 text='Find Anniversary Gifts'
@@ -112,8 +63,8 @@ const ProfileImpDatesSection: FC<Props> = ({
           </div>
         )}
         {editMode && (
-          <div className='flex flex-col xl:flex-row'>
-            <div className='flex flex-col mb-6 xl:w-1/3 xl:mr-14'>
+          <div className='flex flex-col'>
+            <div className='flex flex-col mb-6 '>
               <Text content='Birthday' styleClasses='font-semibold text-lg' />
               <input
                 type={'date'}
@@ -128,7 +79,7 @@ const ProfileImpDatesSection: FC<Props> = ({
                 styleClasses='font-semibold text-sm'
               />
             </div>
-            <div className='flex flex-col mb-6 xl:w-1/3'>
+            <div className='flex flex-col mb-6 '>
               <Text
                 content='Relationship'
                 styleClasses='font-semibold text-lg'
