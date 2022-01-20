@@ -10,6 +10,7 @@ import { FS_INTEREST_TAGS_DB } from '../../common/constants';
 import InterestTagType, { convertITJsonToObj } from '../../models/Interest';
 import { it_add_tagArray } from '../../redux/interestTags';
 import { RootState, useAppDispatch } from '../../redux/store';
+import OKCancelBtn from '../../components/Reusable/OKCancelBtn';
 
 type Props = {
   ints: Array<string>;
@@ -81,7 +82,7 @@ const ProfileInterestedInSection: FC<Props> = ({
 
   return (
     <div>
-      <div className='flex flex-row justify-between items-center'>
+      <div className='flex flex-row justify-between xl:justify-start xl:space-x-6 items-start'>
         <SectionTitle content='Interested In' />
         <div>
           {!editMode && isMe && (
@@ -93,43 +94,27 @@ const ProfileInterestedInSection: FC<Props> = ({
               onClick={() => {
                 toggleEditMode(true);
               }}
-              styleClasses='text-lg !rounded-full !py-2 !px-2'
+              styleClasses='!rounded-full !py-2 !px-2'
               wrapperClasses='mx-2'
             />
           )}
           {editMode && (
-            <div className='flex '>
-              <Button
-                icon={{
-                  iconName: 'Close'
-                }}
-                defautStyle='cust-btn-btn'
-                onClick={() => {
-                  toggleEditMode(false);
-                }}
-                styleClasses='text-lg !rounded-full !py-2 !px-2'
-                wrapperClasses='mx-2'
-              />
-              <Button
-                icon={{
-                  iconName: 'Check'
-                }}
-                defautStyle='cust-btn-btn'
-                onClick={() => {
-                  toggleEditMode(false);
-                  let finalInts = tempIntArray.map(i => i.uid);
-                  fetchAndUpdateInterests(finalInts);
-                  onSaveClick(finalInts);
-                }}
-                styleClasses='text-lg !rounded-full !py-2 !px-2'
-                wrapperClasses='mx-2'
-              />
-            </div>
+            <OKCancelBtn
+              onClose={() => {
+                toggleEditMode(false);
+              }}
+              onSave={() => {
+                toggleEditMode(false);
+                let finalInts = tempIntArray.map(i => i.uid);
+                fetchAndUpdateInterests(finalInts);
+                onSaveClick(finalInts);
+              }}
+            />
           )}
         </div>
       </div>
 
-      <div className='mb-10'>
+      <div>
         {!editMode && intArray.length === 0 && (
           <Text
             content={
@@ -154,7 +139,7 @@ const ProfileInterestedInSection: FC<Props> = ({
           </div>
         )}
 
-        <div className='mb-2 flex flex-wrap'>
+        <div className='flex flex-wrap'>
           {(editMode ? tempIntArray : intArray).map(int => (
             <Chip
               key={int.uid}
@@ -177,6 +162,7 @@ const ProfileInterestedInSection: FC<Props> = ({
             text='Find Gifts for Aditya Vikram Chatterjee'
             link={'/search'}
             defautStyle='cust-btn-link'
+            styleClasses='text-sm'
           />
         )}
       </div>

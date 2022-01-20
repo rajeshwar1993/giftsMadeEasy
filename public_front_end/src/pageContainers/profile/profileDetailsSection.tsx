@@ -21,7 +21,7 @@ const ProfileDetailsSection: FC<Props> = ({
   isMe
 }) => {
   return (
-    <div>
+    <div className='flex flex-col space-y-8'>
       {/* Likes */}
       <ProfileInterestedInSection
         ints={user.interestedTags}

@@ -21,6 +21,19 @@ const CircleWishBookTabs: FC<Props> = ({ isMe }) => {
   return (
     <Tab.Group defaultIndex={defautIndex}>
       <Tab.List className='flex p-1 space-x-10 '>
+        <Tab
+          className={({ selected }) =>
+            classNames(
+              'p-2.5 leading-5 focus:outline-none focus:ring-2 ring-offset-2 ring-offset-slate-700/5 ring-white ring-opacity-60 border-b-4 border-opacity-10 border-skin-accent hover:border-opacity-100',
+              selected ? 'border-opacity-100' : ''
+            )
+          }
+        >
+          <Text
+            styleClasses='text-base xl:text-4xl font-light'
+            content='Wishlist'
+          />
+        </Tab>
         {isMe && (
           <Tab
             className={({ selected }) =>
@@ -36,60 +49,53 @@ const CircleWishBookTabs: FC<Props> = ({ isMe }) => {
             />
           </Tab>
         )}
-        <Tab
-          className={({ selected }) =>
-            classNames(
-              'p-2.5 leading-5 focus:outline-none focus:ring-2 ring-offset-2 ring-offset-slate-700/5 ring-white ring-opacity-60 border-b-4 border-opacity-10 border-skin-accent hover:border-opacity-100',
-              selected ? 'border-opacity-100' : ''
-            )
-          }
-        >
-          <Text
-            styleClasses='text-base xl:text-4xl font-light'
-            content='Wishlist'
-          />
-        </Tab>
-        <Tab
-          className={({ selected }) =>
-            classNames(
-              'p-2.5 leading-5 focus:outline-none focus:ring-2 ring-offset-2 ring-offset-slate-700/5 ring-white ring-opacity-60 border-b-4 border-opacity-10 border-skin-accent hover:border-opacity-100',
-              selected ? 'border-opacity-100' : ''
-            )
-          }
-        >
-          <Text
-            styleClasses='text-base xl:text-4xl font-light'
-            content='Bookmarks'
-          />
-        </Tab>
+
+        {isMe && (
+          <Tab
+            className={({ selected }) =>
+              classNames(
+                'p-2.5 leading-5 focus:outline-none focus:ring-2 ring-offset-2 ring-offset-slate-700/5 ring-white ring-opacity-60 border-b-4 border-opacity-10 border-skin-accent hover:border-opacity-100',
+                selected ? 'border-opacity-100' : ''
+              )
+            }
+          >
+            <Text
+              styleClasses='text-base xl:text-4xl font-light'
+              content='Bookmarks'
+            />
+          </Tab>
+        )}
       </Tab.List>
       <Tab.Panels className='mt-2'>
+        <Tab.Panel
+          className={classNames(
+            'rounded-xl p-3',
+            'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
+          )}
+        >
+          <WishListSection />
+        </Tab.Panel>
         {isMe && (
           <Tab.Panel
             className={classNames(
-              'bg-white rounded-xl p-3',
+              'rounded-xl p-3',
               'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
             )}
           >
             <MyCircle isMe={isMe} />
           </Tab.Panel>
         )}
-        <Tab.Panel
-          className={classNames(
-            'bg-white rounded-xl p-3',
-            'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
-          )}
-        >
-          <WishListSection />
-        </Tab.Panel>
-        <Tab.Panel
-          className={classNames(
-            'bg-white rounded-xl p-3',
-            'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
-          )}
-        >
-          <BookmarksSection />
-        </Tab.Panel>
+
+        {isMe && (
+          <Tab.Panel
+            className={classNames(
+              'rounded-xl p-3',
+              'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
+            )}
+          >
+            <BookmarksSection />
+          </Tab.Panel>
+        )}
       </Tab.Panels>
     </Tab.Group>
   );

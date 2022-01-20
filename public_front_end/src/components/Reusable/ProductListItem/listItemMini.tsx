@@ -31,7 +31,7 @@ const ProductListItemMini: FC<Props> = ({
             <Text
               tag='h4'
               content='2020 Apple iPad Air with A14 Bionic chip (10.9-inch/27.69 cm, Wi-Fi, 256GB) - Space Grey (4th Generation)'
-              styleClasses='font-semibold text-base line-clamp-4'
+              styleClasses='font-semibold text-sm line-clamp-4'
             />
           </div>
         </div>

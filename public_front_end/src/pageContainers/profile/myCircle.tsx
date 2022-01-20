@@ -54,7 +54,7 @@ const MyCircle: FC<Props> = ({ isMe }) => {
 
   return (
     <>
-      <div className='grid grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-8'>
+      <div className='grid grid-cols-2 xl:grid-cols-6 gap-x-4 gap-y-6'>
         {isMe && (
           <div className='flex flex-col space-y-10 justify-center items-center py-10'>
             <Button
