@@ -105,6 +105,7 @@ const NavBar: FC<Props> = ({ config }) => {
                   let data = item.data as ExpandMenuItem;
                   return (
                     <MenuPopover
+                      key={i}
                       buttonText={data.title}
                       items={data.items}
                       depth={item.depth}

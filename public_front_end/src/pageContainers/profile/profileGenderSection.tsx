@@ -1,13 +1,11 @@
 import { RadioGroup } from '@headlessui/react';
 import React, { FC, useState } from 'react';
-import { Button, Icon, SectionTitle, Text } from '../../components';
-import OKCancelBtn from '../../components/Reusable/OKCancelBtn';
+import { Icon } from '../../components';
 import { Gender } from '../../models/enums';
 
 type Props = {
-  gender: Gender;
-  onSaveClick: (g: Gender) => void;
-  isMe: boolean;
+  selected: Gender;
+  updateSelected: Function;
   editMode: boolean;
 };
 
@@ -27,19 +25,16 @@ const options = [
 ];
 
 const ProfileGenderSection: FC<Props> = ({
-  gender,
-  onSaveClick,
-  isMe,
+  selected,
+  updateSelected,
   editMode
 }) => {
-  const [selected, updateSelected] = useState<Gender>(gender);
-
   return (
     <>
       <div className=''>
         {!editMode && <Icon iconName={selected.toString()} size='26' />}
         {editMode && (
-          <RadioGroup value={selected} onChange={updateSelected}>
+          <RadioGroup value={selected} onChange={g => updateSelected(g)}>
             <RadioGroup.Label className='sr-only'>Gender</RadioGroup.Label>
             <div className='flex flex-row space-x-2'>
               {options.map(option => (

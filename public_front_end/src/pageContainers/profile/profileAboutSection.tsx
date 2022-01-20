@@ -3,75 +3,24 @@ import { Button, SectionTitle, Text } from '../../components';
 
 type Props = {
   text: string;
-  onSaveClick: Function;
-  isMe: boolean;
   editMode: boolean;
+  textRef: any;
 };
 
 const ProfileAboutSection: FC<Props> = ({
   text = 'Tell us something about your likes or hobbies so that people can find the right gift for you ...',
-  onSaveClick,
-  isMe,
-  editMode
+  editMode,
+  textRef
 }) => {
-  const [aboutText, updateAboutText] = useState(text);
   const [count, updateCount] = useState(text.length);
-  const textRef = useRef<any>(null);
 
   return (
     <div>
-      {/* <div className='flex flex-row justify-between items-center'>
-     
-        <div>
-          {!editMode && isMe && (
-            <Button
-              icon={{
-                iconName: 'Pencil'
-              }}
-              defautStyle='cust-btn-btn'
-              onClick={() => {
-                toggleEditMode(true);
-              }}
-              styleClasses='text-lg !rounded-full !py-2 !px-2'
-              wrapperClasses='mx-2'
-            />
-          )}
-          {editMode && (
-            <div className='flex'>
-              <Button
-                icon={{
-                  iconName: 'Close'
-                }}
-                defautStyle='cust-btn-btn'
-                onClick={() => {
-                  toggleEditMode(false);
-                }}
-                styleClasses='text-lg !rounded-full !py-2 !px-2'
-                wrapperClasses='mx-2'
-              />
-              <Button
-                icon={{
-                  iconName: 'Check'
-                }}
-                defautStyle='cust-btn-btn'
-                onClick={() => {
-                  toggleEditMode(false);
-                  updateAboutText(textRef.current.value);
-                  onSaveClick(textRef.current.value);
-                }}
-                styleClasses='text-lg !rounded-full !py-2 !px-2'
-                wrapperClasses='mx-2'
-              />
-            </div>
-          )}
-        </div>
-      </div> */}
-
       <div className='mb-10'>
         {!editMode && (
           <Text
             content={
-              aboutText ||
+              text ||
               'Tell us something about your likes or hobbies so that people can find the right gift for you ...'
             }
             tag='h3'
@@ -82,7 +31,7 @@ const ProfileAboutSection: FC<Props> = ({
           <div>
             <textarea
               placeholder='Tell us something about your likes or hobbies so that people can find the right gift for you ...'
-              defaultValue={aboutText}
+              defaultValue={text}
               rows={4}
               className='w-full border-2 border-skin-accent rounded-lg text-lg'
               maxLength={300}

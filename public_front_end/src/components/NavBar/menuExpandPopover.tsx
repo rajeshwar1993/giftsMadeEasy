@@ -39,14 +39,6 @@ const MenuPopover: FC<Props> = ({ buttonText, items = [], depth = 1 }) => {
                       depth === 1 ? 'grid-cols-2' : 'grid-cols-4'
                     }`}
                   >
-                    {/* <div
-                      className={`${depth === 1 ? 'col-span-2' : 'col-span-4'}`}
-                    >
-                      <Text
-                        content={'I am looking for a gift for my'}
-                        styleClasses='font-normal'
-                      />
-                    </div> */}
                     {items.map((item, i) => (
                       <div className='w-40' key={i}>
                         <div className='mb-1'>

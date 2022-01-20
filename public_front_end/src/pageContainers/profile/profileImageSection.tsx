@@ -24,7 +24,14 @@ type Props = {
   updateGender: (g: Gender) => void;
 };
 
-const ProfileImageSection: FC<Props> = ({ user, saveImgUrl, isMe }) => {
+const ProfileImageSection: FC<Props> = ({
+  user,
+  saveImgUrl,
+  isMe,
+  updateAboutText,
+  updateDates,
+  updateGender
+}) => {
   const dispatch = useAppDispatch();
 
   const [newImg, updateNewImg] = useState<any>(user.imgUrl || null);
@@ -34,11 +41,27 @@ const ProfileImageSection: FC<Props> = ({ user, saveImgUrl, isMe }) => {
   const [inMyCircle, setInMyCircle] = useState(false);
   const [openAddCircle, setOpenAddCircle] = useState(false);
   const [activateRemove, setActivteRemove] = useState(false);
-
   const currentUser = useSelector((state: RootState) => state.user.data);
   const circleUsers = useSelector((state: RootState) => state.circleUser.list);
 
   const [editMode, toggleEditMode] = useState(false);
+
+  // states for name
+  const [name, setName] = useState(user.name);
+  const nameRef = useRef<any>(null);
+
+  // sates for about text
+  const [aboutText, setAboutText] = useState(user.aboutText);
+  const textRef = useRef<any>(null);
+
+  // gender state
+  const [selectedGender, updateSelectedGender] = useState<Gender>(user.gender);
+
+  //date states
+  const [dobVal, updateDobVal] = useState(user.dob);
+  const [relVal, updateRelVal] = useState(user.relDate);
+  const dobRef = useRef<any>(null);
+  const relRef = useRef<any>(null);
 
   const checkUserAlreadyInCircle = async () => {
     try {
@@ -230,7 +253,17 @@ const ProfileImageSection: FC<Props> = ({ user, saveImgUrl, isMe }) => {
                 }}
                 onSave={() => {
                   toggleEditMode(false);
-                  // onSaveClick(selected);
+                  // about text
+                  setAboutText(textRef.current.value);
+                  updateAboutText(textRef.current.value);
+                  // gender
+                  updateGender(selectedGender);
+                  // dates
+                  updateDobVal(dobRef.current!.value);
+                  updateRelVal(relRef.current!.value);
+                  const ds = new Date(dobRef.current!.value).toISOString();
+                  const rs = new Date(relRef.current!.value).toISOString();
+                  updateDates(ds, rs);
                 }}
               />
             )}
@@ -241,15 +274,15 @@ const ProfileImageSection: FC<Props> = ({ user, saveImgUrl, isMe }) => {
               }`}
             >
               <Text
-                content={user.name}
+                content={name}
                 tag='h1'
                 styleClasses='text-2xl font-semibold'
               />
+
               <ProfileGenderSection
-                gender={user.gender}
-                onSaveClick={() => {}}
-                isMe={isMe}
                 editMode={editMode}
+                selected={selectedGender}
+                updateSelected={updateSelectedGender}
               />
             </div>
             {!isMe && !inMyCircle && (
@@ -310,21 +343,15 @@ const ProfileImageSection: FC<Props> = ({ user, saveImgUrl, isMe }) => {
         </div>
         {/* About Section */}
         <ProfileAboutSection
-          text={user.aboutText}
-          onSaveClick={(t: string) => {
-            // updateAboutText(t);
-          }}
-          isMe={isMe}
+          text={aboutText}
           editMode={editMode}
+          textRef={textRef}
         />
         <ProfileImpDatesSection
-          dob={user.dob}
-          relDate={user.relDate}
-          onSaveClick={(dob: string, relDate: string) => {
-            console.log(dob, relDate);
-            // updateDates(dob, relDate);
-          }}
-          isMe={isMe}
+          dobVal={dobVal}
+          relVal={relVal}
+          dobRef={dobRef}
+          relRef={relRef}
           editMode={editMode}
         />
       </div>

@@ -3,26 +3,20 @@ import React, { FC, useState, useRef } from 'react';
 import { Button, Icon, SectionTitle, Text } from '../../components';
 
 type Props = {
-  dob: string;
-  relDate: string;
-  onSaveClick: (dob: string, relDate: string) => void;
-  isMe: boolean;
+  dobVal: string;
+  relVal: string;
+  dobRef: any;
+  relRef: any;
   editMode: boolean;
 };
 
 const ProfileImpDatesSection: FC<Props> = ({
-  dob,
-  relDate,
-  onSaveClick,
-  isMe,
+  dobVal,
+  relVal,
+  dobRef,
+  relRef,
   editMode
 }) => {
-  const [dobVal, updateDobVal] = useState(dob);
-  const [relVal, updateRelVal] = useState(relDate);
-
-  const dobRef = useRef<any>(null);
-  const relRef = useRef<any>(null);
-
   return (
     <div className=''>
       <div className='mb-10 '>
