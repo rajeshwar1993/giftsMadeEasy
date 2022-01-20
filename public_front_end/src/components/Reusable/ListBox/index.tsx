@@ -65,7 +65,7 @@ const ListBoxComp: FC<Props> = ({
                   className={({ active }) =>
                     `${
                       active
-                        ? 'text-skin-inverted bg-skin-accent'
+                        ? 'text-skin-inverted bg-skin-inverted'
                         : 'text-skin-primary'
                     }
                     cursor-pointer select-none relative py-2 ${

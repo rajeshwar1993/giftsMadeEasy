@@ -90,7 +90,7 @@ const BasicDetailsFlow: FC<Props> = ({ userId }) => {
                     ? 'ring-2 ring-offset-2 ring-offset-sky-300 ring-white ring-opacity-60'
                     : ''
                 }
-            ${checked ? 'bg-skin-accent text-skin-primary' : 'bg-skin-fill'}
+            ${checked ? 'bg-skin-inverted text-skin-primary' : 'bg-skin-fill'}
               relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none`
               }
             >

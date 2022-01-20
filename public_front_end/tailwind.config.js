@@ -23,7 +23,7 @@ module.exports = {
         skin: {
           fill: withOpacity('--color-fill'),
           accent: withOpacity('--color-fill-accent'),
-          'accent-hover': withOpacity('--color-fill-accent-hover'),
+          inverted: withOpacity('--color-fill-inverted'),
           disbaled: withOpacity('--color-fill-disabled')
         }
       },

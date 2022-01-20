@@ -183,7 +183,7 @@ const ProfileImageSection: FC<Props> = ({
             </div>
             {!newImgFile && isMe && (
               <div className='absolute top-2 xl:top-6 left-28 xl:left-[calc(100%-70px)]'>
-                <label className='block text-skin-primary bg-skin-fill p-1 rounded-full border-2 border-skin-inverted hover:text-skin-inverted hover:bg-skin-accent cursor-pointer transition duration-200'>
+                <label className='block text-skin-primary bg-skin-fill p-1 rounded-full border-2 border-skin-inverted hover:text-skin-inverted hover:bg-skin-inverted cursor-pointer transition duration-200'>
                   <Icon iconName='Camera' />
                   <input
                     type='file'

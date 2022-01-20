@@ -16,7 +16,7 @@ const Chip: FC<Props> = ({
       onClick={() => {
         if (onClick) onClick(id);
       }}
-      className={`py-1 px-3 mr-2 mb-2 rounded-lg text-sm lg:text-base whitespace-nowrap bg-skin-accent bg-opacity-90 text-skin-inverted flex justify-around items-center transition-all duration-200 ${
+      className={`py-1 px-3 mr-2 mb-2 rounded-lg text-sm lg:text-base whitespace-nowrap bg-skin-inverted bg-opacity-90 text-skin-inverted flex justify-around items-center transition-all duration-200 ${
         !editMode && onClick && 'cursor-pointer hover:bg-opacity-100'
       } ${wrapperClasses}`}
     >

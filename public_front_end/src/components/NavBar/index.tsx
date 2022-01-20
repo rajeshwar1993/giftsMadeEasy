@@ -66,55 +66,55 @@ const NavBar: FC<Props> = ({ config }) => {
     <header className='sticky bg-skin-fill top-0 z-10'>
       <nav
         aria-label='Top'
-        className='bg-skin-accent bg-opacity-10 mx-auto p-2 xl:px-8 w-full'
+        className='bg-skin-inverted bg-opacity-10 mx-auto p-2 xl:px-8 w-full'
       >
         <div className='relative flex justify-between items-center xl:text-base text-sm text-md'>
           {/* Left Section */}
-          <div className='w-3/5 flex items-center'>
-            <div className='lg:block hidden cursor-pointer w-[15%]'>
-              <span className='sr-only'>{config.title}</span>
-              <Link href={'/'}>
-                <img
-                  className='md:h-8 h-6 w-auto'
-                  src={config.logo.img}
-                  alt={config.logo.alt}
-                />
-              </Link>
-            </div>
-            <button
-              className='block lg:hidden p-2'
-              onClick={() => {
-                toggleMenuOpen(true);
-              }}
-            >
-              <Icon iconName='Menu' />
-            </button>
-            <div className='justify-start items-center lg:flex hidden'>
-              {config.leftSideNav.map((item, i) => {
-                if (item.type === 'link') {
-                  let data = item.data as ButtonType;
-                  return (
-                    <Button
-                      key={i}
-                      {...data}
-                      defautStyle='cust-btn-link'
-                      styleClasses='mx-2 px-2'
-                    />
-                  );
-                } else {
-                  let data = item.data as ExpandMenuItem;
-                  return (
-                    <MenuPopover
-                      key={i}
-                      buttonText={data.title}
-                      items={data.items}
-                      depth={item.depth}
-                    />
-                  );
-                }
-              })}
-            </div>
+          {/* <div className='w-3/5 flex items-center'> */}
+          <div className='lg:block hidden cursor-pointer w-[15%]'>
+            <span className='sr-only'>{config.title}</span>
+            <Link href={'/'}>
+              <img
+                className='md:h-8 h-6 w-auto'
+                src={config.logo.img}
+                alt={config.logo.alt}
+              />
+            </Link>
           </div>
+          <button
+            className='block lg:hidden p-2'
+            onClick={() => {
+              toggleMenuOpen(true);
+            }}
+          >
+            <Icon iconName='Menu' />
+          </button>
+          <div className='justify-start items-center lg:flex hidden relative'>
+            {config.leftSideNav.map((item, i) => {
+              if (item.type === 'link') {
+                let data = item.data as ButtonType;
+                return (
+                  <Button
+                    key={i}
+                    {...data}
+                    defautStyle='cust-btn-link'
+                    styleClasses='mx-2 px-2'
+                  />
+                );
+              } else {
+                let data = item.data as ExpandMenuItem;
+                return (
+                  <MenuPopover
+                    key={i}
+                    buttonText={data.title}
+                    items={data.items}
+                    depth={item.depth}
+                  />
+                );
+              }
+            })}
+          </div>
+          {/* </div> */}
 
           {/* Right Section */}
           <div className='lg:w-1/5 w-2/5 flex flex-row justify-end items-center'>
@@ -154,7 +154,7 @@ const NavBar: FC<Props> = ({ config }) => {
       </nav>
 
       {!!user && !user.isEmailVerified && (
-        <div className='bg-skin-accent text-skin-inverted text-center flex flex-col py-0.5'>
+        <div className='bg-skin-inverted text-skin-inverted text-center flex flex-col py-0.5'>
           <div>
             <Text
               content={`We have sent a verification mail on ${user?.email}. Please verify and then`}

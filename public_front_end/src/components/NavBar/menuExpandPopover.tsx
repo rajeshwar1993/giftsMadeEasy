@@ -13,7 +13,7 @@ type Props = {
 const MenuPopover: FC<Props> = ({ buttonText, items = [], depth = 1 }) => {
   return (
     <div className=''>
-      <Popover className='relative'>
+      <Popover className=''>
         {({ open }) => (
           <>
             <Popover.Button

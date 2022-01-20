@@ -5,54 +5,54 @@
 @layer base {
   :root {
     /* Define colors */
+    --accent: 91,33,182;
+    --accent-border: 15, 23, 42;
+    --accent-hover: 15, 23, 42;
+    --white: 255, 255, 255;
+    --black: 0, 0, 0;
+    --disabled: 166, 169, 179;
+    --disabled-dark: 166, 169, 179;
+    --fill: 248,250,252;
+    --fill-dark: 15,23,42;
+
+    /* Default Theme */
+    --color-text-primary: var(--black);
+    --color-text-accent: var(--accent);
+    --color-text-disabled: var(--disabled);
+    --color-text-inverted: var(--white);
+    --color-fill: var(--fill);
+    --color-fill-accent: var(--accent);
+    --color-fill-inverted: var(--fill-dark);
+    --color-fill-disabled: var(--disabled);
+    --color-border-primary: var(--fill);
+    --color-border-accent: var(--accent);
+    --color-border-inverted: var(--fill-dark);
+  }
+
+  .root-dark {
+    /* Define colors */
     --accent: 30, 41, 59;
     --accent-border: 15, 23, 42;
     --accent-hover: 15, 23, 42;
     --white: 255, 255, 255;
     --black: 0, 0, 0;
-    --text-disabled: 166, 169, 179;
-    --fill: 250, 250, 249;
-    --fill-inverted: 28, 25, 23;
-    --fill-diabled: 99, 102, 241;
-
-    /* Default Theme */
-    --color-text-primary: var(--black);
-    --color-text-accent: var(--accent);
-    --color-text-disabled: var(--text-disabled);
-    --color-text-inverted: var(--white);
-    --color-fill: var(--fill);
-    --color-fill-accent: var(--accent);
-    --color-fill-accent-hover: var(--accent-hover);
-    --color-fill-disabled: var(--fill-disabled);
-    --color-border-primary: var(--fill);
-    --color-border-accent: var(--accent);
-    --color-border-inverted: var(--fill-inverted);
-  }
-
-  .root-dark {
-    /* Define colors */
-    --accent: 196, 181, 253;
-    --accent-border: 217, 82, 191;
-    --accent-hover: 217, 82, 191;
-    --white: 255, 255, 255;
-    --black: 0, 0, 0;
-    --text-disabled: 166, 169, 179;
-    --fill: 28, 25, 23;
-    --fill-inverted: 250, 250, 249;
-    --fill-diabled: 99, 102, 241;
+    --disabled: 166, 169, 179;
+    --disabled-dark: 166, 169, 179;
+    --fill: 248,250,252;
+    --fill-dark: 15,23,42;
 
     /* Default Theme */
     --color-text-primary: var(--white);
     --color-text-accent: var(--accent);
-    --color-text-disabled: var(--text-disabled);
+    --color-text-disabled: var(--disabled);
     --color-text-inverted: var(--black);
     --color-fill: var(--fill);
     --color-fill-accent: var(--accent);
-    --color-fill-accent-hover: var(--accent-hover);
-    --color-fill-disabled: var(--fill-disabled);
+    --color-fill-inverted: var(--fill-dark);
+    --color-fill-disabled: var(--disabled);
     --color-border-primary: var(--fill);
     --color-border-accent: var(--accent);
-    --color-border-inverted: var(--fill-inverted);
+    --color-border-inverted: var(--fill-dark);
   }
 }
 

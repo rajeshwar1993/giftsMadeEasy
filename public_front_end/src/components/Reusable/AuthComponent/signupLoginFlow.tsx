@@ -217,7 +217,7 @@ const SignupLoginFlow = () => {
           styleClasses='text-center !text-xs text-red-600'
         />
       )}
-      <hr className='w-full bg-skin-accent' />
+      <hr className='w-full bg-skin-inverted' />
       <Text
         content={'or use a social login'}
         styleClasses='text-center !text-xs'

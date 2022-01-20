@@ -189,7 +189,7 @@ const SelectInterestsPopup: FC<Props> = ({
                 wrapperClasses='col-span-2 m-auto'
                 styleClasses={` ${
                   selectedList.includes(chosenInterest!.it.uid)
-                    ? 'bg-skin-accent bg-opacity-80 text-skin-inverted'
+                    ? 'bg-skin-inverted bg-opacity-80 text-skin-inverted'
                     : ''
                 } `}
                 onClick={() => {
@@ -219,7 +219,7 @@ const SelectInterestsPopup: FC<Props> = ({
                     defautStyle='cust-btn-btn'
                     styleClasses={`w-full justify-center ${
                       hasBeenSelected
-                        ? 'bg-skin-accent bg-opacity-80 text-skin-inverted'
+                        ? 'bg-skin-inverted bg-opacity-80 text-skin-inverted'
                         : ''
                     } `}
                     onClick={() => {

@@ -16,7 +16,7 @@ const ParagraphImageSplit: FC<Props> = ({
   return (
     <section
       id={id}
-      className={`mx-4 md:mx-0 flex flex-col-reverse lg:flex-row h-auto lg:h-[24rem] xl:h-[30rem] bg-skin-accent text-skin-inverted rounded-lg overflow-hidden ${sectionWrapperClasses}`}
+      className={`mx-4 md:mx-0 flex flex-col-reverse lg:flex-row h-auto lg:h-[24rem] xl:h-[30rem] bg-skin-inverted text-skin-inverted rounded-lg overflow-hidden ${sectionWrapperClasses}`}
     >
       {/* SectionTitle Section */}
       <div

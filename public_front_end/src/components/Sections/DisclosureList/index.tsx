@@ -22,14 +22,14 @@ const DisclosureList: FC<Props> = ({
       {sectionTitle && <SectionTitle {...sectionTitle} />}
       {list.length > 0 && (
         <div
-          className={`flex flex-col bg-skin-accent bg-opacity-10 p-4 rounded-lg ${listWrapperClasses}`}
+          className={`flex flex-col bg-skin-inverted bg-opacity-10 p-4 rounded-lg ${listWrapperClasses}`}
         >
           {list.map((l: DisclosureListType, i: number) => (
             <Disclosure key={i}>
               {({ open }) => (
                 <>
                   <Disclosure.Button
-                    className={`flex justify-between items-center text-left bg-skin-accent bg-opacity-90 hover:bg-opacity-100 text-skin-inverted rounded-xl py-2 px-4 my-2 ${l.titleWrapperClasses}`}
+                    className={`flex justify-between items-center text-left bg-skin-inverted bg-opacity-90 hover:bg-opacity-100 text-skin-inverted rounded-xl py-2 px-4 my-2 ${l.titleWrapperClasses}`}
                   >
                     <Text
                       {...l.title}

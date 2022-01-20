@@ -15,7 +15,7 @@ const Testimonial: FC<Props> = ({
   return (
     <section
       id={id}
-      className={`bg-skin-accent mx-4 xl:mx-0 p-10 xl:py-5 flex flex-col xl:flex-row justify-center xl:justify-around items-center rounded-lg ${sectionWrapperClasses}`}
+      className={`bg-skin-inverted mx-4 xl:mx-0 p-10 xl:py-5 flex flex-col xl:flex-row justify-center xl:justify-around items-center rounded-lg ${sectionWrapperClasses}`}
     >
       <div
         className={`relative max-w-lg min-w-[300px] md:min-w-[500px] flex flex-col items-center xl:ml-[30%] ${textWrapperClasses}`}

@@ -24,7 +24,7 @@ const DialogContainer: FC<Props> = ({ open, closeModal, children }) => {
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Dialog.Overlay className='fixed inset-0 bg-skin-accent bg-opacity-70' />
+            <Dialog.Overlay className='fixed inset-0 bg-skin-inverted bg-opacity-70' />
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}

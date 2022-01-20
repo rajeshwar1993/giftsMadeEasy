@@ -28,7 +28,7 @@ const TableSection: FC<Props> = ({
               <tr>
                 {tableHeader.tds.map((th, i) => (
                   <th
-                    className={`px-4 py-3 text-left bg-skin-accent text-skin-inverted ${tableHeaderClasses}`}
+                    className={`px-4 py-3 text-left bg-skin-inverted text-skin-inverted ${tableHeaderClasses}`}
                     key={i}
                   >
                     <Text {...th} />

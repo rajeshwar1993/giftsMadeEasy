@@ -49,7 +49,7 @@ const ProfileGenderSection: FC<Props> = ({
                     }
                   ${
                     checked
-                      ? 'bg-skin-accent text-skin-primary'
+                      ? 'bg-skin-inverted text-skin-primary'
                       : 'bg-skin-fill'
                   }
                     relative rounded-lg shadow-md px-2 py-1 cursor-pointer flex focus:outline-none`
