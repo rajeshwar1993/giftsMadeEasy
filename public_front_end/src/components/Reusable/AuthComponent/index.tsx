@@ -1,12 +1,19 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { app_toggle_isSigupOpen } from '../../../redux/appCommon';
 import { RootState, useAppDispatch } from '../../../redux/store';
+import DialogContainer from '../DialogContainer';
 import BasicDetailsFlow from './basicDetailsFlow';
+import ForgotPassword from './forgotPassword';
 import PhoneVerification from './phoneVerification';
 import SignupLoginFlow from './signupLoginFlow';
 
-const AuthComponent = () => {
+type Props = {
+  open: boolean;
+  closeModal: () => void;
+};
+
+const AuthComponent: FC<Props> = ({ open, closeModal }) => {
   const user = useSelector((state: RootState) => state.user.data);
   const dispatch = useAppDispatch();
 
@@ -25,12 +32,19 @@ const AuthComponent = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (open) {
+      setStep(1);
+    }
+  }, [open]);
+
   return (
-    <>
-      {step === 1 && <SignupLoginFlow />}
+    <DialogContainer open={open} closeModal={closeModal}>
+      {step === 1 && <SignupLoginFlow setStep={setStep} />}
       {step === 2 && user && <BasicDetailsFlow userId={user.uid} />}
-      {step === 3 && user && <PhoneVerification />}
-    </>
+      {step === 3 && user && <PhoneVerification close={closeModal} />}
+      {step === 4 && <ForgotPassword setStep={setStep} close={closeModal} />}
+    </DialogContainer>
   );
 };
 

@@ -7,7 +7,7 @@ import {
   linkWithCredential
 } from 'firebase/auth';
 import { collection, doc, updateDoc } from 'firebase/firestore';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { FS_USER_DB } from '../../../common/constants';
 import { UserDBKeys } from '../../../common/dbKeys';
 import { db } from '../../../firebase';
@@ -22,7 +22,11 @@ let cr: any = null;
 let timer: any = null;
 let max_timer = 60;
 
-const PhoneVerification = () => {
+type Props = {
+  close: () => void;
+};
+
+const PhoneVerification: FC<Props> = ({ close }) => {
   const [sendOTPDisbaled, setSendOTPDisbaled] = useState(true);
   const [showSendOTP, setShowSendOTP] = useState(true);
   const [showVerifySection, setShowVerifySection] = useState(false);
@@ -241,10 +245,7 @@ const PhoneVerification = () => {
         defautStyle='cust-btn-link'
         text='skip for now'
         onClick={() => {
-          clearInterval(timer);
-          setShowSendOTP(true);
-          updateTimerVal(max_timer);
-          timerValRef.current = max_timer;
+          close();
         }}
         styleClasses='text-xs'
       />

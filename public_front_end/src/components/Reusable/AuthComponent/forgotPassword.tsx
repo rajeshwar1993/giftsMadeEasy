@@ -1,0 +1,93 @@
+import React, { FC, useState } from 'react';
+import { Button, Text } from '../../';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '../../../firebase';
+
+type Props = {
+  setStep: Function;
+  close: Function;
+};
+
+const ForgotPassword: FC<Props> = ({ setStep, close }) => {
+  const [loading, setLoading] = useState(false);
+  const [mailSent, setMailSent] = useState(false);
+
+  const handleForgotPasswordSubmit = (e: any) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      let email = e.target[0].value;
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          // Password reset email sent!
+          // ..
+          setLoading(false);
+          setMailSent(true);
+        })
+        .catch(error => {
+          console.log(error);
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // TODO handle error
+          setLoading(false);
+          // ..
+        });
+    } catch (e) {
+      // TODO handle error
+    }
+  };
+
+  return (
+    <form
+      className='flex flex-col space-y-6 items-center'
+      onSubmit={handleForgotPasswordSubmit}
+    >
+      <input
+        type='email'
+        id='email'
+        placeholder='E-mail'
+        className='rounded-lg w-full'
+        required
+      />
+      {!mailSent && (
+        <Button
+          text='Send Reset Link'
+          styleClasses=' w-48'
+          type='submit'
+          loading={loading}
+        />
+      )}
+      {!mailSent && (
+        <Button
+          icon={{
+            iconName: 'ArrowBack',
+            size: '16'
+          }}
+          text='back'
+          styleClasses='text-sm w-48 !border-b-0'
+          defautStyle='cust-btn-link'
+          onClick={() => {
+            setStep(1);
+          }}
+        />
+      )}
+
+      {mailSent && (
+        <Text
+          content={'Password reset mail sent. Please check your mailbox.'}
+        />
+      )}
+      {mailSent && (
+        <Button
+          text='Close'
+          styleClasses=' w-48'
+          onClick={() => {
+            close();
+          }}
+        />
+      )}
+    </form>
+  );
+};
+
+export default ForgotPassword;

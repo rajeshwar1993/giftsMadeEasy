@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -14,7 +14,11 @@ import { classNames } from '../../../common/utils';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 
-const SignupLoginFlow = () => {
+type Props = {
+  setStep: Function;
+};
+
+const SignupLoginFlow: FC<Props> = ({ setStep }) => {
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
@@ -207,6 +211,14 @@ const SignupLoginFlow = () => {
                 type='submit'
                 loading={loading}
               />
+              <Button
+                text='Forgot Password?'
+                styleClasses='text-xs'
+                defautStyle='cust-btn-link'
+                onClick={() => {
+                  setStep(4);
+                }}
+              />
             </form>
           </Tab.Panel>
         </Tab.Panels>
@@ -214,9 +226,10 @@ const SignupLoginFlow = () => {
       {error && (
         <Text
           content={error}
-          styleClasses='text-center !text-xs text-red-600'
+          styleClasses='text-center !text-xs text-skin-error'
         />
       )}
+
       <hr className='w-full bg-skin-inverted' />
       <Text
         content={'or use a social login'}

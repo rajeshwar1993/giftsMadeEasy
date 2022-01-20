@@ -8,7 +8,6 @@ import {
 } from '../../redux/appCommon';
 import { RootState, useAppDispatch } from '../../redux/store';
 import AuthComponent from '../Reusable/AuthComponent';
-import DialogContainer from '../Reusable/DialogContainer';
 import ToastPopover from '../Reusable/ToastPopup';
 
 import { LayoutConfigType } from './type';
@@ -59,9 +58,8 @@ const Layout: FC<Props> = ({ children, config }) => {
         <Footer config={config.footer} />
       </div>
 
-      <DialogContainer open={!!signUpOpen} closeModal={closeSignup}>
-        <AuthComponent />
-      </DialogContainer>
+      <AuthComponent open={!!signUpOpen} closeModal={closeSignup} />
+
       <ToastPopover />
     </>
   );
