@@ -1,11 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface Toast {
+  message: string;
+  type: 'info' | 'error';
+  duration?: number;
+}
+
 const initialState: {
   isDesktop: boolean;
   signUpOpen: 'login' | 'signup' | false;
+  toast: Toast | null;
 } = {
   isDesktop: true,
-  signUpOpen: false
+  signUpOpen: false,
+  toast: null
 };
 
 export const appCommonSlice = createSlice({
@@ -20,11 +28,14 @@ export const appCommonSlice = createSlice({
       action: PayloadAction<'login' | 'signup' | false>
     ) => {
       state.signUpOpen = action.payload;
+    },
+    app_sendToast: (state, action: PayloadAction<Toast | null>) => {
+      state.toast = action.payload;
     }
   }
 });
 
-export const { app_toggle_isDesktop, app_toggle_isSigupOpen } =
+export const { app_toggle_isDesktop, app_toggle_isSigupOpen, app_sendToast } =
   appCommonSlice.actions;
 
 export default appCommonSlice.reducer;
