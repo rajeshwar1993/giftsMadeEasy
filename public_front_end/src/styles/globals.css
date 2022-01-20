@@ -14,12 +14,14 @@
     --disabled-dark: 166, 169, 179;
     --fill: 248,250,252;
     --fill-dark: 15,23,42;
+    --error: 190,18,60;
 
     /* Default Theme */
     --color-text-primary: var(--black);
     --color-text-accent: var(--accent);
     --color-text-disabled: var(--disabled);
     --color-text-inverted: var(--white);
+    --color-text-error: var(--error);
     --color-fill: var(--fill);
     --color-fill-accent: var(--accent);
     --color-fill-inverted: var(--fill-dark);
@@ -40,12 +42,14 @@
     --disabled-dark: 166, 169, 179;
     --fill: 248,250,252;
     --fill-dark: 15,23,42;
+    --error: 190,18,60;
 
     /* Default Theme */
     --color-text-primary: var(--white);
     --color-text-accent: var(--accent);
     --color-text-disabled: var(--disabled);
     --color-text-inverted: var(--black);
+    --color-text-error: var(--error);
     --color-fill: var(--fill);
     --color-fill-accent: var(--accent);
     --color-fill-inverted: var(--fill-dark);

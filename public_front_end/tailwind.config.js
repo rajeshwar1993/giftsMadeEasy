@@ -16,7 +16,8 @@ module.exports = {
           primary: withOpacity('--color-text-primary'),
           accent: withOpacity('--color-text-accent'),
           disbaled: withOpacity('--color-text-disabled'),
-          inverted: withOpacity('--color-text-inverted')
+          inverted: withOpacity('--color-text-inverted'),
+          error: withOpacity('--color-text-error')
         }
       },
       backgroundColor: {
