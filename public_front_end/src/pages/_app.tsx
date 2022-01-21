@@ -14,7 +14,8 @@ import {
   doc,
   getDoc,
   setDoc,
-  serverTimestamp
+  serverTimestamp,
+  updateDoc
 } from 'firebase/firestore';
 import UserType, {
   convertUserJsonToObj,
@@ -23,6 +24,7 @@ import UserType, {
 import { FS_USER_DB } from '../common/constants';
 import { Layout } from '../components';
 import { UserDBKeys } from '../common/dbKeys';
+import { sendEmailVerificationMail } from '../common/utils';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -56,20 +58,29 @@ function WrapperComp(props: any) {
 
       if (userSnap.exists()) {
         userData = convertUserJsonToObj(userSnap.data(), userSnap.id);
+
+        // check for update in email verification
+        // check if fbuser is true now and db has false value
+        if (fbUser.emailVerified && !userData.isEmailVerified) {
+          // we need to update the firestore
+          updateDoc(docRef, {
+            [UserDBKeys.isEmailVerified]: true
+          });
+          userData.isEmailVerified = true;
+        }
       }
       // if entry not found then create entry
       // TODO also run all first time functions -> welcome email, strong into algolia etc
       else {
         userData = convertUserJsonToObj(
           {
-            email: fbUser.email || '',
-            isEmailVerified: fbUser.emailVerified,
-            isAnonymous: fbUser.isAnonymous,
-            name: fbUser.displayName || 'Your Name'
+            [UserDBKeys.email]: fbUser.email || '',
+            [UserDBKeys.isEmailVerified]: fbUser.emailVerified,
+            [UserDBKeys.isAnonymous]: fbUser.isAnonymous,
+            [UserDBKeys.name]: fbUser.displayName || ''
           },
           fbUser.uid
         );
-
         // creating entry in firestore
 
         const userRef = collection(db, FS_USER_DB);
@@ -79,6 +90,9 @@ function WrapperComp(props: any) {
           [UserDBKeys.createdTS]: serverTimestamp()
         });
       }
+
+      // send verification mail if email is not verified
+      if (!fbUser.emailVerified) sendEmailVerificationMail(fbUser);
 
       // then update redux with new or existing data
       dispatch(ur_init(userData));

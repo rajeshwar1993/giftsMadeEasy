@@ -1,3 +1,5 @@
+import { sendEmailVerification, User } from 'firebase/auth';
+
 export const toggleTheme = () => {
   if (document.documentElement.classList.contains('root-dark')) {
     document.documentElement.classList.remove('root-dark');
@@ -16,4 +18,17 @@ export const scrollToId = (id: string) => {
 
 export const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(' ');
+};
+
+export const sendEmailVerificationMail = (user: User) => {
+  // sedning mail
+  sendEmailVerification(user)
+    .then(() => {
+      // Email verification sent!
+      // ...
+      console.log('Verification email sent');
+    })
+    .catch(e => {
+      console.log(e);
+    });
 };

@@ -139,3 +139,9 @@ export const handleWishlistChange = async (
     }
   }
 };
+
+export const sendWelcomeEmail = (afterData: any) => {
+  // TODO implement sendgrid witht he email
+
+  console.log(afterData![UserDBKeys.email]);
+};
