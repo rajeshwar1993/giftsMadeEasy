@@ -47,7 +47,7 @@ const CheckBoxGroup: FC<Props> = ({
         {checkList.map((cl, i) => (
           <div key={i} className='form-check mt-2 ml-2 pr-4 flex'>
             <input
-              className='form-check-input appearance-none h-5 w-5 border-2 border-skin-accent rounded-sm bg-skin-fill checked:bg-skin-inverted checked:border-skin-accent focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
+              className='form-check-input appearance-none h-5 w-5 border-2 border-skin-inverted rounded-sm bg-skin-fill checked:bg-skin-inverted checked:border-skin-accent focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
               type='checkbox'
               value={cl.value}
               checked={selected.includes(cl.value)}

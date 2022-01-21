@@ -169,8 +169,8 @@ const ProfileImageSection: FC<Props> = ({
   // TODO update the default image
   return (
     <>
-      <div className='flex flex-col'>
-        <div className='flex flex-row xl:flex-col justify-center items-center'>
+      <div className='flex flex-col md:sticky md:top-44 lg:top-32'>
+        <div className='flex flex-row md:flex-col justify-center items-center'>
           <div className='relative'>
             <div className='shadow-lg w-40 h-40 xl:w-64 xl:h-64  overflow-hidden border-4 rounded-full '>
               <ImageComponent

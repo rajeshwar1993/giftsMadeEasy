@@ -16,8 +16,8 @@ const ProductListItem: FC<Props> = ({
 
   return (
     <Link href={'/product/77g6WRTeg1aMtbqHluvD'}>
-      <div className='pt-4 cursor-pointer transition-all duration-200 rounded-lg xl:p-4 xl:hover:shadow-2xl'>
-        <div className={`flex flex-row xl:flex-col xl:space-y-4 `}>
+      <div className='pt-4 cursor-pointer transition-all duration-200 rounded-lg lg:p-4 lg:hover:shadow-2xl'>
+        <div className={`flex flex-row lg:flex-col lg:space-y-4 `}>
           <div className='rounded-lg overflow-hidden'>
             <ImageComponent
               src='/images/product.jpg'
@@ -27,7 +27,7 @@ const ProductListItem: FC<Props> = ({
               layout='intrinsic'
             />
           </div>
-          <div className='flex flex-col justify-between space-y-3 pl-3 w-[70%] xl:w-full xl:pl-0'>
+          <div className='flex flex-col justify-between space-y-3 pl-3 w-[70%] lg:w-full lg:pl-0'>
             <Text
               tag='h4'
               content='2020 Apple iPad Air with A14 Bionic chip (10.9-inch/27.69 cm, Wi-Fi, 256GB) - Space Grey (4th Generation)'

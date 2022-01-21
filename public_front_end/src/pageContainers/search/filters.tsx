@@ -50,7 +50,7 @@ const Filters: FC<Props> = ({
 
   return (
     <>
-      <aside className='w-1/5 pr-2 hidden xl:block p-4 '>
+      <aside className='w-1/5 pr-2 hidden lg:block p-4 '>
         <div className='sticky top-10'>
           <div className='mb-4'>
             <Text content='Filter By:' styleClasses='font-semibold' />

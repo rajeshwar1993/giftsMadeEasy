@@ -21,7 +21,7 @@ const ProfileImpDatesSection: FC<Props> = ({
     <div className=''>
       <div className='mb-10 '>
         {!editMode && (
-          <div className='flex flex-row justify-around'>
+          <div className='flex flex-col space-y-6 xl:space-y-0 xl:flex-row justify-around'>
             <div className='flex flex-col justify-center items-center '>
               <Icon iconName='Cake' size='60' />
               <Text

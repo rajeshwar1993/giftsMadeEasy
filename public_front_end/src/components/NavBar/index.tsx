@@ -90,7 +90,7 @@ const NavBar: FC<Props> = ({ config }) => {
               />
             </Link>
           </div>
-          <div className='justify-start items-center lg:flex hidden relative'>
+          <div className='relative justify-start items-center lg:flex hidden'>
             {config.leftSideNav.map((item, i) => {
               if (item.type === 'link') {
                 let data = item.data as ButtonType;

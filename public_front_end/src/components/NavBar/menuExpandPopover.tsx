@@ -32,7 +32,7 @@ const MenuPopover: FC<Props> = ({ buttonText, items = [], depth = 1 }) => {
               leaveFrom='opacity-100 translate-y-0'
               leaveTo='opacity-0 -translate-y-4'
             >
-              <Popover.Panel className='absolute left-0 z-10 w-max max-w-sm px-4 py-2 sm:px-0 lg:max-w-3xl'>
+              <Popover.Panel className='absolute -left-36 z-10 w-max max-w-sm px-4 py-2 sm:px-0 lg:max-w-3xl'>
                 <div className='overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5'>
                   <div
                     className={`relative bg-skin-fill grid gap-x-12 gap-y-4 py-7 px-12 ${

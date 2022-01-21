@@ -45,18 +45,18 @@ const SearchTopSection: FC<Props> = ({
 
   return (
     <>
-      <div className='xl:hidden'>
+      <div className='lg:hidden'>
         <SectionTitle
-          wrapperClasses='text-center xl:text-left'
+          wrapperClasses='text-center lg:text-left'
           content='Search the perfect gift'
         />
       </div>
-      <div className='py-2  flex justify-between xl:justify-end items-center sticky top-[62px] xl:static bg-skin-fill '>
-        <div className='flex justify-between items-center xl:items-end w-full xl:w-4/5 xl:px-6'>
+      <div className='py-2  flex justify-between lg:justify-end items-center sticky top-[62px] lg:static bg-skin-fill '>
+        <div className='flex justify-between items-center lg:items-end w-full lg:w-4/5 lg:px-6'>
           <div className='flex flex-row items-center '>
             {/* <Text content='Filter By:' styleClasses='font-semibold' /> */}
             {/* Mobile Filter Button */}
-            <div className='xl:hidden mr-4'>
+            <div className='lg:hidden mr-4'>
               <Button
                 text={`Filters${filterCount ? ` (${filterCount})` : ''}`}
                 defautStyle='cust-btn-link'
@@ -64,7 +64,7 @@ const SearchTopSection: FC<Props> = ({
                 onClick={openMobileFilter}
               />
             </div>
-            <div className='xl:hidden'>
+            <div className='lg:hidden'>
               <Button
                 text={`Interests ${
                   values[FilterDBKeys.interests]!.length
@@ -76,9 +76,9 @@ const SearchTopSection: FC<Props> = ({
                 onClick={() => updateInterestPopeverOpen(true)}
               />
             </div>
-            <div className='hidden xl:block'>
+            <div className='hidden lg:block'>
               <SectionTitle
-                wrapperClasses='text-center xl:text-left !mb-10'
+                wrapperClasses='text-center lg:text-left !mb-10'
                 content='Search the perfect gift'
               />
               <div className='flex flex-col items-start'>

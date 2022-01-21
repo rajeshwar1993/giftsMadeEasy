@@ -35,7 +35,7 @@ const Layout: FC<Props> = ({ children, config }) => {
       clearTimeout(debounce);
     }
     debounce = setTimeout(() => {
-      if (size.width && size?.width >= 1280) {
+      if (size.width && size?.width >= 1024) {
         dispatch(app_toggle_isDesktop(true));
       } else {
         dispatch(app_toggle_isDesktop(false));
@@ -49,11 +49,13 @@ const Layout: FC<Props> = ({ children, config }) => {
         <NavBar config={config.navbar} />
         <main className='mx-4 my-4 md:my-8 flex'>
           {/* reserved for side content, maybe ads */}
-          <div className='xl:w-[12%]' />
+          <div className='md:w-[2%] lg:w-[4%] xl:w-[7%]' />
           {/* main body area */}
-          <div className='xl:w-[86%] w-full'>{children}</div>
+          <div className='md:w-[96%] lg:w-[92%] xl:w-[86%] w-full'>
+            {children}
+          </div>
           {/* reserved for side content, maybe ads */}
-          <div className='xl:w-[12%]' />
+          <div className='md:w-[2%] lg:w-[4%] xl:w-[7%]' />
         </main>
         <Footer config={config.footer} />
       </div>

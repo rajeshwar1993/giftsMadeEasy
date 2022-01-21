@@ -82,7 +82,7 @@ const SearchPage = () => {
         openMobileFilter={() => updateShowMobileFilters(true)}
       />
       {/* Filter and List */}
-      <div className='flex flex-row xl:mt-0 mt-4'>
+      <div className='flex flex-row lg:mt-0 mt-4'>
         <Filters
           filterValues={filterValues}
           updateParentState={handleFilterChange}
@@ -95,7 +95,7 @@ const SearchPage = () => {
           }}
         />
 
-        <div className='xl:px-4 w-full xl:w-4/5'>
+        <div className='lg:px-4 w-full lg:w-4/5'>
           <ProductListing />
         </div>
       </div>

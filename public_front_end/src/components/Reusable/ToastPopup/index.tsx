@@ -31,11 +31,11 @@ const ToastPopover: FC<Props> = ({}) => {
         <Transition.Child
           as={Fragment}
           enter='transition-all ease-in-out duration-300 transform'
-          enterFrom='opacity-0 translate-y-10'
-          enterTo='opacity-100 translate-y-0'
+          enterFrom='opacity-0 translate-y-10 md:translate-y-0 md:translate-x-16'
+          enterTo='opacity-100 translate-y-0 md:translate-y-0 md:translate-x-0'
           leave='transition ease-in-out duration-300 transform'
-          leaveFrom='opacity-100 translate-y-0'
-          leaveTo='opacity-0 translate-y-10'
+          leaveFrom='opacity-100 translate-y-0 md:translate-y-0 md:translate-x-0'
+          leaveTo='opacity-0 translate-y-10 md:translate-y-0 md:translate-x-16'
           afterLeave={() => {
             dispatch(app_sendToast(null));
           }}
@@ -43,7 +43,7 @@ const ToastPopover: FC<Props> = ({}) => {
           <div
             className={`${
               toastData?.type === 'error' ? 'bg-red-600' : 'bg-skin-inverted'
-            } fixed shadow-xl text-center text-skin-inverted rounded-lg px-8 py-6 bottom-4 w-60 xl:w-96 left-[calc(50%-120px)] xl:left-[calc(50%-197px)]`}
+            }  z-10 fixed shadow-xl text-center text-skin-inverted rounded-lg px-8 py-6 bottom-10 left-[calc(50%-120px)] w-60 md:w-96 md:left-auto md:bottom-auto md:top-24 md:right-10`}
           >
             <Text content={toastData?.message || ''} />
             <button

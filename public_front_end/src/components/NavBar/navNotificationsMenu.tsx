@@ -56,7 +56,7 @@ const NavNotificationsMenu: FC<Props> = ({
             leaveFrom='opacity-100 translate-x-0'
             leaveTo='opacity-0 translate-x-64'
           >
-            <div className='fixed right-0 w-2/3 xl:max-w-lg h-full bg-skin-fill pb-12 '>
+            <div className='fixed right-0 w-3/4 md:max-w-lg h-full bg-skin-fill pb-12 '>
               <div className='flex flex-col'>
                 <div className='px-4 pt-5 pb-2 flex items-center justify-between '>
                   <SectionTitle content='Notifications' />

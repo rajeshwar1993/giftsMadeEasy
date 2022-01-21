@@ -24,7 +24,7 @@ const ProfileAboutSection: FC<Props> = ({
               'Tell us something about your likes or hobbies so that people can find the right gift for you ...'
             }
             tag='h3'
-            styleClasses='text-lg'
+            styleClasses='text-base text-center'
           />
         )}
         {editMode && (
