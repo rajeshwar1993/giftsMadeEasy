@@ -39,7 +39,10 @@ const AuthComponent: FC<Props> = ({ open, closeModal }) => {
   }, [open]);
 
   return (
-    <DialogContainer open={open} closeModal={closeModal}>
+    <DialogContainer
+      open={open}
+      closeModal={step === 2 || step === 3 ? () => {} : closeModal}
+    >
       {step === 1 && <SignupLoginFlow setStep={setStep} />}
       {step === 2 && user && <BasicDetailsFlow userId={user.uid} />}
       {step === 3 && user && <PhoneVerification close={closeModal} />}

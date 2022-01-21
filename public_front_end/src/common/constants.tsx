@@ -12,3 +12,38 @@ export const FS_USER_MEINWHOCIRCLE_DB = 'meInWhosCircle';
 export const FS_INTEREST_TAGS_DB = 'interestTags';
 
 export const RDB_NOTIFICATIONS_DB = 'notifications';
+
+// error messages
+export const ERROR_MESSAGE_MAPPING = (errorCode: string) => {
+  switch (errorCode) {
+    case 'auth/weak-password':
+      return 'Passowrd should be at least 6 characters long.';
+
+    case 'auth/email-already-in-use':
+      return 'Account with this E-mail Id alrealy exists.';
+
+    case 'auth/invalid-email':
+      return 'The E-mail Id is invalid.';
+
+    case 'auth/wrong-password':
+      return 'The Password is incorrect.';
+
+    case 'auth/user-not-found':
+      return 'No Account found with this E-mail Id.';
+
+    case 'PASSWORD_MISMATCH':
+      return 'Password and Confirm Password do not match!';
+
+    case 'auth/invalid-phone-number':
+      return 'Phone number is Invalid.';
+
+    case 'auth/invalid-verification-code':
+      return 'OTP is Invalid.';
+
+    case 'auth/account-exists-with-different-credential':
+      return 'This phone number is already linked to different account.';
+
+    default:
+      return 'Error occured. Please try again. Kindly write to us if the issue persists.';
+  }
+};

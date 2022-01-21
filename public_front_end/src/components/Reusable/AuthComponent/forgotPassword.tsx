@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { Button, Text } from '../../';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../../firebase';
+import { ERROR_MESSAGE_MAPPING } from '../../../common/constants';
 
 type Props = {
   setStep: Function;
@@ -10,6 +11,8 @@ type Props = {
 
 const ForgotPassword: FC<Props> = ({ setStep, close }) => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>('');
+
   const [mailSent, setMailSent] = useState(false);
 
   const handleForgotPasswordSubmit = (e: any) => {
@@ -28,7 +31,7 @@ const ForgotPassword: FC<Props> = ({ setStep, close }) => {
           console.log(error);
           const errorCode = error.code;
           const errorMessage = error.message;
-          // TODO handle error
+          setError(ERROR_MESSAGE_MAPPING(errorCode));
           setLoading(false);
           // ..
         });
@@ -75,6 +78,12 @@ const ForgotPassword: FC<Props> = ({ setStep, close }) => {
       {mailSent && (
         <Text
           content={'Password reset mail sent. Please check your mailbox.'}
+        />
+      )}
+      {error && (
+        <Text
+          content={error}
+          styleClasses='text-center !text-xs text-skin-error'
         />
       )}
       {mailSent && (

@@ -13,6 +13,7 @@ import { Tab } from '@headlessui/react';
 import { classNames } from '../../../common/utils';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
+import { ERROR_MESSAGE_MAPPING } from '../../../common/constants';
 
 type Props = {
   setStep: Function;
@@ -36,7 +37,8 @@ const SignupLoginFlow: FC<Props> = ({ setStep }) => {
     let confirm = e.target[2].value;
 
     if (password !== confirm) {
-      setError('Passwords do not match!');
+      setError(ERROR_MESSAGE_MAPPING('PASSWORD_MISMATCH'));
+      setLoading(false);
       return;
     }
 
@@ -49,8 +51,8 @@ const SignupLoginFlow: FC<Props> = ({ setStep }) => {
       })
       .catch(error => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        setError(errorMessage);
+        console.log(errorCode);
+        setError(ERROR_MESSAGE_MAPPING(errorCode));
         setLoading(false);
 
         // ..
@@ -73,9 +75,8 @@ const SignupLoginFlow: FC<Props> = ({ setStep }) => {
       })
       .catch(error => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        // TODO create end-user meaningfull message
-        setError(errorMessage);
+        console.log(errorCode);
+        setError(ERROR_MESSAGE_MAPPING(errorCode));
         setLoading(false);
 
         // ..

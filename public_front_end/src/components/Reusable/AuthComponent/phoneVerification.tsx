@@ -8,7 +8,7 @@ import {
 } from 'firebase/auth';
 import { collection, doc, updateDoc } from 'firebase/firestore';
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { FS_USER_DB } from '../../../common/constants';
+import { ERROR_MESSAGE_MAPPING, FS_USER_DB } from '../../../common/constants';
 import { UserDBKeys } from '../../../common/dbKeys';
 import { db } from '../../../firebase';
 import { useAppDispatch } from '../../../redux/store';
@@ -41,8 +41,6 @@ const PhoneVerification: FC<Props> = ({ close }) => {
 
   const submitSendOTP = (e: any) => {
     e.preventDefault();
-    setShowSendOTP(false);
-    startResendTimer();
 
     let phoneNumber = e.target[0].value.trim() + e.target[1].value.trim();
     console.log(phoneNumber);
@@ -54,6 +52,8 @@ const PhoneVerification: FC<Props> = ({ close }) => {
           // user in with confirmationResult.confirm(code).
           cr = confirmationResult;
           setShowVerifySection(true);
+          setShowSendOTP(false);
+          startResendTimer();
           // console.log(cr);
           recaptchaVerifier.clear();
           // ...
@@ -61,8 +61,10 @@ const PhoneVerification: FC<Props> = ({ close }) => {
         .catch(error => {
           // Error; SMS not sent
           // ...
-          console.log(error);
-          // TODO: handle this error
+          const errorCode = error.code;
+          setError(ERROR_MESSAGE_MAPPING(errorCode));
+          recaptchaVerifier.clear();
+          setShowSendOTP(true);
         });
     }
   };
@@ -79,7 +81,7 @@ const PhoneVerification: FC<Props> = ({ close }) => {
         })
         .catch(error => {
           console.log(error);
-          // TODO: handle this error
+          setError(ERROR_MESSAGE_MAPPING(error.code));
         });
     } else {
       verifyPhoneAuth(otp);
@@ -115,6 +117,7 @@ const PhoneVerification: FC<Props> = ({ close }) => {
         })
         .catch((error: any) => {
           console.log(error);
+          setError(ERROR_MESSAGE_MAPPING(error.code));
         });
     }
   };
@@ -137,9 +140,7 @@ const PhoneVerification: FC<Props> = ({ close }) => {
     if (!showSendOTP) {
       return;
     }
-    // if (recaptchaVerifier) {
-    //   recaptchaVerifier.clear();
-    // }
+
     recaptchaVerifier = new RecaptchaVerifier(
       'recaptcha-container',
       {
@@ -209,12 +210,14 @@ const PhoneVerification: FC<Props> = ({ close }) => {
 
         <>
           <div id='recaptcha-container' />
-          <Button
-            type='submit'
-            id='phone-otp-btn'
-            text='Send OTP'
-            disabled={sendOTPDisbaled}
-          />
+          {showSendOTP && (
+            <Button
+              type='submit'
+              id='phone-otp-btn'
+              text='Send OTP'
+              disabled={sendOTPDisbaled}
+            />
+          )}
         </>
 
         {!showSendOTP && (
@@ -238,7 +241,10 @@ const PhoneVerification: FC<Props> = ({ close }) => {
         </form>
       )}
       {error && (
-        <Text content='Error occurec' styleClasses='text-sm text-red-600' />
+        <Text
+          content={error}
+          styleClasses='text-center text-sm text-skin-error'
+        />
       )}
       <Button
         wrapperClasses='!mt-12'

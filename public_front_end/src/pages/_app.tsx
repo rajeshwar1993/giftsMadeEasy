@@ -7,7 +7,7 @@ import { auth, db } from '../firebase';
 import store, { useAppDispatch } from '../redux/store';
 import { Provider } from 'react-redux';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { ur_init, ur_setLoading, ur_setError, ur_logout } from '../redux/user';
+import { ur_init, ur_setError, ur_logout } from '../redux/user';
 import { User as FirebaseUser } from 'firebase/auth';
 import {
   collection,
@@ -25,6 +25,7 @@ import { FS_USER_DB } from '../common/constants';
 import { Layout } from '../components';
 import { UserDBKeys } from '../common/dbKeys';
 import { sendEmailVerificationMail } from '../common/utils';
+import { app_toggle_isSigupOpen } from '../redux/appCommon';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -93,6 +94,19 @@ function WrapperComp(props: any) {
 
       // send verification mail if email is not verified
       if (!fbUser.emailVerified) sendEmailVerificationMail(fbUser);
+
+      // open basic details or phone if not filled
+      let GMEVerPopCount = sessionStorage.getItem('GMEVerPopCount') || '3';
+      //sessionStorage.getItem('GMEVerPopCount') === '3' &&
+      if (!userData.name || !userData.phoneNumber || !userData.dob) {
+        sessionStorage.setItem('GMEVerPopCount', '0');
+        dispatch(app_toggle_isSigupOpen('login'));
+      } else {
+        sessionStorage.setItem(
+          'GMEVerPopCount',
+          (parseInt(GMEVerPopCount) + 1).toString()
+        );
+      }
 
       // then update redux with new or existing data
       dispatch(ur_init(userData));
