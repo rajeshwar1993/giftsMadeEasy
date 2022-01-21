@@ -71,7 +71,16 @@ const NavBar: FC<Props> = ({ config }) => {
         <div className='relative flex justify-between items-center xl:text-base text-sm text-md'>
           {/* Left Section */}
           {/* <div className='w-3/5 flex items-center'> */}
-          <div className='lg:block hidden cursor-pointer w-[15%]'>
+
+          <button
+            className='block lg:hidden p-2'
+            onClick={() => {
+              toggleMenuOpen(true);
+            }}
+          >
+            <Icon iconName='Menu' />
+          </button>
+          <div className='cursor-pointer w-[15%]'>
             <span className='sr-only'>{config.title}</span>
             <Link href={'/'}>
               <img
@@ -81,14 +90,6 @@ const NavBar: FC<Props> = ({ config }) => {
               />
             </Link>
           </div>
-          <button
-            className='block lg:hidden p-2'
-            onClick={() => {
-              toggleMenuOpen(true);
-            }}
-          >
-            <Icon iconName='Menu' />
-          </button>
           <div className='justify-start items-center lg:flex hidden relative'>
             {config.leftSideNav.map((item, i) => {
               if (item.type === 'link') {
