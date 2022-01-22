@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { Text } from '../..';
-import { Gender } from '../../../models/enums';
 import { TextType } from '../Text/type';
 
 interface CheckListOption {
@@ -14,6 +13,7 @@ type Props = {
   checkList: Array<CheckListOption>;
   selected: Array<string>;
   onChangeHandler: (key: string, values: Array<string>) => void;
+  flexOverride?: string;
 };
 
 const CheckBoxGroup: FC<Props> = ({
@@ -21,7 +21,8 @@ const CheckBoxGroup: FC<Props> = ({
   checkList,
   filterKey,
   selected,
-  onChangeHandler
+  onChangeHandler,
+  flexOverride
 }) => {
   const handleClick = (value: string, isChecked: boolean) => {
     let updatedValues = [...selected];
@@ -43,11 +44,11 @@ const CheckBoxGroup: FC<Props> = ({
           styleClasses={`font-semibold ${title.styleClasses}`}
         />
       )}
-      <div className='flex flex-row xl:flex-col'>
+      <div className={`flex flex-row xl:flex-col ${flexOverride}`}>
         {checkList.map((cl, i) => (
           <div key={i} className='form-check mt-2 ml-2 pr-4 flex'>
             <input
-              className='form-check-input appearance-none h-5 w-5 border-2 border-skin-inverted rounded-sm bg-skin-fill checked:bg-skin-inverted checked:border-skin-accent focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
+              className='form-check-input appearance-none h-5 w-5 border-2 border-skin-inverted rounded-sm bg-skin-fill checked:bg-skin-inverted checked:border-skin-inverted focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
               type='checkbox'
               value={cl.value}
               checked={selected.includes(cl.value)}
