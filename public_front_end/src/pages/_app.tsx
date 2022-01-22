@@ -97,8 +97,11 @@ function WrapperComp(props: any) {
 
       // open basic details or phone if not filled
       let GMEVerPopCount = sessionStorage.getItem('GMEVerPopCount') || '3';
-      //sessionStorage.getItem('GMEVerPopCount') === '3' &&
-      if (!userData.name || !userData.phoneNumber || !userData.dob) {
+
+      if (
+        sessionStorage.getItem('GMEVerPopCount') === '3' &&
+        (!userData.name || !userData.phoneNumber || !userData.dob)
+      ) {
         sessionStorage.setItem('GMEVerPopCount', '0');
         dispatch(app_toggle_isSigupOpen('login'));
       } else {

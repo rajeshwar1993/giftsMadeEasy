@@ -1,11 +1,10 @@
-import { ProductDBKeys } from '../common/dbKeys';
+import { NewProductDBKeys, ProductDBKeys } from '../common/dbKeys';
 import { AgeGroup, Gender } from './enums';
 
-class Prodcut {
+interface Product {
   uid: string;
   apid: string; // amazom product id
   title: string;
-  desc: string;
   rating: string;
   productImgUrls: Array<string>;
   price: string;
@@ -22,67 +21,77 @@ class Prodcut {
   interestTags: Array<string>;
   genderTags: Array<Gender>;
   ageTags: Array<string>;
-
-  constructor() {
-    this.uid = '';
-    this.apid = '';
-    this.title = '';
-    this.desc = '';
-    this.rating = '';
-    this.productImgUrls = [];
-    this.price = '';
-    this.ogPrice = '';
-    this.productUrl = '';
-    this.affiliateUrl = '';
-    this.overviewPoints = [];
-    this.featureList = [];
-    this.relationshipTags = [];
-    this.occasionTags = [];
-    this.interestTags = [];
-    this.genderTags = [];
-    this.ageTags = [];
-  }
-
-  convertToJson = () => ({
-    [ProductDBKeys.apid]: this.apid,
-    [ProductDBKeys.title]: this.title,
-    [ProductDBKeys.desc]: this.desc,
-    [ProductDBKeys.rating]: this.rating,
-    [ProductDBKeys.price]: this.price,
-    [ProductDBKeys.ogPrice]: this.ogPrice,
-    [ProductDBKeys.productUrl]: this.productUrl,
-    [ProductDBKeys.affiliateUrl]: this.affiliateUrl,
-    [ProductDBKeys.featureList]: this.featureList,
-    [ProductDBKeys.overviewPoints]: this.overviewPoints,
-    [ProductDBKeys.relationshipTags]: this.relationshipTags,
-    [ProductDBKeys.occasionTags]: this.occasionTags,
-    [ProductDBKeys.interestTags]: this.interestTags,
-    [ProductDBKeys.genderTags]: this.genderTags,
-    [ProductDBKeys.ageTags]: this.ageTags
-  });
-
-  static convertJsonToObj = (inp: any, uid: string) => {
-    let p = new Prodcut();
-    p.uid = uid;
-    p.apid = inp[ProductDBKeys.apid];
-    p.title = inp[ProductDBKeys.title];
-    p.rating = inp[ProductDBKeys.rating];
-    p.desc = inp[ProductDBKeys.desc];
-    p.price = inp[ProductDBKeys.price];
-    p.ogPrice = inp[ProductDBKeys.ogPrice];
-    p.productUrl = inp[ProductDBKeys.productUrl];
-    p.affiliateUrl = inp[ProductDBKeys.affiliateUrl];
-    p.overviewPoints = inp[ProductDBKeys.overviewPoints];
-    p.featureList = inp[ProductDBKeys.featureList];
-    p.relationshipTags = inp[ProductDBKeys.relationshipTags];
-    p.occasionTags = inp[ProductDBKeys.occasionTags];
-    p.interestTags = inp[ProductDBKeys.interestTags];
-    p.genderTags = inp[ProductDBKeys.genderTags];
-    p.ageTags = inp[ProductDBKeys.ageTags];
-    p.productImgUrls = inp[ProductDBKeys.productImgUrls];
-
-    return p;
-  };
+  createdTS: any;
 }
 
-export default Prodcut;
+export interface NewProduct extends Product {
+  // extra properties
+
+  tempName: string;
+  status: 'pending' | 'success' | 'error';
+  statusMessage: string;
+}
+
+export const convertProductToJson = (product: Product) => ({
+  [ProductDBKeys.apid]: product.apid,
+  [ProductDBKeys.title]: product.title,
+  [ProductDBKeys.rating]: product.rating,
+  [ProductDBKeys.price]: product.price,
+  [ProductDBKeys.ogPrice]: product.ogPrice,
+  [ProductDBKeys.productUrl]: product.productUrl,
+  [ProductDBKeys.affiliateUrl]: product.affiliateUrl,
+  [ProductDBKeys.featureList]: product.featureList,
+  [ProductDBKeys.overviewPoints]: product.overviewPoints,
+  [ProductDBKeys.relationshipTags]: product.relationshipTags,
+  [ProductDBKeys.occasionTags]: product.occasionTags,
+  [ProductDBKeys.interestTags]: product.interestTags,
+  [ProductDBKeys.genderTags]: product.genderTags,
+  [ProductDBKeys.ageTags]: product.ageTags
+});
+
+export const convertNewProductToJson = (newProduct: NewProduct) => {
+  return {
+    ...convertProductToJson(newProduct),
+    [NewProductDBKeys.tempName]: newProduct.tempName,
+    [NewProductDBKeys.status]: newProduct.status,
+    [NewProductDBKeys.statusMessage]: newProduct.statusMessage
+  };
+};
+
+export const convertProductJsonToObj = (inp: any, id: string) => {
+  let p: Product = {
+    uid: id,
+    apid: inp[ProductDBKeys.apid] || '',
+    title: inp[ProductDBKeys.title] || '',
+    rating: inp[ProductDBKeys.rating] || '',
+    price: inp[ProductDBKeys.price] || '',
+    ogPrice: inp[ProductDBKeys.ogPrice] || '',
+    productUrl: inp[ProductDBKeys.productUrl] || '',
+    affiliateUrl: inp[ProductDBKeys.affiliateUrl] || '',
+    overviewPoints: inp[ProductDBKeys.overviewPoints] || [],
+    featureList: inp[ProductDBKeys.featureList] || [],
+    relationshipTags: inp[ProductDBKeys.relationshipTags] || [],
+    occasionTags: inp[ProductDBKeys.occasionTags] || [],
+    interestTags: inp[ProductDBKeys.interestTags] || [],
+    genderTags: inp[ProductDBKeys.genderTags] || [],
+    ageTags: inp[ProductDBKeys.ageTags] || [],
+    productImgUrls: inp[ProductDBKeys.productImgUrls] || [],
+    createdTS: inp[ProductDBKeys.createdTS]
+      ? inp[ProductDBKeys.createdTS].toDate().toISOString()
+      : ''
+  };
+  return p;
+};
+
+export const convertNewProductJsonToObj = (inp: any, id: string) => {
+  let np: NewProduct = {
+    ...convertProductJsonToObj(inp, id),
+    tempName: inp[NewProductDBKeys.tempName] || '',
+    status: inp[NewProductDBKeys.status] || '',
+    statusMessage: inp[NewProductDBKeys.statusMessage] || ''
+  };
+
+  return np;
+};
+
+export default Product;

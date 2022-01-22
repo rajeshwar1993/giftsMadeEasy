@@ -33,7 +33,7 @@ export const ProductDBKeys = {
   rating: 'r',
   price: 'p',
   ogPrice: 'ogp',
-  productUrl: 'su',
+  productUrl: 'su', // amazon server url
   affiliateUrl: 'au',
   occasionTags: 'ot',
   overviewPoints: 'op',
@@ -41,7 +41,14 @@ export const ProductDBKeys = {
   relationshipTags: 'rt',
   interestTags: 'it',
   genderTags: 'gt',
-  ageTags: 'at'
+  ageTags: 'at',
+  createdTS: 'cTS'
+};
+
+export const NewProductDBKeys = {
+  tempName: 'tn',
+  status: 's',
+  statusMessage: 'sm'
 };
 
 export const InterestTagDBKeys = {
