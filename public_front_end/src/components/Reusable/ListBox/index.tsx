@@ -14,14 +14,6 @@ const ListBoxComp: FC<Props> = ({
   buttonStyleClasses = '',
   optionsStyleClasses = ''
 }) => {
-  // const [selected, setSelected] = useState(selectedOption);
-
-  // useEffect(() => {
-  //   if (selected.value !== selectedOption.value) {
-  //     onSelected(selected, filterKey);
-  //   }
-  // }, [selected]);
-
   return (
     <Listbox value={selectedOption} onChange={so => onSelected(so, filterKey)}>
       {title && (

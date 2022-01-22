@@ -4,6 +4,7 @@ import {
   doc,
   getDocs,
   query,
+  serverTimestamp,
   where
 } from 'firebase/firestore';
 import React, { useState } from 'react';
@@ -59,7 +60,10 @@ const AddProductContainer = () => {
 
       // call method to store in db
       colRef = collection(db, FS_NEW_PRODUCTS_DB);
-      await addDoc(colRef, convertNewProductToJson(newProduct));
+      await addDoc(colRef, {
+        ...convertNewProductToJson(newProduct),
+        [ProductDBKeys.createdTS]: serverTimestamp()
+      });
 
       dispatch(
         app_sendToast({
