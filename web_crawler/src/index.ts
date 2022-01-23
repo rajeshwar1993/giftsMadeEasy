@@ -3,7 +3,7 @@ import { initPage, closeBrowser, getWebData } from './crawler';
 import { initializeApp, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import productList from './productList';
-import { NewProductDBKeys, ProductDBKeys } from './crawler/dbKeys';
+import { ProductDBKeys } from './crawler/dbKeys';
 
 const serviceAccount = require('../giftsmadeeasy-75edd-fc87d0f10099.json');
 
@@ -31,16 +31,16 @@ const fetchDataForEachProduct = async () => {
 
   // get all new products that have pending status
   const prodSnap = await newProductCollectionRef
-    .where(NewProductDBKeys.status, '==', 'pending')
+    .where(ProductDBKeys.status, '==', 'pending')
     .get();
 
   if (!prodSnap.empty) {
     for (let i = 0; i < prodSnap.size; i++) {
       const prod = prodSnap.docs[i].data();
       const id = prodSnap.docs[i].id;
-      console.log('Starting: ', prod[NewProductDBKeys.apid]);
+      console.log('Starting: ', prod[ProductDBKeys.apid]);
 
-      let data = await getWebData(page, prod[NewProductDBKeys.productUrl]);
+      let data = await getWebData(page, prod[ProductDBKeys.productUrl]);
 
       let status = 'success';
       let statusMessage = '';
@@ -74,18 +74,18 @@ const fetchDataForEachProduct = async () => {
       }
 
       await newProductCollectionRef.doc(id).update({
-        [NewProductDBKeys.title]: data.title,
-        [NewProductDBKeys.price]: data.price,
-        [NewProductDBKeys.ogPrice]: data.ogPrice,
-        [NewProductDBKeys.rating]: data.rating,
-        [NewProductDBKeys.overviewPoints]: data.overview,
-        [NewProductDBKeys.featureList]: data.description,
-        [NewProductDBKeys.productImgUrls]: data.images,
-        [NewProductDBKeys.status]: status,
-        [NewProductDBKeys.statusMessage]: statusMessage
+        [ProductDBKeys.title]: data.title,
+        [ProductDBKeys.price]: data.price,
+        [ProductDBKeys.ogPrice]: data.ogPrice,
+        [ProductDBKeys.rating]: data.rating,
+        [ProductDBKeys.overviewPoints]: data.overview,
+        [ProductDBKeys.featureList]: data.description,
+        [ProductDBKeys.productImgUrls]: data.images,
+        [ProductDBKeys.status]: status,
+        [ProductDBKeys.statusMessage]: statusMessage
       });
 
-      console.log('Done: ', prod[NewProductDBKeys.apid]);
+      console.log('Done: ', prod[ProductDBKeys.apid]);
     }
   }
 

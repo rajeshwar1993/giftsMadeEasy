@@ -13,27 +13,7 @@ export const ProductDBKeys = {
   relationshipTags: 'rt',
   interestTags: 'it',
   genderTags: 'gt',
-  ageTags: 'at'
-};
-
-export const NewProductDBKeys = {
-  apid: 'apid',
-  title: 't',
-  productImgUrls: 'piu',
-  rating: 'r',
-  price: 'p',
-  ogPrice: 'ogp',
-  productUrl: 'su', // amazon server url
-  affiliateUrl: 'au',
-  occasionTags: 'ot',
-  overviewPoints: 'op',
-  featureList: 'fl',
-  relationshipTags: 'rt',
-  interestTags: 'it',
-  genderTags: 'gt',
   ageTags: 'at',
-  createdTS: 'cTS',
-  tempName: 'tn',
   status: 's',
   statusMessage: 'sm'
 };

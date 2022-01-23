@@ -9,13 +9,14 @@ import {
 } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { FS_NEW_PRODUCTS_DB, FS_PRODUCTS_DB } from '../../common/constants';
-import { NewProductDBKeys, ProductDBKeys } from '../../common/dbKeys';
+import { ProductDBKeys } from '../../common/dbKeys';
 import { Button } from '../../components';
 import { db } from '../../firebase';
 import {
-  convertNewProductJsonToObj,
-  convertNewProductToJson
+  convertProductJsonToObj,
+  convertProductToJson
 } from '../../models/Product';
+
 import { app_sendToast } from '../../redux/appCommon';
 import { useAppDispatch } from '../../redux/store';
 
@@ -28,15 +29,13 @@ const AddProductContainer = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const tempname = e.target[0].value;
-      const productUrl = e.target[1].value;
-      const affiliateUrl = e.target[2].value;
-      const apid = e.target[3].value;
+      const productUrl = e.target[0].value;
+      const affiliateUrl = e.target[1].value;
+      const apid = e.target[2].value;
 
-      const newProduct = convertNewProductJsonToObj(
+      const newProduct = convertProductJsonToObj(
         {
-          [NewProductDBKeys.tempName]: tempname,
-          [NewProductDBKeys.status]: 'pending',
+          [ProductDBKeys.status]: 'pending',
           [ProductDBKeys.apid]: apid,
           [ProductDBKeys.productUrl]: productUrl,
           [ProductDBKeys.affiliateUrl]: affiliateUrl
@@ -61,7 +60,7 @@ const AddProductContainer = () => {
       // call method to store in db
       colRef = collection(db, FS_NEW_PRODUCTS_DB);
       await addDoc(colRef, {
-        ...convertNewProductToJson(newProduct),
+        ...convertProductToJson(newProduct),
         [ProductDBKeys.createdTS]: serverTimestamp()
       });
 
@@ -84,14 +83,6 @@ const AddProductContainer = () => {
   return (
     <section className=''>
       <form onSubmit={submitFormHandler} className='flex space-x-12'>
-        <input
-          type='text'
-          id='tname'
-          className='rounded-lg w-full'
-          placeholder={`Temp Name`}
-          required
-        />
-
         <input
           type='url'
           id='prUrl'

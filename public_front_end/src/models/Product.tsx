@@ -1,5 +1,5 @@
-import { NewProductDBKeys, ProductDBKeys } from '../common/dbKeys';
-import { AgeGroup, Gender } from './enums';
+import { ProductDBKeys } from '../common/dbKeys';
+import { Gender } from './enums';
 
 interface Product {
   uid: string;
@@ -22,12 +22,8 @@ interface Product {
   genderTags: Array<Gender>;
   ageTags: Array<string>;
   createdTS: any;
-}
 
-export interface NewProduct extends Product {
   // extra properties
-
-  tempName: string;
   status: 'pending' | 'success' | 'error';
   statusMessage: string;
 }
@@ -46,17 +42,10 @@ export const convertProductToJson = (product: Product) => ({
   [ProductDBKeys.occasionTags]: product.occasionTags,
   [ProductDBKeys.interestTags]: product.interestTags,
   [ProductDBKeys.genderTags]: product.genderTags,
-  [ProductDBKeys.ageTags]: product.ageTags
+  [ProductDBKeys.ageTags]: product.ageTags,
+  [ProductDBKeys.status]: product.status,
+  [ProductDBKeys.statusMessage]: product.statusMessage
 });
-
-export const convertNewProductToJson = (newProduct: NewProduct) => {
-  return {
-    ...convertProductToJson(newProduct),
-    [NewProductDBKeys.tempName]: newProduct.tempName,
-    [NewProductDBKeys.status]: newProduct.status,
-    [NewProductDBKeys.statusMessage]: newProduct.statusMessage
-  };
-};
 
 export const convertProductJsonToObj = (inp: any, id: string) => {
   let p: Product = {
@@ -78,20 +67,11 @@ export const convertProductJsonToObj = (inp: any, id: string) => {
     productImgUrls: inp[ProductDBKeys.productImgUrls] || [],
     createdTS: inp[ProductDBKeys.createdTS]
       ? inp[ProductDBKeys.createdTS].toDate().toISOString()
-      : ''
+      : '',
+    status: inp[ProductDBKeys.status] || '',
+    statusMessage: inp[ProductDBKeys.statusMessage] || ''
   };
   return p;
-};
-
-export const convertNewProductJsonToObj = (inp: any, id: string) => {
-  let np: NewProduct = {
-    ...convertProductJsonToObj(inp, id),
-    tempName: inp[NewProductDBKeys.tempName] || '',
-    status: inp[NewProductDBKeys.status] || '',
-    statusMessage: inp[NewProductDBKeys.statusMessage] || ''
-  };
-
-  return np;
 };
 
 export default Product;

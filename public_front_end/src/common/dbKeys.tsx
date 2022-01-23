@@ -42,11 +42,7 @@ export const ProductDBKeys = {
   interestTags: 'it',
   genderTags: 'gt',
   ageTags: 'at',
-  createdTS: 'cTS'
-};
-
-export const NewProductDBKeys = {
-  tempName: 'tn',
+  createdTS: 'cTS',
   status: 's',
   statusMessage: 'sm'
 };

@@ -9,30 +9,21 @@ import {
 } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { FS_NEW_PRODUCTS_DB, FS_PRODUCTS_DB } from '../../common/constants';
-import {
-  FilterDBKeys,
-  NewProductDBKeys,
-  ProductDBKeys
-} from '../../common/dbKeys';
+import { FilterDBKeys, ProductDBKeys } from '../../common/dbKeys';
 import { Button, SectionTitle, Text } from '../../components';
 import CheckBoxGroup from '../../components/Reusable/CheckBoxGroup';
 import { db } from '../../firebase';
-import {
-  convertNewProductJsonToObj,
-  convertNewProductToJson,
+import Product, {
   convertProductJsonToObj,
-  convertProductToJson,
-  NewProduct
+  convertProductToJson
 } from '../../models/Product';
 import { app_sendToast } from '../../redux/appCommon';
 import { useAppDispatch } from '../../redux/store';
 import ProductEditSection from './productEditSection';
 
 const FinaliseProductEntry = () => {
-  const [productList, setProductList] = useState<Array<NewProduct>>([]);
-  const [selectedProduct, setSelectedProduct] = useState<NewProduct | null>(
-    null
-  );
+  const [productList, setProductList] = useState<Array<Product>>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -41,12 +32,12 @@ const FinaliseProductEntry = () => {
     try {
       setLoading(true);
       const colRef = collection(db, FS_NEW_PRODUCTS_DB);
-      const q = query(colRef, where(NewProductDBKeys.status, '==', 'success'));
+      const q = query(colRef, where(ProductDBKeys.status, '==', 'success'));
       const snap = await getDocs(q);
 
-      const prods: Array<NewProduct> = [];
+      const prods: Array<Product> = [];
 
-      snap.forEach(p => prods.push(convertNewProductJsonToObj(p.data(), p.id)));
+      snap.forEach(p => prods.push(convertProductJsonToObj(p.data(), p.id)));
 
       setProductList(prods);
       setSelectedProduct(() => prods[0]);
@@ -85,9 +76,7 @@ const FinaliseProductEntry = () => {
       setLoading(true);
       // create json from selected product
       const prodColl = collection(db, FS_PRODUCTS_DB);
-      const prodJson = convertProductToJson(
-        convertProductJsonToObj(convertNewProductToJson(selectedProduct!), '')
-      );
+      const prodJson = convertProductToJson(selectedProduct!);
 
       // update producut in products collection
       await addDoc(prodColl, prodJson);
@@ -149,7 +138,7 @@ const FinaliseProductEntry = () => {
                   onClick={() => setSelectedProduct(p)}
                 >
                   <td className='border-skin-inverted px-4 py-3 border-b-2 min-w-[120px] lg:min-w-[160px]'>
-                    {p.tempName}
+                    {p.title}
                   </td>
                 </tr>
               ))}
