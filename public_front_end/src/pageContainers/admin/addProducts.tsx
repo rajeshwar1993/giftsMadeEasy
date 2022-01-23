@@ -12,6 +12,7 @@ import { FS_NEW_PRODUCTS_DB, FS_PRODUCTS_DB } from '../../common/constants';
 import { ProductDBKeys } from '../../common/dbKeys';
 import { Button } from '../../components';
 import { db } from '../../firebase';
+import { ProductStatus } from '../../models/enums';
 import {
   convertProductJsonToObj,
   convertProductToJson
@@ -35,7 +36,7 @@ const AddProductContainer = () => {
 
       const newProduct = convertProductJsonToObj(
         {
-          [ProductDBKeys.status]: 'pending',
+          [ProductDBKeys.status]: ProductStatus.FetchPending,
           [ProductDBKeys.apid]: apid,
           [ProductDBKeys.productUrl]: productUrl,
           [ProductDBKeys.affiliateUrl]: affiliateUrl

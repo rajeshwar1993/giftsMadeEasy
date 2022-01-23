@@ -49,3 +49,11 @@ export enum NotificationTypes {
   AddedInCircle = 'IC',
   UpcommingDate = 'UD'
 }
+
+export enum ProductStatus {
+  Active = 'a', // show up in search results
+  Hidden = 'h', // hidden from search results
+  FetchPending = 'fp', // data fetch is pending
+  FetchSuccess = 'fs',
+  Error = 'e' // some error is caused. staus message updated
+}

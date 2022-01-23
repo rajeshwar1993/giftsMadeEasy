@@ -5,6 +5,7 @@ import {
   doc,
   getDocs,
   query,
+  updateDoc,
   where
 } from 'firebase/firestore';
 import React, { useState } from 'react';
@@ -13,6 +14,7 @@ import { FilterDBKeys, ProductDBKeys } from '../../common/dbKeys';
 import { Button, SectionTitle, Text } from '../../components';
 import CheckBoxGroup from '../../components/Reusable/CheckBoxGroup';
 import { db } from '../../firebase';
+import { ProductStatus } from '../../models/enums';
 import Product, {
   convertProductJsonToObj,
   convertProductToJson
@@ -24,6 +26,9 @@ import ProductEditSection from './productEditSection';
 const FinaliseProductEntry = () => {
   const [productList, setProductList] = useState<Array<Product>>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedStatus, setSelectedStatus] = useState<ProductStatus>(
+    ProductStatus.FetchSuccess
+  );
   const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -31,8 +36,18 @@ const FinaliseProductEntry = () => {
   const fetchProductsToProcess = async () => {
     try {
       setLoading(true);
-      const colRef = collection(db, FS_NEW_PRODUCTS_DB);
-      const q = query(colRef, where(ProductDBKeys.status, '==', 'success'));
+      let colname = FS_NEW_PRODUCTS_DB;
+      if (
+        selectedStatus === ProductStatus.Active ||
+        selectedStatus === ProductStatus.Hidden
+      ) {
+        colname = FS_PRODUCTS_DB;
+      }
+      const colRef = collection(db, colname);
+      const q = query(
+        colRef,
+        where(ProductDBKeys.status, '==', selectedStatus.toString())
+      );
       const snap = await getDocs(q);
 
       const prods: Array<Product> = [];
@@ -64,6 +79,14 @@ const FinaliseProductEntry = () => {
         s.occasionTags = values;
         break;
 
+      case ProductDBKeys.genderTags:
+        s.genderTags = values;
+        break;
+
+      case ProductDBKeys.interestTags:
+        s.interestTags = values;
+        break;
+
       default:
         break;
     }
@@ -79,7 +102,10 @@ const FinaliseProductEntry = () => {
       const prodJson = convertProductToJson(selectedProduct!);
 
       // update producut in products collection
-      await addDoc(prodColl, prodJson);
+      await addDoc(prodColl, {
+        ...prodJson,
+        [ProductDBKeys.status]: ProductStatus.Active.toString()
+      });
 
       // delete from newProducts collection
       const newProdCol = collection(db, FS_NEW_PRODUCTS_DB);
@@ -110,14 +136,52 @@ const FinaliseProductEntry = () => {
     }
   };
 
+  const updateProductStatus = async (status: ProductStatus) => {
+    try {
+      const newProdCol = collection(db, FS_NEW_PRODUCTS_DB);
+      await updateDoc(doc(newProdCol, selectedProduct?.uid), {
+        [ProductDBKeys.status]: status.toString()
+      });
+    } catch (e) {
+      // TODO handle error
+      console.log(e);
+    }
+  };
+
+  const removeProduct = async () => {
+    try {
+      const newProdCol = collection(db, FS_NEW_PRODUCTS_DB);
+      await deleteDoc(doc(newProdCol, selectedProduct?.uid));
+    } catch (e) {
+      // TODO handle error
+      console.log(e);
+    }
+  };
+
   return (
     <div className='flex flex-col space-y-2'>
       <SectionTitle content='Finalise Product Entry' />
-      <Button
-        text='Fetch Products'
-        onClick={fetchProductsToProcess}
-        loading={loading}
-      />
+      <div className='flex flex-row space-x-4'>
+        <select
+          id='fetchStatus'
+          defaultValue={selectedStatus}
+          onChange={(e: any) => {
+            setSelectedStatus(e.target.value);
+          }}
+        >
+          <option value={ProductStatus.FetchSuccess}>FetchSuccess</option>
+          <option value={ProductStatus.Active}>Active</option>
+          <option value={ProductStatus.FetchPending}>FetchPending</option>
+          <option value={ProductStatus.Hidden}>Hidden</option>
+          <option value={ProductStatus.Error}>Error</option>
+        </select>
+        <Button
+          text='Fetch Products'
+          onClick={fetchProductsToProcess}
+          loading={loading}
+        />
+      </div>
+
       <div className='flex space-x-4'>
         <div className='w-1/6'>
           <table className='w-full rounded-lg'>
@@ -137,7 +201,7 @@ const FinaliseProductEntry = () => {
                   }`}
                   onClick={() => setSelectedProduct(p)}
                 >
-                  <td className='border-skin-inverted px-4 py-3 border-b-2 min-w-[120px] lg:min-w-[160px]'>
+                  <td className='border-skin-inverted px-4 py-3 border-b-2 min-w-[120px] lg:min-w-[160px] text-xs'>
                     {p.title}
                   </td>
                 </tr>
@@ -146,12 +210,16 @@ const FinaliseProductEntry = () => {
           </table>
         </div>
         {selectedProduct && (
-          <ProductEditSection
-            product={selectedProduct}
-            onCheckboxClicked={onCheckboxClicked}
-            saveProduct={saveProduct}
-            loading={loading}
-          />
+          <div className='w-5/6'>
+            <ProductEditSection
+              product={selectedProduct}
+              onCheckboxClicked={onCheckboxClicked}
+              saveProduct={saveProduct}
+              loading={loading}
+              updateProductStatus={updateProductStatus}
+              removeProduct={removeProduct}
+            />
+          </div>
         )}
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { ProductDBKeys } from '../common/dbKeys';
-import { Gender } from './enums';
+import { Gender, ProductStatus } from './enums';
 
 interface Product {
   uid: string;
@@ -24,8 +24,8 @@ interface Product {
   createdTS: any;
 
   // extra properties
-  status: 'pending' | 'success' | 'error';
-  statusMessage: string;
+  status: ProductStatus;
+  statusMessage: Array<string>;
 }
 
 export const convertProductToJson = (product: Product) => ({
@@ -43,6 +43,7 @@ export const convertProductToJson = (product: Product) => ({
   [ProductDBKeys.interestTags]: product.interestTags,
   [ProductDBKeys.genderTags]: product.genderTags,
   [ProductDBKeys.ageTags]: product.ageTags,
+  [ProductDBKeys.productImgUrls]: product.productImgUrls,
   [ProductDBKeys.status]: product.status,
   [ProductDBKeys.statusMessage]: product.statusMessage
 });
@@ -69,7 +70,7 @@ export const convertProductJsonToObj = (inp: any, id: string) => {
       ? inp[ProductDBKeys.createdTS].toDate().toISOString()
       : '',
     status: inp[ProductDBKeys.status] || '',
-    statusMessage: inp[ProductDBKeys.statusMessage] || ''
+    statusMessage: inp[ProductDBKeys.statusMessage] || []
   };
   return p;
 };

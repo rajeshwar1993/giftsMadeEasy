@@ -16,7 +16,7 @@ const ImageCarouselSection: FC<Props> = ({ images }) => {
     <div className='flex flex-col space-y-6'>
       <div className='rounded-lg overflow-hidden'>
         <ImageComponent
-          src={images[selected]}
+          src={images[selected] || '/images/logo.png'}
           alt='product'
           width={isDesktop ? 500 : 300}
           height={isDesktop ? 500 : 300}

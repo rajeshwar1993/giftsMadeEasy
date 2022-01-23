@@ -51,13 +51,21 @@ const getWebData = async (page: Page, url: string) => {
     if (!finalPrice) {
       allData.price = ogPrice;
     }
+  } else {
+    const priceDiv = $(selectors.price2);
+    if (priceDiv) {
+      let finalPrice = $(priceDiv)
+        .find('.priceToPay')
+        .find('.a-offscreen')
+        .text();
+      let ogPrice = $(priceDiv).find('.basisPrice').find('.a-offscreen').text();
+      allData.ogPrice = ogPrice;
+      allData.price = finalPrice;
+    }
   }
 
   // get rating
   allData.rating = $(selectors.rating).text().split(' ')[0];
-
-  // get totalRatings
-  // allData.totalRatings = $(selectors.totalRatings).text().split(' ')[0];
 
   // get overview
   const rows = $(selectors.overview);
