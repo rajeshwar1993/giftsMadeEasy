@@ -8,7 +8,6 @@ import {
   where
 } from 'firebase/firestore';
 import React, { useState } from 'react';
-import DataConfig from '../../common/componentConfig';
 import { FS_NEW_PRODUCTS_DB, FS_PRODUCTS_DB } from '../../common/constants';
 import {
   FilterDBKeys,
@@ -27,7 +26,7 @@ import {
 } from '../../models/Product';
 import { app_sendToast } from '../../redux/appCommon';
 import { useAppDispatch } from '../../redux/store';
-import ImageCarouselSection from '../product/ImageCarouselSection';
+import ProductEditSection from './productEditSection';
 
 const FinaliseProductEntry = () => {
   const [productList, setProductList] = useState<Array<NewProduct>>([]);
@@ -158,120 +157,12 @@ const FinaliseProductEntry = () => {
           </table>
         </div>
         {selectedProduct && (
-          <div className='flex flex-col space-y-4'>
-            <div className='flex space-x-4'>
-              <ImageCarouselSection images={selectedProduct.productImgUrls} />
-              <div className='flex flex-col space-y-4'>
-                <SectionTitle
-                  content={selectedProduct.title}
-                  styleClasses='!text-3xl'
-                />
-                <div className='flex justify-between'>
-                  <span>
-                    Amazon ID: <strong>{selectedProduct.apid}</strong>
-                  </span>
-                  <span>
-                    Rating: <strong>{selectedProduct.rating}</strong>
-                  </span>
-                  <span>
-                    Price: <strong>{selectedProduct.price}</strong>
-                  </span>
-                  <span>
-                    OG Price: <strong>{selectedProduct.ogPrice}</strong>
-                  </span>
-                </div>
-                <div className='flex flex-col space-y-3'>
-                  <span>
-                    Product Url: <strong>{selectedProduct.productUrl}</strong>
-                  </span>
-                  <span>
-                    Affiliate Url: <strong>{selectedProduct.productUrl}</strong>
-                  </span>
-                </div>
-                <div className='flex space-x-4'>
-                  <div className='w-7/12'>
-                    <strong>Feature List</strong>
-                    <ul className='list-disc'>
-                      {selectedProduct.featureList.map((f, i) => (
-                        <li key={i}>{f}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className='w-5/12'>
-                    <table className='table-auto'>
-                      <strong>Overview points</strong>
-                      <tbody>
-                        {selectedProduct.overviewPoints.map((op, i) => (
-                          <tr key={i}>
-                            <td className='font-bold px-4 py-2'>{op.key}</td>
-                            <td className='font-medium px-4 py-2'>{op.val}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className='flex flex-row space-x-4'>
-              <div className='flex flex-col space-x-4 border-2 border-skin-inverted p-2 rounded-lg'>
-                <Text content='Relationship Tags' />
-                <div className='flex space-x-4'>
-                  {
-                    <CheckBoxGroup
-                      filterKey={ProductDBKeys.relationshipTags}
-                      checkList={Object.keys(DataConfig.relationship).map(
-                        (key: any, i) => ({
-                          text: key,
-                          value: DataConfig.relationship[key]
-                        })
-                      )}
-                      selected={selectedProduct.relationshipTags}
-                      onChangeHandler={onCheckboxClicked}
-                    />
-                  }
-                </div>
-              </div>
-              <div className='flex flex-col space-x-4 border-2 border-skin-inverted p-2 rounded-lg'>
-                <Text content='Age Tags' />
-                <div className='flex space-x-4'>
-                  {
-                    <CheckBoxGroup
-                      filterKey={ProductDBKeys.ageTags}
-                      checkList={Object.keys(DataConfig.ageGrp).map(
-                        (key: any, i) => ({
-                          text: key,
-                          value: DataConfig.ageGrp[key]
-                        })
-                      )}
-                      selected={selectedProduct.ageTags}
-                      onChangeHandler={onCheckboxClicked}
-                    />
-                  }
-                </div>
-              </div>
-              <div className='flex flex-col space-x-4 border-2 border-skin-inverted p-2 rounded-lg'>
-                <Text content='Occasion Tags' />
-                <div className='flex space-x-4'>
-                  {
-                    <CheckBoxGroup
-                      filterKey={ProductDBKeys.occasionTags}
-                      checkList={Object.keys(DataConfig.occasion).map(
-                        (key: any, i) => ({
-                          text: key,
-                          value: DataConfig.occasion[key]
-                        })
-                      )}
-                      selected={selectedProduct.occasionTags}
-                      onChangeHandler={onCheckboxClicked}
-                    />
-                  }
-                </div>
-              </div>
-            </div>
-            <Button text='Save' onClick={saveProduct} loading={loading} />
-          </div>
+          <ProductEditSection
+            product={selectedProduct}
+            onCheckboxClicked={onCheckboxClicked}
+            saveProduct={saveProduct}
+            loading={loading}
+          />
         )}
       </div>
     </div>

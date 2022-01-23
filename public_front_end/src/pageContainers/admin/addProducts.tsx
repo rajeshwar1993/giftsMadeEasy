@@ -29,9 +29,9 @@ const AddProductContainer = () => {
     setLoading(true);
     try {
       const tempname = e.target[0].value;
-      const apid = e.target[1].value;
-      const productUrl = e.target[2].value;
-      const affiliateUrl = e.target[3].value;
+      const productUrl = e.target[1].value;
+      const affiliateUrl = e.target[2].value;
+      const apid = e.target[3].value;
 
       const newProduct = convertNewProductJsonToObj(
         {
@@ -91,25 +91,32 @@ const AddProductContainer = () => {
           placeholder={`Temp Name`}
           required
         />
-        <input
-          type='text'
-          id='apid'
-          className='rounded-lg w-full'
-          placeholder={`Amazon Product ID`}
-          required
-        />
+
         <input
           type='url'
           id='prUrl'
           className='rounded-lg w-full'
           placeholder={`Amazon Product URL`}
           required
+          onChange={(e: any) => {
+            let val = e.target.value;
+            let id = val.split('/')[val.split('/').length - 1];
+            const apidEl: any = document.getElementById('apid');
+            apidEl.value = id;
+          }}
         />
         <input
           type='url'
           id='afUrl'
           className='rounded-lg w-full'
           placeholder={`Amazon Affiliate Url`}
+          required
+        />
+        <input
+          type='text'
+          id='apid'
+          className='rounded-lg w-full'
+          placeholder={`Amazon Product ID`}
           required
         />
         <Button
