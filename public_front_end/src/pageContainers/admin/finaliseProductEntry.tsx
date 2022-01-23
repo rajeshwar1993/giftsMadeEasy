@@ -5,6 +5,7 @@ import {
   doc,
   getDocs,
   query,
+  serverTimestamp,
   updateDoc,
   where
 } from 'firebase/firestore';
@@ -104,7 +105,8 @@ const FinaliseProductEntry = () => {
       // update producut in products collection
       await addDoc(prodColl, {
         ...prodJson,
-        [ProductDBKeys.status]: ProductStatus.Active.toString()
+        [ProductDBKeys.status]: ProductStatus.Active.toString(),
+        [ProductDBKeys.createdTS]: serverTimestamp()
       });
 
       // delete from newProducts collection
