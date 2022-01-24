@@ -18,11 +18,11 @@ export const UserDBKeys = {
 };
 
 export const FilterDBKeys = {
-  relationship: 'r',
-  occasion: 'o',
-  ageGrp: 'ag',
-  gender: 'g',
-  interests: 'i'
+  relationship: 'rt',
+  occasion: 'ot',
+  ageGrp: 'at',
+  gender: 'gt',
+  interests: 'it'
 };
 
 export const ProductDBKeys = {

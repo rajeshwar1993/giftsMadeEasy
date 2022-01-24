@@ -1,8 +1,17 @@
 import { SectionTitleType } from '../../../components/Reusable/SectionTitle/type';
+import { Gender } from '../../../models/enums';
 
 export interface ProductListItemType {
-  title: SectionTitleType;
-  price?: string;
-  ogPrice?: string;
-  designType?: 'sm' | 'lg' | 'xl';
+  apid: string;
+  t: string;
+  p: string;
+  ogp: string;
+  r: string;
+  piu: Array<string>;
+  rt: Array<string>;
+  ot: Array<string>;
+  it: Array<string>;
+  gt: Array<Gender>;
+  at: Array<string>;
+  path: string;
 }

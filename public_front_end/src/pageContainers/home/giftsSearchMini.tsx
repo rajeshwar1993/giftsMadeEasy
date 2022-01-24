@@ -18,8 +18,6 @@ import { app_sendToast } from '../../redux/appCommon';
 const GiftsSearchMini = () => {
   const router = useRouter();
 
-  const dispatch = useAppDispatch();
-
   const [searchParams, updateSearchParams] = useState({
     [FilterDBKeys.relationship]: {
       name: AppConfig.COMMON.relationshipLabel,
@@ -86,23 +84,16 @@ const GiftsSearchMini = () => {
       <Button
         text={'Search'}
         onClick={() => {
-          dispatch(
-            app_sendToast({
-              message: 'This is sample toast',
-              type: 'error'
-            })
-          );
-
-          // router.push({
-          //   pathname: '/search',
-          //   query: {
-          //     [FilterDBKeys.relationship]:
-          //       searchParams[FilterDBKeys.relationship].value,
-          //     [FilterDBKeys.occasion]:
-          //       searchParams[FilterDBKeys.occasion].value,
-          //     [FilterDBKeys.ageGrp]: searchParams[FilterDBKeys.ageGrp].value
-          //   }
-          // });
+          router.push({
+            pathname: '/search',
+            query: {
+              [FilterDBKeys.relationship]:
+                searchParams[FilterDBKeys.relationship].value,
+              [FilterDBKeys.occasion]:
+                searchParams[FilterDBKeys.occasion].value,
+              [FilterDBKeys.ageGrp]: searchParams[FilterDBKeys.ageGrp].value
+            }
+          });
         }}
         defautStyle='cust-btn-btn'
         wrapperClasses='w-full m-auto mt-4'

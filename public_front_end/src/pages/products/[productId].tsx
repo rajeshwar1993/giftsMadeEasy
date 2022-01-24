@@ -39,7 +39,8 @@ export const getServerSideProps: GetServerSideProps<
 > = async context => {
   let { productId } = context.params!;
 
-  let headerData, pageData;
+  let headerData,
+    pageData: any = {};
 
   const docRef = doc(db, FS_PRODUCTS_DB, productId);
   const productSnap = await getDoc(docRef);
@@ -48,6 +49,8 @@ export const getServerSideProps: GetServerSideProps<
     pageData = productSnap.data();
     pageData.uid = productSnap.id;
   }
+
+  pageData.cTS = pageData.cTS.toDate().toISOString();
 
   headerData = { title: 'string', metaDesc: 'string' };
 

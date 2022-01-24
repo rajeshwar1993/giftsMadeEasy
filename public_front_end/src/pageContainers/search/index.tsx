@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import makeSearch from '../../common/algolia';
+import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
 import Filter from '../../models/Filter';
 import { RootState } from '../../redux/store';
 import Filters from './filters';
@@ -11,6 +13,8 @@ const SearchPage = () => {
   const router = useRouter();
   const [filterValues, updateFilterValues] = useState<Filter>(new Filter());
   const [showMobileFilters, updateShowMobileFilters] = useState(false);
+
+  const [results, setResults] = useState<Array<ProductListItemType>>([]);
 
   const isDesktop = useSelector((state: RootState) => state.app.isDesktop);
 
@@ -23,6 +27,9 @@ const SearchPage = () => {
       // create new filter object
       const f = Filter.convertJsonToObj(router.query);
       updateFilterValues(f);
+      makeQuery(f.convertToJson());
+    } else {
+      makeQuery({});
     }
   }, [router.query]);
 
@@ -47,8 +54,6 @@ const SearchPage = () => {
       pathname: '/search',
       query: fValObj
     });
-
-    // TODO make query to get results
   };
 
   const handleFilterChange = (key: string, value: string | Array<string>) => {
@@ -68,10 +73,15 @@ const SearchPage = () => {
         pathname: '/search',
         query: fValObj
       });
-
-      // TODO make query to get results
     }
     console.log(Filter.convertJsonToObj(fValObj));
+  };
+
+  const makeQuery = async (fValObj: any) => {
+    let res: any = await makeSearch(fValObj);
+    console.log(res);
+    const hits = res.hits as Array<ProductListItemType>;
+    setResults(hits);
   };
 
   return (
@@ -96,7 +106,7 @@ const SearchPage = () => {
         />
 
         <div className='lg:px-4 w-full lg:w-4/5'>
-          <ProductListing />
+          <ProductListing results={results} />
         </div>
       </div>
     </section>

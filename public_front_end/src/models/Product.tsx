@@ -66,9 +66,7 @@ export const convertProductJsonToObj = (inp: any, id: string) => {
     genderTags: inp[ProductDBKeys.genderTags] || [],
     ageTags: inp[ProductDBKeys.ageTags] || [],
     productImgUrls: inp[ProductDBKeys.productImgUrls] || [],
-    createdTS: inp[ProductDBKeys.createdTS]
-      ? inp[ProductDBKeys.createdTS].toDate().toISOString()
-      : '',
+    createdTS: inp[ProductDBKeys.createdTS] || '',
     status: inp[ProductDBKeys.status] || '',
     statusMessage: inp[ProductDBKeys.statusMessage] || []
   };
