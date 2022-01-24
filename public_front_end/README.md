@@ -38,3 +38,8 @@ My docker commands:
 set COMPOSE_DOCKER_CLI_BUILD=1 && set DOCKER_BUILDKIT=1 && docker-compose build
 
 docker-compose up
+
+
+## Deploy to Google Cloud Run
+
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
