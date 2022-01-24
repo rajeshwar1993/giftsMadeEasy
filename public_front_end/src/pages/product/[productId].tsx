@@ -7,7 +7,7 @@ import { FS_PRODUCTS_DB } from '../../common/constants';
 import { db } from '../../firebase';
 import { ProductPage } from '../../pageContainers';
 import { HeaderType } from '../../common/types';
-import Product from '../../models/Product';
+import { convertProductJsonToObj } from '../../models/Product';
 
 interface Props {
   headerData: HeaderType;
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const ProductLanding: NextPage<Props> = ({ headerData, pageData }) => {
-  let product = Product.convertJsonToObj(pageData, pageData.uid);
+  let product = convertProductJsonToObj(pageData, pageData.uid);
 
   return (
     <div>

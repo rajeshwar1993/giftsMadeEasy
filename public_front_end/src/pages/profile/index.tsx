@@ -10,11 +10,11 @@ import { RootState } from '../../redux/store';
 import { HeaderType } from '../../common/types';
 
 type Props = {
-  headerData: HeaderType;
-  pageData: User;
+  // headerData: HeaderType;
+  // pageData: User;
 };
 
-const MyProfile: NextPage<Props> = ({ headerData, pageData }) => {
+const MyProfile: NextPage<Props> = ({}) => {
   const router = useRouter();
 
   const { data: user } = useSelector((state: RootState) => state.user);

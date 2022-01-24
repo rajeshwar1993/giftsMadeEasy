@@ -21,7 +21,8 @@
     "react-icons": "^4.3.1",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
-    "sanitize-html": "^2.6.1"
+    "sanitize-html": "^2.6.1",
+    "sharp": "^0.29.3"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.4.0",
