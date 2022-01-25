@@ -11,6 +11,7 @@ import InterestTagType, { convertITJsonToObj } from '../../models/Interest';
 import { it_add_tagArray } from '../../redux/interestTags';
 import { RootState, useAppDispatch } from '../../redux/store';
 import OKCancelBtn from '../../components/Reusable/OKCancelBtn';
+import { interestFilterValues } from '../../common/staticFilterValues';
 
 type Props = {
   ints: Array<string>;
@@ -24,61 +25,13 @@ const ProfileInterestedInSection: FC<Props> = ({
   isMe
 }) => {
   const [editMode, toggleEditMode] = useState(false);
-  const [intArray, updateIntArray] = useState<Array<InterestTagType>>([]);
-  const [tempIntArray, updateTempIntArray] = useState<Array<InterestTagType>>(
-    []
-  );
+  const [tempIntArray, updateTempIntArray] = useState<Array<string>>(ints);
   const [popupOpen, updatePopupOpen] = useState<boolean>(false);
 
-  const dispatch = useAppDispatch();
-  const interestArray = useSelector(
-    (state: RootState) => state.interests.tagArray
-  );
-
-  const fetchAndUpdateInterests = async (userInterests: Array<string>) => {
-    // ! POTENTIAL_ISSUE - revisit this logic, might get complicated if interests become too large
-
-    let finalList: Array<InterestTagType> = [];
-    let fetchedList: Array<InterestTagType> = [];
-
-    // check which intestest already present in store
-    let interestsToFetch = userInterests.filter(it => {
-      const seekIntrest = interestArray.find(i => i.uid === it);
-      if (seekIntrest) {
-        finalList.push(seekIntrest);
-        return false;
-      }
-      return true;
-    });
-
-    // ! POTENTIAL_ISSUE - aggregating too many promises might me an issue
-    const readPromises = interestsToFetch.map(it => {
-      console.log('Fetching interest: ', it);
-      return getDoc(doc(db, FS_INTEREST_TAGS_DB, it));
-    });
-
-    const allSnaps = await Promise.all(readPromises);
-    allSnaps.forEach(interestSnap => {
-      if (interestSnap.exists()) {
-        const intestest = convertITJsonToObj(
-          interestSnap.data(),
-          interestSnap.id
-        );
-        fetchedList.push(intestest);
-      }
-    });
-    dispatch(it_add_tagArray(fetchedList));
-    updateIntArray([...finalList, ...fetchedList]);
-  };
-
-  useEffect(() => {
-    fetchAndUpdateInterests(ints);
-  }, [ints]);
-
-  useEffect(() => {
-    // set variables for edit mode
-    updateTempIntArray(intArray);
-  }, [editMode]);
+  // useEffect(() => {
+  //   // set variables for edit mode
+  //   updateTempIntArray(ints);
+  // }, [editMode]);
 
   return (
     <div>
@@ -105,9 +58,7 @@ const ProfileInterestedInSection: FC<Props> = ({
               }}
               onSave={() => {
                 toggleEditMode(false);
-                let finalInts = tempIntArray.map(i => i.uid);
-                fetchAndUpdateInterests(finalInts);
-                onSaveClick(finalInts);
+                onSaveClick(tempIntArray);
               }}
             />
           )}
@@ -115,7 +66,7 @@ const ProfileInterestedInSection: FC<Props> = ({
       </div>
 
       <div>
-        {!editMode && intArray.length === 0 && (
+        {!editMode && ints.length === 0 && (
           <Text
             content={
               'Add some interest tags to let your circle know what you like ...'
@@ -140,19 +91,16 @@ const ProfileInterestedInSection: FC<Props> = ({
         )}
 
         <div className='flex flex-wrap'>
-          {(editMode ? tempIntArray : intArray).map(int => (
+          {tempIntArray.map(int => (
             <Chip
-              key={int.uid}
+              key={int}
               editMode={editMode}
               onCancel={id => {
-                updateTempIntArray(state =>
-                  state.filter(item => item.uid !== id)
-                );
+                updateTempIntArray(state => state.filter(item => item !== id));
               }}
-              id={int.uid}
+              id={int}
               text={{
-                content:
-                  int.parentId === '__PARENT__' ? `All ${int.value}` : int.value
+                content: interestFilterValues.get(int)?.name || ''
               }}
             />
           ))}
@@ -169,11 +117,11 @@ const ProfileInterestedInSection: FC<Props> = ({
 
       <SelectInterestsPopup
         open={popupOpen}
-        selectedInts={tempIntArray.map(i => i.uid)}
+        selectedInts={tempIntArray.map(i => i)}
         onClose={() => updatePopupOpen(false)}
         onSave={newTagsList => {
           onSaveClick(newTagsList);
-          fetchAndUpdateInterests(newTagsList);
+          updateTempIntArray(newTagsList);
           toggleEditMode(false);
         }}
       />

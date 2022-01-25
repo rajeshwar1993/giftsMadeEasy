@@ -28,6 +28,8 @@ import CircleUserType, { convertCUJsonToObj } from '../../../models/CircleUser';
 import { useAppDispatch } from '../../../redux/store';
 import { cu_addUser } from '../../../redux/myCircleList';
 import DialogContainer from '../DialogContainer';
+import { relationshipFilterValues } from '../../../common/staticFilterValues';
+import AppConfig from '../../../common/appConfig';
 
 type AddToCircleDialogProps = {
   open: boolean;
@@ -228,8 +230,8 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
                   setRelVal(value);
                 }}
                 options={createListboxOptions(
-                  DataConfig.relationship,
-                  'Relationship'
+                  relationshipFilterValues,
+                  AppConfig.COMMON.relationshipLabel
                 )}
               />
             </div>
