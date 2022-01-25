@@ -1,31 +1,31 @@
 import { ListBoxOption } from './types';
 
-export const DEFAULT_LIST_VALUE = '__DEFAULT__';
+export const DEFAULT_LIST_VALUE = '';
 
 export const createListboxOptions = (
-  dataObj: { [key: string]: any },
+  dataObj: Map<string, string>,
   defaultValue: string
 ) => {
   let options = [{ name: defaultValue, value: DEFAULT_LIST_VALUE }];
 
-  for (const key in dataObj) {
-    options.push({ name: key, value: dataObj[key] });
-  }
+  dataObj.forEach((value, key) => {
+    options.push({ name: value, value: key });
+  });
 
   return options;
 };
 
 export const getOptionFromValue = (
-  dataObj: { [key: string]: any },
-  value: any,
+  dataObj: Map<string, string>,
+  key: any,
   defaultName: string
 ) => {
   let option: ListBoxOption = { name: defaultName, value: DEFAULT_LIST_VALUE };
 
-  for (const key in dataObj) {
-    if (dataObj[key] === value) {
-      option = { name: key, value };
-    }
+  let val = dataObj.get(key);
+
+  if (val) {
+    option = { name: val, value: key };
   }
 
   return option;

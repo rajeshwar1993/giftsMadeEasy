@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { useRouter } from 'next/router';
-import DataConfig from '../../common/componentConfig';
 import AppConfig from '../../common/appConfig';
 
 import { FilterDBKeys } from '../../common/dbKeys';
@@ -12,8 +11,11 @@ import {
 } from '../../components/Reusable/ListBox/utils';
 import { ListBoxOption } from '../../components/Reusable/ListBox/types';
 import ListBoxComp from '../../components/Reusable/ListBox';
-import { useAppDispatch } from '../../redux/store';
-import { app_sendToast } from '../../redux/appCommon';
+import {
+  occasionFilterValues,
+  ageGrpFilterValues,
+  relationshipFilterValues
+} from '../../common/staticFilterValues';
 
 const GiftsSearchMini = () => {
   const router = useRouter();
@@ -51,7 +53,7 @@ const GiftsSearchMini = () => {
           selectedOption={searchParams[FilterDBKeys.relationship]}
           onSelected={handleListboxOnChange}
           options={createListboxOptions(
-            DataConfig.relationship,
+            relationshipFilterValues,
             AppConfig.COMMON.relationshipLabel
           )}
         />
@@ -63,7 +65,7 @@ const GiftsSearchMini = () => {
           selectedOption={searchParams[FilterDBKeys.ageGrp]}
           onSelected={handleListboxOnChange}
           options={createListboxOptions(
-            DataConfig.ageGrp,
+            ageGrpFilterValues,
             AppConfig.COMMON.ageGroupLabel
           )}
         />
@@ -75,7 +77,7 @@ const GiftsSearchMini = () => {
           selectedOption={searchParams[FilterDBKeys.occasion]}
           onSelected={handleListboxOnChange}
           options={createListboxOptions(
-            DataConfig.occasion,
+            occasionFilterValues,
             AppConfig.COMMON.occasionLabel
           )}
         />

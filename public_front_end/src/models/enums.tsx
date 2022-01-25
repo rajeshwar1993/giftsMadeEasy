@@ -37,10 +37,10 @@ export enum Relationship {
 }
 
 export enum Occasion {
-  Birthday = 'Birthday',
-  Anniversary = 'Anniversary',
-  Wedding = 'Wedding',
-  HouseWarming = 'House Warming'
+  Birthday = 'b',
+  Anniversary = 'a',
+  Wedding = 'w',
+  HouseWarming = 'hw'
 }
 
 export enum NotificationTypes {

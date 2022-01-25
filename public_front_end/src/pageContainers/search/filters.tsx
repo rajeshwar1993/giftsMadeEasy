@@ -14,6 +14,11 @@ import ListBoxComp from '../../components/Reusable/ListBox';
 import { ListBoxOption } from '../../components/Reusable/ListBox/types';
 import CheckBoxGroup from '../../components/Reusable/CheckBoxGroup';
 import { Gender } from '../../models/enums';
+import {
+  ageGrpFilterValues,
+  occasionFilterValues,
+  relationshipFilterValues
+} from '../../common/staticFilterValues';
 
 type Props = {
   filterValues: Filter;
@@ -98,13 +103,13 @@ const FilterBody: FC<FilterBodyProp> = ({
           filterKey={FilterDBKeys.relationship}
           title={{ content: 'Relationship' }}
           selectedOption={getOptionFromValue(
-            DataConfig.relationship,
+            relationshipFilterValues,
             values[FilterDBKeys.relationship],
             'Relationship'
           )}
           onSelected={updateListValues}
           options={createListboxOptions(
-            DataConfig.relationship,
+            relationshipFilterValues,
             'Relationship'
           )}
         />
@@ -115,12 +120,12 @@ const FilterBody: FC<FilterBodyProp> = ({
           filterKey={FilterDBKeys.ageGrp}
           title={{ content: 'Age Group' }}
           selectedOption={getOptionFromValue(
-            DataConfig.ageGrp,
+            ageGrpFilterValues,
             values[FilterDBKeys.ageGrp],
             'Age Group'
           )}
           onSelected={updateListValues}
-          options={createListboxOptions(DataConfig.ageGrp, 'Age Group')}
+          options={createListboxOptions(ageGrpFilterValues, 'Age Group')}
         />
       </div>
       {/* Rel Filter */}
@@ -129,12 +134,12 @@ const FilterBody: FC<FilterBodyProp> = ({
           filterKey={FilterDBKeys.occasion}
           title={{ content: 'Occasion' }}
           selectedOption={getOptionFromValue(
-            DataConfig.occasion,
+            occasionFilterValues,
             values[FilterDBKeys.occasion],
             'Occasion'
           )}
           onSelected={updateListValues}
-          options={createListboxOptions(DataConfig.occasion, 'Occasion')}
+          options={createListboxOptions(occasionFilterValues, 'Occasion')}
         />
       </div>
       {/* Gender Filter */}
