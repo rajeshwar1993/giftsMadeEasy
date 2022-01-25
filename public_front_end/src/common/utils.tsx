@@ -32,3 +32,14 @@ export const sendEmailVerificationMail = (user: User) => {
       console.log(e);
     });
 };
+
+export const cleanObject = (obj: any) => {
+  for (let key in obj) {
+    const val = obj[key];
+    if (!val || val === '' || (Array.isArray(val) && val.length === 0)) {
+      delete obj[key];
+    }
+  }
+
+  return obj;
+};

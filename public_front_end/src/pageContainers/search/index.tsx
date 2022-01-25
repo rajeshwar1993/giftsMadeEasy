@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import makeSearch from '../../common/algolia';
+import { cleanObject } from '../../common/utils';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
 import Filter from '../../models/Filter';
 import { RootState } from '../../redux/store';
@@ -52,7 +53,7 @@ const SearchPage = () => {
     // update URL state
     router.replace({
       pathname: '/search',
-      query: fValObj
+      query: cleanObject(fValObj)
     });
   };
 
@@ -71,7 +72,7 @@ const SearchPage = () => {
       // update URL state
       router.replace({
         pathname: '/search',
-        query: fValObj
+        query: cleanObject(fValObj)
       });
     }
     console.log(Filter.convertJsonToObj(fValObj));

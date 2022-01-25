@@ -8,7 +8,13 @@ const createFilters = (filterObj: any) => {
 
   for (let key in filterObj) {
     if (Array.isArray(filterObj[key])) {
-      // handle array values
+      if (filterObj[key].length > 0) {
+        let arrQ: any = [];
+
+        filterObj[key].forEach((f: any) => arrQ.push(`(${key}:${f})`));
+
+        filters.push(`(${arrQ.join(' OR ')})`);
+      }
     } else if (filterObj[key]) {
       filters.push(`(${key}:${filterObj[key]})`);
     }
