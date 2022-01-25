@@ -12,7 +12,12 @@ type Props = {
   filterKey: string;
   checkList: Array<CheckListOption>;
   selected: Array<string>;
-  onChangeHandler: (key: string, values: Array<string>) => void;
+  onChangeHandler: (
+    key: string,
+    values: Array<string>,
+    currentValue: string,
+    isChecked: boolean
+  ) => void;
   flexOverride?: string;
   showSelectAll?: boolean;
 };
@@ -42,7 +47,7 @@ const CheckBoxGroup: FC<Props> = ({
       setSelectAllValue(false);
     }
 
-    onChangeHandler(filterKey, updatedValues);
+    onChangeHandler(filterKey, updatedValues, value, isChecked);
   };
 
   const handleSelectAll = (value: string, isChecked: boolean) => {
@@ -55,11 +60,11 @@ const CheckBoxGroup: FC<Props> = ({
       setSelectAllValue(false);
     }
 
-    onChangeHandler(filterKey, newSelected);
+    onChangeHandler(filterKey, newSelected, value, isChecked);
   };
 
   useEffect(() => {
-    if (selected.length === checkList.length) {
+    if (checkList.every(c => selected.includes(c.value))) {
       setSelectAllValue(true);
     } else {
       setSelectAllValue(false);
@@ -75,9 +80,9 @@ const CheckBoxGroup: FC<Props> = ({
           styleClasses={`font-semibold ${title.styleClasses}`}
         />
       )}
-      <div className={`flex flex-row xl:flex-col ${flexOverride}`}>
+      <div className={`grid grid-cols-2 md:grid-cols-1 gap-2 ${flexOverride}`}>
         {showSelectAll && (
-          <div className='form-check mt-2 ml-2 pr-4 flex '>
+          <div className='form-check mt-2 ml-2 flex col-span-2 mx-auto '>
             <input
               className='form-check-input appearance-none h-5 w-5 border-2 border-skin-inverted rounded-sm bg-skin-fill checked:bg-skin-inverted checked:border-skin-inverted focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
               type='checkbox'
@@ -91,12 +96,15 @@ const CheckBoxGroup: FC<Props> = ({
               className='form-check-label inline-block text-skin-primary text-lg font-bold'
               htmlFor={`sa_${filterKey}`}
             >
-              {'SELECT ALL'}
+              <Text
+                styleClasses='text-base lg:text-lg'
+                content={'Select All'}
+              />
             </label>
           </div>
         )}
         {checkList.map((cl, i) => (
-          <div key={i} className='form-check mt-2 ml-2 pr-4 flex'>
+          <div key={i} className='form-check mt-2 ml-2 flex items-center'>
             <input
               className='form-check-input appearance-none h-5 w-5 border-2 border-skin-inverted rounded-sm bg-skin-fill checked:bg-skin-inverted checked:border-skin-inverted focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
               type='checkbox'
@@ -110,7 +118,7 @@ const CheckBoxGroup: FC<Props> = ({
               className='form-check-label inline-block text-skin-primary text-lg'
               htmlFor={cl.text}
             >
-              {cl.text}
+              <Text styleClasses='text-sm lg:text-lg' content={cl.text} />
             </label>
           </div>
         ))}

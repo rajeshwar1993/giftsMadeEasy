@@ -57,3 +57,8 @@ export enum ProductStatus {
   FetchSuccess = 'fs',
   Error = 'e' // some error is caused. staus message updated
 }
+
+export enum InterestGroups {
+  Electronics = 1,
+  ToysAndGames = 2
+}

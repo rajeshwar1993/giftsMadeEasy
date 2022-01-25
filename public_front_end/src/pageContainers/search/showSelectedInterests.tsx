@@ -7,6 +7,7 @@ import { FS_INTEREST_TAGS_DB } from '../../common/constants';
 import InterestTagType, { convertITJsonToObj } from '../../models/Interest';
 import { it_add_tagArray } from '../../redux/interestTags';
 import { RootState, useAppDispatch } from '../../redux/store';
+import { interestFilterValues } from '../../common/staticFilterValues';
 
 type Props = {
   values: Array<string>;
@@ -14,67 +15,17 @@ type Props = {
 };
 
 const ShowSelectedInterests: FC<Props> = ({ values, onCancel }) => {
-  const [intArray, updateIntArray] = useState<Array<InterestTagType>>([]);
-
-  const dispatch = useAppDispatch();
-  const interestArray = useSelector(
-    (state: RootState) => state.interests.tagArray
-  );
-
-  const fetchAndUpdateInterests = async (userInterests: Array<string>) => {
-    // ! POTENTIAL_ISSUE - revisit this logic, might get complicated if interests become too large
-
-    let finalList: Array<InterestTagType> = [];
-    let fetchedList: Array<InterestTagType> = [];
-
-    // check which intestest already present in store
-    let interestsToFetch = userInterests.filter(it => {
-      const seekIntrest = interestArray.find(i => i.uid === it);
-      if (seekIntrest) {
-        finalList.push(seekIntrest);
-        return false;
-      }
-      return true;
-    });
-
-    // ! POTENTIAL_ISSUE - aggregating too many promises might me an issue
-    const readPromises = interestsToFetch.map(it => {
-      console.log('Fetching interest: ', it);
-      return getDoc(doc(db, FS_INTEREST_TAGS_DB, it));
-    });
-
-    const allSnaps = await Promise.all(readPromises);
-    allSnaps.forEach(interestSnap => {
-      if (interestSnap.exists()) {
-        const intestest = convertITJsonToObj(
-          interestSnap.data(),
-          interestSnap.id
-        );
-        fetchedList.push(intestest);
-      }
-    });
-    dispatch(it_add_tagArray(fetchedList));
-    updateIntArray([...finalList, ...fetchedList]);
-  };
-
-  useEffect(() => {
-    fetchAndUpdateInterests(values);
-  }, [values]);
-
   return (
     <div className='flex flex-wrap'>
-      {intArray.map(int => (
+      {values.map(int => (
         <Chip
-          key={int.uid}
+          key={int}
           editMode={true}
-          onCancel={id =>
-            onCancel(intArray.filter(item => item.uid !== id).map(i => i.uid))
-          }
-          id={int.uid}
+          onCancel={id => onCancel(values.filter(item => item !== id))}
+          id={int}
           text={{
-            content:
-              int.parentId === '__PARENT__' ? `All ${int.value}` : int.value,
-            styleClasses: 'text-sm'
+            content: interestFilterValues.get(int)?.name || '',
+            styleClasses: 'text-xs'
           }}
         />
       ))}

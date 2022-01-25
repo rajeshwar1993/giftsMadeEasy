@@ -43,7 +43,7 @@ const DialogContainer: FC<Props> = ({ open, closeModal, children }) => {
             leaveFrom='opacity-100 scale-100'
             leaveTo='opacity-0 scale-95'
           >
-            <div className='inline-block w-full max-w-md p-6 my-8  text-left align-middle transition-all transform bg-skin-fill shadow-xl rounded-2xl'>
+            <div className='inline-block w-full max-w-sm md:max-w-md xl:max-w-xl p-6 my-8  text-left align-middle transition-all transform bg-skin-fill shadow-xl rounded-2xl'>
               {children}
             </div>
           </Transition.Child>

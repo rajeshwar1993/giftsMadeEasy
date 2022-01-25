@@ -7,13 +7,20 @@ import { RootState, useAppDispatch } from '../../../redux/store';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { FS_INTEREST_TAGS_DB } from '../../../common/constants';
-import { InterestTagDBKeys } from '../../../common/dbKeys';
+import { InterestTagDBKeys, ProductDBKeys } from '../../../common/dbKeys';
 import {
   it_init_HierarchyArray,
   it_update_subInterestList
 } from '../../../redux/interestTags';
 import { Button, SectionTitle } from '../../../components';
 import DialogContainer from '../DialogContainer';
+import OKCancelBtn from '../OKCancelBtn';
+import {
+  interestFilterValues,
+  interestGroupMap
+} from '../../../common/staticFilterValues';
+import CheckBoxGroup, { CheckListOption } from '../CheckBoxGroup';
+import DataConfig from '../../../common/componentConfig';
 
 type Props = {
   open: boolean;
@@ -28,217 +35,140 @@ const SelectInterestsPopup: FC<Props> = ({
   onSave,
   onClose
 }) => {
-  const { tagHierarchyList: hStoreArray } = useSelector(
-    (state: RootState) => state.interests
-  );
-  const dispatch = useAppDispatch();
+  let currentGroupInterests: Array<string> = [];
 
   const [selectedList, updateSelectedList] =
     useState<Array<string>>(selectedInts);
 
-  const [chosenInterest, updateChosenInterest] = useState<{
-    it: InterestTagType;
-    subInterests: Array<InterestTagType>;
-  } | null>(null);
-
-  const fetchHierarchyInterestList = async () => {
-    // get all the parent interests
-    const instRef = collection(db, FS_INTEREST_TAGS_DB);
-    const primaryDocQuery = query(
-      instRef,
-      where(InterestTagDBKeys.parentId, '==', '__PARENT__')
-    );
-    const snaps = await getDocs(primaryDocQuery);
-
-    let hList: Array<{
-      it: InterestTagType;
-      subInterests: Array<InterestTagType>;
-    }> = [];
-
-    snaps.forEach(s => {
-      hList.push({
-        it: convertITJsonToObj(s.data(), s.id),
-        subInterests: []
-      });
-    });
-    dispatch(it_init_HierarchyArray(hList));
-  };
-
-  const fetchSubInterests = async (parentId: string) => {
-    // get all the parent interests
-    const instRef = collection(db, FS_INTEREST_TAGS_DB);
-    const primaryDocQuery = query(
-      instRef,
-      where(InterestTagDBKeys.parentId, '==', parentId)
-    );
-    const snaps = await getDocs(primaryDocQuery);
-
-    let sList: Array<InterestTagType> = [];
-
-    snaps.forEach(s => {
-      sList.push(convertITJsonToObj(s.data(), s.id));
-    });
-    dispatch(it_update_subInterestList({ subInterests: sList, parentId }));
-  };
+  const [chosenInterest, updateChosenInterest] = useState<number | null>();
 
   useEffect(() => {
     if (open) updateChosenInterest(null);
-
-    if (hStoreArray.length === 0 && open) {
-      fetchHierarchyInterestList();
-    }
   }, [open]);
-
-  useEffect(() => {
-    if (!!chosenInterest && chosenInterest.subInterests.length === 0) {
-      fetchSubInterests(chosenInterest.it.uid);
-    }
-  }, [chosenInterest]);
-
-  useEffect(() => {
-    if (!!chosenInterest) {
-      const updatedChosenInterest = hStoreArray.find(
-        hs => hs.it.uid === chosenInterest.it.uid
-      );
-      if (updatedChosenInterest) updateChosenInterest(updatedChosenInterest);
-    }
-  }, [hStoreArray]);
 
   useEffect(() => {
     updateSelectedList(selectedInts);
   }, [selectedInts, open]);
 
+  const createGroupButtons = () => {
+    let groupButtons: any = [];
+
+    interestGroupMap.forEach((val, key) => {
+      groupButtons.push(
+        <Button
+          key={key}
+          text={val}
+          defautStyle='cust-btn-btn'
+          styleClasses='w-full justify-center'
+          wrapperClasses=''
+          onClick={() => updateChosenInterest(key)}
+        />
+      );
+    });
+
+    return groupButtons;
+  };
+
+  const showInterestOptions = (chosenInterest: number) => {
+    let interestOptions: Array<CheckListOption> = [];
+    currentGroupInterests = [];
+    interestFilterValues.forEach((value, key) => {
+      if (value.parent === chosenInterest) {
+        currentGroupInterests.push(key);
+        interestOptions.push({ text: value.name, value: key });
+      }
+    });
+
+    return (
+      <CheckBoxGroup
+        filterKey={ProductDBKeys.interestTags}
+        checkList={interestOptions}
+        selected={selectedList}
+        onChangeHandler={(
+          filterKey,
+          updatedValues,
+          currentValue,
+          isChecked
+        ) => {
+          if (currentValue === 'SELECT_ALL') {
+            if (isChecked) {
+              let all = [...selectedList, ...updatedValues];
+              let s = new Set(all);
+              updateSelectedList(Array.from(s));
+            } else {
+              let s = new Set(selectedList);
+              currentGroupInterests.forEach(cgi => {
+                s.delete(cgi);
+              });
+              updateSelectedList(Array.from(s));
+            }
+          } else {
+            updateSelectedList(list => {
+              if (isChecked) {
+                return [...list, currentValue];
+              } else {
+                let newList = list.filter(l => l !== currentValue);
+                return newList;
+              }
+            });
+          }
+        }}
+        showSelectAll
+      />
+    );
+  };
+
   return (
     <DialogContainer open={open} closeModal={onClose}>
-      <Dialog.Title
-        as='h3'
-        className='flex flex-row justify-between items-center leading-6'
-      >
-        <SectionTitle
-          content={
-            !chosenInterest ? 'Select Interests' : chosenInterest.it.value
-          }
-          styleClasses='text-2xl xl:text-5xl'
-          wrapperClasses='!mb-0'
-        />
-        <div className='flex'>
-          <Button
-            icon={{
-              iconName: 'Close',
-              size: '16'
-            }}
-            defautStyle='cust-btn-btn'
-            onClick={() => {
-              onClose();
-            }}
-            styleClasses='text-lg !rounded-full !py-2 !px-2'
-            wrapperClasses='mx-2'
+      <div className='min-h-[500px]'>
+        <Dialog.Title className='flex flex-row justify-between items-center leading-6'>
+          <SectionTitle
+            content={
+              !chosenInterest
+                ? 'Select Interests'
+                : interestGroupMap.get(chosenInterest) || ''
+            }
+            styleClasses='text-2xl xl:text-5xl'
+            wrapperClasses='!mb-0'
           />
-          <Button
-            icon={{
-              iconName: 'Check',
-              size: '16'
-            }}
-            defautStyle='cust-btn-btn'
-            onClick={() => {
+
+          <OKCancelBtn
+            onSave={() => {
               onSave(selectedList);
               onClose();
             }}
-            styleClasses='text-lg !rounded-full !py-2 !px-2'
-            wrapperClasses='mx-2'
-          />
-        </div>
-      </Dialog.Title>
-      <div className='m-2 flex flex-col'>
-        {/* Main Options */}
-
-        <div
-          className={`grid grid-cols-2 gap-y-8 gap-x-2 xl:gap-x-8 mt-12 ${
-            !!chosenInterest ? 'hidden' : ''
-          }`}
-        >
-          {hStoreArray.map(th => (
-            <Button
-              key={th.it.uid}
-              text={th.it.value}
-              defautStyle='cust-btn-btn'
-              styleClasses='w-full justify-center'
-              wrapperClasses=''
-              onClick={() => updateChosenInterest(th)}
-            />
-          ))}
-        </div>
-
-        {/* Sub Interests */}
-
-        <div className={`${!chosenInterest && 'hidden'}`}>
-          <Button
-            icon={{
-              iconName: 'ArrowBack'
+            onClose={() => {
+              onClose();
             }}
-            text={'Back to All Interests'}
-            styleClasses='text-sm'
-            defautStyle='cust-btn-link'
-            onClick={() => updateChosenInterest(null)}
           />
-          <div className='px-4 grid grid-cols-2 gap-y-8 gap-x-2 xl:gap-x-8 mt-12'>
-            {!!chosenInterest && (
-              <Button
-                text={`Select All ${chosenInterest!.it.value}`}
-                defautStyle='cust-btn-btn'
-                wrapperClasses='col-span-2 m-auto'
-                styleClasses={` ${
-                  selectedList.includes(chosenInterest!.it.uid)
-                    ? 'bg-skin-inverted bg-opacity-80 text-skin-inverted'
-                    : ''
-                } `}
-                onClick={() => {
-                  console.log('Clicking');
-                  if (selectedList.includes(chosenInterest!.it.uid)) {
-                    updateSelectedList(state =>
-                      state.filter(s => s !== chosenInterest!.it.uid)
-                    );
-                  } else {
-                    updateSelectedList([
-                      ...selectedList,
-                      chosenInterest!.it.uid
-                    ]);
-                  }
-                }}
-              />
-            )}
-            {!!chosenInterest &&
-              chosenInterest.subInterests.map(si => {
-                let hasBeenSelected =
-                  selectedList.includes(si.uid) ||
-                  selectedList.includes(si.parentId);
-                return (
-                  <Button
-                    key={si.uid}
-                    text={si.value}
-                    defautStyle='cust-btn-btn'
-                    styleClasses={`w-full justify-center ${
-                      hasBeenSelected
-                        ? 'bg-skin-inverted bg-opacity-80 text-skin-inverted'
-                        : ''
-                    } `}
-                    onClick={() => {
-                      console.log('Clicking');
-                      if (hasBeenSelected) {
-                        updateSelectedList(state =>
-                          state.filter(s => s !== si.uid)
-                        );
-                      } else {
-                        updateSelectedList([...selectedList, si.uid]);
-                      }
-                    }}
-                  />
-                );
-              })}
+        </Dialog.Title>
+        <div className='m-2 flex flex-col'>
+          {/* Main Options */}
+
+          <div
+            className={`grid grid-cols-2 gap-y-8 gap-x-2 xl:gap-x-8 mt-12 ${
+              !!chosenInterest ? 'hidden' : ''
+            }`}
+          >
+            {createGroupButtons()}
           </div>
-          {/* <div className='mt-6 flex flex-col'>
-                   
-                  </div> */}
+
+          {/* Sub Interests */}
+
+          <div className={`${!chosenInterest && 'hidden'}`}>
+            <Button
+              icon={{
+                iconName: 'ArrowBack'
+              }}
+              text={'Back to All Interests'}
+              styleClasses='text-sm'
+              defautStyle='cust-btn-link'
+              onClick={() => updateChosenInterest(null)}
+            />
+            <div className='mt-12'>
+              {!!chosenInterest && showInterestOptions(chosenInterest)}
+            </div>
+          </div>
         </div>
       </div>
     </DialogContainer>
