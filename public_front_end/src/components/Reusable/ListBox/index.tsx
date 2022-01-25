@@ -4,6 +4,7 @@ import { Listbox, Transition } from '@headlessui/react';
 import { ListBoxType as Props } from './types';
 import { DEFAULT_LIST_VALUE } from './utils';
 import { Icon, Text } from '../../../components';
+import Button from '../Button';
 
 const ListBoxComp: FC<Props> = ({
   filterKey,
@@ -17,7 +18,7 @@ const ListBoxComp: FC<Props> = ({
   return (
     <Listbox value={selectedOption} onChange={so => onSelected(so, filterKey)}>
       {title && (
-        <div className='mb-2'>
+        <div className='mb-2 flex justify-between items-end'>
           <Listbox.Label>
             <Text
               tag='label'
@@ -26,6 +27,19 @@ const ListBoxComp: FC<Props> = ({
               styleClasses={`font-semibold ${title.styleClasses}`}
             />
           </Listbox.Label>
+          {selectedOption.value !== DEFAULT_LIST_VALUE && (
+            <Button
+              text='clear'
+              defautStyle='cust-btn-link'
+              styleClasses='text-xs'
+              onClick={() =>
+                onSelected(
+                  { name: 'DEFAULT', value: DEFAULT_LIST_VALUE },
+                  filterKey
+                )
+              }
+            />
+          )}
         </div>
       )}
       <div className='relative mt-1 w-full'>
