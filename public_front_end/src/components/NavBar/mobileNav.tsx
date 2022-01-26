@@ -16,14 +16,14 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
   const router = useRouter();
 
   const [currentDepth, setCurrentDepth] = useState(0);
-  const [step1Items, setStep1Items] = useState<Array<ExpandMenuItem>>([]);
-  const [step2Items, setStep2Items] = useState<Array<ExpandMenuItem>>([]);
+  const [step1Items, setStep1Items] = useState<ExpandMenuItem | null>(null);
+  const [step2Items, setStep2Items] = useState<ExpandMenuItem | null>(null);
 
   useEffect(() => {
     if (menuOpen) {
       setCurrentDepth(0);
-      setStep1Items([]);
-      setStep2Items([]);
+      setStep1Items(null);
+      setStep2Items(null);
     }
   }, [menuOpen]);
 
@@ -63,13 +63,13 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
 
               {/* Links */}
 
-              <div className='flex flex-col items-center py-6 px-4 space-y-6'>
+              <div className='flex flex-col space-y-6 py-6 px-12'>
                 <SectionTitle content={AppConfig.COMMON.appName} />
                 {config.leftSideNav.map((item, i) => {
                   if (item.type === 'link') {
                     let data = item.data as ButtonType;
                     return (
-                      <div key={i} className='flow-root p-2'>
+                      <div key={i} className=''>
                         <Button
                           onClick={() => {
                             router.push(`${data.link}`);
@@ -79,7 +79,7 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
                           icon={data.icon}
                           showOnlyIcon={data.showOnlyIcon}
                           wrapperClasses={`border-0 ${data.wrapperClasses}`}
-                          styleClasses={`text-skin-primary ${data.styleClasses}`}
+                          styleClasses={`!border-0 !text-lg text-skin-primary ${data.styleClasses}`}
                           defautStyle='cust-btn-link'
                         />
                       </div>
@@ -90,11 +90,11 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
                       <Button
                         onClick={() => {
                           setCurrentDepth(state => state + 1);
-                          setStep1Items(data.items || []);
+                          setStep1Items(data || []);
                         }}
                         text={data.title}
                         wrapperClasses={`border-0`}
-                        styleClasses={`text-skin-primary`}
+                        styleClasses={`!border-0 !text-lg text-skin-primary`}
                         defautStyle='cust-btn-link'
                       />
                     );
@@ -144,40 +144,44 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
 
               {/* Links */}
 
-              <div className='flex flex-col items-center py-6 px-4 space-y-6'>
-                <SectionTitle content={AppConfig.COMMON.appName} />
-                {step1Items.map((item, i) => {
-                  if (item.link) {
-                    return (
-                      <div key={i} className='flow-root p-2'>
+              <div className='flex flex-col items-start py-6 px-12 space-y-6'>
+                <SectionTitle
+                  content={step1Items?.title || AppConfig.COMMON.appName}
+                />
+                <div className='grid grid-cols-2 gap-x-4 gap-y-8 w-full'>
+                  {step1Items?.items?.map((item, i) => {
+                    if (item.link && !item.items) {
+                      return (
+                        <div key={i} className=''>
+                          <Button
+                            link={`${item.link}`}
+                            onClick={() => {
+                              toggleMenuOpen(false);
+                            }}
+                            text={item.title}
+                            wrapperClasses={`border-0`}
+                            styleClasses={`!border-0 !text-left !text-base text-skin-primary`}
+                            defautStyle='cust-btn-link'
+                          />
+                        </div>
+                      );
+                    } else {
+                      let data = item;
+                      return (
                         <Button
                           onClick={() => {
-                            router.push(`${item.link}`);
-                            toggleMenuOpen(false);
+                            setCurrentDepth(state => state + 1);
+                            setStep2Items(data || []);
                           }}
-                          text={item.title}
+                          text={data.title}
                           wrapperClasses={`border-0`}
-                          styleClasses={`text-skin-primary`}
+                          styleClasses={`!border-0 !text-left !text-base text-skin-primary`}
                           defautStyle='cust-btn-link'
                         />
-                      </div>
-                    );
-                  } else {
-                    let data = item;
-                    return (
-                      <Button
-                        onClick={() => {
-                          setCurrentDepth(state => state + 1);
-                          setStep2Items(data.items || []);
-                        }}
-                        text={data.title}
-                        wrapperClasses={`border-0`}
-                        styleClasses={`text-skin-primary`}
-                        defautStyle='cust-btn-link'
-                      />
-                    );
-                  }
-                })}
+                      );
+                    }
+                  })}
+                </div>
               </div>
             </div>
           </Transition.Child>
@@ -221,19 +225,33 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
               </div>
 
               {/* Links */}
-              <div className='flex flex-col items-center py-6 px-4 space-y-6'>
-                <SectionTitle content={AppConfig.COMMON.appName} />
-                {step2Items.map((item, i) => {
+              <div className='flex flex-col items-start py-6 px-12 space-y-6'>
+                <SectionTitle
+                  content={step2Items?.title || AppConfig.COMMON.appName}
+                />
+                <div>
+                  <Button
+                    link={``}
+                    onClick={() => {
+                      toggleMenuOpen(false);
+                    }}
+                    text={`Select All ${step2Items?.title}`}
+                    wrapperClasses={`border-0`}
+                    styleClasses={`!border-0 !text-left !text-base text-skin-primary`}
+                    defautStyle='cust-btn-link'
+                  />
+                </div>
+                {step2Items?.items?.map((item, i) => {
                   return (
                     <div key={i} className='flow-root p-2'>
                       <Button
+                        link={`${item.link}`}
                         onClick={() => {
-                          router.push(`${item.link}`);
                           toggleMenuOpen(false);
                         }}
                         text={item.title}
                         wrapperClasses={`border-0`}
-                        styleClasses={`text-skin-primary`}
+                        styleClasses={`!border-0 !text-left !text-base text-skin-primary`}
                         defautStyle='cust-btn-link'
                       />
                     </div>
