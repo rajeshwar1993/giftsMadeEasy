@@ -25,6 +25,7 @@ const ProfileDetailsSection: FC<Props> = ({
       {/* Likes */}
       <ProfileInterestedInSection
         ints={user.interestedTags}
+        user={user}
         onSaveClick={(tags: Array<string>) => {
           updateInterestTags(tags);
         }}

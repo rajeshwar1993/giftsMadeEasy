@@ -1,37 +1,30 @@
-import { getDoc, doc } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Button, SectionTitle, Text } from '../../components';
 import Chip from '../../components/Reusable/Chip';
 import SelectInterestsPopup from '../../components/Reusable/SelectInterestsPopup';
 
-import { db } from '../../firebase';
-import { FS_INTEREST_TAGS_DB } from '../../common/constants';
-import InterestTagType, { convertITJsonToObj } from '../../models/Interest';
-import { it_add_tagArray } from '../../redux/interestTags';
-import { RootState, useAppDispatch } from '../../redux/store';
 import OKCancelBtn from '../../components/Reusable/OKCancelBtn';
 import { interestFilterValues } from '../../common/staticFilterValues';
+import UserType from '../../models/User';
+import { createUrlParamsFromObject } from '../../common/utils';
+import { FilterDBKeys } from '../../common/dbKeys';
 
 type Props = {
   ints: Array<string>;
+  user: UserType;
   onSaveClick: (tags: Array<string>) => void;
   isMe: boolean;
 };
 
 const ProfileInterestedInSection: FC<Props> = ({
   ints = [],
+  user,
   onSaveClick,
   isMe
 }) => {
   const [editMode, toggleEditMode] = useState(false);
   const [tempIntArray, updateTempIntArray] = useState<Array<string>>(ints);
   const [popupOpen, updatePopupOpen] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   // set variables for edit mode
-  //   updateTempIntArray(ints);
-  // }, [editMode]);
 
   return (
     <div>
@@ -65,7 +58,7 @@ const ProfileInterestedInSection: FC<Props> = ({
         </div>
       </div>
 
-      <div>
+      <div className='flex flex-col space-y-2 items-start'>
         {!editMode && ints.length === 0 && (
           <Text
             content={
@@ -107,8 +100,11 @@ const ProfileInterestedInSection: FC<Props> = ({
         </div>
         {!editMode && (
           <Button
-            text='Find Gifts for Aditya Vikram Chatterjee'
-            link={'/search'}
+            text={`Find Gifts for ${user.name}`}
+            link={`/search?${createUrlParamsFromObject({
+              [FilterDBKeys.interests]: user.interestedTags,
+              [FilterDBKeys.gender]: user.gender
+            })}`}
             defautStyle='cust-btn-link'
             styleClasses='text-sm'
           />

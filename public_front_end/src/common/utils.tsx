@@ -43,3 +43,21 @@ export const cleanObject = (obj: any) => {
 
   return obj;
 };
+
+export const createUrlParamsFromObject = (filterObj: any) => {
+  let paramString: Array<string> = [];
+
+  for (let key in filterObj) {
+    if (Array.isArray(filterObj[key])) {
+      if (filterObj[key].length > 0) {
+        filterObj[key].forEach((f: any) => {
+          paramString.push(`${key}=${f}`);
+        });
+      }
+    } else if (filterObj[key]) {
+      paramString.push(`${key}=${filterObj[key]}`);
+    }
+  }
+
+  return paramString.join('&');
+};
