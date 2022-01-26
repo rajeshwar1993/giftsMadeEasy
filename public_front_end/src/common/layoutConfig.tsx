@@ -1,5 +1,49 @@
 import { LayoutConfigType } from '../components/Layout/type';
 import AppConfig from './appConfig';
+import { FilterDBKeys } from './dbKeys';
+import {
+  ageGrpFilterValues,
+  interestFilterValues,
+  interestGroupMap,
+  relationshipFilterValues
+} from './staticFilterValues';
+
+const createOptions = (
+  valuesMap: Map<string, string | { name: string; parent: number }>,
+  filterKey: string,
+  grouping: boolean = false,
+  groupValues?: Map<number, string>
+) => {
+  let values: any;
+  if (!grouping) {
+    values = [];
+    valuesMap.forEach((val, key) => {
+      values.push({ title: val, link: `/search?${filterKey}=${key}` });
+    });
+  } else if (groupValues) {
+    values = [];
+    groupValues.forEach((gval, gkey) => {
+      let v: {
+        title: string;
+        link?: string;
+        items: Array<{ title: string; link?: string }>;
+      } = { title: gval, items: [] };
+      let allLink: Array<string> = [];
+      valuesMap.forEach((val: any, key) => {
+        const { name, parent } = val;
+        if (parent === gkey) {
+          v.items.push({ title: name, link: `/search?${filterKey}=${key}` });
+          allLink.push(`${filterKey}=${key}`);
+        }
+      });
+      v.link = `/search?${allLink.join('&')}`;
+      allLink = [];
+      values.push(v);
+    });
+  }
+
+  return values;
+};
 
 export const layoutConfig: LayoutConfigType = {
   navbar: {
@@ -14,24 +58,10 @@ export const layoutConfig: LayoutConfigType = {
         depth: 1,
         data: {
           title: 'Relation',
-          items: [
-            {
-              title: 'Boyfriend',
-              link: '#'
-            },
-            {
-              title: 'Girlfriend',
-              link: '#'
-            },
-            {
-              title: 'Mother',
-              link: '#'
-            },
-            {
-              title: 'Father',
-              link: '#'
-            }
-          ]
+          items: createOptions(
+            relationshipFilterValues,
+            FilterDBKeys.relationship
+          )
         }
       },
       {
@@ -39,98 +69,20 @@ export const layoutConfig: LayoutConfigType = {
         depth: 2,
         data: {
           title: 'Interests',
-          items: [
-            {
-              title: 'Electronics',
-
-              items: [
-                {
-                  title: 'Laptops'
-                },
-                {
-                  title: 'Watches'
-                },
-                {
-                  title: 'Tablets'
-                },
-                {
-                  title: 'Phones'
-                }
-              ]
-            },
-            {
-              title: 'Toys & Games',
-
-              items: [
-                {
-                  title: 'Outdoor sports'
-                },
-                {
-                  title: 'Card Games'
-                },
-                {
-                  title: 'Educational Toys'
-                },
-                {
-                  title: 'RC Toys'
-                }
-              ]
-            },
-            {
-              title: 'Toys & Games',
-
-              items: [
-                {
-                  title: 'Outdoor sports'
-                },
-                {
-                  title: 'Card Games'
-                },
-                {
-                  title: 'Educational Toys'
-                },
-                {
-                  title: 'RC Toys'
-                }
-              ]
-            },
-            {
-              title: 'Toys & Games',
-
-              items: [
-                {
-                  title: 'Outdoor sports'
-                },
-                {
-                  title: 'Card Games'
-                },
-                {
-                  title: 'Educational Toys'
-                },
-                {
-                  title: 'RC Toys'
-                }
-              ]
-            },
-            {
-              title: 'Toys & Games',
-
-              items: [
-                {
-                  title: 'Outdoor sports'
-                },
-                {
-                  title: 'Card Games'
-                },
-                {
-                  title: 'Educational Toys'
-                },
-                {
-                  title: 'RC Toys'
-                }
-              ]
-            }
-          ]
+          items: createOptions(
+            interestFilterValues,
+            FilterDBKeys.interests,
+            true,
+            interestGroupMap
+          )
+        }
+      },
+      {
+        type: 'expand',
+        depth: 1,
+        data: {
+          title: 'Age Group',
+          items: createOptions(ageGrpFilterValues, FilterDBKeys.ageGrp)
         }
       },
       {
