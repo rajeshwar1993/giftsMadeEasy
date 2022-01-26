@@ -5,6 +5,7 @@ import {
   ageGrpFilterValues,
   interestFilterValues,
   interestGroupMap,
+  occasionFilterValues,
   relationshipFilterValues
 } from './staticFilterValues';
 
@@ -56,6 +57,7 @@ export const layoutConfig: LayoutConfigType = {
       {
         type: 'expand',
         depth: 1,
+        headline: 'I am looking for a gift for my',
         data: {
           title: 'Relation',
           items: createOptions(
@@ -67,6 +69,7 @@ export const layoutConfig: LayoutConfigType = {
       {
         type: 'expand',
         depth: 2,
+        headline: 'The person must be interested in some of these?',
         data: {
           title: 'Interests',
           items: createOptions(
@@ -80,9 +83,19 @@ export const layoutConfig: LayoutConfigType = {
       {
         type: 'expand',
         depth: 1,
+        headline: 'How old is this person?',
         data: {
-          title: 'Age Group',
+          title: 'Age',
           items: createOptions(ageGrpFilterValues, FilterDBKeys.ageGrp)
+        }
+      },
+      {
+        type: 'expand',
+        depth: 1,
+        headline: 'Whats the occassion?',
+        data: {
+          title: 'Occasions',
+          items: createOptions(occasionFilterValues, FilterDBKeys.occasion)
         }
       },
       {

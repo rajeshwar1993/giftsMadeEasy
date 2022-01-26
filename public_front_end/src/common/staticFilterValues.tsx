@@ -18,7 +18,6 @@ relationshipFilterValues.set('gr', 'Grandfather');
 relationshipFilterValues.set('gm', 'Grandmother');
 relationshipFilterValues.set('gm', 'Grandmother');
 relationshipFilterValues.set('col', 'Colleague');
-relationshipFilterValues.set('o', 'Other');
 
 // Age Groups
 export const ageGrpFilterValues = new Map<string, string>();

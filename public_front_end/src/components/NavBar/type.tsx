@@ -18,6 +18,7 @@ export interface NavConfig {
   leftSideNav: Array<{
     type: 'link' | 'expand';
     depth: 0 | 1 | 2;
+    headline?: string;
     data: ButtonType | ExpandMenuItem;
   }>;
 }
