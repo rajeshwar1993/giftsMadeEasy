@@ -50,7 +50,7 @@ const SearchTopSection: FC<Props> = ({
         content='Find the perfect gift'
         styleClasses=''
       />
-      <div className='flex flex-col items-center justify-center space-y-2 px-4 py-4'>
+      <div className='lg:hidden flex flex-col items-center justify-center space-y-2 px-4 py-4'>
         <div className='flex flex-col'>
           <Text content={'32'} styleClasses='text-6xl font-bold' />
           <Text content={'items found'} styleClasses='text-xs' />
@@ -82,8 +82,8 @@ const SearchTopSection: FC<Props> = ({
         />
       </div>
       <div className='flex justify-between lg:justify-end items-center '>
-        <div className='hidden lg:flex justify-between items-center lg:items-end w-full lg:w-4/5 lg:px-6 lg:border-b-2 border-skin-accent border-opacity-70 pb-4'>
-          <div className='flex items-start w-full justify-between'>
+        <div className='hidden lg:flex justify-between items-center lg:items-end w-full lg:px-6 lg:border-b-2 border-skin-accent border-opacity-70 pb-4'>
+          <div className='flex items-start w-full justify-between space-x-16'>
             <div>
               <SectionTitle
                 wrapperClasses='lg:text-left !mb-10'
