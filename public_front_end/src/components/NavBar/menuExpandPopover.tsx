@@ -12,8 +12,8 @@ type Props = {
 
 const MenuPopover: FC<Props> = ({ buttonText, items = [], depth = 1 }) => {
   return (
-    <div className=''>
-      <Popover className=''>
+    <div>
+      <Popover>
         {({ open }) => (
           <>
             <Popover.Button
@@ -35,7 +35,7 @@ const MenuPopover: FC<Props> = ({ buttonText, items = [], depth = 1 }) => {
               <Popover.Panel className='absolute -left-36 z-10 w-max max-w-sm px-4 py-2 sm:px-0 lg:max-w-3xl'>
                 <div className='overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5'>
                   <div
-                    className={`relative bg-skin-fill grid gap-x-12 gap-y-4 py-7 px-12 ${
+                    className={`relative bg-skin-fill-card text-skin-primary grid gap-x-12 gap-y-4 py-7 px-12 ${
                       depth === 1 ? 'grid-cols-2' : 'grid-cols-4'
                     }`}
                   >

@@ -66,7 +66,7 @@ const NavBar: FC<Props> = ({ config }) => {
     <header className='sticky bg-skin-fill top-0 z-10'>
       <nav
         aria-label='Top'
-        className='bg-skin-inverted bg-opacity-10 mx-auto p-2 xl:px-8 w-full'
+        className='bg-skin-fill-card text-skin-primary mx-auto p-2 xl:px-8 w-full'
       >
         <div className='relative flex justify-between items-center xl:text-base text-sm text-md'>
           {/* Left Section */}
@@ -124,13 +124,13 @@ const NavBar: FC<Props> = ({ config }) => {
                 <Button
                   text='Signup'
                   defautStyle='cust-btn-link'
-                  styleClasses='mx-2 px-2 !border-b-0'
+                  styleClasses='mx-2 px-2'
                   onClick={() => dispatch(app_toggle_isSigupOpen('signup'))}
                 />
                 <Button
                   text='Login'
                   defautStyle='cust-btn-link'
-                  styleClasses='mx-2 px-2 !border-b-0'
+                  styleClasses='mx-2 px-2'
                   onClick={() => dispatch(app_toggle_isSigupOpen('login'))}
                 />
               </>

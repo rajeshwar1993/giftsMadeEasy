@@ -7,12 +7,14 @@
     /* Define colors */
     --accent: 91,33,182;
     --accent-border: 15, 23, 42;
-    --accent-hover: 15, 23, 42;
+    --accent-hover: 221,214,254;
     --white: 255, 255, 255;
     --black: 0, 0, 0;
     --disabled: 166, 169, 179;
     --disabled-dark: 166, 169, 179;
     --fill: 248,250,252;
+    --fill-card: 241,245,249;
+    --fill-hover: 196,181,253;
     --fill-dark: 15,23,42;
     --error: 190,18,60;
 
@@ -23,6 +25,9 @@
     --color-text-inverted: var(--white);
     --color-text-error: var(--error);
     --color-fill: var(--fill);
+    --color-fill-card: var(--fill-card);
+    --color-fill-hover: var(--fill-hover);
+    --color-fill-accent-hover: var(--accent-hover);
     --color-fill-accent: var(--accent);
     --color-fill-inverted: var(--fill-dark);
     --color-fill-disabled: var(--disabled);
@@ -41,6 +46,8 @@
     --disabled: 166, 169, 179;
     --disabled-dark: 166, 169, 179;
     --fill: 248,250,252;
+    --fill-card: 226,232,240;
+    --fill-hover: 226,232,240;
     --fill-dark: 15,23,42;
     --error: 190,18,60;
 
@@ -51,6 +58,8 @@
     --color-text-inverted: var(--black);
     --color-text-error: var(--error);
     --color-fill: var(--fill);
+    --color-fill-card: var(--fill-card);
+    --color-fill-hover: var(--fill-hover);
     --color-fill-accent: var(--accent);
     --color-fill-inverted: var(--fill-dark);
     --color-fill-disabled: var(--disabled);

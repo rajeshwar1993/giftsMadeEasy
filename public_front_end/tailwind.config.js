@@ -22,6 +22,9 @@ module.exports = {
       },
       backgroundColor: {
         skin: {
+          'fill-card': withOpacity('--color-fill-card'),
+          'fill-hover': withOpacity('--color-fill-hover'),
+          'fill-accent-hover': withOpacity('--color-fill-accent-hover'),
           fill: withOpacity('--color-fill'),
           accent: withOpacity('--color-fill-accent'),
           inverted: withOpacity('--color-fill-inverted'),
