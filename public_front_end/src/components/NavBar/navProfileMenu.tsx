@@ -38,7 +38,7 @@ const NavProfileMenu: FC<Props> = ({ imgSrc, name }) => {
           leaveFrom='transform opacity-100 scale-100'
           leaveTo='transform opacity-0 scale-95'
         >
-          <Menu.Items className='z-10 absolute right-0 w-56 mt-2 origin-top-right bg-skin-fill-card divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+          <Menu.Items className='z-20 absolute right-0 w-56 mt-2 origin-top-right bg-skin-fill-card divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
             <div className='px-1'>
               <Menu.Item onClick={() => router.push('/profile')}>
                 <Button

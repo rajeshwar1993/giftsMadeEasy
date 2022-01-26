@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { FilterDBKeys } from '../../common/dbKeys';
-import { Button, SectionTitle } from '../../components';
+import { Button, SectionTitle, Text } from '../../components';
 import ListBoxComp from '../../components/Reusable/ListBox';
 import { DEFAULT_LIST_VALUE } from '../../components/Reusable/ListBox/utils';
 import SelectInterestsPopup from '../../components/Reusable/SelectInterestsPopup';
@@ -45,41 +45,49 @@ const SearchTopSection: FC<Props> = ({
 
   return (
     <>
-      <div className='lg:hidden'>
-        <SectionTitle
-          wrapperClasses='text-center lg:text-left'
-          content='Search the perfect gift'
+      <SectionTitle
+        wrapperClasses='text-center lg:hidden'
+        content='Find the perfect gift'
+        styleClasses=''
+      />
+      <div className='flex flex-col items-center justify-center space-y-2 px-4 py-4'>
+        <div className='flex flex-col'>
+          <Text content={'32'} styleClasses='text-6xl font-bold' />
+          <Text content={'items found'} styleClasses='text-xs' />
+        </div>
+        <Button
+          text={`clear all filters`}
+          defautStyle='cust-btn-link'
+          styleClasses='text-sm'
+          onClick={() => {}}
         />
       </div>
-      <div className='py-2  flex justify-between lg:justify-end items-center sticky top-[62px] lg:static bg-skin-fill '>
-        <div className='flex justify-between items-center lg:items-end w-full lg:w-4/5 lg:px-6'>
-          <div className='flex flex-row items-center '>
-            {/* <Text content='Filter By:' styleClasses='font-semibold' /> */}
-            {/* Mobile Filter Button */}
-            <div className='lg:hidden mr-4'>
-              <Button
-                text={`Filters${filterCount ? ` (${filterCount})` : ''}`}
-                defautStyle='cust-btn-link'
-                styleClasses='text-base'
-                onClick={openMobileFilter}
-              />
-            </div>
-            <div className='lg:hidden'>
-              <Button
-                text={`Interests ${
-                  values[FilterDBKeys.interests]!.length
-                    ? ` (${values[FilterDBKeys.interests]!.length})`
-                    : ''
-                }`}
-                defautStyle='cust-btn-link'
-                styleClasses='text-base'
-                onClick={() => updateInterestPopeverOpen(true)}
-              />
-            </div>
-            <div className='hidden lg:block'>
+      <div className='lg:hidden flex justify-between space-x-8 sticky top-[62px] z-10  bg-skin-fill py-4 border-b-2 border-skin-accent border-opacity-70'>
+        <Button
+          text={`Filters${filterCount ? ` (${filterCount})` : ''}`}
+          wrapperClasses='w-full'
+          styleClasses='text-base w-full'
+          onClick={openMobileFilter}
+        />
+
+        <Button
+          text={`Interests ${
+            values[FilterDBKeys.interests]!.length
+              ? ` (${values[FilterDBKeys.interests]!.length})`
+              : ''
+          }`}
+          wrapperClasses='w-full'
+          styleClasses='text-base w-full'
+          onClick={() => updateInterestPopeverOpen(true)}
+        />
+      </div>
+      <div className='flex justify-between lg:justify-end items-center '>
+        <div className='hidden lg:flex justify-between items-center lg:items-end w-full lg:w-4/5 lg:px-6 lg:border-b-2 border-skin-accent border-opacity-70 pb-4'>
+          <div className='flex items-start w-full justify-between'>
+            <div>
               <SectionTitle
-                wrapperClasses='text-center lg:text-left !mb-10'
-                content='Search the perfect gift'
+                wrapperClasses='lg:text-left !mb-10'
+                content='Find the perfect gift'
               />
               <div className='flex flex-col items-start'>
                 <Button
@@ -107,8 +115,22 @@ const SearchTopSection: FC<Props> = ({
                 </div>
               </div>
             </div>
+            <div className='flex flex-col items-center justify-between space-y-4'>
+              <div className='flex flex-col'>
+                <Text content={'32'} styleClasses='text-6xl font-bold' />
+                <Text content={'items found'} styleClasses='text-xs' />
+              </div>
+              <Button
+                text={`clear all filters`}
+                defautStyle='cust-btn-link'
+                styleClasses='text-sm'
+                onClick={() => {}}
+              />
+            </div>
           </div>
-          <div className=''>
+
+          {/* TODO maybe we can add sort later */}
+          {/* <div className=''>
             <ListBoxComp
               filterKey={'sort'}
               selectedOption={{
@@ -118,7 +140,7 @@ const SearchTopSection: FC<Props> = ({
               onSelected={() => {}}
               options={[]}
             />
-          </div>
+          </div> */}
         </div>
       </div>
       <SelectInterestsPopup
