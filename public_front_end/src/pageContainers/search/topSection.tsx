@@ -39,7 +39,7 @@ const SearchTopSection: FC<Props> = ({
       if (key !== FilterDBKeys.interests)
         if (Array.isArray(values[key]) && values[key]!.length > 0) {
           count += 1;
-        } else if (!Array.isArray(values[key]) && values[key] !== '') {
+        } else if (!Array.isArray(values[key]) && !!values[key]) {
           count += 1;
         }
     }
@@ -77,7 +77,7 @@ const SearchTopSection: FC<Props> = ({
           onClick={handleClearFilters}
         />
       </div>
-      <div className='lg:hidden flex justify-between space-x-8 sticky top-[62px] z-10  bg-skin-fill py-4 border-b-2 border-skin-accent border-opacity-70'>
+      <div className='lg:hidden flex justify-between space-x-8 sticky top-[62px] z-10  bg-skin-fill py-4 border-b-2 border-skin-primary border-opacity-70'>
         <Button
           text={`Filters${filterCount ? ` (${filterCount})` : ''}`}
           wrapperClasses='w-full'

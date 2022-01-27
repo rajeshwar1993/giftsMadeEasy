@@ -42,13 +42,6 @@ const MobileFilters: FC<Props> = ({
                   iconName: 'Close'
                 }}
               />
-
-              <Button
-                wrapperClasses='-m-2 p-2 rounded-md inline-flex text-skin-primary'
-                styleClasses='!border-0 !px-2 text-base'
-                onClick={() => {}}
-                text='Clear All'
-              />
             </div>
 
             {/* Links */}
