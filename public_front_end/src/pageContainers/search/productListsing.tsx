@@ -1,18 +1,29 @@
 import React, { FC } from 'react';
+import { SectionTitle } from '../../components';
 import ProductListItem from '../../components/Reusable/ProductListItem';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
 
 type Props = {
   results: Array<ProductListItemType>;
+  loading: boolean;
 };
 
-const ProductListing: FC<Props> = ({ results }) => {
+const ProductListing: FC<Props> = ({ results, loading }) => {
   return (
-    <div className='grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 lg:gap-8 w-full'>
-      {results.map(r => (
-        <ProductListItem key={r.objectID} {...r} />
-      ))}
-    </div>
+    <>
+      {loading && (
+        <div className='flex justify-around mt-12'>
+          <SectionTitle content='Fetching Results ...' />
+        </div>
+      )}
+      {!loading && (
+        <div className='grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-6 xl:grid-cols-3  lg:gap-x-8 w-full'>
+          {results.map(r => (
+            <ProductListItem key={r.objectID} {...r} />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 

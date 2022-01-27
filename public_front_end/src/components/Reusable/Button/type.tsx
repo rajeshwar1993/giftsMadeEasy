@@ -15,4 +15,5 @@ export interface ButtonType {
   disabled?: boolean;
   id?: string;
   loading?: boolean;
+  target?: '_self' | '_blank';
 }

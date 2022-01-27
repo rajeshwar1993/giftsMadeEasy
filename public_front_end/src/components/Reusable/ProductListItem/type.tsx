@@ -15,4 +15,5 @@ export interface ProductListItemType {
   gt: Array<Gender>;
   at: Array<string>;
   path: string;
+  au: string;
 }

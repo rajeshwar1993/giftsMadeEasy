@@ -12,6 +12,7 @@ type Props = {
   openMobileFilter: () => void;
   handleClearFilters: () => void;
   resultCount: number;
+  loading: boolean;
 };
 
 const SearchTopSection: FC<Props> = ({
@@ -19,7 +20,8 @@ const SearchTopSection: FC<Props> = ({
   updateParentState,
   openMobileFilter,
   handleClearFilters,
-  resultCount
+  resultCount,
+  loading
 }) => {
   const [interestPopoverOpen, updateInterestPopeverOpen] = useState(false);
 
@@ -54,7 +56,7 @@ const SearchTopSection: FC<Props> = ({
         styleClasses=''
       />
       <div className='lg:hidden flex flex-col items-center justify-center space-y-2 px-4 py-4'>
-        <div className='flex flex-col'>
+        <div className='flex flex-col items-center'>
           <CountUp
             start={0}
             end={resultCount}
@@ -83,6 +85,7 @@ const SearchTopSection: FC<Props> = ({
           wrapperClasses='w-full'
           styleClasses='text-base w-full'
           onClick={openMobileFilter}
+          loading={loading}
         />
 
         <Button
@@ -94,6 +97,7 @@ const SearchTopSection: FC<Props> = ({
           wrapperClasses='w-full'
           styleClasses='text-base w-full'
           onClick={() => updateInterestPopeverOpen(true)}
+          loading={loading}
         />
       </div>
       <div className='flex justify-between lg:justify-end items-center '>

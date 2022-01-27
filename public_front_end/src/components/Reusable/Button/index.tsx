@@ -19,6 +19,7 @@ const Button: FC<Props> = ({
   topScript = 0,
   disabled = false,
   loading = false,
+  target = '_self',
   ...props
 }) => {
   const router = useRouter();
@@ -76,7 +77,13 @@ const Button: FC<Props> = ({
         onClick={() => {
           if (onClick) onClick();
 
-          if (link) router.push(link);
+          if (link) {
+            if (target === '_self') {
+              router.push(link);
+            } else {
+              window.open(link, target);
+            }
+          }
         }}
         className={`relative py-0.5 font-semibold transition duration-200 ease-in-out cursor-pointer flex justify-center items-center ${styleClasses} ${
           defautStyle === 'cust-btn-link'

@@ -14,6 +14,7 @@ const SearchPage = () => {
   const router = useRouter();
   const [filterValues, updateFilterValues] = useState<Filter>(new Filter());
   const [showMobileFilters, updateShowMobileFilters] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [results, setResults] = useState<Array<ProductListItemType>>([]);
 
@@ -74,10 +75,17 @@ const SearchPage = () => {
   };
 
   const makeQuery = async (fValObj: any) => {
-    let res: any = await makeSearch(fValObj);
-    console.log(res);
-    const hits = res.hits as Array<ProductListItemType>;
-    setResults(hits);
+    try {
+      setLoading(true);
+      let res: any = await makeSearch(fValObj);
+      console.log(res);
+      const hits = res.hits as Array<ProductListItemType>;
+      setResults(hits);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleClearFilters = () => {
@@ -96,6 +104,7 @@ const SearchPage = () => {
         openMobileFilter={() => updateShowMobileFilters(true)}
         handleClearFilters={handleClearFilters}
         resultCount={results.length}
+        loading={loading}
       />
       {/* Filter and List */}
       <div className='flex flex-row lg:mt-0 mt-4'>
@@ -112,7 +121,7 @@ const SearchPage = () => {
         />
 
         <div className='lg:px-4 w-full lg:w-4/5 pt-2'>
-          <ProductListing results={results} />
+          <ProductListing results={results} loading={loading} />
         </div>
       </div>
     </section>

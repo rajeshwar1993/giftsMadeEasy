@@ -27,22 +27,16 @@ const createFilters = (filterObj: any) => {
 
 const makeSearch = async (filterObj: any) => {
   return new Promise((response, reject) => {
-    try {
-      index
-        .search('', {
-          filters: createFilters(filterObj)
-        })
-        .then(hits => {
-          response(hits);
-        })
-        .catch(e => {
-          reject(e);
-        });
-    } catch (e) {
-      // TODO handle error
-      console.log(e);
-      reject(e);
-    }
+    index
+      .search('', {
+        filters: createFilters(filterObj)
+      })
+      .then(hits => {
+        response(hits);
+      })
+      .catch(e => {
+        reject(e);
+      });
   });
 };
 

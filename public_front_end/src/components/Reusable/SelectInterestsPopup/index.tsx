@@ -58,8 +58,8 @@ const SelectInterestsPopup: FC<Props> = ({
         <Button
           key={key}
           text={val}
-          defautStyle='cust-btn-btn'
-          styleClasses='w-full justify-center'
+          defautStyle='cust-btn-link'
+          styleClasses='w-fit m-auto'
           wrapperClasses=''
           onClick={() => updateChosenInterest(key)}
         />
