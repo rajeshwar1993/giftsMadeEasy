@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import makeSearch from '../../common/algolia';
+import { FilterDBKeys } from '../../common/dbKeys';
 import { cleanObject } from '../../common/utils';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
 import Filter from '../../models/Filter';
@@ -64,7 +65,7 @@ const SearchPage = () => {
     updateFilterValues(Filter.convertJsonToObj(fValObj));
 
     // only do this instantly if in desktop mode
-    if (isDesktop) {
+    if (isDesktop || key === FilterDBKeys.interests) {
       // update URL state
       router.replace({
         pathname: '/search',
@@ -88,11 +89,24 @@ const SearchPage = () => {
     }
   };
 
-  const handleClearFilters = () => {
+  const handleClearFilters = (onlyFilters: boolean = false) => {
     // update URL state with empty query obj
+    let f: any = {};
+    if (onlyFilters) {
+      f = filterValues.convertToJson();
+      for (let key in f) {
+        if (key !== FilterDBKeys.interests) {
+          if (Array.isArray(f[key])) {
+            f[key] = [];
+          } else if (typeof f[key] === 'string') {
+            f[key] = '';
+          }
+        }
+      }
+    }
     router.replace({
       pathname: '/search',
-      query: {}
+      query: f
     });
   };
 

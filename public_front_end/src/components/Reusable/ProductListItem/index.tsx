@@ -51,7 +51,7 @@ const ProductListItem: FC<Props> = ({ t, p, ogp, piu, r, path, au }) => {
               </div>
             </div>
           </div>
-          <div className='flex flex-row justify-between w-full'>
+          <div className='flex flex-row justify-between w-full px-4 lg:px-0'>
             <Button text='Buy Now' link={au || path} target='_blank' />
             <Button
               text='See Details'

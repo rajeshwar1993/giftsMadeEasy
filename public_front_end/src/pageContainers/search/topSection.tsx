@@ -10,7 +10,7 @@ type Props = {
   filterValues: Filter;
   updateParentState: (key: string, value: string | Array<string>) => void;
   openMobileFilter: () => void;
-  handleClearFilters: () => void;
+  handleClearFilters: (onlyFilters?: boolean) => void;
   resultCount: number;
   loading: boolean;
 };
@@ -73,32 +73,51 @@ const SearchTopSection: FC<Props> = ({
           <Text content={'items found'} styleClasses='text-xs' />
         </div>
         <Button
-          text={`clear all filters`}
+          text={`clear all`}
           defautStyle='cust-btn-link'
           styleClasses='text-sm'
           onClick={handleClearFilters}
         />
       </div>
       <div className='lg:hidden flex justify-between space-x-8 sticky top-[62px] z-10  bg-skin-fill py-4 border-b-2 border-skin-primary border-opacity-70'>
-        <Button
-          text={`Filters${filterCount ? ` (${filterCount})` : ''}`}
-          wrapperClasses='w-full'
-          styleClasses='text-base w-full'
-          onClick={openMobileFilter}
-          loading={loading}
-        />
-
-        <Button
-          text={`Interests ${
-            values[FilterDBKeys.interests]!.length
-              ? ` (${values[FilterDBKeys.interests]!.length})`
-              : ''
-          }`}
-          wrapperClasses='w-full'
-          styleClasses='text-base w-full'
-          onClick={() => updateInterestPopeverOpen(true)}
-          loading={loading}
-        />
+        <div className='flex flex-col items-center space-y-2 w-full'>
+          <Button
+            text={`Filters${filterCount ? ` (${filterCount})` : ''}`}
+            wrapperClasses='w-full'
+            styleClasses='text-base w-full'
+            onClick={openMobileFilter}
+            loading={loading}
+          />
+          {filterCount > 0 && (
+            <Button
+              text='clear filters'
+              defautStyle='cust-btn-link'
+              styleClasses='text-xs'
+              onClick={() => handleClearFilters(true)}
+            />
+          )}
+        </div>
+        <div className='flex flex-col items-center space-y-2 w-full'>
+          <Button
+            text={`Interests ${
+              values[FilterDBKeys.interests]!.length
+                ? ` (${values[FilterDBKeys.interests]!.length})`
+                : ''
+            }`}
+            wrapperClasses='w-full'
+            styleClasses='text-base w-full'
+            onClick={() => updateInterestPopeverOpen(true)}
+            loading={loading}
+          />{' '}
+          {values[FilterDBKeys.interests]!.length !== 0 && (
+            <Button
+              text='clear interests'
+              defautStyle='cust-btn-link'
+              styleClasses='text-xs'
+              onClick={() => updateInterestsToParent([])}
+            />
+          )}
+        </div>
       </div>
       <div className='flex justify-between lg:justify-end items-center '>
         <div className='hidden lg:flex justify-between items-center lg:items-end w-full lg:px-6 lg:border-b-2 border-skin-primary pb-4'>
@@ -109,17 +128,27 @@ const SearchTopSection: FC<Props> = ({
                 content='Find the perfect gift'
               />
               <div className='flex flex-col items-start'>
-                <Button
-                  text={`Filter By Interests${
-                    values[FilterDBKeys.interests]!.length
-                      ? ` (${values[FilterDBKeys.interests]!.length})`
-                      : ''
-                  }`}
-                  defautStyle='cust-btn-btn'
-                  styleClasses='text-base'
-                  wrapperClasses=''
-                  onClick={() => updateInterestPopeverOpen(true)}
-                />
+                <div className='flex space-x-2 items-start'>
+                  <Button
+                    text={`Filter By Interests${
+                      values[FilterDBKeys.interests]!.length
+                        ? ` (${values[FilterDBKeys.interests]!.length})`
+                        : ''
+                    }`}
+                    defautStyle='cust-btn-btn'
+                    styleClasses='text-base'
+                    wrapperClasses=''
+                    onClick={() => updateInterestPopeverOpen(true)}
+                  />
+                  {values[FilterDBKeys.interests]!.length !== 0 && (
+                    <Button
+                      text='clear interests'
+                      defautStyle='cust-btn-link'
+                      styleClasses='text-xs'
+                      onClick={() => updateInterestsToParent([])}
+                    />
+                  )}
+                </div>
                 <div className=' mt-2'>
                   <ShowSelectedInterests
                     values={
@@ -156,7 +185,7 @@ const SearchTopSection: FC<Props> = ({
                 <Text content={'items found'} styleClasses='text-xs' />
               </div>
               <Button
-                text={`clear all filters`}
+                text={`clear all`}
                 defautStyle='cust-btn-link'
                 styleClasses='text-sm'
                 onClick={handleClearFilters}
