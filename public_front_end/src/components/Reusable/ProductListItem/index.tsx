@@ -12,18 +12,18 @@ const ProductListItem: FC<Props> = ({ t, p, ogp, piu, r, path }) => {
 
   return (
     <Link href={path}>
-      <div className='pt-4 cursor-pointer transition-all duration-200 rounded-lg lg:p-4 lg:hover:shadow-2xl'>
+      <div className='pt-4 cursor-pointer transition-all duration-200 rounded-lg lg:p-4 lg:hover:shadow-2xl border-skin-primary border-opacity-0 hover:border-opacity-30 border-2'>
         <div className={`flex flex-row lg:flex-col lg:space-y-4 `}>
           <div className='rounded-lg overflow-hidden'>
             <ImageComponent
               src={piu[0] || '/images/product.jpg'}
-              alt='product name'
+              alt={t}
               width={isDesktop ? 400 : 200}
               height={isDesktop ? 400 : 200}
               layout='intrinsic'
             />
           </div>
-          <div className='flex flex-col justify-between pl-3 w-[70%] lg:w-full lg:pl-0'>
+          <div className='flex flex-col justify-between space-y-4 pl-3 w-[70%] lg:w-full lg:pl-0'>
             <Text
               tag='h4'
               content={t}
@@ -39,7 +39,11 @@ const ProductListItem: FC<Props> = ({ t, p, ogp, piu, r, path }) => {
               </div>
 
               <div className='mb-1 flex items-center p-0.5 bg-skin-fill bottom-4 right-2 rounded-lg'>
-                <Icon iconName='Star' size='26' />
+                <Icon
+                  iconName='Star'
+                  size='26'
+                  styleClasses='text-skin-accent'
+                />
                 <Text content={r} styleClasses='ml-1 text-lg !font-semibold' />
               </div>
             </div>

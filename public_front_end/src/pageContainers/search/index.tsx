@@ -23,15 +23,10 @@ const SearchPage = () => {
 
   // read URL values on first render
   useEffect(() => {
-    // if any params present
-    if (Object.keys(router.query).length > 0) {
-      // create new filter object
-      const f = Filter.convertJsonToObj(router.query);
-      updateFilterValues(f);
-      makeQuery(f.convertToJson());
-    } else {
-      makeQuery({});
-    }
+    // create new filter object
+    const f = Filter.convertJsonToObj(router.query);
+    updateFilterValues(f);
+    makeQuery(f.convertToJson());
   }, [router.query]);
 
   // update the filter copy when opening mobile filters
@@ -85,12 +80,22 @@ const SearchPage = () => {
     setResults(hits);
   };
 
+  const handleClearFilters = () => {
+    // update URL state with empty query obj
+    router.replace({
+      pathname: '/search',
+      query: {}
+    });
+  };
+
   return (
     <section className='py-0'>
       <SearchTopSection
         filterValues={filterValues}
         updateParentState={handleFilterChange}
         openMobileFilter={() => updateShowMobileFilters(true)}
+        handleClearFilters={handleClearFilters}
+        resultCount={results.length}
       />
       {/* Filter and List */}
       <div className='flex flex-row lg:mt-0 mt-4'>
@@ -106,7 +111,7 @@ const SearchPage = () => {
           }}
         />
 
-        <div className='lg:px-4 w-full lg:w-4/5'>
+        <div className='lg:px-4 w-full lg:w-4/5 pt-2'>
           <ProductListing results={results} />
         </div>
       </div>

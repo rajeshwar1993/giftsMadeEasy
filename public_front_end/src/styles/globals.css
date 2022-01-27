@@ -16,6 +16,7 @@
     --fill-card: 241,245,249;
     --fill-hover: 196,181,253;
     --fill-dark: 15,23,42;
+    --fill-border: 71,85,105;
     --error: 190,18,60;
 
     /* Default Theme */
@@ -31,7 +32,7 @@
     --color-fill-accent: var(--accent);
     --color-fill-inverted: var(--fill-dark);
     --color-fill-disabled: var(--disabled);
-    --color-border-primary: var(--fill);
+    --color-border-primary: var(--fill-border);
     --color-border-accent: var(--accent);
     --color-border-inverted: var(--fill-dark);
   }

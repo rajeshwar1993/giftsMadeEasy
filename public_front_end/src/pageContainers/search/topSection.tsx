@@ -1,8 +1,7 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { FilterDBKeys } from '../../common/dbKeys';
 import { Button, SectionTitle, Text } from '../../components';
-import ListBoxComp from '../../components/Reusable/ListBox';
-import { DEFAULT_LIST_VALUE } from '../../components/Reusable/ListBox/utils';
+import CountUp from 'react-countup';
 import SelectInterestsPopup from '../../components/Reusable/SelectInterestsPopup';
 import Filter from '../../models/Filter';
 import ShowSelectedInterests from './showSelectedInterests';
@@ -11,12 +10,16 @@ type Props = {
   filterValues: Filter;
   updateParentState: (key: string, value: string | Array<string>) => void;
   openMobileFilter: () => void;
+  handleClearFilters: () => void;
+  resultCount: number;
 };
 
 const SearchTopSection: FC<Props> = ({
   filterValues,
   updateParentState,
-  openMobileFilter
+  openMobileFilter,
+  handleClearFilters,
+  resultCount
 }) => {
   const [interestPopoverOpen, updateInterestPopeverOpen] = useState(false);
 
@@ -52,14 +55,26 @@ const SearchTopSection: FC<Props> = ({
       />
       <div className='lg:hidden flex flex-col items-center justify-center space-y-2 px-4 py-4'>
         <div className='flex flex-col'>
-          <Text content={'32'} styleClasses='text-6xl font-bold' />
+          <CountUp
+            start={0}
+            end={resultCount}
+            duration={1.7}
+            delay={0}
+            useEasing={true}
+          >
+            {({ countUpRef }) => (
+              <div>
+                <span ref={countUpRef} className='text-6xl font-bold' />
+              </div>
+            )}
+          </CountUp>
           <Text content={'items found'} styleClasses='text-xs' />
         </div>
         <Button
           text={`clear all filters`}
           defautStyle='cust-btn-link'
           styleClasses='text-sm'
-          onClick={() => {}}
+          onClick={handleClearFilters}
         />
       </div>
       <div className='lg:hidden flex justify-between space-x-8 sticky top-[62px] z-10  bg-skin-fill py-4 border-b-2 border-skin-accent border-opacity-70'>
@@ -82,9 +97,9 @@ const SearchTopSection: FC<Props> = ({
         />
       </div>
       <div className='flex justify-between lg:justify-end items-center '>
-        <div className='hidden lg:flex justify-between items-center lg:items-end w-full lg:px-6 lg:border-b-2 border-skin-accent border-opacity-70 pb-4'>
-          <div className='flex items-start w-full justify-between space-x-16'>
-            <div>
+        <div className='hidden lg:flex justify-between items-center lg:items-end w-full lg:px-6 lg:border-b-2 border-skin-primary pb-4'>
+          <div className='flex w-full justify-between items-center space-x-16'>
+            <div className='lg:w-5/6 xl:w-11/12'>
               <SectionTitle
                 wrapperClasses='lg:text-left !mb-10'
                 content='Find the perfect gift'
@@ -115,32 +130,35 @@ const SearchTopSection: FC<Props> = ({
                 </div>
               </div>
             </div>
-            <div className='flex flex-col items-center justify-between space-y-4'>
-              <div className='flex flex-col'>
-                <Text content={'32'} styleClasses='text-6xl font-bold' />
+            <div className='flex flex-col items-center justify-between space-y-4 lg:w-1/6 xl:w-1/12'>
+              <div className='flex flex-col items-center'>
+                <CountUp
+                  start={0}
+                  end={resultCount}
+                  duration={1.7}
+                  delay={0}
+                  useEasing={true}
+                >
+                  {({ countUpRef }) => (
+                    <div>
+                      <span
+                        ref={countUpRef}
+                        className='lg:text-7xl xl:text-8xl font-bold'
+                      />
+                    </div>
+                  )}
+                </CountUp>
+
                 <Text content={'items found'} styleClasses='text-xs' />
               </div>
               <Button
                 text={`clear all filters`}
                 defautStyle='cust-btn-link'
                 styleClasses='text-sm'
-                onClick={() => {}}
+                onClick={handleClearFilters}
               />
             </div>
           </div>
-
-          {/* TODO maybe we can add sort later */}
-          {/* <div className=''>
-            <ListBoxComp
-              filterKey={'sort'}
-              selectedOption={{
-                name: 'Sort by',
-                value: DEFAULT_LIST_VALUE
-              }}
-              onSelected={() => {}}
-              options={[]}
-            />
-          </div> */}
         </div>
       </div>
       <SelectInterestsPopup

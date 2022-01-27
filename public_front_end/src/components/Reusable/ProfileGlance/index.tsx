@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { FC } from 'react';
 import { Text, ImageComponent } from '../..';
-import DataConfig from '../../../common/componentConfig';
+import { relationshipFilterValues } from '../../../common/staticFilterValues';
 import CircleUser from '../../../models/CircleUser';
 import Button from '../Button';
 import { getOptionFromValue } from '../ListBox/utils';
@@ -33,7 +33,7 @@ const ProfileGlance: FC<Props> = ({ data }) => {
           <Text
             content={
               'My ' +
-              getOptionFromValue(DataConfig.relationship, data.relation, '')
+              getOptionFromValue(relationshipFilterValues, data.relation, '')
                 .name
             }
             tag='h3'

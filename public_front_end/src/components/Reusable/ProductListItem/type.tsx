@@ -2,6 +2,7 @@ import { SectionTitleType } from '../../../components/Reusable/SectionTitle/type
 import { Gender } from '../../../models/enums';
 
 export interface ProductListItemType {
+  objectID: string;
   apid: string;
   t: string;
   p: string;

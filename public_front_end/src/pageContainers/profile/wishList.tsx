@@ -7,13 +7,13 @@ const WishListSection = () => {
     <div id={'wishlist'}>
       <Text content='This is a public wishlist. Your connections can choose to gift you one of these items.' />
       <div className='grid grid-cols-1 xl:grid-cols-6 gap-2 w-full'>
+        {/* <ProductListItemMini title={{ content: 'text' }} />
         <ProductListItemMini title={{ content: 'text' }} />
         <ProductListItemMini title={{ content: 'text' }} />
         <ProductListItemMini title={{ content: 'text' }} />
         <ProductListItemMini title={{ content: 'text' }} />
         <ProductListItemMini title={{ content: 'text' }} />
-        <ProductListItemMini title={{ content: 'text' }} />
-        <ProductListItemMini title={{ content: 'text' }} />
+        <ProductListItemMini title={{ content: 'text' }} /> */}
       </div>
     </div>
   );
