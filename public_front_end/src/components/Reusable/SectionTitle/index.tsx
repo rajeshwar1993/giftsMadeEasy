@@ -10,7 +10,7 @@ const SectionTitle: FC<Props> = ({ wrapperClasses, ...props }) => {
         styleClasses={` text-4xl xl:text-5xl font-light ${
           props.styleClasses || ''
         }`}
-        tag={props.tag || 'h2'}
+        tag={props.tag || 'h3'}
       />
     </div>
   );

@@ -39,9 +39,10 @@ const GiftsSearchMini = () => {
 
   return (
     <div className='flex flex-col justify-center items-start w-full'>
-      <SectionTitle content={'Quick Search'} />
+      <SectionTitle content={'Quick Search'} tag='span' />
       <Text
-        content={`Just choose the relationship you have with the person and their age group. It's that simple`}
+        tag='h2'
+        content={`Just choose the relationship you have with the person and their age group. It's that simple.`}
       />
       <div className='my-2 flex items-center w-full'>
         <ListBoxComp
