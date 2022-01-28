@@ -11,6 +11,7 @@ const HomePage = () => {
         {/* Banner Text */}
         <div className='w-full md:w-2/3 xl:w-3/4 md:mt-0 flex flex-col items-start'>
           <Text
+            tag='h1'
             content='give gifts that matter'
             styleClasses='text-7xl md:text-8xl xl:text-9xl font-extrabold'
           />
