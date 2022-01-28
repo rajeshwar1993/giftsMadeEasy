@@ -43,6 +43,14 @@ export enum Occasion {
   HouseWarming = 'hw'
 }
 
+export enum Festivals {
+  NewYears = 'ny',
+  Lohri = 'loh',
+  RepublicDay = 'rpd',
+  ValentinesDay = 'vd',
+  Holi = 'holi'
+}
+
 export enum NotificationTypes {
   FirstRegister = 'FS',
   CompleteProfile = 'CP',

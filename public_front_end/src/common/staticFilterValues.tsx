@@ -43,6 +43,15 @@ occasionFilterValues.set('a', 'Anniversary');
 occasionFilterValues.set('w', 'Wedding');
 occasionFilterValues.set('hw', 'House Warming');
 
+// Festival
+export const festivalilterValues = new Map<string, string>();
+
+festivalilterValues.set('ny', 'New Years');
+festivalilterValues.set('loh', 'Lohri');
+festivalilterValues.set('rpd', 'Republic Day');
+festivalilterValues.set('vd', `Valentine's Day`);
+festivalilterValues.set('holi', `Holi`);
+
 // Interest Groups
 export const interestGroupMap = new Map<number, string>();
 

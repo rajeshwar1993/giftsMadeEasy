@@ -13,9 +13,10 @@ import DataConfig from '../../common/componentConfig';
 import ListBoxComp from '../../components/Reusable/ListBox';
 import { ListBoxOption } from '../../components/Reusable/ListBox/types';
 import CheckBoxGroup from '../../components/Reusable/CheckBoxGroup';
-import { Gender } from '../../models/enums';
+import { Festivals, Gender } from '../../models/enums';
 import {
   ageGrpFilterValues,
+  festivalilterValues,
   occasionFilterValues,
   relationshipFilterValues
 } from '../../common/staticFilterValues';
@@ -128,7 +129,30 @@ const FilterBody: FC<FilterBodyProp> = ({
           options={createListboxOptions(ageGrpFilterValues, 'Age Group')}
         />
       </div>
-      {/* Rel Filter */}
+      {/* Upcomming festivals Filter */}
+      <div className='mb-8'>
+        <CheckBoxGroup
+          title={{ content: 'Upcoming Festivals' }}
+          filterKey={FilterDBKeys.festivals}
+          checkList={[
+            {
+              text: festivalilterValues.get(Festivals.ValentinesDay)!,
+              value: Festivals.ValentinesDay
+            },
+            {
+              text: festivalilterValues.get(Festivals.Holi)!,
+              value: Festivals.Holi
+            }
+          ]}
+          selected={
+            values[FilterDBKeys.festivals]
+              ? (values[FilterDBKeys.festivals] as Array<string>)
+              : []
+          }
+          onChangeHandler={updateCheckboxValues}
+        />
+      </div>
+      {/* Occasion Filter */}
       <div className='mb-8'>
         <ListBoxComp
           filterKey={FilterDBKeys.occasion}

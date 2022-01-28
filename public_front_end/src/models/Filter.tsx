@@ -1,11 +1,12 @@
 import { FilterDBKeys } from '../common/dbKeys';
-import { AgeGroup, Gender } from './enums';
+import { Gender } from './enums';
 
 class Filter {
   relationship: string;
   occasion: string;
   ageGrp: string;
   gender?: Array<Gender>;
+  festivals: Array<string>;
   interests: Array<string>;
 
   constructor() {
@@ -14,6 +15,7 @@ class Filter {
     this.ageGrp = '';
     this.gender = [];
     this.interests = [];
+    this.festivals = [];
   }
 
   convertToJson = () => ({
@@ -21,7 +23,8 @@ class Filter {
     [FilterDBKeys.occasion]: this.occasion,
     [FilterDBKeys.ageGrp]: this.ageGrp,
     [FilterDBKeys.gender]: this.gender,
-    [FilterDBKeys.interests]: this.interests
+    [FilterDBKeys.interests]: this.interests,
+    [FilterDBKeys.festivals]: this.festivals
   });
 
   static convertJsonToObj = (inp: any) => {
@@ -38,6 +41,11 @@ class Filter {
       ? Array.isArray(inp[FilterDBKeys.interests])
         ? inp[FilterDBKeys.interests]
         : [inp[FilterDBKeys.interests]]
+      : [];
+    f.festivals = inp[FilterDBKeys.festivals]
+      ? Array.isArray(inp[FilterDBKeys.festivals])
+        ? inp[FilterDBKeys.festivals]
+        : [inp[FilterDBKeys.festivals]]
       : [];
 
     return f;

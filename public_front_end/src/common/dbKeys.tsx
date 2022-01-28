@@ -22,7 +22,8 @@ export const FilterDBKeys = {
   occasion: 'ot',
   ageGrp: 'at',
   gender: 'gt',
-  interests: 'it'
+  interests: 'it',
+  festivals: 'ft'
 };
 
 export const ProductDBKeys = {
