@@ -3,6 +3,7 @@ import { Gender, ProductStatus } from './enums';
 
 interface Product {
   uid: string;
+  desc: string;
   apid: string; // amazom product id
   title: string;
   rating: string;
@@ -18,6 +19,7 @@ interface Product {
   featureList: Array<string>;
   relationshipTags: Array<string>;
   occasionTags: Array<string>;
+  festivalTags: Array<string>;
   interestTags: Array<string>;
   genderTags: Array<Gender>;
   ageTags: Array<string>;
@@ -30,6 +32,7 @@ interface Product {
 
 export const convertProductToJson = (product: Product) => ({
   [ProductDBKeys.apid]: product.apid,
+  [ProductDBKeys.desc]: product.desc,
   [ProductDBKeys.title]: product.title,
   [ProductDBKeys.rating]: product.rating,
   [ProductDBKeys.price]: product.price,
@@ -40,6 +43,7 @@ export const convertProductToJson = (product: Product) => ({
   [ProductDBKeys.overviewPoints]: product.overviewPoints,
   [ProductDBKeys.relationshipTags]: product.relationshipTags,
   [ProductDBKeys.occasionTags]: product.occasionTags,
+  [ProductDBKeys.festivalTags]: product.festivalTags,
   [ProductDBKeys.interestTags]: product.interestTags,
   [ProductDBKeys.genderTags]: product.genderTags,
   [ProductDBKeys.ageTags]: product.ageTags,
@@ -53,6 +57,7 @@ export const convertProductJsonToObj = (inp: any, id: string) => {
     uid: id,
     apid: inp[ProductDBKeys.apid] || '',
     title: inp[ProductDBKeys.title] || '',
+    desc: inp[ProductDBKeys.desc] || '',
     rating: inp[ProductDBKeys.rating] || '',
     price: inp[ProductDBKeys.price] || '',
     ogPrice: inp[ProductDBKeys.ogPrice] || '',
@@ -62,6 +67,7 @@ export const convertProductJsonToObj = (inp: any, id: string) => {
     featureList: inp[ProductDBKeys.featureList] || [],
     relationshipTags: inp[ProductDBKeys.relationshipTags] || [],
     occasionTags: inp[ProductDBKeys.occasionTags] || [],
+    festivalTags: inp[ProductDBKeys.festivalTags] || [],
     interestTags: inp[ProductDBKeys.interestTags] || [],
     genderTags: inp[ProductDBKeys.genderTags] || [],
     ageTags: inp[ProductDBKeys.ageTags] || [],
