@@ -21,12 +21,14 @@ const ProductTitle: FC<Props> = ({
   const isDesktop = useSelector((state: RootState) => state.app.isDesktop);
 
   return (
-    <div className='flex'>
-      <Text
-        tag='h1'
-        content={title}
-        styleClasses='text-xl xl:text-4xl !font-semibold'
-      />
+    <div className='flex flex-row space-x-6'>
+      <div className='flex-1'>
+        <Text
+          tag='h1'
+          content={title}
+          styleClasses='text-lg md:text-xl xl:text-4xl !font-semibold'
+        />
+      </div>
       <div className='flex flex-col space-y-2 xl:space-y-4'>
         <Button
           icon={{

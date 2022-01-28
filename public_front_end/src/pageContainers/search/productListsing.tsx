@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { SectionTitle } from '../../components';
+import { SectionTitle, Text } from '../../components';
 import ProductListItem from '../../components/Reusable/ProductListItem';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
 
@@ -23,6 +23,12 @@ const ProductListing: FC<Props> = ({ results, loading }) => {
           ))}
         </div>
       )}
+      <Text
+        styleClasses='text-xs'
+        content={
+          '* This is an indicative price. Actual prices will be seen after adding to the actual cart.'
+        }
+      />
     </>
   );
 };

@@ -38,7 +38,7 @@ const ProductListItem: FC<Props> = ({ t, p, ogp, piu, r, path, au }) => {
                   content={'MRP: ' + ogp}
                   styleClasses='text-xs font-light line-through'
                 />
-                <Text tag='span' content={`Rs ${p}`} styleClasses='text-2xl' />
+                <Text tag='span' content={`${p}*`} styleClasses='text-2xl' />
               </div>
 
               <div className='mb-1 flex items-center p-0.5 bg-skin-fill bottom-4 right-2 rounded-lg'>

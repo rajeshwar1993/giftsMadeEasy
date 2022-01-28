@@ -9,10 +9,18 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { FS_USER_DB } from '../../common/constants';
 import { UserDBKeys } from '../../common/dbKeys';
+import {
+  relationshipFilterValues,
+  ageGrpFilterValues,
+  occasionFilterValues,
+  interestFilterValues
+} from '../../common/staticFilterValues';
 import { Button, Icon, SectionTitle, Text } from '../../components';
+import Chip from '../../components/Reusable/Chip';
 import { db } from '../../firebase';
 import useWindowSize from '../../hooks/useWindowSize';
 import Prodcut from '../../models/Product';
+import { app_toggle_isSigupOpen } from '../../redux/appCommon';
 import { RootState, useAppDispatch } from '../../redux/store';
 import { ur_updateBookmarks, ur_updateWishlist } from '../../redux/user';
 import ImageCarouselSection from './ImageCarouselSection';
@@ -27,8 +35,10 @@ const ProductPage: FC<Props> = ({ product }) => {
   const user = useSelector((state: RootState) => state.user.data);
 
   const toggleBookmark = async (isBookMarked: boolean) => {
-    // TODO: have a check of user is present, launch signin if not present
-    if (!user) return;
+    if (!user) {
+      dispatch(app_toggle_isSigupOpen('signup'));
+      return;
+    }
 
     const userRef = collection(db, FS_USER_DB);
     const toDo = isBookMarked ? 'remove' : 'add';
@@ -45,8 +55,10 @@ const ProductPage: FC<Props> = ({ product }) => {
   };
 
   const toggleWishlist = async (isWishlist: boolean) => {
-    // TODO: have a check of user is present, launch signin if not present
-    if (!user) return;
+    if (!user) {
+      dispatch(app_toggle_isSigupOpen('signup'));
+      return;
+    }
 
     const userRef = collection(db, FS_USER_DB);
     const toDo = isWishlist ? 'remove' : 'add';
@@ -64,12 +76,15 @@ const ProductPage: FC<Props> = ({ product }) => {
 
   return (
     <section>
-      <div className='flex flex-col space-y-6 xl:flex-row xl:space-x-12'>
+      <div className='flex flex-col space-y-6 lg:flex-row lg:space-x-12 lg:space-y-0'>
         {/* Product Image */}
-        <ImageCarouselSection images={product.productImgUrls} />
-
+        <div>
+          <div className='lg:sticky lg:top-20'>
+            <ImageCarouselSection images={product.productImgUrls} />
+          </div>
+        </div>
         {/* Details Section */}
-        <div className='flex flex-col space-y-4'>
+        <div className='flex flex-col space-y-4 lg:flex-1 px-2'>
           <ProductTitle
             title={product.title}
             isBookMarked={!!user?.bookmarks.find(b => b === product.uid)}
@@ -78,16 +93,16 @@ const ProductPage: FC<Props> = ({ product }) => {
             toggleWishlist={toggleWishlist}
           />
 
-          <div className='flex flex-col space-y-8 xl:flex-row xl:space-x-24 xl:space-y-0'>
-            <div className='flex flex-col justify-between space-y-4'>
-              <div className='flex flex-row xl:flex-col space-x-8 items-end xl:space-y-4 xl:items-start xl:space-x-0'>
+          <div className='flex flex-col xl:flex-row space-y-8 xl:space-x-24 xl:space-y-0'>
+            <div className='flex flex-col justify-start space-y-4'>
+              <div className='flex flex-row space-x-8 items-end'>
                 <div className='flex flex-col space-y-1'>
                   <Text
                     content={'MRP: ' + product.ogPrice}
                     styleClasses='text-xl font-light line-through'
                   />
 
-                  <SectionTitle content={product.price} />
+                  <SectionTitle content={`${product.price}*`} />
                 </div>
                 <div className='flex space-x-2 items-end'>
                   <Icon iconName='Star' size='40' />
@@ -97,22 +112,97 @@ const ProductPage: FC<Props> = ({ product }) => {
                   />
                 </div>
               </div>
-              <div className='flex flex-col space-y-4 '>
-                <Button
-                  text='Buy Now'
-                  onClick={() => {}}
-                  styleClasses='text-xl w-full'
-                  wrapperClasses='w-full'
-                />
-                <Button
-                  text='See Details'
-                  onClick={() => {}}
-                  styleClasses='text-lg w-full'
-                  wrapperClasses='w-full'
-                />
+
+              <Button
+                text='Buy Now'
+                link={product.affiliateUrl}
+                target='_blank'
+                styleClasses='text-xl w-full'
+                wrapperClasses='w-full xl:max-w-sm'
+              />
+              <div className='grid grid-cols-1 xl:grid-cols-2 gap-4'>
+                <div>
+                  <Text
+                    styleClasses='text-lg'
+                    content={'Ideal for gifing your'}
+                  />
+                  <div className='flex flex-wrap mt-1'>
+                    {product.relationshipTags.map(r => (
+                      <Chip
+                        key={r}
+                        editMode={false}
+                        id={r}
+                        text={{
+                          content: relationshipFilterValues.get(r) || '',
+                          styleClasses: ''
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <Text
+                    styleClasses='text-lg'
+                    content={'Perfect for Age-groups'}
+                  />
+                  <div className='flex flex-wrap mt-1'>
+                    {product.ageTags.map(r => (
+                      <Chip
+                        key={r}
+                        editMode={false}
+                        id={r}
+                        text={{
+                          content: ageGrpFilterValues.get(r) || '',
+                          styleClasses: ''
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <Text
+                    styleClasses='text-lg'
+                    content={'Best suited for occasions like'}
+                  />
+                  <div className='flex flex-wrap mt-1'>
+                    {product.occasionTags.map(r => (
+                      <Chip
+                        key={r}
+                        editMode={false}
+                        id={r}
+                        text={{
+                          content: occasionFilterValues.get(r) || '',
+                          styleClasses: ''
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <Text
+                    styleClasses='text-lg'
+                    content={'Loved by people interested in'}
+                  />
+                  <div className='flex flex-wrap mt-1'>
+                    {product.interestTags.map(r => (
+                      <Chip
+                        key={r}
+                        editMode={false}
+                        id={r}
+                        text={{
+                          content: interestFilterValues.get(r)?.name || '',
+                          styleClasses: ''
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+          <div className='flex flex-col xl:flex-row space-y-4 xl:space-y-0 xl:spaxe-x-8'>
             <div>
+              <SectionTitle content='Overview' styleClasses='!text-3xl' />
               <table className='table-auto'>
                 <tbody>
                   {product.overviewPoints.map((op, i) => (
@@ -124,17 +214,23 @@ const ProductPage: FC<Props> = ({ product }) => {
                 </tbody>
               </table>
             </div>
+            <div className='pt-4'>
+              <SectionTitle content='Features' styleClasses='!text-3xl' />
+              <ul className='list-disc list-inside'>
+                {product.featureList.map((fl, i) => (
+                  <li key={i}>
+                    <Text content={fl} />
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <div className='pt-4'>
-            <SectionTitle content='Features' styleClasses='!text-3xl' />
-            <ul className='list-disc list-inside'>
-              {product.featureList.map((fl, i) => (
-                <li key={i}>
-                  <Text content={fl} />
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Text
+            styleClasses='text-xs'
+            content={
+              '* This is an indicative price. Actual prices will be seen after adding to the actual cart.'
+            }
+          />
         </div>
       </div>
     </section>

@@ -18,13 +18,13 @@ const ImageCarouselSection: FC<Props> = ({ images }) => {
         <ImageComponent
           src={images[selected] || '/images/logo.png'}
           alt='product'
-          width={isDesktop ? 500 : 300}
-          height={isDesktop ? 500 : 300}
+          width={isDesktop ? 500 : 400}
+          height={isDesktop ? 500 : 400}
           layout='fixed'
         />
       </div>
 
-      <div className='flex justify-between'>
+      <div className='flex justify-center space-x-4 md:space-x-8'>
         {images.map((img, i) => (
           <div
             key={i}
