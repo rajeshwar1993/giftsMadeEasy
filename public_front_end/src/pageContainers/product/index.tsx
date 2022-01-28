@@ -114,7 +114,11 @@ const ProductPage: FC<Props> = ({ product }) => {
               </div>
 
               <Button
-                text='Buy Now'
+                icon={{
+                  iconName: 'LinkUrl',
+                  size: '26'
+                }}
+                text='Buy Now on Amazon'
                 link={product.affiliateUrl}
                 target='_blank'
                 styleClasses='text-xl w-full'
@@ -201,7 +205,7 @@ const ProductPage: FC<Props> = ({ product }) => {
             </div>
           </div>
           <div className='flex flex-col xl:flex-row space-y-4 xl:space-y-0 xl:spaxe-x-8'>
-            <div>
+            <div className='flex-1'>
               <SectionTitle content='Overview' styleClasses='!text-3xl' />
               <table className='table-auto'>
                 <tbody>
@@ -214,7 +218,7 @@ const ProductPage: FC<Props> = ({ product }) => {
                 </tbody>
               </table>
             </div>
-            <div className='pt-4'>
+            <div className='flex-1'>
               <SectionTitle content='Features' styleClasses='!text-3xl' />
               <ul className='list-disc list-inside'>
                 {product.featureList.map((fl, i) => (

@@ -40,10 +40,7 @@ const GiftsSearchMini = () => {
   return (
     <div className='flex flex-col justify-center items-start w-full'>
       <SectionTitle content={'Quick Search'} tag='span' />
-      <Text
-        tag='h2'
-        content={`Just choose the relationship you have with the person and their age group. It's that simple.`}
-      />
+      <Text content={`Two simple choices. It's that easy.`} />
       <div className='my-2 flex items-center w-full'>
         <ListBoxComp
           filterKey={FilterDBKeys.relationship}

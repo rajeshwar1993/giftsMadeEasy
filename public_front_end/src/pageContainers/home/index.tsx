@@ -25,6 +25,13 @@ const HomePage = () => {
           <GiftsSearchMini />
         </div>
       </div>
+      <div className='mx-auto max-w-7xl'>
+        <Text
+          tag='h2'
+          content={`We <em>Curate</em> and <em>Categorize</em> the top rated gifting products from trusted websites like <strong>Amazon</strong>, making this the one-stop destination for all your gifting needs! `}
+          styleClasses='text-xl md:text-2xl xl:text-3xl text-center'
+        />
+      </div>
       <div>
         <TrendingSearches />
       </div>

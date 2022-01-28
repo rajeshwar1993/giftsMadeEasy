@@ -179,6 +179,11 @@ const Icon: FC<Props> = ({
         IconToUse = CgSpinnerTwo;
         break;
 
+      case 'LinkUrl':
+        let { MdLink } = await import('react-icons/md');
+        IconToUse = MdLink;
+        break;
+
       default:
         let { MdDoDisturb } = await import('react-icons/md');
         IconToUse = MdDoDisturb;
