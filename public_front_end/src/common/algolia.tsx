@@ -25,11 +25,12 @@ const createFilters = (filterObj: any) => {
   //   return '(rt:f)';
 };
 
-const makeSearch = async (filterObj: any) => {
+const makeSearch = async (filterObj: any, options: any = {}) => {
   return new Promise((response, reject) => {
     index
       .search('', {
-        filters: createFilters(filterObj)
+        filters: createFilters(filterObj),
+        ...options
       })
       .then(hits => {
         response(hits);

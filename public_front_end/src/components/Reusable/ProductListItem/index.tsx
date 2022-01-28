@@ -17,7 +17,7 @@ const ProductListItem: FC<Props> = ({ t, p, ogp, piu, r, path, au }) => {
         className={`flex flex-col space-y-6 items-center h-full justify-between `}
       >
         <Link href={path}>
-          <div className='cursor-pointer'>
+          <div className='cursor-pointer space-y-2'>
             <div className='rounded-lg overflow-hidden'>
               <ImageComponent
                 src={piu[0] || '/images/product.jpg'}
