@@ -88,6 +88,7 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
                     let data = item.data as ExpandMenuItem;
                     return (
                       <Button
+                        key={i}
                         onClick={() => {
                           setCurrentDepth(state => state + 1);
                           setStep1Items(data || []);

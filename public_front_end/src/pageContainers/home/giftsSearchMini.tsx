@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import AppConfig from '../../common/appConfig';
 
 import { FilterDBKeys } from '../../common/dbKeys';
-import { Button, SectionTitle } from '../../components';
+import { Button, SectionTitle, Text } from '../../components';
 import {
   createListboxOptions,
   DEFAULT_LIST_VALUE
@@ -12,7 +12,6 @@ import {
 import { ListBoxOption } from '../../components/Reusable/ListBox/types';
 import ListBoxComp from '../../components/Reusable/ListBox';
 import {
-  occasionFilterValues,
   ageGrpFilterValues,
   relationshipFilterValues
 } from '../../common/staticFilterValues';
@@ -28,10 +27,6 @@ const GiftsSearchMini = () => {
     [FilterDBKeys.ageGrp]: {
       name: AppConfig.COMMON.ageGroupLabel,
       value: DEFAULT_LIST_VALUE
-    },
-    [FilterDBKeys.occasion]: {
-      name: AppConfig.COMMON.occasionLabel,
-      value: DEFAULT_LIST_VALUE
     }
   });
 
@@ -45,7 +40,9 @@ const GiftsSearchMini = () => {
   return (
     <div className='flex flex-col justify-center items-start w-full'>
       <SectionTitle content={'Quick Search'} />
-
+      <Text
+        content={`Just choose the relationship you have with the person and their age group. It's that simple`}
+      />
       <div className='my-2 flex items-center w-full'>
         <ListBoxComp
           filterKey={FilterDBKeys.relationship}
@@ -70,18 +67,6 @@ const GiftsSearchMini = () => {
           )}
         />
       </div>
-      <div className='my-2 flex items-center w-full'>
-        <ListBoxComp
-          filterKey={FilterDBKeys.occasion}
-          buttonStyleClasses='text-lg xl:text-xl'
-          selectedOption={searchParams[FilterDBKeys.occasion]}
-          onSelected={handleListboxOnChange}
-          options={createListboxOptions(
-            occasionFilterValues,
-            AppConfig.COMMON.occasionLabel
-          )}
-        />
-      </div>
 
       <Button
         text={'Search'}
@@ -91,8 +76,6 @@ const GiftsSearchMini = () => {
             query: {
               [FilterDBKeys.relationship]:
                 searchParams[FilterDBKeys.relationship].value,
-              [FilterDBKeys.occasion]:
-                searchParams[FilterDBKeys.occasion].value,
               [FilterDBKeys.ageGrp]: searchParams[FilterDBKeys.ageGrp].value
             }
           });

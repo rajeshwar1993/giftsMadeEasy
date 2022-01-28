@@ -16,7 +16,7 @@ const HomePage = () => {
             styleClasses='text-7xl md:text-8xl xl:text-9xl font-extrabold'
           />
           <Text
-            content='and this is where you find them'
+            content={`and we'll help you find them`}
             styleClasses='text-xl md:text-2xl xl:text-5xl font-bold'
           />
         </div>
