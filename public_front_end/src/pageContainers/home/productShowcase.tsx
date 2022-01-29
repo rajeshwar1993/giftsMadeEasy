@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense } from 'react';
 import { Button, SectionTitle } from '../../components';
 import ProductListItemMini from '../../components/Reusable/ProductListItem/listItemMini';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
@@ -32,11 +32,13 @@ const ProductShowcase: FC<Props> = ({
           wrapperClasses='pt-8 hidden md:block'
         />
       </div>
+
       <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6'>
         {products.map(p => {
           return <ProductListItemMini {...p} />;
         })}
       </div>
+
       <Button
         text={seeAllTitle || 'See All'}
         link={seeAllLink}

@@ -6,48 +6,20 @@ import GiftsSearchMini from './giftsSearchMini';
 import ProductShowcase from './productShowcase';
 import TrendingSearches from './trendingSearches';
 import makeSearch from '../../common/algolia';
-import { FilterDBKeys } from '../../common/dbKeys';
 import AppConfig from '../../common/appConfig';
 
 const HomePage = () => {
   const [showcaseResults, setShowCaseResults] = useState<{
-    0: Array<ProductListItemType>;
-    1: Array<ProductListItemType>;
-    2: Array<ProductListItemType>;
-  }>({ 0: [], 1: [], 2: [] });
+    [key: number]: Array<ProductListItemType>;
+  }>({});
 
-  const fetchAllShowcaseResults = async () => {
+  const fetchAllShowcaseResults = async (showCaseList: Array<any>) => {
     try {
-      let promises = [];
+      let promises: any = [];
 
-      promises.push(
-        makeSearch(
-          {
-            // TODO correct the queries
-            [FilterDBKeys.occasion]: 'b'
-          },
-          { hitsPerPage: 6 }
-        )
-      );
-
-      promises.push(
-        makeSearch(
-          {
-            // TODO correct the queries
-            [FilterDBKeys.relationship]: 'br'
-          },
-          { hitsPerPage: 6 }
-        )
-      );
-
-      promises.push(
-        makeSearch(
-          {
-            // TODO correct the queries
-          },
-          { hitsPerPage: 6 }
-        )
-      );
+      showCaseList.forEach(s => {
+        promises.push(makeSearch(s.queryParams, { hitsPerPage: 6 }));
+      });
 
       let res = await Promise.allSettled(promises);
 
@@ -69,7 +41,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    fetchAllShowcaseResults();
+    fetchAllShowcaseResults(AppConfig.HOME.showcase);
   }, []);
 
   return (
@@ -100,24 +72,17 @@ const HomePage = () => {
         />
       </div>
 
-      <ProductShowcase
-        title={`Popular Birthday Gifts`}
-        seeAllLink='/search'
-        products={showcaseResults[0]}
-        seeAllTitle={`Find all Birthday gifts`}
-      />
-      <ProductShowcase
-        title='Popular Gifts for Brothers'
-        seeAllLink='/search'
-        products={showcaseResults[1]}
-        seeAllTitle={'Find all gifts for Brothers'}
-      />
-      <ProductShowcase
-        title='Top Selling gifts'
-        seeAllLink='/search'
-        products={showcaseResults[2]}
-        seeAllTitle={'Find all top selling gifts'}
-      />
+      {AppConfig.HOME.showcase.map((show, i) => {
+        return (
+          <ProductShowcase
+            key={i}
+            title={show.title}
+            seeAllLink={show.seeAllLink}
+            products={showcaseResults[i]}
+            seeAllTitle={show.seeAllTitle}
+          />
+        );
+      })}
 
       <div>
         <TrendingSearches />
