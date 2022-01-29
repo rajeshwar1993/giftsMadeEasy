@@ -5,6 +5,7 @@ import {
   doc,
   updateDoc
 } from 'firebase/firestore';
+import App from 'next/app';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import AppConfig from '../../common/appConfig';
@@ -98,10 +99,16 @@ const ProductPage: FC<Props> = ({ product }) => {
             <div className='flex flex-col justify-start space-y-4'>
               <div className='flex flex-row space-x-8 items-end'>
                 <div className='flex flex-col space-y-1'>
-                  <Text
-                    content={'MRP: ' + product.ogPrice}
-                    styleClasses='text-xl font-light line-through'
-                  />
+                  <div>
+                    <Text
+                      content={`${AppConfig.PRODUCT.mrpLabel} `}
+                      styleClasses='text-xl font-light '
+                    />
+                    <Text
+                      content={`${product.ogPrice}`}
+                      styleClasses='text-xl font-light line-through'
+                    />
+                  </div>
 
                   <SectionTitle content={`${product.price}*`} />
                 </div>
@@ -129,7 +136,7 @@ const ProductPage: FC<Props> = ({ product }) => {
                 <div>
                   <Text
                     styleClasses='text-lg'
-                    content={'Ideal for gifing your'}
+                    content={AppConfig.PRODUCT.relTagTitle}
                   />
                   <div className='flex flex-wrap mt-1'>
                     {product.relationshipTags.map(r => (
@@ -148,7 +155,7 @@ const ProductPage: FC<Props> = ({ product }) => {
                 <div>
                   <Text
                     styleClasses='text-lg'
-                    content={'Perfect for Age-groups'}
+                    content={AppConfig.PRODUCT.ageGrpTagTitle}
                   />
                   <div className='flex flex-wrap mt-1'>
                     {product.ageTags.map(r => (
@@ -167,7 +174,7 @@ const ProductPage: FC<Props> = ({ product }) => {
                 <div>
                   <Text
                     styleClasses='text-lg'
-                    content={'Best suited for occasions like'}
+                    content={AppConfig.PRODUCT.occasiontagTitle}
                   />
                   <div className='flex flex-wrap mt-1'>
                     {product.occasionTags.map(r => (
@@ -186,7 +193,7 @@ const ProductPage: FC<Props> = ({ product }) => {
                 <div>
                   <Text
                     styleClasses='text-lg'
-                    content={'Loved by people interested in'}
+                    content={AppConfig.PRODUCT.interestedTagTitle}
                   />
                   <div className='flex flex-wrap mt-1'>
                     {product.interestTags.map(r => (
@@ -207,7 +214,10 @@ const ProductPage: FC<Props> = ({ product }) => {
           </div>
           <div className='flex flex-col xl:flex-row space-y-4 xl:space-y-0 xl:spaxe-x-8'>
             <div className='flex-1'>
-              <SectionTitle content='Overview' styleClasses='!text-3xl' />
+              <SectionTitle
+                content={AppConfig.PRODUCT.overviewLabel}
+                styleClasses='!text-3xl'
+              />
               <table className='table-auto'>
                 <tbody>
                   {product.overviewPoints.map((op, i) => (
@@ -220,7 +230,10 @@ const ProductPage: FC<Props> = ({ product }) => {
               </table>
             </div>
             <div className='flex-1'>
-              <SectionTitle content='Features' styleClasses='!text-3xl' />
+              <SectionTitle
+                content={AppConfig.PRODUCT.featuresLabel}
+                styleClasses='!text-3xl'
+              />
               <ul className='list-disc list-inside'>
                 {product.featureList.map((fl, i) => (
                   <li key={i}>
@@ -232,9 +245,7 @@ const ProductPage: FC<Props> = ({ product }) => {
           </div>
           <Text
             styleClasses='text-xs'
-            content={
-              '* This is an indicative price. Actual prices will be seen after adding to the actual cart.'
-            }
+            content={AppConfig.COMMON.priceDisclaimer}
           />
         </div>
       </div>

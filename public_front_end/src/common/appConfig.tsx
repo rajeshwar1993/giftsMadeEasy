@@ -10,7 +10,9 @@ const AppConfig = {
     genderLabel: 'Gender',
     buyNowLabel: 'Buy Now on Aamzon',
     contact_email: CONTACT_EMAIL,
-    contact_number: CONTACT_NUMBER
+    contact_number: CONTACT_NUMBER,
+    priceDisclaimer:
+      '* This is an indicative price. Actual prices will be seen after adding to the actual cart.'
   },
   COMPONENTS: {
     giftSearchMini: {
@@ -54,17 +56,24 @@ const AppConfig = {
     clearAllLabel: 'clear all',
     filtersLabel: 'Filters',
     interestsLabel: 'Interests',
-    filterByLabel: 'Filter By:',
+    filterByLabel: 'Filter By',
     upcommingFestivalsLabel: 'Upcoming Festivals',
-    priceDisclaimer:
-      '* This is an indicative price. Actual prices will be seen after adding to the actual cart.',
+
     noResultsMessage:
       'Oops, we found no products matching your search. Please clear the filters and try again :)',
     btnApplyLabel: 'Apply',
     btnCancelLabel: 'Cancel'
   },
 
-  PRODUCT: {}
+  PRODUCT: {
+    mrpLabel: 'MRP',
+    relTagTitle: 'Ideal for gifing your',
+    ageGrpTagTitle: 'Perfect for Age-groups',
+    occasiontagTitle: 'Best suited for occasions like',
+    interestedTagTitle: 'Loved by people interested in',
+    overviewLabel: 'Overview',
+    featuresLabel: 'Features'
+  }
 };
 
 export default AppConfig;

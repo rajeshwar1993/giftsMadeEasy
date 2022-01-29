@@ -27,7 +27,7 @@ const ProductListing: FC<Props> = ({ results, loading }) => {
       {results.length > 0 && (
         <Text
           styleClasses='text-xs'
-          content={AppConfig.SEARCH.priceDisclaimer}
+          content={AppConfig.COMMON.priceDisclaimer}
         />
       )}
       {results.length === 0 && (
