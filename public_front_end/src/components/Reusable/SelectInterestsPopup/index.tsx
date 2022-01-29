@@ -79,7 +79,11 @@ const SelectInterestsPopup: FC<Props> = ({
     interestFilterValues.forEach((value, key) => {
       if (value.parent === chosenInterest) {
         currentGroupInterests.push(key);
-        interestOptions.push({ text: value.name, value: key });
+        interestOptions.push({
+          text: value.name,
+          value: key,
+          desc: value.desc
+        });
       }
     });
 
@@ -88,7 +92,6 @@ const SelectInterestsPopup: FC<Props> = ({
         filterKey={ProductDBKeys.interestTags}
         checkList={interestOptions}
         selected={selectedList}
-        gridOverride={''}
         onChangeHandler={(
           filterKey,
           updatedValues,
@@ -147,11 +150,11 @@ const SelectInterestsPopup: FC<Props> = ({
             }}
           />
         </Dialog.Title>
-        <div className='m-2 flex flex-col'>
+        <div className='flex flex-col'>
           {/* Main Options */}
 
           <div
-            className={`grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-2 xl:gap-x-8 mt-12 ${
+            className={`grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-2 xl:gap-x-8 mt-8 ${
               !!chosenInterest ? 'hidden' : ''
             }`}
           >
@@ -160,7 +163,7 @@ const SelectInterestsPopup: FC<Props> = ({
 
           {/* Sub Interests */}
 
-          <div className={`${!chosenInterest && 'hidden'}`}>
+          <div className={`${!chosenInterest && 'hidden'} mt-4`}>
             <Button
               icon={{
                 iconName: 'ArrowBack'
@@ -170,7 +173,7 @@ const SelectInterestsPopup: FC<Props> = ({
               defautStyle='cust-btn-link'
               onClick={() => updateChosenInterest(null)}
             />
-            <div className='mt-12'>
+            <div className='mt-8'>
               {!!chosenInterest && showInterestOptions(chosenInterest)}
             </div>
           </div>

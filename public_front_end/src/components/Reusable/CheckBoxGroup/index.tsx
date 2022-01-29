@@ -5,6 +5,7 @@ import { TextType } from '../Text/type';
 export interface CheckListOption {
   text: string;
   value: string;
+  desc?: string;
 }
 
 type Props = {
@@ -80,9 +81,11 @@ const CheckBoxGroup: FC<Props> = ({
           styleClasses={`font-semibold ${title.styleClasses}`}
         />
       )}
-      <div className={`grid grid-cols-2 md:grid-cols-1 gap-2 ${gridOverride}`}>
+      <div
+        className={`grid grid-cols-2 place-items-start md:grid-cols-2 gap-2 ${gridOverride}`}
+      >
         {showSelectAll && (
-          <div className='form-check mt-2 ml-2 flex col-span-2 mx-auto '>
+          <div className='mt-2 ml-2 flex col-span-2 mx-auto '>
             <input
               className='form-check-input appearance-none h-5 w-5 border-2 border-skin-inverted rounded-sm bg-skin-fill checked:bg-skin-inverted checked:border-skin-inverted focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
               type='checkbox'
@@ -93,18 +96,18 @@ const CheckBoxGroup: FC<Props> = ({
               name={'select_all'}
             />
             <label
-              className='form-check-label inline-block text-skin-primary text-lg font-bold'
+              className='form-check-label inline-block text-skin-primary text-lg font-bold cursor-pointer'
               htmlFor={`sa_${filterKey}`}
             >
               <Text
-                styleClasses='text-base lg:text-lg  cursor-pointer'
+                styleClasses='text-base md:text-lg lg:text-lg'
                 content={'Select All'}
               />
             </label>
           </div>
         )}
         {checkList.map((cl, i) => (
-          <div key={i} className='form-check mt-2 ml-2 flex items-center'>
+          <div key={i} className='mt-2 ml-2 flex items-start'>
             <input
               className='form-check-input appearance-none h-5 w-5 border-2 border-skin-inverted rounded-sm bg-skin-fill checked:bg-skin-inverted checked:border-skin-inverted focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
               type='checkbox'
@@ -115,10 +118,16 @@ const CheckBoxGroup: FC<Props> = ({
               name={cl.text}
             />
             <label
-              className='form-check-label inline-block text-skin-primary text-lg  cursor-pointer'
+              className='form-check-label inline-block text-skin-primary text-lg cursor-pointer'
               htmlFor={cl.text}
             >
-              <Text styleClasses='text-sm lg:text-lg' content={cl.text} />
+              <div className='flex flex-col'>
+                <Text
+                  styleClasses={`text-sm md:text-base lg:text-lg font-semibold`}
+                  content={cl.text}
+                />
+                {cl.desc && <Text styleClasses='text-xs' content={cl.desc} />}
+              </div>
             </label>
           </div>
         ))}
