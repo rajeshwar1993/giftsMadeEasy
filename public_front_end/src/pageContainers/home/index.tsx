@@ -7,10 +7,7 @@ import ProductShowcase from './productShowcase';
 import TrendingSearches from './trendingSearches';
 import makeSearch from '../../common/algolia';
 import { FilterDBKeys } from '../../common/dbKeys';
-import {
-  occasionFilterValues,
-  relationshipFilterValues
-} from '../../common/staticFilterValues';
+import AppConfig from '../../common/appConfig';
 
 const HomePage = () => {
   const [showcaseResults, setShowCaseResults] = useState<{
@@ -82,11 +79,11 @@ const HomePage = () => {
         <div className='w-full md:w-2/3 xl:w-3/4 md:mt-0 flex flex-col items-start'>
           <Text
             tag='h1'
-            content='give gifts that matter'
+            content={AppConfig.HOME.hL1}
             styleClasses='text-7xl md:text-8xl xl:text-9xl font-extrabold'
           />
           <Text
-            content={`and we'll help you find them`}
+            content={AppConfig.HOME.hL1}
             styleClasses='text-xl md:text-2xl xl:text-5xl font-bold'
           />
         </div>
@@ -98,7 +95,7 @@ const HomePage = () => {
       <div className='mx-auto max-w-7xl'>
         <Text
           tag='h2'
-          content={`We <em>Curate</em> and <em>Categorize</em> the top rated gifting products from trusted websites like <strong>Amazon</strong>, making this the one-stop destination for all your gifting needs! `}
+          content={AppConfig.HOME.aboutLine}
           styleClasses='text-xl md:text-2xl xl:text-3xl text-center'
         />
       </div>

@@ -7,6 +7,7 @@ import {
 } from 'firebase/firestore';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
+import AppConfig from '../../common/appConfig';
 import { FS_USER_DB } from '../../common/constants';
 import { UserDBKeys } from '../../common/dbKeys';
 import {
@@ -118,7 +119,7 @@ const ProductPage: FC<Props> = ({ product }) => {
                   iconName: 'LinkUrl',
                   size: '26'
                 }}
-                text='Buy Now on Amazon'
+                text={AppConfig.COMMON.buyNowLabel}
                 link={product.affiliateUrl}
                 target='_blank'
                 styleClasses='text-xl w-full'

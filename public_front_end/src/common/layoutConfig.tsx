@@ -140,8 +140,8 @@ export const layoutConfig: LayoutConfigType = {
       }
     ],
     contactInfo: {
-      email: AppConfig.INFO.contact_email,
-      phone: AppConfig.INFO.contact_number
+      email: AppConfig.COMMON.contact_email,
+      phone: AppConfig.COMMON.contact_number
     }
   }
 };

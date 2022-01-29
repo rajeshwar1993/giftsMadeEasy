@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
+import AppConfig from '../../../common/appConfig';
 import { classNames } from '../../../common/utils';
 import { Button, ImageComponent, Text } from '../../../components';
 import { RootState } from '../../../redux/store';
@@ -62,7 +63,7 @@ const ProductListItem: FC<Props> = ({ t, p, ogp, piu, r, path, au }) => {
             icon={{
               iconName: 'LinkUrl'
             }}
-            text='Buy Now on Amazon'
+            text={AppConfig.COMMON.buyNowLabel}
             link={au || path}
             target='_blank'
           />
