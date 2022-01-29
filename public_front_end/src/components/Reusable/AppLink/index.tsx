@@ -33,7 +33,7 @@ const AppLink: FC<Props> = ({
     <div className={`${wrapperClasses}`}>
       <Link href={link}>
         <span
-          className={`relative py-0.5 font-semibold transition duration-200 ease-in-out cursor-pointer flex justify-center items-center border-b-2 border-skin-accent border-opacity-10 hover:border-opacity-90 ${styleClasses} 
+          className={`relative py-0.5 font-semibold transition duration-200 ease-in-out cursor-pointer flex justify-center items-center underline underline-offset-[6px] decoration-accent-soft decoration-[2px] hover:decoration-accent ${styleClasses} 
         ${
           disabled || loading
             ? 'opacity-50 !cursor-default hover:bg-skin-fill hover:text-skin-primary'

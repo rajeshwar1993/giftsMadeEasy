@@ -6,6 +6,7 @@
   :root {
     /* Define colors */
     --accent: 91,33,182;
+    --accent-soft: 233,213,255;
     --accent-border: 15, 23, 42;
     --accent-hover: 221,214,254;
     --white: 255, 255, 255;

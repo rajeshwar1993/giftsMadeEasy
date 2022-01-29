@@ -68,5 +68,11 @@ export enum ProductStatus {
 
 export enum InterestGroups {
   Electronics = 1,
-  ToysAndGames = 2
+  ToysGamesAndSports = 2,
+  NaturalAndHandMade = 3,
+  HomeDecorAndKitchen = 4,
+  ArtAndCreativity = 5,
+  ClothesFashionFootwear = 6,
+  BeautyAndSelfGrooming = 7,
+  BooksComicsAndDiaries = 8
 }

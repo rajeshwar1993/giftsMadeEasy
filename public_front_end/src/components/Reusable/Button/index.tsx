@@ -42,7 +42,7 @@ const Button: FC<Props> = ({
         }}
         className={`relative py-0.5 font-semibold transition duration-200 ease-in-out cursor-pointer flex justify-center items-center ${styleClasses} ${
           defautStyle === 'cust-btn-link'
-            ? 'border-b-2 border-skin-accent border-opacity-10 hover:border-opacity-90'
+            ? 'underline underline-offset-[6px] decoration-accent-soft decoration-[2px] hover:decoration-accent'
             : 'px-4 border-2 rounded-md border-skin-inverted hover:bg-skin-fill-accent-hover hover:text-skin-primary'
         }
         ${activated ? '!bg-skin-inverted !text-skin-inverted' : ''}

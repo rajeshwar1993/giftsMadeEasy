@@ -97,7 +97,7 @@ const CheckBoxGroup: FC<Props> = ({
               htmlFor={`sa_${filterKey}`}
             >
               <Text
-                styleClasses='text-base lg:text-lg'
+                styleClasses='text-base lg:text-lg  cursor-pointer'
                 content={'Select All'}
               />
             </label>
@@ -115,7 +115,7 @@ const CheckBoxGroup: FC<Props> = ({
               name={cl.text}
             />
             <label
-              className='form-check-label inline-block text-skin-primary text-lg'
+              className='form-check-label inline-block text-skin-primary text-lg  cursor-pointer'
               htmlFor={cl.text}
             >
               <Text styleClasses='text-sm lg:text-lg' content={cl.text} />

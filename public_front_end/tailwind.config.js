@@ -11,6 +11,11 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      colors: {
+        accent: withOpacity('--accent'),
+        'accent-soft': withOpacity('--accent-soft')
+      },
+
       textColor: {
         skin: {
           primary: withOpacity('--color-text-primary'),

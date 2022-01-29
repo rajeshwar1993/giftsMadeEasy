@@ -41,7 +41,15 @@ export const occasionFilterValues = new Map<string, string>();
 occasionFilterValues.set('b', 'Birthday');
 occasionFilterValues.set('a', 'Anniversary');
 occasionFilterValues.set('w', 'Wedding');
+occasionFilterValues.set('e', 'Engagement');
+occasionFilterValues.set('bs', 'Baby Shower');
+occasionFilterValues.set('g', 'Graduation');
+occasionFilterValues.set('p', 'Promotion');
+occasionFilterValues.set('f', 'Farewell');
 occasionFilterValues.set('hw', 'House Warming');
+occasionFilterValues.set('ce', 'Casual Event');
+occasionFilterValues.set('brh', 'Bridal Shower');
+occasionFilterValues.set('bch', 'Bachelor/Bachelorette');
 
 // Festival
 export const festivalilterValues = new Map<string, string>();
@@ -51,68 +59,131 @@ festivalilterValues.set('loh', 'Lohri');
 festivalilterValues.set('rpd', 'Republic Day');
 festivalilterValues.set('vd', `Valentine's Day`);
 festivalilterValues.set('holi', `Holi`);
+festivalilterValues.set('nav', `Navratri`);
+festivalilterValues.set('dur', `Durga Puja`);
+festivalilterValues.set('dus', `Dussehra`);
+festivalilterValues.set('eid', `Eid`);
+festivalilterValues.set('gan', `Ganesh Chaturthi`);
+festivalilterValues.set('ch', `Christmas`);
+festivalilterValues.set('dw', `Diwali`);
+festivalilterValues.set('on', `Onam`);
+festivalilterValues.set('bai', `Baisakhi`);
+festivalilterValues.set('eas', `Easter`);
+festivalilterValues.set('hal', `Halloween`);
 
 // Interest Groups
 export const interestGroupMap = new Map<number, string>();
 
-interestGroupMap.set(InterestGroups.Electronics, 'Electronics');
-interestGroupMap.set(InterestGroups.ToysAndGames, 'Toys and Games');
+interestGroupMap.set(InterestGroups.Electronics, 'Electronics & Gadgets');
+interestGroupMap.set(InterestGroups.ToysGamesAndSports, 'Toys, Games & Sports');
+interestGroupMap.set(InterestGroups.NaturalAndHandMade, 'Natural & Hand Made');
+interestGroupMap.set(
+  InterestGroups.HomeDecorAndKitchen,
+  'Home Decor and Kitchen'
+);
+interestGroupMap.set(InterestGroups.ArtAndCreativity, 'Art and Creativity');
+interestGroupMap.set(
+  InterestGroups.ClothesFashionFootwear,
+  'Clothes, Fashion and Footwear'
+);
+interestGroupMap.set(
+  InterestGroups.BeautyAndSelfGrooming,
+  'Beauty and Self Grooming'
+);
+interestGroupMap.set(
+  InterestGroups.BooksComicsAndDiaries,
+  'Books, Comics and Diary'
+);
 
 // Interests
 export const interestFilterValues = new Map<
   string,
-  { name: string; parent: number }
+  { name: string; parent: number; desc?: string }
 >();
 
 // Electronics
+interestFilterValues.set('bfgeg', {
+  name: 'Best for Gifting',
+  parent: InterestGroups.Electronics,
+  desc: 'Our top choice of gadgets best for gifting.'
+});
+
 interestFilterValues.set('smph', {
   name: 'Smartphones',
   parent: InterestGroups.Electronics
 });
+
 interestFilterValues.set('lpt', {
-  name: 'Laptops',
-  parent: InterestGroups.Electronics
+  name: 'Laptops & Accessories',
+  parent: InterestGroups.Electronics,
+  desc: 'Laptops, Desktops and computing peripherals.'
 });
+
 interestFilterValues.set('tab', {
   name: 'Tablets',
   parent: InterestGroups.Electronics
 });
-interestFilterValues.set('tv', {
-  name: 'Television',
+
+interestFilterValues.set('camac', {
+  name: 'Cameras & Accessories',
+  parent: InterestGroups.Electronics,
+  desc: 'Cameras, stands, gimbals, camera lights and more.'
+});
+
+interestFilterValues.set('spear', {
+  name: 'Spreakers & Earphones',
   parent: InterestGroups.Electronics
+});
+
+interestFilterValues.set('wede', {
+  name: 'Wearable Devices',
+  parent: InterestGroups.Electronics,
+  desc: 'Smartwatches, fitness trackers and more.'
+});
+
+interestFilterValues.set('smhd', {
+  name: 'Smart Home Devices',
+  parent: InterestGroups.Electronics,
+  desc: 'Smart bulbs, smart switches, speakers and so much more.'
+});
+
+interestFilterValues.set('gmac', {
+  name: 'Gaming & Accessories',
+  parent: InterestGroups.Electronics,
+  desc: 'Latest games, controllers, monitors and more.'
 });
 
 // Toys and Games
 interestFilterValues.set('rct', {
   name: 'Radio Controlled Toys',
-  parent: InterestGroups.ToysAndGames
+  parent: InterestGroups.ToysGamesAndSports
 });
 interestFilterValues.set('edt', {
   name: 'Educational Toys',
-  parent: InterestGroups.ToysAndGames
+  parent: InterestGroups.ToysGamesAndSports
 });
 interestFilterValues.set('odg', {
   name: 'Outdoor Games',
-  parent: InterestGroups.ToysAndGames
+  parent: InterestGroups.ToysGamesAndSports
 });
 interestFilterValues.set('pbg', {
   name: 'Puzzles And Brain Games',
-  parent: InterestGroups.ToysAndGames
+  parent: InterestGroups.ToysGamesAndSports
 });
 interestFilterValues.set('daf', {
   name: 'Dolls and Action Figures',
-  parent: InterestGroups.ToysAndGames
+  parent: InterestGroups.ToysGamesAndSports
 });
 
 interestFilterValues.set('brdg', {
   name: 'Board Games',
-  parent: InterestGroups.ToysAndGames
+  parent: InterestGroups.ToysGamesAndSports
 });
 interestFilterValues.set('cg', {
   name: 'Card Games',
-  parent: InterestGroups.ToysAndGames
+  parent: InterestGroups.ToysGamesAndSports
 });
 interestFilterValues.set('aot', {
   name: 'All Other Toys',
-  parent: InterestGroups.ToysAndGames
+  parent: InterestGroups.ToysGamesAndSports
 });

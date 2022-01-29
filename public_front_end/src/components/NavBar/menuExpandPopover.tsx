@@ -24,7 +24,7 @@ const MenuPopover: FC<Props> = ({
           <Popover.Button
             className={`
                 ${open ? 'border-opacity-90' : ''}
-                mx-2 py-0.5 px-2 font-semibold border-b-2 border-skin-accent border-opacity-10 hover:border-opacity-90 cursor-pointer`}
+                mx-2 py-0.5 px-2 font-semibold underline underline-offset-[6px] decoration-accent-soft decoration-[2px] hover:decoration-accent cursor-pointer`}
           >
             <span>{buttonText}</span>
           </Popover.Button>
