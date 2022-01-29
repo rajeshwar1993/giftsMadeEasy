@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { FC, Fragment } from 'react';
+import AppConfig from '../../common/appConfig';
 import { Button } from '../../components';
 
 type Props = {
@@ -54,13 +55,13 @@ const MobileFilters: FC<Props> = ({
                 wrapperClasses='p-2 rounded-md inline-flex text-skin-primary w-full'
                 styleClasses=' !px-2 text-lg w-full'
                 onClick={onClose}
-                text='Cancel'
+                text={AppConfig.SEARCH.btnCancelLabel}
               />
               <Button
                 wrapperClasses='p-2 rounded-md inline-flex text-skin-primary w-full'
                 styleClasses=' !px-2 text-lg w-full'
                 onClick={applyMobileFilters}
-                text='Apply'
+                text={AppConfig.SEARCH.btnApplyLabel}
               />
             </div>
           </div>

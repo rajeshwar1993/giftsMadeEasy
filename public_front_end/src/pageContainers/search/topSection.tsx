@@ -5,6 +5,7 @@ import CountUp from 'react-countup';
 import SelectInterestsPopup from '../../components/Reusable/SelectInterestsPopup';
 import Filter from '../../models/Filter';
 import ShowSelectedInterests from './showSelectedInterests';
+import AppConfig from '../../common/appConfig';
 
 type Props = {
   filterValues: Filter;
@@ -52,7 +53,7 @@ const SearchTopSection: FC<Props> = ({
     <>
       <SectionTitle
         wrapperClasses='text-center lg:hidden'
-        content='Find the perfect gift'
+        content={AppConfig.SEARCH.headLine}
         styleClasses=''
       />
       <div className='lg:hidden flex flex-col items-center justify-center space-y-2 px-4 py-4'>
@@ -70,10 +71,13 @@ const SearchTopSection: FC<Props> = ({
               </div>
             )}
           </CountUp>
-          <Text content={'items found'} styleClasses='text-xs' />
+          <Text
+            content={AppConfig.SEARCH.itemsFoundLabel}
+            styleClasses='text-xs'
+          />
         </div>
         <Button
-          text={`clear all`}
+          text={AppConfig.SEARCH.clearAllLabel}
           defautStyle='cust-btn-link'
           styleClasses='text-sm'
           onClick={handleClearFilters}
@@ -82,7 +86,9 @@ const SearchTopSection: FC<Props> = ({
       <div className='lg:hidden flex justify-between space-x-8 sticky top-[62px] z-10  bg-skin-fill py-4 border-b-2 border-skin-primary border-opacity-70'>
         <div className='flex flex-col items-center space-y-2 w-full'>
           <Button
-            text={`Filters${filterCount ? ` (${filterCount})` : ''}`}
+            text={`${AppConfig.SEARCH.filtersLabel} ${
+              filterCount ? ` (${filterCount})` : ''
+            }`}
             wrapperClasses='w-full'
             styleClasses='text-base w-full'
             onClick={openMobileFilter}
@@ -90,7 +96,7 @@ const SearchTopSection: FC<Props> = ({
           />
           {filterCount > 0 && (
             <Button
-              text='clear filters'
+              text={`clear ${AppConfig.SEARCH.filtersLabel.toLowerCase()}`}
               defautStyle='cust-btn-link'
               styleClasses='text-xs'
               onClick={() => handleClearFilters(true)}
@@ -99,7 +105,7 @@ const SearchTopSection: FC<Props> = ({
         </div>
         <div className='flex flex-col items-center space-y-2 w-full'>
           <Button
-            text={`Interests ${
+            text={`${AppConfig.SEARCH.interestsLabel} ${
               values[FilterDBKeys.interests]!.length
                 ? ` (${values[FilterDBKeys.interests]!.length})`
                 : ''
@@ -111,7 +117,7 @@ const SearchTopSection: FC<Props> = ({
           />{' '}
           {values[FilterDBKeys.interests]!.length !== 0 && (
             <Button
-              text='clear interests'
+              text={`clear ${AppConfig.SEARCH.interestsLabel.toLowerCase()}`}
               defautStyle='cust-btn-link'
               styleClasses='text-xs'
               onClick={() => updateInterestsToParent([])}
@@ -125,12 +131,12 @@ const SearchTopSection: FC<Props> = ({
             <div className='lg:w-5/6 xl:w-11/12'>
               <SectionTitle
                 wrapperClasses='lg:text-left !mb-10'
-                content='Find the perfect gift'
+                content={AppConfig.SEARCH.headLine}
               />
               <div className='flex flex-col items-start'>
                 <div className='flex space-x-2 items-start'>
                   <Button
-                    text={`Filter By Interests${
+                    text={`Filter By ${AppConfig.SEARCH.interestsLabel} ${
                       values[FilterDBKeys.interests]!.length
                         ? ` (${values[FilterDBKeys.interests]!.length})`
                         : ''
@@ -142,7 +148,7 @@ const SearchTopSection: FC<Props> = ({
                   />
                   {values[FilterDBKeys.interests]!.length !== 0 && (
                     <Button
-                      text='clear interests'
+                      text={`clear ${AppConfig.SEARCH.interestsLabel.toLowerCase()}`}
                       defautStyle='cust-btn-link'
                       styleClasses='text-xs'
                       onClick={() => updateInterestsToParent([])}
@@ -182,10 +188,13 @@ const SearchTopSection: FC<Props> = ({
                   )}
                 </CountUp>
 
-                <Text content={'items found'} styleClasses='text-xs' />
+                <Text
+                  content={AppConfig.SEARCH.itemsFoundLabel}
+                  styleClasses='text-xs'
+                />
               </div>
               <Button
-                text={`clear all`}
+                text={AppConfig.SEARCH.clearAllLabel}
                 defautStyle='cust-btn-link'
                 styleClasses='text-sm'
                 onClick={handleClearFilters}

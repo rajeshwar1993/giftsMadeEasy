@@ -12,6 +12,13 @@ const AppConfig = {
     contact_email: CONTACT_EMAIL,
     contact_number: CONTACT_NUMBER
   },
+  COMPONENTS: {
+    giftSearchMini: {
+      title: 'Quick Search',
+      subtitle: `Two simple choices. It's that easy.`,
+      searchLabel: 'Search'
+    }
+  },
   HOME: {
     hL1: 'give gifts that matter',
     hL2: `and we'll help you find them`,
@@ -41,7 +48,22 @@ const AppConfig = {
       }
     ]
   },
-  SEARCH: {},
+  SEARCH: {
+    headLine: 'Find the perfect gift',
+    itemsFoundLabel: 'items found',
+    clearAllLabel: 'clear all',
+    filtersLabel: 'Filters',
+    interestsLabel: 'Interests',
+    filterByLabel: 'Filter By:',
+    upcommingFestivalsLabel: 'Upcoming Festivals',
+    priceDisclaimer:
+      '* This is an indicative price. Actual prices will be seen after adding to the actual cart.',
+    noResultsMessage:
+      'Oops, we found no products matching your search. Please clear the filters and try again :)',
+    btnApplyLabel: 'Apply',
+    btnCancelLabel: 'Cancel'
+  },
+
   PRODUCT: {}
 };
 

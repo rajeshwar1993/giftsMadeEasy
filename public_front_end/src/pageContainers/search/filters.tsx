@@ -20,6 +20,7 @@ import {
   occasionFilterValues,
   relationshipFilterValues
 } from '../../common/staticFilterValues';
+import AppConfig from '../../common/appConfig';
 
 type Props = {
   filterValues: Filter;
@@ -59,7 +60,10 @@ const Filters: FC<Props> = ({
       <aside className='w-1/5 pr-2 hidden lg:block p-4 '>
         <div className='sticky top-16'>
           <div className='mb-4'>
-            <Text content='Filter By:' styleClasses='font-semibold' />
+            <Text
+              content={AppConfig.SEARCH.filterByLabel}
+              styleClasses='font-semibold'
+            />
           </div>
           <FilterBody
             values={values}
@@ -102,16 +106,16 @@ const FilterBody: FC<FilterBodyProp> = ({
       <div className='mb-8'>
         <ListBoxComp
           filterKey={FilterDBKeys.relationship}
-          title={{ content: 'Relationship' }}
+          title={{ content: AppConfig.COMMON.relationshipLabel }}
           selectedOption={getOptionFromValue(
             relationshipFilterValues,
             values[FilterDBKeys.relationship],
-            'Relationship'
+            AppConfig.COMMON.relationshipLabel
           )}
           onSelected={updateListValues}
           options={createListboxOptions(
             relationshipFilterValues,
-            'Relationship'
+            AppConfig.COMMON.relationshipLabel
           )}
         />
       </div>
@@ -119,20 +123,23 @@ const FilterBody: FC<FilterBodyProp> = ({
       <div className='mb-8'>
         <ListBoxComp
           filterKey={FilterDBKeys.ageGrp}
-          title={{ content: 'Age Group' }}
+          title={{ content: AppConfig.COMMON.ageGroupLabel }}
           selectedOption={getOptionFromValue(
             ageGrpFilterValues,
             values[FilterDBKeys.ageGrp],
-            'Age Group'
+            AppConfig.COMMON.ageGroupLabel
           )}
           onSelected={updateListValues}
-          options={createListboxOptions(ageGrpFilterValues, 'Age Group')}
+          options={createListboxOptions(
+            ageGrpFilterValues,
+            AppConfig.COMMON.ageGroupLabel
+          )}
         />
       </div>
       {/* Upcomming festivals Filter */}
       <div className='mb-8'>
         <CheckBoxGroup
-          title={{ content: 'Upcoming Festivals' }}
+          title={{ content: AppConfig.SEARCH.upcommingFestivalsLabel }}
           filterKey={FilterDBKeys.festivals}
           checkList={[
             {
@@ -156,20 +163,23 @@ const FilterBody: FC<FilterBodyProp> = ({
       <div className='mb-8'>
         <ListBoxComp
           filterKey={FilterDBKeys.occasion}
-          title={{ content: 'Occasion' }}
+          title={{ content: AppConfig.COMMON.occasionLabel }}
           selectedOption={getOptionFromValue(
             occasionFilterValues,
             values[FilterDBKeys.occasion],
-            'Occasion'
+            AppConfig.COMMON.occasionLabel
           )}
           onSelected={updateListValues}
-          options={createListboxOptions(occasionFilterValues, 'Occasion')}
+          options={createListboxOptions(
+            occasionFilterValues,
+            AppConfig.COMMON.occasionLabel
+          )}
         />
       </div>
       {/* Gender Filter */}
       <div className='mb-8'>
         <CheckBoxGroup
-          title={{ content: 'Gender' }}
+          title={{ content: AppConfig.COMMON.genderLabel }}
           filterKey={FilterDBKeys.gender}
           checkList={[
             { text: 'Female', value: Gender.Female },
