@@ -37,7 +37,11 @@ const MenuPopover: FC<Props> = ({
             leaveFrom='opacity-100 translate-y-0'
             leaveTo='opacity-0 -translate-y-4'
           >
-            <Popover.Panel className='absolute w-max z-10 py-2 sm:px-0 '>
+            <Popover.Panel
+              className={`absolute ${
+                buttonText === 'Interests' && '-left-32'
+              } w-max z-10 py-2 sm:px-0`}
+            >
               {({ close }) => (
                 <div className='overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5'>
                   <div

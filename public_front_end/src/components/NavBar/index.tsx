@@ -64,10 +64,10 @@ const NavBar: FC<Props> = ({ config }) => {
   }, [user]);
 
   return (
-    <header className='sticky bg-skin-fill top-0 z-10'>
+    <header className='sticky bg-skin-fill top-0 z-20 opacity-95'>
       <nav
         aria-label='Top'
-        className='bg-skin-fill-card text-skin-primary mx-auto p-2 xl:px-8 w-full'
+        className='bg-skin-fill text-skin-primary mx-auto p-2 xl:px-8 w-full shadow-sm opacity-95'
       >
         <div className='relative flex justify-between items-center xl:text-base text-sm text-md'>
           {/* Left Section */}

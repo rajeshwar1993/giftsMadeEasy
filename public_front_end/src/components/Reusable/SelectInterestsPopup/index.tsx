@@ -154,7 +154,7 @@ const SelectInterestsPopup: FC<Props> = ({
           {/* Main Options */}
 
           <div
-            className={`grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-2 xl:gap-x-8 mt-8 ${
+            className={`grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 md:gap-x-8 md:gap-y-12 mt-8 ${
               !!chosenInterest ? 'hidden' : ''
             }`}
           >
