@@ -18,7 +18,7 @@ type Props = {
     currentValue: string,
     isChecked: boolean
   ) => void;
-  flexOverride?: string;
+  gridOverride?: string;
   showSelectAll?: boolean;
 };
 
@@ -28,7 +28,7 @@ const CheckBoxGroup: FC<Props> = ({
   filterKey,
   selected,
   onChangeHandler,
-  flexOverride,
+  gridOverride,
   showSelectAll = false
 }) => {
   const [selectAllValue, setSelectAllValue] = useState(false);
@@ -80,7 +80,7 @@ const CheckBoxGroup: FC<Props> = ({
           styleClasses={`font-semibold ${title.styleClasses}`}
         />
       )}
-      <div className={`grid grid-cols-2 md:grid-cols-1 gap-2 ${flexOverride}`}>
+      <div className={`grid grid-cols-2 md:grid-cols-1 gap-2 ${gridOverride}`}>
         {showSelectAll && (
           <div className='form-check mt-2 ml-2 flex col-span-2 mx-auto '>
             <input

@@ -16,4 +16,5 @@ export interface ButtonType {
   id?: string;
   loading?: boolean;
   target?: '_self' | '_blank';
+  iconPos?: 'before' | 'after';
 }

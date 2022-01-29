@@ -56,10 +56,14 @@ const SelectInterestsPopup: FC<Props> = ({
     interestGroupMap.forEach((val, key) => {
       groupButtons.push(
         <Button
+          icon={{
+            iconName: 'ArrowForward'
+          }}
+          iconPos='after'
           key={key}
           text={val}
           defautStyle='cust-btn-link'
-          styleClasses='w-fit m-auto'
+          styleClasses='w-fit'
           wrapperClasses=''
           onClick={() => updateChosenInterest(key)}
         />
@@ -84,6 +88,7 @@ const SelectInterestsPopup: FC<Props> = ({
         filterKey={ProductDBKeys.interestTags}
         checkList={interestOptions}
         selected={selectedList}
+        gridOverride={''}
         onChangeHandler={(
           filterKey,
           updatedValues,
@@ -146,7 +151,7 @@ const SelectInterestsPopup: FC<Props> = ({
           {/* Main Options */}
 
           <div
-            className={`grid grid-cols-2 gap-y-8 gap-x-2 xl:gap-x-8 mt-12 ${
+            className={`grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-2 xl:gap-x-8 mt-12 ${
               !!chosenInterest ? 'hidden' : ''
             }`}
           >

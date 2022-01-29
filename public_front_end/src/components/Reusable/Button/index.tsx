@@ -20,6 +20,7 @@ const Button: FC<Props> = ({
   disabled = false,
   loading = false,
   target = '_self',
+  iconPos = 'before',
   ...props
 }) => {
   const router = useRouter();
@@ -60,9 +61,23 @@ const Button: FC<Props> = ({
             size={icon?.size || '20'}
           />
         )}
-        {icon && !loading && <Icon {...icon} size={icon.size || '20'} />}
-        {(icon || loading) && text && !showOnlyIcon && <div className='w-2' />}
+        {iconPos === 'before' && (
+          <>
+            {icon && !loading && <Icon {...icon} size={icon.size || '20'} />}
+            {(icon || loading) && text && !showOnlyIcon && (
+              <div className='w-2' />
+            )}
+          </>
+        )}
         {text && !showOnlyIcon && <span>{text}</span>}
+        {iconPos === 'after' && (
+          <>
+            {(icon || loading) && text && !showOnlyIcon && (
+              <div className='w-2' />
+            )}
+            {icon && !loading && <Icon {...icon} size={icon.size || '20'} />}
+          </>
+        )}
         {topScript !== 0 && topScript !== '' && (
           <span className='flex absolute -top-1 -right-1 h-4 w-4 text-xs text-skin-inverted '>
             <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-skin-inverted opacity-75'></span>

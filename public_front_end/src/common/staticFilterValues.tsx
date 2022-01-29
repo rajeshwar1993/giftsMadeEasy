@@ -33,7 +33,7 @@ ageGrpFilterValues.set('S', 'Settled (33-40)');
 ageGrpFilterValues.set('FS', 'Financially Settled (41-50)');
 ageGrpFilterValues.set('AR', 'Approaching Retirement (51-60)');
 ageGrpFilterValues.set('R', 'Retired (61-70)');
-ageGrpFilterValues.set('W', 'Wisdom (71 and above)');
+ageGrpFilterValues.set('W', 'Wisdom (71 & above)');
 
 // Occasion
 export const occasionFilterValues = new Map<string, string>();
@@ -79,20 +79,20 @@ interestGroupMap.set(InterestGroups.ToysGamesAndSports, 'Toys, Games & Sports');
 interestGroupMap.set(InterestGroups.NaturalAndHandMade, 'Natural & Hand Made');
 interestGroupMap.set(
   InterestGroups.HomeDecorAndKitchen,
-  'Home Decor and Kitchen'
+  'Home Decor & Kitchen'
 );
-interestGroupMap.set(InterestGroups.ArtAndCreativity, 'Art and Creativity');
+interestGroupMap.set(InterestGroups.ArtAndCreativity, 'Art & Creativity');
 interestGroupMap.set(
   InterestGroups.ClothesFashionFootwear,
-  'Clothes, Fashion and Footwear'
+  'Clothes, Fashion & Footwear'
 );
 interestGroupMap.set(
   InterestGroups.BeautyAndSelfGrooming,
-  'Beauty and Self Grooming'
+  'Beauty & Self Grooming'
 );
 interestGroupMap.set(
   InterestGroups.BooksComicsAndDiaries,
-  'Books, Comics and Diary'
+  'Books, Comics & Diary'
 );
 
 // Interests
@@ -116,7 +116,7 @@ interestFilterValues.set('smph', {
 interestFilterValues.set('lpt', {
   name: 'Laptops & Accessories',
   parent: InterestGroups.Electronics,
-  desc: 'Laptops, Desktops and computing peripherals.'
+  desc: 'Laptops, Desktops & computing peripherals.'
 });
 
 interestFilterValues.set('tab', {
@@ -127,7 +127,7 @@ interestFilterValues.set('tab', {
 interestFilterValues.set('camac', {
   name: 'Cameras & Accessories',
   parent: InterestGroups.Electronics,
-  desc: 'Cameras, stands, gimbals, camera lights and more.'
+  desc: 'Cameras, stands, gimbals, camera lights & more.'
 });
 
 interestFilterValues.set('spear', {
@@ -138,22 +138,22 @@ interestFilterValues.set('spear', {
 interestFilterValues.set('wede', {
   name: 'Wearable Devices',
   parent: InterestGroups.Electronics,
-  desc: 'Smartwatches, fitness trackers and more.'
+  desc: 'Smartwatches, fitness trackers & more.'
 });
 
 interestFilterValues.set('smhd', {
   name: 'Smart Home Devices',
   parent: InterestGroups.Electronics,
-  desc: 'Smart bulbs, smart switches, speakers and so much more.'
+  desc: 'Smart bulbs, smart switches, speakers & so much more.'
 });
 
 interestFilterValues.set('gmac', {
   name: 'Gaming & Accessories',
   parent: InterestGroups.Electronics,
-  desc: 'Latest games, controllers, monitors and more.'
+  desc: 'Latest games, controllers, monitors & more.'
 });
 
-// Toys and Games
+// Toys & Games
 interestFilterValues.set('rct', {
   name: 'Radio Controlled Toys',
   parent: InterestGroups.ToysGamesAndSports
@@ -167,11 +167,11 @@ interestFilterValues.set('odg', {
   parent: InterestGroups.ToysGamesAndSports
 });
 interestFilterValues.set('pbg', {
-  name: 'Puzzles And Brain Games',
+  name: 'Puzzles & Brain Games',
   parent: InterestGroups.ToysGamesAndSports
 });
 interestFilterValues.set('daf', {
-  name: 'Dolls and Action Figures',
+  name: 'Dolls & Action Figures',
   parent: InterestGroups.ToysGamesAndSports
 });
 
