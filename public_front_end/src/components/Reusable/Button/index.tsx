@@ -26,51 +26,6 @@ const Button: FC<Props> = ({
 
   return (
     <div className={`${wrapperClasses}`}>
-      {/* {link && (
-        <span
-          onClick={() => {
-            console.log('Handle some chnage');
-          }}
-        >
-          <Link href={link}>
-            <span
-              className={`relative py-0.5 font-semibold transition duration-200 ease-in-out cursor-pointer flex justify-center items-center ${styleClasses} ${
-                defautStyle === 'cust-btn-link'
-                  ? 'border-b-2 border-skin-accent border-opacity-10 hover:border-opacity-90'
-                  : 'px-4 border-2 rounded-md border-skin-inverted hover:bg-skin-fill-accent-hover'
-              }
-        ${activated ? 'bg-skin-inverted text-skin-inverted' : ''}
-        ${
-          disabled || loading
-            ? 'opacity-50 !cursor-default hover:bg-skin-fill hover:text-skin-primary'
-            : ''
-        }`}
-            >
-              {loading && (
-                <Icon
-                  styleClasses='animate-spin'
-                  iconName='Spinner'
-                  size={icon?.size || '20'}
-                />
-              )}
-              {icon && !loading && <Icon {...icon} size={icon.size || '20'} />}
-              {(icon || loading) && text && !showOnlyIcon && (
-                <div className='w-2' />
-              )}
-              {text && !showOnlyIcon && <span>{text}</span>}
-              {topScript !== 0 && topScript !== '' && (
-                <span className='flex absolute -top-1 -right-1 h-4 w-4 text-xs text-skin-inverted '>
-                  <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-skin-inverted opacity-75'></span>
-                  <span className='relative rounded-full h-4 w-4 bg-skin-inverted'>
-                    {topScript}
-                  </span>
-                </span>
-              )}
-            </span>
-          </Link>
-        </span>
-      )} */}
-
       <button
         {...props}
         disabled={disabled || loading}

@@ -15,6 +15,7 @@ import { NotificationDBKeys } from '../../common/dbKeys';
 import { app_toggle_isSigupOpen } from '../../redux/appCommon';
 import { ButtonType } from '../Reusable/Button/type';
 import MenuPopover from './menuExpandPopover';
+import AppLink from '../Reusable/AppLink';
 type Props = {
   config: NavConfig;
 };
@@ -94,10 +95,10 @@ const NavBar: FC<Props> = ({ config }) => {
                 if (item.type === 'link') {
                   let data = item.data as ButtonType;
                   return (
-                    <Button
+                    <AppLink
                       key={i}
-                      {...data}
-                      defautStyle='cust-btn-link'
+                      text={data.text || ''}
+                      link={data.link || '#'}
                       styleClasses='mx-2 px-2'
                     />
                   );

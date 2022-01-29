@@ -1,5 +1,6 @@
-import React, { FC, Suspense } from 'react';
-import { Button, SectionTitle } from '../../components';
+import React, { FC } from 'react';
+import { SectionTitle } from '../../components';
+import AppLink from '../../components/Reusable/AppLink';
 import ProductListItemMini from '../../components/Reusable/ProductListItem/listItemMini';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
 
@@ -24,25 +25,24 @@ const ProductShowcase: FC<Props> = ({
           wrapperClasses='mb-0'
           styleClasses='text-2xl '
         />
-        <Button
+        <AppLink
           text={seeAllTitle || 'See All'}
           link={seeAllLink}
-          defautStyle='cust-btn-link'
           styleClasses='text-sm'
           wrapperClasses='pt-8 hidden md:block'
         />
       </div>
 
       <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6'>
-        {products.map(p => {
-          return <ProductListItemMini {...p} />;
-        })}
+        {products &&
+          products.map(p => {
+            return <ProductListItemMini {...p} />;
+          })}
       </div>
 
-      <Button
+      <AppLink
         text={seeAllTitle || 'See All'}
         link={seeAllLink}
-        defautStyle='cust-btn-link'
         styleClasses=''
         wrapperClasses='pt-8 md:hidden'
       />
