@@ -38,7 +38,10 @@ const GiftsSearchMini = () => {
   };
 
   return (
-    <div className='flex flex-col justify-center items-start w-full'>
+    <div
+      className='flex flex-col justify-center items-start w-full'
+      data-testid='quickSearchContainer'
+    >
       <SectionTitle
         content={AppConfig.COMPONENTS.giftSearchMini.title}
         tag='span'
@@ -46,6 +49,7 @@ const GiftsSearchMini = () => {
       <Text content={AppConfig.COMPONENTS.giftSearchMini.subtitle} />
       <div className='my-2 flex items-center w-full'>
         <ListBoxComp
+          dataTestId='relFilterMini'
           filterKey={FilterDBKeys.relationship}
           buttonStyleClasses='text-lg xl:text-xl'
           selectedOption={searchParams[FilterDBKeys.relationship]}
@@ -58,6 +62,7 @@ const GiftsSearchMini = () => {
       </div>
       <div className='my-2 flex items-center w-full'>
         <ListBoxComp
+          dataTestId='ageFilterMini'
           filterKey={FilterDBKeys.ageGrp}
           buttonStyleClasses='text-lg xl:text-xl'
           selectedOption={searchParams[FilterDBKeys.ageGrp]}

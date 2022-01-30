@@ -41,6 +41,7 @@ const MenuPopover: FC<Props> = ({
               className={`absolute ${
                 buttonText === 'Interests' && '-left-32'
               } w-max z-10 py-2 sm:px-0`}
+              data-testid={'navPopover'}
             >
               {({ close }) => (
                 <div className='overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5'>

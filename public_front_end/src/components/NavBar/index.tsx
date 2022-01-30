@@ -64,10 +64,10 @@ const NavBar: FC<Props> = ({ config }) => {
   }, [user]);
 
   return (
-    <header className='sticky bg-skin-fill top-0 z-20 opacity-95'>
+    <header className='sticky bg-skin-fill top-0 z-20 opacity-[0.99]'>
       <nav
         aria-label='Top'
-        className='bg-skin-fill text-skin-primary mx-auto p-2 xl:px-8 w-full shadow-sm opacity-95'
+        className='bg-skin-fill text-skin-primary mx-auto p-2 xl:px-8 w-full shadow-sm opacity-[0.99]'
       >
         <div className='relative flex justify-between items-center xl:text-base text-sm text-md'>
           {/* Left Section */}
@@ -80,7 +80,7 @@ const NavBar: FC<Props> = ({ config }) => {
             >
               <Icon iconName='Menu' />
             </button>
-            <div className='cursor-pointer w-[15%]'>
+            <div className='cursor-pointer w-[15%]' data-testid='navLogo'>
               <span className='sr-only'>{config.title}</span>
               <Link href={'/'}>
                 <img

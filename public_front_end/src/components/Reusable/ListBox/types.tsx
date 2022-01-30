@@ -13,4 +13,5 @@ export interface ListBoxType {
   onSelected: (value: ListBoxOption, filterKey: string) => void;
   buttonStyleClasses?: string;
   optionsStyleClasses?: string;
+  dataTestId?: string;
 }

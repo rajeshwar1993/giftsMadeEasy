@@ -13,7 +13,8 @@ const ListBoxComp: FC<Props> = ({
   selectedOption = { name: 'DEFAULT', value: DEFAULT_LIST_VALUE },
   onSelected,
   buttonStyleClasses = '',
-  optionsStyleClasses = ''
+  optionsStyleClasses = '',
+  dataTestId = ''
 }) => {
   return (
     <Listbox value={selectedOption} onChange={so => onSelected(so, filterKey)}>
@@ -42,7 +43,7 @@ const ListBoxComp: FC<Props> = ({
           )}
         </div>
       )}
-      <div className='relative mt-1 w-full'>
+      <div className='relative mt-1 w-full' data-testid={dataTestId}>
         <Listbox.Button
           name={filterKey}
           id={filterKey}
