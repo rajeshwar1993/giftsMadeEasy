@@ -1,50 +1,11 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { Text } from '../../components';
-import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
-
 import GiftsSearchMini from './giftsSearchMini';
 import ProductShowcase from './productShowcase';
 import TrendingSearches from './trendingSearches';
-import makeSearch from '../../common/algolia';
-import AppConfig from '../../common/appConfig';
 import { HomePageData } from '../../pages';
 
 const HomePage: FC<HomePageData> = ({ headLines, productShowcase }) => {
-  // const [showcaseResults, setShowCaseResults] = useState<{
-  //   [key: number]: Array<ProductListItemType>;
-  // }>({});
-
-  // const fetchAllShowcaseResults = async (showCaseList: Array<any>) => {
-  //   try {
-  //     let promises: any = [];
-
-  //     showCaseList.forEach(s => {
-  //       promises.push(makeSearch(s.queryParams, { hitsPerPage: 6 }));
-  //     });
-
-  //     let res = await Promise.allSettled(promises);
-
-  //     res.forEach((r: any, i) => {
-  //       if (r && r.status === 'fulfilled') {
-  //         const hits = r.value.hits as Array<ProductListItemType>;
-  //         setShowCaseResults(state => {
-  //           return {
-  //             ...state,
-  //             [i]: hits
-  //           };
-  //         });
-  //       }
-  //     });
-  //   } catch (e) {
-  //     // TODO handle error
-  //     console.log(e);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchAllShowcaseResults(AppConfig.HOME.showcase);
-  // }, []);
-
   return (
     <div className='text-base flex flex-col space-y-16'>
       <article className='flex flex-col justify-start items-center space-y-8 md:flex-row md:items-center md:space-x-12 md:space-y-0'>

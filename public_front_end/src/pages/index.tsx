@@ -1,4 +1,4 @@
-import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
+import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 
 import { HeaderType } from '../common/types';
 import { HomePage } from '../pageContainers';
@@ -7,7 +7,6 @@ import AppConfig from '../common/appConfig';
 import { Props as ProductShowcaseType } from '../pageContainers/home/productShowcase';
 import makeSearch from '../common/algolia';
 import { ProductListItemType } from '../components/Reusable/ProductListItem/type';
-import { analytics } from '../firebase';
 
 const Home = ({
   headerData,
