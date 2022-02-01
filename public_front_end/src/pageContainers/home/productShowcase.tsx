@@ -4,12 +4,12 @@ import AppLink from '../../components/Reusable/AppLink';
 import ProductListItemMini from '../../components/Reusable/ProductListItem/listItemMini';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
 
-type Props = {
+export interface Props {
   title: string;
   seeAllLink: string;
   products: Array<ProductListItemType>;
   seeAllTitle?: string;
-};
+}
 
 const ProductShowcase: FC<Props> = ({
   title,
@@ -18,12 +18,13 @@ const ProductShowcase: FC<Props> = ({
   seeAllTitle
 }) => {
   return (
-    <div className='flex flex-col space-y-4'>
+    <article className='flex flex-col space-y-4'>
       <div className='flex flex-row justify-between items-end'>
         <SectionTitle
           content={title}
           wrapperClasses='mb-0'
           styleClasses='text-2xl '
+          tag='h2'
         />
         <AppLink
           text={seeAllTitle || 'See All'}
@@ -46,7 +47,7 @@ const ProductShowcase: FC<Props> = ({
         styleClasses=''
         wrapperClasses='pt-8 md:hidden'
       />
-    </div>
+    </article>
   );
 };
 
