@@ -1,4 +1,10 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type {
+  GetServerSideProps,
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+  NextPage
+} from 'next';
 import Head from 'next/head';
 
 import { ProfilePage } from '../../pageContainers';
@@ -9,12 +15,10 @@ import { FS_USER_DB } from '../../common/constants';
 import { ParsedUrlQuery } from 'querystring';
 import { convertUserJsonToObj } from '../../models/User';
 
-interface Props {
-  headerData: HeaderType;
-  pageData: any;
-}
-
-const UserProfile: NextPage<Props> = ({ headerData, pageData }) => {
+const UserProfile = ({
+  headerData,
+  pageData
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   let user = convertUserJsonToObj(pageData, pageData.uid);
   return (
     <div>
@@ -28,18 +32,30 @@ const UserProfile: NextPage<Props> = ({ headerData, pageData }) => {
   );
 };
 
+interface Props {
+  headerData: HeaderType;
+  pageData: any;
+}
 interface Params extends ParsedUrlQuery {
   userId: string;
 }
 
-export const getServerSideProps: GetServerSideProps<
-  Props,
-  Params
-> = async context => {
-  // must be async
-  let { userId } = context.params!;
+export const getStaticPaths: GetStaticPaths = async () => {
+  // TODO - fetch some user profiles, or none and let it create on the fly
 
-  let headerData, pageData;
+  return {
+    paths: [],
+    fallback: true
+  };
+};
+
+export const getStaticProps: GetStaticProps<Props, Params> = async ({
+  params
+}) => {
+  // must be async
+  let { userId } = params!;
+
+  let headerData: any, pageData;
 
   const docRef = doc(db, FS_USER_DB, userId);
   const userSnap = await getDoc(docRef);
