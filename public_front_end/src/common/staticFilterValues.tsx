@@ -81,7 +81,7 @@ interestGroupMap.set(
   InterestGroups.HomeKitchenLiving,
   'Home, Kitchen & Living'
 );
-interestGroupMap.set(InterestGroups.ArtMusicCulture, 'Art & Creativity');
+interestGroupMap.set(InterestGroups.ArtMusicMovies, 'Art & Creativity');
 interestGroupMap.set(
   InterestGroups.ClothesFashionFootwear,
   'Clothes, Fashion & Footwear'
@@ -240,12 +240,7 @@ interestFilterValues.set('khl_ctgl', {
 });
 
 interestFilterValues.set('khl_spdi', {
-  name: 'Showpices & Display Items',
-  parent: InterestGroups.HomeKitchenLiving
-});
-
-interestFilterValues.set('khl_flvs', {
-  name: 'Flowers & Vase',
+  name: 'Showpiece & Display Items',
   parent: InterestGroups.HomeKitchenLiving
 });
 
@@ -269,50 +264,45 @@ interestFilterValues.set('khl_btpd', {
   parent: InterestGroups.HomeKitchenLiving
 });
 
-interestFilterValues.set('khl_bthp', {
-  name: 'Bath Products',
-  parent: InterestGroups.HomeKitchenLiving
-});
-
 interestFilterValues.set('khl_rafg', {
   name: 'Room Ambiance & Fragrance',
   parent: InterestGroups.HomeKitchenLiving
 });
 
-// Art, Music & Culture
+interestFilterValues.set('khl_glgt', {
+  name: 'Good Luck Gifts',
+  parent: InterestGroups.HomeKitchenLiving
+});
+
+// Art, Music & Movies
 interestFilterValues.set('amc_clasp', {
   name: 'Color and Art Supplies',
-  parent: InterestGroups.ArtMusicCulture
+  parent: InterestGroups.ArtMusicMovies
 });
 
 interestFilterValues.set('amc_ptng', {
   name: 'Paintings',
-  parent: InterestGroups.ArtMusicCulture
+  parent: InterestGroups.ArtMusicMovies
 });
 
 interestFilterValues.set('amc_ptcl', {
   name: 'Pottery & Clay',
-  parent: InterestGroups.ArtMusicCulture
+  parent: InterestGroups.ArtMusicMovies
 });
 
 interestFilterValues.set('amc_mlint', {
   name: 'Musical Instruments',
-  parent: InterestGroups.ArtMusicCulture
+  parent: InterestGroups.ArtMusicMovies
 });
 
 interestFilterValues.set('amc_mpvn', {
   name: 'Music Players & Vinyls',
-  parent: InterestGroups.ArtMusicCulture
+  parent: InterestGroups.ArtMusicMovies
 });
 
-interestFilterValues.set('amc_glgt', {
-  name: 'Good Luck Gifts',
-  parent: InterestGroups.ArtMusicCulture
-});
-
-interestFilterValues.set('amc_indec', {
-  name: 'Indian Decor',
-  parent: InterestGroups.ArtMusicCulture
+interestFilterValues.set('amc_bah', {
+  name: 'Bollywood & Hollywood',
+  parent: InterestGroups.ArtMusicMovies
 });
 
 // Books, Comics & Planners
