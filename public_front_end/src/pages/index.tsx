@@ -50,7 +50,6 @@ type Props = {
 
 export const getStaticProps: GetStaticProps<Props> = async context => {
   // must be async
-  console.log(context);
 
   // setting header data
   // TODO set proper content

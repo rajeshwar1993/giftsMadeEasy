@@ -1,20 +1,55 @@
-import type { NextPage } from 'next';
-import Head from 'next/head';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { NextSeo } from 'next-seo';
+import AppConfig from '../../common/appConfig';
+import { HeaderType } from '../../common/types';
 
-import { PageProps as Props } from '../../common/types';
 import { SearchPage } from '../../pageContainers';
 
-const Search: NextPage<Props> = () => {
+const Search = () => {
   return (
     <div>
-      <Head>
-        <title>Gifts Made Easy</title>
-        <meta name='description' content={'Meta description'} />
-        <link rel='icon' href={'/favicon.ico'} />
-      </Head>
+      <NextSeo
+        title={AppConfig.HOME.headerData.title}
+        canonical={''}
+        description={AppConfig.HOME.aboutLine}
+        openGraph={{
+          url: '',
+          title: AppConfig.HOME.headerData.title,
+          description: AppConfig.HOME.aboutLine,
+          images: []
+        }}
+      />
       <SearchPage />
     </div>
   );
 };
+
+// export interface Props {
+//   headerData: HeaderType;
+// }
+
+// export const getServerSideProps: GetServerSideProps<Props> = async context => {
+//   // must be async
+//   console.log('context:', context.query);
+
+//   // setting header data
+//   // TODO set proper content
+//   let headerData: HeaderType = {
+//     title: AppConfig.HOME.headerData.title,
+//     canonical: '',
+//     meta: {
+//       desc: AppConfig.HOME.aboutLine,
+//       og: {
+//         title: AppConfig.HOME.headerData.title,
+//         description: AppConfig.HOME.aboutLine,
+//         images: [],
+//         url: ''
+//       }
+//     }
+//   };
+//   return {
+//     props: { headerData }
+//   };
+// };
 
 export default Search;
