@@ -5,22 +5,14 @@ import {
   doc,
   updateDoc
 } from 'firebase/firestore';
-import App from 'next/app';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import AppConfig from '../../common/appConfig';
 import { FS_USER_DB } from '../../common/constants';
 import { UserDBKeys } from '../../common/dbKeys';
-import {
-  relationshipFilterValues,
-  ageGrpFilterValues,
-  occasionFilterValues,
-  interestFilterValues
-} from '../../common/staticFilterValues';
 import { Button, Icon, SectionTitle, Text } from '../../components';
 import Chip from '../../components/Reusable/Chip';
 import { db } from '../../firebase';
-import useWindowSize from '../../hooks/useWindowSize';
 import Prodcut from '../../models/Product';
 import { app_toggle_isSigupOpen } from '../../redux/appCommon';
 import { RootState, useAppDispatch } from '../../redux/store';
@@ -77,7 +69,7 @@ const ProductPage: FC<Props> = ({ product }) => {
   };
 
   return (
-    <section>
+    <div>
       <div className='flex flex-col space-y-6 lg:flex-row lg:space-x-12 lg:space-y-0'>
         {/* Product Image */}
         <div>
@@ -97,7 +89,7 @@ const ProductPage: FC<Props> = ({ product }) => {
 
           <div className='flex flex-col xl:flex-row space-y-8 xl:space-x-24 xl:space-y-0'>
             <div className='flex flex-col justify-start space-y-4'>
-              <div className='flex flex-row space-x-8 items-end'>
+              <article className='flex flex-row space-x-8 items-end'>
                 <div className='flex flex-col space-y-1'>
                   <div>
                     <Text
@@ -119,7 +111,7 @@ const ProductPage: FC<Props> = ({ product }) => {
                     styleClasses='text-4xl font-light'
                   />
                 </div>
-              </div>
+              </article>
 
               <Button
                 icon={{
@@ -139,84 +131,88 @@ const ProductPage: FC<Props> = ({ product }) => {
                     content={AppConfig.PRODUCT.relTagTitle}
                   />
                   <div className='flex flex-wrap mt-1'>
-                    {product.relationshipTags.map(r => (
+                    {product.relationshipTags.map((r, i) => (
                       <Chip
-                        key={r}
+                        key={i}
                         editMode={false}
                         id={r}
                         text={{
-                          content: relationshipFilterValues.get(r) || '',
+                          content: r,
                           styleClasses: ''
                         }}
                       />
                     ))}
                   </div>
                 </div>
-                <div>
+                <details>
                   <Text
                     styleClasses='text-lg'
                     content={AppConfig.PRODUCT.ageGrpTagTitle}
+                    tag='summary'
                   />
                   <div className='flex flex-wrap mt-1'>
-                    {product.ageTags.map(r => (
+                    {product.ageTags.map((r, i) => (
                       <Chip
-                        key={r}
+                        key={i}
                         editMode={false}
                         id={r}
                         text={{
-                          content: ageGrpFilterValues.get(r) || '',
+                          content: r,
                           styleClasses: ''
                         }}
                       />
                     ))}
                   </div>
-                </div>
-                <div>
+                </details>
+                <details>
                   <Text
                     styleClasses='text-lg'
                     content={AppConfig.PRODUCT.occasiontagTitle}
+                    tag='summary'
                   />
                   <div className='flex flex-wrap mt-1'>
-                    {product.occasionTags.map(r => (
+                    {product.occasionTags.map((r, i) => (
                       <Chip
-                        key={r}
+                        key={i}
                         editMode={false}
                         id={r}
                         text={{
-                          content: occasionFilterValues.get(r) || '',
+                          content: r,
                           styleClasses: ''
                         }}
                       />
                     ))}
                   </div>
-                </div>
-                <div>
+                </details>
+                <details>
                   <Text
                     styleClasses='text-lg'
                     content={AppConfig.PRODUCT.interestedTagTitle}
+                    tag='summary'
                   />
                   <div className='flex flex-wrap mt-1'>
-                    {product.interestTags.map(r => (
+                    {product.interestTags.map((r, i) => (
                       <Chip
-                        key={r}
+                        key={i}
                         editMode={false}
                         id={r}
                         text={{
-                          content: interestFilterValues.get(r)?.name || '',
+                          content: r,
                           styleClasses: ''
                         }}
                       />
                     ))}
                   </div>
-                </div>
+                </details>
               </div>
             </div>
           </div>
           <div className='flex flex-col xl:flex-row space-y-4 xl:space-y-0 xl:spaxe-x-8'>
-            <div className='flex-1'>
+            <details className='flex-1'>
               <SectionTitle
                 content={AppConfig.PRODUCT.overviewLabel}
                 styleClasses='!text-3xl'
+                tag='summary'
               />
               <table className='table-auto'>
                 <tbody>
@@ -228,11 +224,12 @@ const ProductPage: FC<Props> = ({ product }) => {
                   ))}
                 </tbody>
               </table>
-            </div>
-            <div className='flex-1'>
+            </details>
+            <details className='flex-1'>
               <SectionTitle
                 content={AppConfig.PRODUCT.featuresLabel}
                 styleClasses='!text-3xl'
+                tag='summary'
               />
               <ul className='list-disc list-inside'>
                 {product.featureList.map((fl, i) => (
@@ -241,7 +238,7 @@ const ProductPage: FC<Props> = ({ product }) => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </details>
           </div>
           <Text
             styleClasses='text-xs'
@@ -249,7 +246,7 @@ const ProductPage: FC<Props> = ({ product }) => {
           />
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
