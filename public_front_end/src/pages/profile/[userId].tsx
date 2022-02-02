@@ -19,6 +19,10 @@ const UserProfile = ({
   headerData,
   pageData
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  console.log(pageData);
+  if (!pageData || !pageData.uid) {
+    return <h1>Loading...</h1>;
+  }
   let user = convertUserJsonToObj(pageData, pageData.uid);
   return (
     <div>
@@ -44,7 +48,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // TODO - fetch some user profiles, or none and let it create on the fly
 
   return {
-    paths: [],
+    paths: [
+      {
+        params: {
+          userId: 'WryJ8RBhpZYlV5UgITKTqe2xpkx2'
+        }
+      }
+    ],
     fallback: true
   };
 };
