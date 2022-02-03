@@ -1,7 +1,10 @@
 import algoliasearch from 'algoliasearch/lite';
 
 // TODO move the keys to env variables
-const client = algoliasearch('VDPXQ68UV2', '5c05851e956ce5d09efcb79d40f4f024');
+const client = algoliasearch(
+  process.env.NEXT_PUBLIC_ALGOLIA_PROJECT_ID || '',
+  process.env.NEXT_PUBLIC_ALGOLIA_PROJECT_SECRET || ''
+);
 const index = client.initIndex('products');
 
 const createFilters = (filterObj: any) => {

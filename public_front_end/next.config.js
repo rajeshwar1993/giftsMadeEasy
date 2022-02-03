@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: true
+});
+
+module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   images: {
     domains: ['m.media-amazon.com', 'firebasestorage.googleapis.com']
   }
-};
+});

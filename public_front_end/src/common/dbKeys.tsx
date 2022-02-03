@@ -26,7 +26,7 @@ export const FilterDBKeys = {
   festivals: 'ft'
 };
 
-export const ProductDBKeys = {
+export const ProductDBKeys: { [key: string]: string } = {
   apid: 'apid',
   desc: 'd',
   title: 't',

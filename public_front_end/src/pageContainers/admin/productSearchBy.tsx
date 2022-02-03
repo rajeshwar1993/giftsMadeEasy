@@ -88,7 +88,7 @@ const ProductSearchBy: FC<Props> = ({
       <form onSubmit={fetchProductsByValue} className='flex flex-row space-x-4'>
         <select id='productkey' defaultValue={''} required>
           <option value={''}>Select Key</option>
-          {Object.keys(ProductDBKeys).map((p: any, i) => {
+          {Object.keys(ProductDBKeys).map((p, i) => {
             return (
               <option key={i} value={ProductDBKeys[p]}>
                 {p}

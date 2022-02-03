@@ -34,7 +34,7 @@ const ProfileGlance: FC<Props> = ({ data }) => {
             content={
               'My ' +
               getOptionFromValue(relationshipFilterValues, data.relation, '')
-                .name
+                .text
             }
             tag='h3'
             styleClasses='text-lg font-light'

@@ -21,11 +21,11 @@ const GiftsSearchMini = () => {
 
   const [searchParams, updateSearchParams] = useState({
     [FilterDBKeys.relationship]: {
-      name: AppConfig.COMMON.relationshipLabel,
+      text: AppConfig.COMMON.relationshipLabel,
       value: DEFAULT_LIST_VALUE
     },
     [FilterDBKeys.ageGrp]: {
-      name: AppConfig.COMMON.ageGroupLabel,
+      text: AppConfig.COMMON.ageGroupLabel,
       value: DEFAULT_LIST_VALUE
     }
   });

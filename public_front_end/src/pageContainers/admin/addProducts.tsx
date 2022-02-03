@@ -131,7 +131,11 @@ const AddProductContainer = () => {
       </form>
       <div>
         <SectionTitle content='New Items' />
-        <ProductsTable products={newProducts} />
+        <ProductsTable
+          products={newProducts}
+          selectedProduct={null}
+          setSelectedProduct={() => {}}
+        />
       </div>
     </section>
   );

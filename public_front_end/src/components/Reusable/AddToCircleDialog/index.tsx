@@ -13,7 +13,6 @@ import {
   FilterDBKeys,
   UserDBKeys
 } from '../../../common/dbKeys';
-import DataConfig from '../../../common/componentConfig';
 import {
   collection,
   doc,
@@ -52,7 +51,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
 
   const [loading, setLoading] = useState(false);
   const [relVal, setRelVal] = useState({
-    name: 'Relationship',
+    text: 'Relationship',
     value: DEFAULT_LIST_VALUE
   });
 
@@ -130,7 +129,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
   const closeModal = () => {
     setModalUser(null);
     setRelVal({
-      name: 'Relationship',
+      text: 'Relationship',
       value: DEFAULT_LIST_VALUE
     });
     onClose();
