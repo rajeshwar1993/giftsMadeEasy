@@ -37,7 +37,7 @@ const ProductShowcase: FC<Props> = ({
       <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6'>
         {products &&
           products.map(p => {
-            return <ProductListItemMini {...p} />;
+            return <ProductListItemMini {...p} key={p.objectID} />;
           })}
       </div>
 
