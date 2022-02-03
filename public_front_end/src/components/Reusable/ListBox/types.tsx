@@ -1,7 +1,7 @@
 import { TextType } from '../../../components/Reusable/Text/type';
 
 export interface ListBoxOption {
-  name: string;
+  text: string;
   value: string;
 }
 

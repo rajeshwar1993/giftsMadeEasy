@@ -6,10 +6,10 @@ export const createListboxOptions = (
   dataObj: Map<string, string>,
   defaultValue: string
 ) => {
-  let options = [{ name: defaultValue, value: DEFAULT_LIST_VALUE }];
+  let options = [{ text: defaultValue, value: DEFAULT_LIST_VALUE }];
 
   dataObj.forEach((value, key) => {
-    options.push({ name: value, value: key });
+    options.push({ text: value, value: key });
   });
 
   return options;
@@ -20,12 +20,12 @@ export const getOptionFromValue = (
   key: any,
   defaultName: string
 ) => {
-  let option: ListBoxOption = { name: defaultName, value: DEFAULT_LIST_VALUE };
+  let option: ListBoxOption = { text: defaultName, value: DEFAULT_LIST_VALUE };
 
   let val = dataObj.get(key);
 
   if (val) {
-    option = { name: val, value: key };
+    option = { text: val, value: key };
   }
 
   return option;

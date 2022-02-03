@@ -1,13 +1,19 @@
 import React, { FC, useState } from 'react';
 import DataConfig from '../../common/componentConfig';
 import { ProductDBKeys } from '../../common/dbKeys';
+import {
+  ageGrpFilterValues,
+  occasionFilterValues,
+  relationshipFilterValues
+} from '../../common/staticFilterValues';
 import { Button, SectionTitle, Text } from '../../components';
 import CheckBoxGroup from '../../components/Reusable/CheckBoxGroup';
-import Chip from '../../components/Reusable/Chip';
+import { createCheckboxOptions } from '../../components/Reusable/CheckBoxGroup/utils';
 import SelectInterestsPopup from '../../components/Reusable/SelectInterestsPopup';
 import { Gender, ProductStatus } from '../../models/enums';
 import Product from '../../models/Product';
 import ImageCarouselSection from '../product/ImageCarouselSection';
+import ShowSelectedInterests from '../search/showSelectedInterests';
 
 type Props = {
   product: Product;
@@ -44,9 +50,12 @@ const ProductEditSection: FC<Props> = ({
           <div className='w-2/5'>
             <ImageCarouselSection images={product.productImgUrls} />
           </div>
-          <div className='w-3/5 flex flex-col space-y-4'>
+          <div className='flex flex-col space-y-4'>
             <SectionTitle content={product.title} styleClasses='!text-3xl' />
             <div className='flex justify-between'>
+              <span>
+                ID: <strong>{product.uid}</strong>
+              </span>
               <span>
                 Amazon ID: <strong>{product.apid}</strong>
               </span>
@@ -69,7 +78,7 @@ const ProductEditSection: FC<Props> = ({
               </span>
             </div>
             <div className='flex space-x-4'>
-              <div className='w-7/12'>
+              <div className='w-9/12'>
                 <strong>Feature List</strong>
                 <ul className='list-disc'>
                   {product.featureList.map((f, i) => (
@@ -77,7 +86,7 @@ const ProductEditSection: FC<Props> = ({
                   ))}
                 </ul>
               </div>
-              <div className='w-5/12'>
+              <div className='w-3/12'>
                 <table className='table-auto'>
                   <strong>Overview points</strong>
                   <tbody>
@@ -94,19 +103,14 @@ const ProductEditSection: FC<Props> = ({
           </div>
         </div>
 
-        <div className='flex flex-row space-x-4'>
+        <div className='grid grid-cols-2 gap-4'>
           <div className='flex flex-col space-x-4 border-2 border-skin-inverted p-2 rounded-lg'>
             <Text content='Relationship Tags' />
             <div className='flex space-x-4'>
               {
                 <CheckBoxGroup
                   filterKey={ProductDBKeys.relationshipTags}
-                  checkList={Object.keys(DataConfig.relationship).map(
-                    (key: any, i) => ({
-                      text: key,
-                      value: DataConfig.relationship[key]
-                    })
-                  )}
+                  checkList={createCheckboxOptions(relationshipFilterValues)}
                   selected={product.relationshipTags}
                   onChangeHandler={onCheckboxClicked}
                   showSelectAll
@@ -120,12 +124,7 @@ const ProductEditSection: FC<Props> = ({
               {
                 <CheckBoxGroup
                   filterKey={ProductDBKeys.ageTags}
-                  checkList={Object.keys(DataConfig.ageGrp).map(
-                    (key: any, i) => ({
-                      text: key,
-                      value: DataConfig.ageGrp[key]
-                    })
-                  )}
+                  checkList={createCheckboxOptions(ageGrpFilterValues)}
                   selected={product.ageTags}
                   onChangeHandler={onCheckboxClicked}
                   showSelectAll
@@ -139,12 +138,7 @@ const ProductEditSection: FC<Props> = ({
               {
                 <CheckBoxGroup
                   filterKey={ProductDBKeys.occasionTags}
-                  checkList={Object.keys(DataConfig.occasion).map(
-                    (key: any, i) => ({
-                      text: key,
-                      value: DataConfig.occasion[key]
-                    })
-                  )}
+                  checkList={createCheckboxOptions(occasionFilterValues)}
                   selected={product.occasionTags}
                   onChangeHandler={onCheckboxClicked}
                   showSelectAll
@@ -152,24 +146,7 @@ const ProductEditSection: FC<Props> = ({
               }
             </div>
           </div>
-          <div className='flex flex-col space-x-4 border-2 border-skin-inverted p-2 rounded-lg'>
-            <Text content='Gender Tags' />
-            <div className='flex space-x-4'>
-              {
-                <CheckBoxGroup
-                  filterKey={ProductDBKeys.genderTags}
-                  checkList={[
-                    { text: 'Female', value: Gender.Female.toString() },
-                    { text: 'Male', value: Gender.Male.toString() }
-                  ]}
-                  selected={product.genderTags.map(g => g.toString())}
-                  onChangeHandler={onCheckboxClicked}
-                  showSelectAll
-                />
-              }
-            </div>
-          </div>
-          <div className='flex flex-col space-x-4 border-2 border-skin-inverted p-2 rounded-lg'>
+          <div className='border-2 border-skin-inverted p-2 rounded-lg'>
             <Button
               text='Add Interests'
               onClick={() => {
@@ -180,45 +157,69 @@ const ProductEditSection: FC<Props> = ({
                 iconName: 'Add'
               }}
             />
-            {product.interestTags.map(int => (
-              <Chip
-                key={int}
+            <div className='flex flex-row flex-wrap space-x-4 mt-2'>
+              <ShowSelectedInterests
+                values={product.interestTags}
                 editMode={true}
-                onCancel={id => {
-                  let dupeInt = [...product.interestTags];
-                  dupeInt = dupeInt.filter(i => i !== id);
-                  onCheckboxClicked(ProductDBKeys.interestTags, dupeInt);
-                }}
-                id={int}
-                text={{
-                  content: int
+                onCancel={newArray => {
+                  onCheckboxClicked(ProductDBKeys.interestTags, newArray);
                 }}
               />
-            ))}
+            </div>
           </div>
         </div>
-        {product.status === ProductStatus.Error && (
-          <>
-            <Button
-              text='Mark For Refetch'
-              onClick={() => updateProductStatus(ProductStatus.FetchPending)}
-              loading={loading}
-            />
-            <Button
-              text='Remove Product'
-              onClick={removeProduct}
-              loading={loading}
-            />
-            <Button
-              text='Mark as Success'
-              onClick={() => updateProductStatus(ProductStatus.FetchSuccess)}
-              loading={loading}
-            />
-          </>
-        )}
-        {product.status === ProductStatus.FetchSuccess && (
+        <div className='flex flex-col space-x-4 border-2 border-skin-inverted p-2 rounded-lg'>
+          <Text content='Gender Tags' />
+          <div className='flex space-x-4'>
+            {
+              <CheckBoxGroup
+                filterKey={ProductDBKeys.genderTags}
+                checkList={[
+                  { text: 'Female', value: Gender.Female.toString() },
+                  { text: 'Male', value: Gender.Male.toString() }
+                ]}
+                selected={product.genderTags.map(g => g.toString())}
+                onChangeHandler={onCheckboxClicked}
+                showSelectAll
+              />
+            }
+          </div>
+        </div>
+        <SectionTitle content={`Status: ${product.status}`} />
+        <div className='flex justify-between'>
           <Button text='Save' onClick={saveProduct} loading={loading} />
-        )}
+
+          <Button
+            text='Mark as Active'
+            onClick={() => updateProductStatus(ProductStatus.Active)}
+            loading={loading}
+          />
+
+          <Button
+            text='Mark as Fetch Success'
+            onClick={() => updateProductStatus(ProductStatus.FetchSuccess)}
+            loading={loading}
+          />
+
+          <Button
+            text='Mark For Refetch'
+            onClick={() => updateProductStatus(ProductStatus.FetchPending)}
+            loading={loading}
+          />
+
+          <Button
+            text='Mark as Error'
+            onClick={() => updateProductStatus(ProductStatus.Error)}
+            loading={loading}
+          />
+
+          <Button
+            text='Delete Product'
+            onClick={removeProduct}
+            loading={loading}
+            disabled={true}
+          />
+        </div>
       </div>
       <SelectInterestsPopup
         open={popupOpen}

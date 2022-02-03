@@ -1,19 +1,19 @@
 import {
   addDoc,
   collection,
-  doc,
   getDocs,
   query,
   serverTimestamp,
   where
 } from 'firebase/firestore';
 import React, { useState } from 'react';
-import { FS_NEW_PRODUCTS_DB, FS_PRODUCTS_DB } from '../../common/constants';
+import { FS_PRODUCTS_DB } from '../../common/constants';
 import { ProductDBKeys } from '../../common/dbKeys';
-import { Button } from '../../components';
+import { Button, SectionTitle, Text } from '../../components';
+import ProductsTable from '../../components/Reusable/ProductsTable';
 import { db } from '../../firebase';
 import { ProductStatus } from '../../models/enums';
-import {
+import Product, {
   convertProductJsonToObj,
   convertProductToJson
 } from '../../models/Product';
@@ -25,6 +25,7 @@ const AddProductContainer = () => {
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(false);
+  const [newProducts, setNewProducts] = useState<Array<Product>>([]);
 
   const submitFormHandler = async (e: any) => {
     e.preventDefault();
@@ -59,18 +60,26 @@ const AddProductContainer = () => {
       }
 
       // call method to store in db
-      colRef = collection(db, FS_NEW_PRODUCTS_DB);
-      await addDoc(colRef, {
+      colRef = collection(db, FS_PRODUCTS_DB);
+      const docRef = await addDoc(colRef, {
         ...convertProductToJson(newProduct),
         [ProductDBKeys.createdTS]: serverTimestamp()
       });
 
       dispatch(
         app_sendToast({
-          message: 'Added successfully.',
+          message: `Added successfully. ID: ${docRef.id}`,
           type: 'info'
         })
       );
+
+      setNewProducts(state => [
+        ...state,
+        {
+          ...newProduct,
+          uid: docRef.id
+        }
+      ]);
 
       // reset form
       e.target.reset();
@@ -82,7 +91,7 @@ const AddProductContainer = () => {
   };
 
   return (
-    <section className=''>
+    <section className='flex flex-col space-y-8'>
       <form onSubmit={submitFormHandler} className='flex space-x-12'>
         <input
           type='url'
@@ -120,6 +129,10 @@ const AddProductContainer = () => {
           loading={loading}
         />
       </form>
+      <div>
+        <SectionTitle content='New Items' />
+        <ProductsTable products={newProducts} />
+      </div>
     </section>
   );
 };

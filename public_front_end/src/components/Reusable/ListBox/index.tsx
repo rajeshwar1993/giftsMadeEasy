@@ -9,8 +9,8 @@ import Button from '../Button';
 const ListBoxComp: FC<Props> = ({
   filterKey,
   title,
-  options = [{ name: 'DEFAULT', value: DEFAULT_LIST_VALUE }],
-  selectedOption = { name: 'DEFAULT', value: DEFAULT_LIST_VALUE },
+  options = [{ text: 'DEFAULT', value: DEFAULT_LIST_VALUE }],
+  selectedOption = { text: 'DEFAULT', value: DEFAULT_LIST_VALUE },
   onSelected,
   buttonStyleClasses = '',
   optionsStyleClasses = '',
@@ -35,7 +35,7 @@ const ListBoxComp: FC<Props> = ({
               styleClasses='text-xs'
               onClick={() =>
                 onSelected(
-                  { name: 'DEFAULT', value: DEFAULT_LIST_VALUE },
+                  { text: 'DEFAULT', value: DEFAULT_LIST_VALUE },
                   filterKey
                 )
               }
@@ -49,7 +49,7 @@ const ListBoxComp: FC<Props> = ({
           id={filterKey}
           className={`relative w-full py-1 md:py-2 pl-3 pr-10 text-left bg-skin-fill text-skin-primary rounded-lg border-2 border-skin-inverted cursor-pointer focus:outline-none focus-visible:ring-3 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm ${buttonStyleClasses}`}
         >
-          <span className='block truncate'>{selectedOption.name}</span>
+          <span className='block truncate'>{selectedOption.text}</span>
           <span className='absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
             <Icon iconName='ExpandMore' size='20' />
           </span>
@@ -89,7 +89,7 @@ const ListBoxComp: FC<Props> = ({
                         } block truncate`}
                       >
                         <Text
-                          content={option.name}
+                          content={option.text}
                           styleClasses={`font-semibold ${
                             isDefault ? 'text-lg' : ''
                           }`}

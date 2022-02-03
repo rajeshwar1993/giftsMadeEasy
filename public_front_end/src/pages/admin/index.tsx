@@ -11,8 +11,8 @@ const Admin: NextPage = () => {
         <SectionTitle content='Stats' />
       </div>
       <div className='flex space-x-12'>
-        <Link href='/admin/allProducts'>
-          <Text content='All Products' styleClasses='cursor-pointer' />
+        <Link href='/admin/productOps'>
+          <Text content='Product Operations' styleClasses='cursor-pointer' />
         </Link>
         <Link href='/admin/addProducts'>
           <Text content='ADD Products' styleClasses='cursor-pointer' />
