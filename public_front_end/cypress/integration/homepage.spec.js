@@ -8,12 +8,14 @@ describe('Home page basic tests', () => {
   it('Checks page has rendered', () => {
     cy.visit('/');
     cy.get('h1').should('have.length', 1);
-    cy.get('h2').should('have.length', 1);
+    cy.get('h2').should('have.length.at.least', 1);
     cy.get('h1').should('have.text', 'give gifts that matter');
-    cy.get('h2').should(
-      'have.text',
-      `We Curate and Categorize the top rated gifting products from trusted websites like Amazon, making this the one-stop destination for all your gifting needs!`
-    );
+    cy.get('h2')
+      .first()
+      .should(
+        'have.text',
+        `We Curate and Categorize the top rated gifting products from trusted websites like Amazon, making this the one-stop destination for all your gifting needs!`
+      );
   });
 
   it('Checks page has a logo on Nav bar', () => {
@@ -71,7 +73,7 @@ describe('Home page basic tests', () => {
           'The person must be interested in some of these?',
           {
             name: 'Educational Toys',
-            link: '/search?it=edt'
+            link: '/search?it=tgs_edt'
           }
         );
         checkExpandMenu(
@@ -79,7 +81,7 @@ describe('Home page basic tests', () => {
           'The person must be interested in some of these?',
           {
             name: 'All Electronics & Gadgets',
-            link: '/search?it=bfgeg&it=smph&it=lpt&it=tab&it=camac&it=spear&it=wede&it=smhd&it=gmac'
+            link: '/search?it=el_bfgeg&it=el_smph&it=el_lpt&it=el_tab&it=el_camac&it=el_spear&it=el_wede&it=el_smhd&it=el_gmac'
           }
         );
       } else if (index === 3) {
