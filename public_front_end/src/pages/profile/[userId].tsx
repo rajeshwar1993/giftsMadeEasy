@@ -19,7 +19,6 @@ const UserProfile = ({
   headerData,
   pageData
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  console.log(pageData);
   if (!pageData || !pageData.uid) {
     return <h1>Loading...</h1>;
   }
