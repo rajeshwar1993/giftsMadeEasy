@@ -15,6 +15,7 @@ import {
   ageGrpFilterValues,
   relationshipFilterValues
 } from '../../common/staticFilterValues';
+import { logSearchQuery } from '../../common/analyticsEvents';
 
 const GiftsSearchMini = () => {
   const router = useRouter();
@@ -77,14 +78,17 @@ const GiftsSearchMini = () => {
       <Button
         text={AppConfig.COMPONENTS.giftSearchMini.searchLabel}
         onClick={() => {
+          const query = {
+            [FilterDBKeys.relationship]:
+              searchParams[FilterDBKeys.relationship].value,
+            [FilterDBKeys.ageGrp]: searchParams[FilterDBKeys.ageGrp].value
+          };
           router.push({
             pathname: '/search',
-            query: {
-              [FilterDBKeys.relationship]:
-                searchParams[FilterDBKeys.relationship].value,
-              [FilterDBKeys.ageGrp]: searchParams[FilterDBKeys.ageGrp].value
-            }
+            query
           });
+
+          logSearchQuery({ source: 'quick_search', search_query: query });
         }}
         defautStyle='cust-btn-btn'
         wrapperClasses='w-full m-auto mt-4'

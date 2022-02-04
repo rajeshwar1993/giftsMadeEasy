@@ -26,10 +26,20 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const rdb = getDatabase(app);
 const storage = getStorage(app);
-let analytics;
+// let analytics;
 
-if (isSupported()) {
-  analytics = getAnalytics(app);
-}
+// if (isSupported()) {
+//   analytics = getAnalytics(app);
+// }
+
+const checkAnalytics = () => {
+  if (typeof window !== 'undefined' && isSupported()) {
+    return getAnalytics(app);
+  } else {
+    return null;
+  }
+};
+
+let analytics = checkAnalytics();
 
 export { app, auth, db, rdb, storage, analytics };

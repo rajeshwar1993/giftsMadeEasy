@@ -77,7 +77,7 @@ const ProductPage: FC<Props> = ({ product }) => {
             <ImageCarouselSection images={product.productImgUrls} />
           </div>
         </div>
-        {/* Details Section */}
+        {/* div Section */}
         <div className='flex flex-col space-y-4 lg:flex-1 px-2'>
           <ProductTitle
             title={product.title}
@@ -127,7 +127,7 @@ const ProductPage: FC<Props> = ({ product }) => {
               <div className='grid grid-cols-1 xl:grid-cols-2 gap-4'>
                 <div>
                   <Text
-                    styleClasses='text-lg'
+                    styleClasses='text-lg font-semibold'
                     content={AppConfig.PRODUCT.relTagTitle}
                   />
                   <div className='flex flex-wrap mt-1'>
@@ -144,11 +144,10 @@ const ProductPage: FC<Props> = ({ product }) => {
                     ))}
                   </div>
                 </div>
-                <details>
+                <div>
                   <Text
-                    styleClasses='text-lg'
+                    styleClasses='text-lg font-semibold'
                     content={AppConfig.PRODUCT.ageGrpTagTitle}
-                    tag='summary'
                   />
                   <div className='flex flex-wrap mt-1'>
                     {product.ageTags.map((r, i) => (
@@ -163,12 +162,11 @@ const ProductPage: FC<Props> = ({ product }) => {
                       />
                     ))}
                   </div>
-                </details>
-                <details>
+                </div>
+                <div>
                   <Text
-                    styleClasses='text-lg'
+                    styleClasses='text-lg font-semibold'
                     content={AppConfig.PRODUCT.occasiontagTitle}
-                    tag='summary'
                   />
                   <div className='flex flex-wrap mt-1'>
                     {product.occasionTags.map((r, i) => (
@@ -183,12 +181,11 @@ const ProductPage: FC<Props> = ({ product }) => {
                       />
                     ))}
                   </div>
-                </details>
-                <details>
+                </div>
+                <div>
                   <Text
-                    styleClasses='text-lg'
+                    styleClasses='text-lg font-semibold'
                     content={AppConfig.PRODUCT.interestedTagTitle}
-                    tag='summary'
                   />
                   <div className='flex flex-wrap mt-1'>
                     {product.interestTags.map((r, i) => (
@@ -203,16 +200,15 @@ const ProductPage: FC<Props> = ({ product }) => {
                       />
                     ))}
                   </div>
-                </details>
+                </div>
               </div>
             </div>
           </div>
           <div className='flex flex-col xl:flex-row space-y-4 xl:space-y-0 xl:spaxe-x-8'>
-            <details className='flex-1'>
+            <div className='flex-1'>
               <SectionTitle
                 content={AppConfig.PRODUCT.overviewLabel}
-                styleClasses='!text-3xl'
-                tag='summary'
+                styleClasses='!text-3xl '
               />
               <table className='table-auto'>
                 <tbody>
@@ -224,12 +220,11 @@ const ProductPage: FC<Props> = ({ product }) => {
                   ))}
                 </tbody>
               </table>
-            </details>
-            <details className='flex-1'>
+            </div>
+            <div className='flex-1'>
               <SectionTitle
                 content={AppConfig.PRODUCT.featuresLabel}
                 styleClasses='!text-3xl'
-                tag='summary'
               />
               <ul className='list-disc list-inside'>
                 {product.featureList.map((fl, i) => (
@@ -238,7 +233,7 @@ const ProductPage: FC<Props> = ({ product }) => {
                   </li>
                 ))}
               </ul>
-            </details>
+            </div>
           </div>
           <Text
             styleClasses='text-xs'
