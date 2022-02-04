@@ -11,13 +11,13 @@ import { getAnalytics, isSupported } from 'firebase/analytics';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyBAj4aaE3TjfI-HLHQ1dV-kWFkfPEakJj0',
-  authDomain: 'giftsmadeeasy-75edd.firebaseapp.com',
-  projectId: 'giftsmadeeasy-75edd',
-  storageBucket: 'giftsmadeeasy-75edd.appspot.com',
-  messagingSenderId: '385319281790',
-  appId: '1:385319281790:web:09cf5db61d552102d5e42f',
-  measurementId: 'G-L8F47TF6GC'
+  apiKey: process.env.NEXT_PUBLIC_FB_API_KEY,
+  authDomain: `${process.env.NEXT_PUBLIC_FB_PROJECT_ID}.firebaseapp.com`,
+  projectId: process.env.NEXT_PUBLIC_FB_PROJECT_ID,
+  storageBucket: `${process.env.NEXT_PUBLIC_FB_PROJECT_ID}.appspot.com`,
+  messagingSenderId: process.env.NEXT_PUBLIC_FB_MESSAGE_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FB_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 };
 
 // Initialize Firebase
