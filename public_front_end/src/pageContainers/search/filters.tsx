@@ -101,7 +101,7 @@ const FilterBody: FC<FilterBodyProp> = ({
   updateCheckboxValues
 }) => {
   return (
-    <div className='flex flex-col w-full'>
+    <div className='flex flex-col w-full' data-testid='filters-body'>
       {/* Relationship Filter */}
       <div className='mb-8'>
         <ListBoxComp

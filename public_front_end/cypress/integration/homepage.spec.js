@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import AppConfig from '../../src/common/appConfig';
+
 describe('Home page basic tests', () => {
   // beforeEach(() => {
   //   cy.visit('/');
@@ -9,13 +11,8 @@ describe('Home page basic tests', () => {
     cy.visit('/');
     cy.get('h1').should('have.length', 1);
     cy.get('h2').should('have.length.at.least', 1);
-    cy.get('h1').should('have.text', 'give gifts that matter');
-    cy.get('h2')
-      .first()
-      .should(
-        'have.text',
-        `We Curate and Categorize the top rated gifting products from trusted websites like Amazon, making this the one-stop destination for all your gifting needs!`
-      );
+    cy.get('h1').should('have.text', AppConfig.HOME.hL1);
+    cy.get('h2').first().should('have.text', AppConfig.HOME.aboutLine);
   });
 
   it('Checks page has a logo on Nav bar', () => {

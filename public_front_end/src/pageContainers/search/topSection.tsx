@@ -54,7 +54,7 @@ const SearchTopSection: FC<Props> = ({
       <SectionTitle
         wrapperClasses='text-center lg:hidden'
         content={AppConfig.SEARCH.headLine}
-        styleClasses=''
+        tag='h1'
       />
       <div className='lg:hidden flex flex-col items-center justify-center space-y-2 px-4 py-4'>
         <div className='flex flex-col items-center'>
@@ -83,7 +83,10 @@ const SearchTopSection: FC<Props> = ({
           onClick={handleClearFilters}
         />
       </div>
-      <div className='lg:hidden flex justify-between space-x-8 sticky top-[62px] z-10  bg-skin-fill py-4 border-b-2 border-skin-primary border-opacity-70'>
+      <div
+        className='lg:hidden flex justify-between space-x-8 sticky top-[62px] z-10  bg-skin-fill py-4 border-b-2 border-skin-primary border-opacity-70'
+        data-testid='int-filter-container-mobile'
+      >
         <div className='flex flex-col items-center space-y-2 w-full'>
           <Button
             text={`${AppConfig.SEARCH.filtersLabel} ${
@@ -132,9 +135,13 @@ const SearchTopSection: FC<Props> = ({
               <SectionTitle
                 wrapperClasses='lg:text-left !mb-10'
                 content={AppConfig.SEARCH.headLine}
+                tag='h1'
               />
               <div className='flex flex-col items-start'>
-                <div className='flex space-x-2 items-start'>
+                <div
+                  className='flex space-x-2 items-start'
+                  data-testid='int-filter-desk'
+                >
                   <Button
                     text={`Filter By ${AppConfig.SEARCH.interestsLabel} ${
                       values[FilterDBKeys.interests]!.length

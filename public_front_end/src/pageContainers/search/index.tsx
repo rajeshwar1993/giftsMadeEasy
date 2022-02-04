@@ -2,9 +2,10 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import makeSearch from '../../common/algolia';
-import { FilterDBKeys } from '../../common/dbKeys';
+import { FilterDBKeys, ProductDBKeys } from '../../common/dbKeys';
 import { cleanObject } from '../../common/utils';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
+import { ProductStatus } from '../../models/enums';
 import Filter from '../../models/Filter';
 import { RootState } from '../../redux/store';
 import Filters from './filters';
@@ -78,8 +79,10 @@ const SearchPage = () => {
   const makeQuery = async (fValObj: any) => {
     try {
       setLoading(true);
-      let res: any = await makeSearch(fValObj);
-      console.log(res);
+      let res: any = await makeSearch({
+        ...fValObj,
+        [ProductDBKeys.status]: ProductStatus.Active
+      });
       const hits = res.hits as Array<ProductListItemType>;
       setResults(hits);
     } catch (e) {

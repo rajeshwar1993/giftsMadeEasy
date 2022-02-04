@@ -14,7 +14,7 @@ const ShowSelectedInterests: FC<Props> = ({
   editMode = true
 }) => {
   return (
-    <div className='flex flex-wrap'>
+    <div className='flex flex-wrap' data-testid='selected-interests'>
       {values.map(int => (
         <Chip
           key={int}

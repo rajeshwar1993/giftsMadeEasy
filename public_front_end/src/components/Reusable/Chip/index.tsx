@@ -12,6 +12,7 @@ const Chip: FC<Props> = ({
 }) => {
   return (
     <span
+      data-testid={'chips'}
       id={id}
       onClick={() => {
         if (onClick) onClick(id);

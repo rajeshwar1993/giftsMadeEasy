@@ -128,7 +128,7 @@ const SelectInterestsPopup: FC<Props> = ({
 
   return (
     <DialogContainer open={open} closeModal={onClose}>
-      <div className='min-h-[500px]'>
+      <div className='min-h-[500px]' data-testid='interest-selector'>
         <Dialog.Title className='flex flex-row justify-between items-center leading-6'>
           <SectionTitle
             content={
