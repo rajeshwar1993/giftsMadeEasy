@@ -68,3 +68,10 @@ export const NotificationDBKeys = {
   read: 'r',
   createdTS: 'ts'
 };
+
+export const ContactDBKeys = {
+  email: 'e',
+  subject: 's',
+  message: 'm',
+  createdTS: 'ts'
+};

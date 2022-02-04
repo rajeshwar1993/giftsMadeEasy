@@ -1,4 +1,5 @@
 import { sendEmailVerification, User } from 'firebase/auth';
+import { RATE_LIMITER_FLAG } from './constants';
 
 export const toggleTheme = () => {
   if (document.documentElement.classList.contains('root-dark')) {
@@ -60,4 +61,24 @@ export const createUrlParamsFromObject = (filterObj: any) => {
   }
 
   return paramString.join('&');
+};
+
+export const setRateLimiter = () => {
+  sessionStorage.setItem(RATE_LIMITER_FLAG, new Date().getTime().toString());
+};
+
+export const checkRateLimiter = (checkDuration: number) => {
+  const setTime = sessionStorage.getItem(RATE_LIMITER_FLAG) || '';
+  if (!setTime) return true;
+  let lastTime = parseInt(setTime);
+  let now = new Date().getTime();
+
+  if (now - lastTime >= checkDuration * 1000) {
+    return true;
+  }
+  return false;
+};
+
+export const clearRateLimiter = () => {
+  sessionStorage.removeItem(RATE_LIMITER_FLAG);
 };

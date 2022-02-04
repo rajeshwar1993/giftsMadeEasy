@@ -4,13 +4,16 @@ export const CONTACT_EMAIL = 'contact@email.com';
 export const CONTACT_NUMBER = '9999999999';
 export const EXPORT_MODE = 'DYNAMIC';
 
+// flags
+export const RATE_LIMITER_FLAG = 'gmerlf32732flag';
+
 // Firebase constants
 export const FS_USER_DB = 'users';
 export const FS_PRODUCTS_DB = 'products';
 export const FS_USER_MYCIRCLE_DB = 'inMyCircle';
 export const FS_USER_MEINWHOCIRCLE_DB = 'meInWhosCircle';
 export const FS_INTEREST_TAGS_DB = 'interestTags';
-export const FS_NEW_PRODUCTS_DB = 'newProducts';
+export const FS_CONTACT_DB = 'contactUs';
 
 export const RDB_NOTIFICATIONS_DB = 'notifications';
 
