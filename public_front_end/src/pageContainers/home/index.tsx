@@ -26,11 +26,11 @@ const HomePage: FC<HomePageData> = ({ headLines, productShowcase }) => {
           <GiftsSearchMini />
         </div>
       </article>
-      <div className='mx-auto max-w-7xl'>
+      <div className='max-w-7xl'>
         <Text
           tag='h2'
           content={headLines.aboutLine}
-          styleClasses='text-xl md:text-2xl xl:text-3xl text-center'
+          styleClasses='text-xl md:text-2xl xl:text-3xl'
         />
       </div>
 

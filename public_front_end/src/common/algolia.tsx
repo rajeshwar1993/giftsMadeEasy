@@ -24,9 +24,9 @@ const createFilters = (filterObj: any) => {
     }
   }
 
-  return filters.join(' AND ');
+  filters.push('(s:a)');
 
-  //   return '(rt:f)';
+  return filters.join(' AND ');
 };
 
 const makeSearch = async (filterObj: any, options: any = {}) => {

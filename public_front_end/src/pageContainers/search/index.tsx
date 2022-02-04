@@ -79,10 +79,7 @@ const SearchPage = () => {
   const makeQuery = async (fValObj: any) => {
     try {
       setLoading(true);
-      let res: any = await makeSearch({
-        ...fValObj,
-        [ProductDBKeys.status]: ProductStatus.Active
-      });
+      let res: any = await makeSearch(fValObj);
       const hits = res.hits as Array<ProductListItemType>;
       setResults(hits);
     } catch (e) {
