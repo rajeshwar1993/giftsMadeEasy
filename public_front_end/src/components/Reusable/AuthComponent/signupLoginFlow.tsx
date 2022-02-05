@@ -240,13 +240,13 @@ const SignupLoginFlow: FC<Props> = ({ setStep }) => {
         <Button
           icon={{ iconName: 'Google' }}
           text='Google'
-          styleClasses=''
+          styleClasses='text-lg'
           onClick={createUserWithGoogle}
         />
         <Button
           icon={{ iconName: 'Facebook' }}
           text='Facebok'
-          styleClasses=''
+          styleClasses='text-lg'
           onClick={createUserWithFacebook}
         />
       </div>

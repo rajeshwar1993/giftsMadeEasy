@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Footer, NavBar, SectionTitle } from '..';
+import { Footer, NavBar } from '..';
 import useWindowSize from '../../hooks/useWindowSize';
 import {
   app_toggle_isDesktop,

@@ -8,14 +8,16 @@ import { RootState, useAppDispatch } from '../../redux/store';
 import NavProfileMenu from './navProfileMenu';
 import NavNotificationsMenu from './navNotificationsMenu';
 import { Button, Icon, Text } from '..';
-import { rdb } from '../../firebase';
+import { auth, rdb } from '../../firebase';
 import { RDB_NOTIFICATIONS_DB } from '../../common/constants';
 import Notifications from '../../models/Notifications';
 import { NotificationDBKeys } from '../../common/dbKeys';
-import { app_toggle_isSigupOpen } from '../../redux/appCommon';
+import { app_sendToast, app_toggle_isSigupOpen } from '../../redux/appCommon';
 import { ButtonType } from '../Reusable/Button/type';
 import MenuPopover from './menuExpandPopover';
 import AppLink from '../Reusable/AppLink';
+import { sendEmailVerificationMail } from '../../common/utils';
+import { useAuthState } from 'react-firebase-hooks/auth';
 type Props = {
   config: NavConfig;
 };
@@ -27,6 +29,7 @@ const NavBar: FC<Props> = ({ config }) => {
     []
   );
   const user = useSelector((state: RootState) => state.user.data);
+  const [fbUser, loading, error] = useAuthState(auth);
   const dispatch = useAppDispatch();
 
   const listenToNotifications = () => {
@@ -156,7 +159,7 @@ const NavBar: FC<Props> = ({ config }) => {
       </nav>
 
       {!!user && !user.isEmailVerified && (
-        <div className='bg-skin-inverted text-skin-inverted text-center flex flex-col py-0.5'>
+        <div className='bg-skin-inverted text-skin-inverted text-center flex flex-col py-1'>
           <div>
             <Text
               content={`We have sent a verification mail on ${user?.email}. Please verify and then`}
@@ -166,7 +169,9 @@ const NavBar: FC<Props> = ({ config }) => {
               defautStyle='cust-btn-link'
               styleClasses='px-2 border-skin-primary'
               wrapperClasses='inline-block'
-              onClick={() => {}}
+              onClick={() => {
+                window.location.reload();
+              }}
             />
           </div>
           <div>
@@ -176,7 +181,17 @@ const NavBar: FC<Props> = ({ config }) => {
               defautStyle='cust-btn-link'
               styleClasses='px-2 border-skin-primary text-xs'
               wrapperClasses='inline-block'
-              onClick={() => {}}
+              onClick={() => {
+                if (fbUser) {
+                  sendEmailVerificationMail(fbUser);
+                  dispatch(
+                    app_sendToast({
+                      type: 'info',
+                      message: 'Email Verification sent!'
+                    })
+                  );
+                }
+              }}
             />
           </div>
         </div>

@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import React, { FC } from 'react';
-import { Button, Icon, Text } from '..';
+import { Button, Icon, SectionTitle, Text } from '..';
+import AppConfig from '../../common/appConfig';
+import AppLink from '../Reusable/AppLink';
 import { FooterConfig } from './type';
 
 type Props = {
@@ -14,8 +16,8 @@ const Footer: FC<Props> = ({ config }) => {
         <div className='xl:w-[12%]' />
         <div className='flex md:flex-row flex-col justify-between xl:w-[86%] px-2'>
           {/* Main */}
-          <div className='flex flex-col md:w-2/6'>
-            <div className='my-2 font-bold'>{config.main.title}</div>
+          <div className='flex flex-col md:w-1/6'>
+            <SectionTitle content={config.main.title} />
             <div className='my-2 ml-4 text-base'>
               <Text {...config.main.desc} />
             </div>
@@ -35,24 +37,20 @@ const Footer: FC<Props> = ({ config }) => {
             </div>
           </div>
           {/* Links */}
-          <div className='flex flex-col items-start'>
-            <div className='my-2 font-bold'>Quick Links</div>
-            {config.links.map((btn, i) => (
-              <Button
+          <div className='flex flex-col items-start space-y-4'>
+            <SectionTitle content={'Quick Links'} />
+            {config.links.map((link, i) => (
+              <AppLink
                 key={i}
-                link={btn.link}
-                onClick={btn.onClick}
-                text={btn.text}
-                icon={btn.icon}
-                showOnlyIcon={btn.showOnlyIcon}
-                wrapperClasses={`border-0  mx-2 ${btn.wrapperClasses}`}
-                styleClasses={`hover:text-skin-accent font-normal ${btn.styleClasses}`}
+                text={link.text || ''}
+                link={link.link || '#'}
+                styleClasses='mx-2 px-2'
               />
             ))}
           </div>
           {/* Contact */}
           <div className='flex flex-col'>
-            <div className='my-2 font-bold'>Contact</div>
+            <SectionTitle content={'Contact'} />
             {config.contactInfo.addressLine1 && (
               <span className='my-2 mt-1 ml-4'>
                 {config.contactInfo.addressLine1}

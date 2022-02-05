@@ -110,38 +110,33 @@ export const layoutConfig: LayoutConfigType = {
   },
   footer: {
     main: {
-      title: 'About',
+      title: AppConfig.COMMON.appName,
       desc: {
-        content:
-          'IndeWebber is the perfect place to start your web journey.<br> Be it a simple static website or a dynamic website with custom functionalities, IndeWebber will make it happen for you and your business. '
+        content: 'We are a one stop shop for all your gifting needs.'
       },
       socialIconLinks: []
     },
     links: [
       {
         text: 'Home',
-        link: 'intro'
+        link: '/'
       },
       {
-        text: 'Design',
-        link: 'design'
+        text: 'Search All',
+        link: '/search'
       },
       {
-        text: 'Why Choose Us',
-        link: 'whychoose'
-      },
-      {
-        text: 'Features',
-        link: 'features'
+        text: 'Contact Us',
+        link: '/contactus'
       },
       {
         text: 'FAQ',
-        link: 'faq'
+        link: '/faq'
       }
     ],
     contactInfo: {
       email: AppConfig.COMMON.contact_email,
-      phone: AppConfig.COMMON.contact_number
+      phone: undefined
     }
   }
 };
