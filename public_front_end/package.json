@@ -4,11 +4,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8080",
     "lint": "next lint",
     "deploy": "next build && next start",
     "test:open": "cypress open",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "gcp-build": "npm run build",
+    "gcp-deploy": "gcloud app deploy --project giftsmadeeasy-75edd"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.2",
