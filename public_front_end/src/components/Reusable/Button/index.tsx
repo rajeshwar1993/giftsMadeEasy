@@ -49,7 +49,7 @@ const Button: FC<Props> = ({
         ${activated ? '!bg-skin-inverted !text-skin-inverted' : ''}
         ${
           disabled || loading
-            ? 'opacity-50 !cursor-default hover:bg-skin-fill hover:text-skin-primary'
+            ? 'opacity-50 !cursor-default hover:bg-skin-fill hover:text-skin-primary no-underline hover:decoration-transparent'
             : ''
         }`}
         type={type}

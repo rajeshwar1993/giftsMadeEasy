@@ -82,3 +82,23 @@ export const checkRateLimiter = (checkDuration: number) => {
 export const clearRateLimiter = () => {
   sessionStorage.removeItem(RATE_LIMITER_FLAG);
 };
+
+export const createQueryUrlFromObject = (filterObj: any) => {
+  let filters: any = [];
+
+  for (let key in filterObj) {
+    if (Array.isArray(filterObj[key])) {
+      if (filterObj[key].length > 0) {
+        let arrQ: any = [];
+
+        filterObj[key].forEach((f: any) => arrQ.push(`${key}=${f}`));
+
+        filters.push(arrQ.join('&'));
+      }
+    } else if (filterObj[key]) {
+      filters.push(`${key}=${filterObj[key]}`);
+    }
+  }
+
+  return filters.join('&');
+};

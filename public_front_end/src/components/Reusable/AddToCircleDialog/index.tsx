@@ -23,7 +23,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../../common/constants';
-import CircleUserType, { convertCUJsonToObj } from '../../../models/CircleUser';
+import { convertCUJsonToObj } from '../../../models/CircleUser';
 import { useAppDispatch } from '../../../redux/store';
 import { cu_addUser } from '../../../redux/myCircleList';
 import DialogContainer from '../DialogContainer';
@@ -50,6 +50,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [relVal, setRelVal] = useState({
     text: 'Relationship',
     value: DEFAULT_LIST_VALUE
@@ -62,11 +63,16 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
     modalUserFromParent
   );
 
-  const searchUser = async (itendifier: string) => {
+  const searchUser = async (identifier: string) => {
     try {
       setLoading(true);
+      setError('');
       // check if me, then return
-      if (user?.email === itendifier) return;
+      if (user?.email === identifier || user?.phoneNumber === identifier) {
+        setError('Hey, is this you?');
+        setLoading(false);
+        return;
+      }
 
       // logic to find user by email
       // TODO add logic to find by phone number
@@ -74,7 +80,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
       const userRef = collection(db, FS_USER_DB);
       const primaryDocQuery = query(
         userRef,
-        where(UserDBKeys.email, '==', itendifier)
+        where(UserDBKeys.email, '==', identifier)
       );
       const snaps = await getDocs(primaryDocQuery);
 
@@ -86,10 +92,12 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
         setModalUser(foundUser);
       } else {
         setModalUser(null);
+        setError('No user found with this e-mail.');
       }
       setLoading(false);
     } catch (e) {
       // TODO handle errors
+      setError('Error occured while searching for user. Please try again.');
     }
   };
 
@@ -97,6 +105,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
     try {
       // logic to add userToAdd to current user's circle
       setLoading(true);
+      setError('');
       let cu = convertCUJsonToObj(
         {
           [CircleUserDBKeys.name]: userToAdd.name,
@@ -120,6 +129,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
     } catch (e) {
       console.log(e);
       // TODO handle errors
+      setError('Error occured while adding user to circle. Please try again.');
     }
   };
 
@@ -128,6 +138,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
   };
   const closeModal = () => {
     setModalUser(null);
+    setError('');
     setRelVal({
       text: 'Relationship',
       value: DEFAULT_LIST_VALUE
@@ -158,7 +169,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
     <DialogContainer open={open} closeModal={closeModal}>
       <Dialog.Title
         as='h3'
-        className='text-lg font-medium leading-6 text-gray-900'
+        className='text-lg font-medium leading-6 text-skin-primary'
       >
         <SectionTitle content='Search user' />
       </Dialog.Title>
@@ -176,6 +187,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
             id='userEmail'
             className='rounded-lg w-full'
             placeholder={`Search with email id`}
+            required
           />
           {!modalUser && (
             <Button
@@ -237,7 +249,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
           </div>
         )}
       </div>
-
+      {error && <Text content={error} styleClasses='text-skin-error' />}
       <div className='mt-4 flex justify-around'>
         <Button
           text={'Cancel'}
@@ -257,10 +269,12 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
                 addUserToCircle(modalUser, relVal.value);
               } else {
                 // TODO show error to choose relationship
+                setError('Please choose a relationship.');
               }
             }}
             styleClasses='text-lg mx-auto'
             wrapperClasses='mx-2'
+            loading={loading}
           />
         )}
         {modalUser && userAlreadyinCircle && (

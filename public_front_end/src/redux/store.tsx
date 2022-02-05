@@ -4,13 +4,15 @@ import userReducer from './user';
 import circleUserReducer from './myCircleList';
 import appReducer from './appCommon';
 import productsReducer from './productList';
+import simpleListsReducer from './simpleLists';
 
 const store = configureStore({
   reducer: {
     app: appReducer,
     user: userReducer,
     circleUser: circleUserReducer,
-    products: productsReducer
+    products: productsReducer,
+    simpleLists: simpleListsReducer
   }
 });
 
