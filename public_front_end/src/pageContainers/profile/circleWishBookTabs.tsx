@@ -2,15 +2,17 @@ import React, { FC, useEffect, useState } from 'react';
 import { Tab } from '@headlessui/react';
 import { classNames } from '../../common/utils';
 import { Text } from '../../components';
-import WishListSection from './wishList';
+import ProductListSection from './wishList';
 import BookmarksSection from './bookmakrs';
 import MyCircle from './myCircle';
+import UserType from '../../models/User';
 
 type Props = {
   isMe: boolean;
+  user: UserType;
 };
 
-const CircleWishBookTabs: FC<Props> = ({ isMe }) => {
+const CircleWishBookTabs: FC<Props> = ({ isMe, user }) => {
   const [defautIndex, setDefaultIndex] = useState(0);
 
   useEffect(() => {
@@ -73,7 +75,10 @@ const CircleWishBookTabs: FC<Props> = ({ isMe }) => {
             'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
           )}
         >
-          <WishListSection />
+          <ProductListSection
+            tagLine='This is a public wishlist. Your connections can choose to gift you one of these items.'
+            inputList={user.wishlist}
+          />
         </Tab.Panel>
         {isMe && (
           <Tab.Panel
@@ -93,7 +98,10 @@ const CircleWishBookTabs: FC<Props> = ({ isMe }) => {
               'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
             )}
           >
-            <BookmarksSection />
+            <ProductListSection
+              tagLine='This is a private list, helpful for keeping items you want to give as gifts.'
+              inputList={user.bookmarks}
+            />
           </Tab.Panel>
         )}
       </Tab.Panels>

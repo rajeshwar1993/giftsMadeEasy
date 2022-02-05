@@ -33,7 +33,7 @@ const ProfileDetailsSection: FC<Props> = ({
       />
 
       <div className='mb-10'>
-        <CircleWishBookTabs isMe={isMe} />
+        <CircleWishBookTabs isMe={isMe} user={user} />
       </div>
     </div>
   );

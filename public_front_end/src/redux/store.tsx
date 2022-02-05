@@ -1,16 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import userReducer from './user';
-import interestsReducer from './interestTags';
 import circleUserReducer from './myCircleList';
 import appReducer from './appCommon';
+import productsReducer from './productList';
 
 const store = configureStore({
   reducer: {
     app: appReducer,
     user: userReducer,
-    interests: interestsReducer,
-    circleUser: circleUserReducer
+    circleUser: circleUserReducer,
+    products: productsReducer
   }
 });
 

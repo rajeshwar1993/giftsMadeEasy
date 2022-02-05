@@ -1,8 +1,12 @@
-import React from 'react';
-import { SectionTitle, Text } from '../../components';
+import React, { FC } from 'react';
+import { Text } from '../../components';
 import ProductListItemMini from '../../components/Reusable/ProductListItem/listItemMini';
 
-const BookmarksSection = () => {
+type Props = {
+  bookmarks: Array<string>;
+};
+
+const BookmarksSection: FC<Props> = ({ bookmarks }) => {
   return (
     <div id={'bookmarks'}>
       <Text content='This is a private list, helpful for keeping items you want to give as gifts.' />
