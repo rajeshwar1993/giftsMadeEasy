@@ -173,6 +173,11 @@ const SearchTopSection: FC<Props> = ({
                       updateInterestsToParent(updated);
                     }}
                   />
+                  {values[FilterDBKeys.interests]?.length === 0 && (
+                    <Text
+                      content={`Click here to filter by the person's Interests.`}
+                    />
+                  )}
                 </div>
               </div>
             </div>

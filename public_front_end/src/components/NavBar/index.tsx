@@ -87,7 +87,7 @@ const NavBar: FC<Props> = ({ config }) => {
               <span className='sr-only'>{config.title}</span>
               <Link href={'/'}>
                 <img
-                  className='md:h-8 h-6 w-auto'
+                  className='md:h-12 h-10 w-auto'
                   src={config.logo.img}
                   alt={config.logo.alt}
                 />

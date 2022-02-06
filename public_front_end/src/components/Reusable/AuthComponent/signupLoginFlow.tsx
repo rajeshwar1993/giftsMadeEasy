@@ -245,7 +245,7 @@ const SignupLoginFlow: FC<Props> = ({ setStep }) => {
         />
         <Button
           icon={{ iconName: 'Facebook' }}
-          text='Facebok'
+          text='Facebook'
           styleClasses='text-lg'
           onClick={createUserWithFacebook}
         />

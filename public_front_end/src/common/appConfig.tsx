@@ -8,7 +8,7 @@ const AppConfig = {
     ageGroupLabel: 'Age Group',
     occasionLabel: 'Occasion',
     genderLabel: 'Gender',
-    buyNowLabel: 'Buy Now on Aamzon',
+    buyNowLabel: 'Buy Now on Amazon',
     contact_email: CONTACT_EMAIL,
     contact_number: CONTACT_NUMBER,
     priceDisclaimer:
