@@ -58,7 +58,8 @@ export const InterestTagDBKeys = {
 
 export const CircleUserDBKeys = {
   relation: 'rel',
-  name: 'n'
+  name: 'n',
+  status: 's'
 };
 
 export const NotificationDBKeys = {

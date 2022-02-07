@@ -154,7 +154,8 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
       let cu = convertCUJsonToObj(
         {
           [CircleUserDBKeys.name]: userToAdd.name,
-          [CircleUserDBKeys.relation]: rel
+          [CircleUserDBKeys.relation]: rel,
+          [CircleUserDBKeys.status]: 'p'
         },
         userToAdd.uid
       );
@@ -165,7 +166,8 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
       );
       await setDoc(doc(col, userToAdd.uid), {
         [CircleUserDBKeys.name]: userToAdd.name,
-        [CircleUserDBKeys.relation]: rel
+        [CircleUserDBKeys.relation]: rel,
+        [CircleUserDBKeys.status]: 'p'
       });
 
       dispatch(cu_addUser(cu));
