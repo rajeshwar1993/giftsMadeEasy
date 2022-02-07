@@ -14,6 +14,7 @@ import ProfileGenderSection from './profileGenderSection';
 import OKCancelBtn from '../../components/Reusable/OKCancelBtn';
 import ProfileImpDatesSection from './profileImpDates';
 import { Gender } from '../../models/enums';
+import EmailAndPhoneView from './emailAndPhoneView';
 
 type Props = {
   user: UserType;
@@ -352,6 +353,14 @@ const ProfileImageSection: FC<Props> = ({
           relRef={relRef}
           editMode={editMode}
         />
+        {isMe && (
+          <EmailAndPhoneView
+            uid={user.uid}
+            email={user.email}
+            ext={user.phoneExt}
+            phone={user.phoneNumber}
+          />
+        )}
       </div>
       <AddToCircleDialog
         open={openAddCircle}

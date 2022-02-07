@@ -4,9 +4,6 @@ import { Gender } from '../../models/enums';
 
 import UserType from '../../models/User';
 import CircleWishBookTabs from './circleWishBookTabs';
-import ProfileAboutSection from './profileAboutSection';
-import ProfileGenderSection from './profileGenderSection';
-import ProfileImpDatesSection from './profileImpDates';
 import ProfileInterestedInSection from './profileInteredtedInSection';
 
 type Props = {

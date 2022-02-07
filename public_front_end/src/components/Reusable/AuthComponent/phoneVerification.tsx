@@ -24,9 +24,13 @@ let max_timer = 60;
 
 type Props = {
   close: () => void;
+  closeText?: string;
 };
 
-const PhoneVerification: FC<Props> = ({ close }) => {
+const PhoneVerification: FC<Props> = ({
+  close,
+  closeText = 'skip for now'
+}) => {
   const [sendOTPDisbaled, setSendOTPDisbaled] = useState(true);
   const [showSendOTP, setShowSendOTP] = useState(true);
   const [showVerifySection, setShowVerifySection] = useState(false);
@@ -113,6 +117,7 @@ const PhoneVerification: FC<Props> = ({ close }) => {
 
             dispatch(ur_updateUser({ key: UserDBKeys.phoneExt, value: ext }));
             dispatch(ur_updateUser({ key: UserDBKeys.phoneNumber, value: ph }));
+            close();
           }
         })
         .catch((error: any) => {
@@ -249,7 +254,7 @@ const PhoneVerification: FC<Props> = ({ close }) => {
       <Button
         wrapperClasses='!mt-12'
         defautStyle='cust-btn-link'
-        text='skip for now'
+        text={closeText}
         onClick={() => {
           close();
         }}

@@ -73,10 +73,10 @@ const ProfileGlance: FC<Props> = ({ data }) => {
   };
 
   return (
-    <div className='flex flex-col items-center text-center  hover:shadow-xl p-4'>
+    <div className='flex flex-col items-center text-center  hover:shadow-xl py-4'>
       <Link href={`/profile/${data.uid}`}>
         <div className='cursor-pointer'>
-          <div className='shadow-lg w-24 h-24 xl:w-32 xl:h-32 overflow-hidden border-4 rounded-full'>
+          <div className='shadow-lg w-24 h-24 xl:w-32 xl:h-32 overflow-hidden border-4 rounded-full mx-auto'>
             <ImageComponent
               src={'/images/person.jpg'}
               alt={data.name}

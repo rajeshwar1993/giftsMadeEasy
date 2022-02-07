@@ -2,8 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Tab } from '@headlessui/react';
 import { classNames } from '../../common/utils';
 import { Text } from '../../components';
-import ProductListSection from './wishList';
-import BookmarksSection from './bookmakrs';
+import ProductListSection from './productListSection';
 import MyCircle from './myCircle';
 import UserType from '../../models/User';
 
