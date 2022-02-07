@@ -1,4 +1,5 @@
 import algoliasearch from 'algoliasearch/lite';
+import { rejects } from 'assert';
 
 // TODO move the keys to env variables
 const client = algoliasearch(
@@ -6,6 +7,7 @@ const client = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_PROJECT_SECRET || ''
 );
 const index = client.initIndex('products');
+const usersIndex = client.initIndex('users');
 
 const createFilters = (filterObj: any) => {
   let filters: any = [];
@@ -36,12 +38,21 @@ const makeSearch = async (filterObj: any, options: any = {}) => {
         filters: createFilters(filterObj),
         ...options
       })
-      .then(hits => {
-        response(hits);
+      .then(res => {
+        response(res);
       })
       .catch(e => {
         reject(e);
       });
+  });
+};
+
+export const searchUsers = (keyword: string) => {
+  return new Promise((response, reject) => {
+    usersIndex
+      .search(keyword)
+      .then(res => response(res))
+      .catch(e => reject(e));
   });
 };
 

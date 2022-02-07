@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useEffect, useState } from 'react';
+import React, { FC, Fragment, useContext, useEffect, useState } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 import UserType, { convertUserJsonToObj } from '../../../models/User';
@@ -16,6 +16,7 @@ import {
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   setDoc,
@@ -29,6 +30,8 @@ import { cu_addUser } from '../../../redux/myCircleList';
 import DialogContainer from '../DialogContainer';
 import { relationshipFilterValues } from '../../../common/staticFilterValues';
 import AppConfig from '../../../common/appConfig';
+import { searchUsers as searchUsersAlgolia } from '../../../common/algolia';
+import Icon from '../Icon';
 
 type AddToCircleDialogProps = {
   open: boolean;
@@ -63,41 +66,83 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
     modalUserFromParent
   );
 
+  const [usersFound, setUsersFound] = useState<
+    Array<{
+      uid: string;
+      name: string;
+      imgUrl: string;
+    }>
+  >([]);
+
   const searchUser = async (identifier: string) => {
     try {
       setLoading(true);
       setError('');
-      // check if me, then return
-      if (user?.email === identifier || user?.phoneNumber === identifier) {
-        setError('Hey, is this you?');
+      setUsersFound([]);
+      // length check
+      if (identifier.length < 4) {
+        setError('Please enter at least 4 characters.');
         setLoading(false);
         return;
       }
+      if (identifier === '.com') {
+        setError(`Nope, this won't work.`);
+        setLoading(false);
+        return;
+      }
+      // check if me, then return
+      // TODO - add this check to select user
+      // if (user?.email === identifier || user?.phoneNumber === identifier) {
+      //   setError('Hey, is this you?');
+      //   setLoading(false);
+      //   return;
+      // }
 
-      // logic to find user by email
-      // TODO add logic to find by phone number
+      // logic to find user by email or name
+      const res: any = await searchUsersAlgolia(identifier);
+      const hits = res.hits;
+
+      if (hits && hits.length > 0) {
+        const users = hits.map((h: any) => ({
+          uid: h['objectID'],
+          name: h[UserDBKeys.name],
+          imgUrl: h[UserDBKeys.imgUrl]
+        }));
+        setUsersFound(users.slice(0, 5));
+      } else {
+        setUsersFound([]);
+      }
+
+      // setModalUser(foundUser);
+    } catch (e) {
+      // TODO handle errors
+      console.log(e);
+      setError('Error occured while searching for user. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchUser = async (id: string) => {
+    try {
+      setLoading(true);
       let foundUser: UserType;
       const userRef = collection(db, FS_USER_DB);
-      const primaryDocQuery = query(
-        userRef,
-        where(UserDBKeys.email, '==', identifier)
-      );
-      const snaps = await getDocs(primaryDocQuery);
+      const res = await getDoc(doc(userRef, id));
 
-      if (!snaps.empty) {
-        foundUser = convertUserJsonToObj(
-          snaps.docs[0].data(),
-          snaps.docs[0].id
-        );
+      if (res.exists()) {
+        foundUser = convertUserJsonToObj(res.data(), res.id);
         setModalUser(foundUser);
+        setUsersFound([]);
       } else {
-        setModalUser(null);
-        setError('No user found with this e-mail.');
+        setError('Error occured while fetching user. Please try again.');
       }
       setLoading(false);
     } catch (e) {
-      // TODO handle errors
-      setError('Error occured while searching for user. Please try again.');
+      // TODO handle error
+      setError('Error occured while fetching user. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -135,6 +180,10 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
 
   const resetModalUser = () => {
     setModalUser(null);
+    const e: any = document.getElementById('searchKey');
+    if (e) {
+      e.value = '';
+    }
   };
   const closeModal = () => {
     setModalUser(null);
@@ -147,6 +196,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
   };
 
   useEffect(() => {
+    setUsersFound([]);
     if (open && modalUserFromParent) {
       setModalUser(modalUserFromParent);
     }
@@ -178,16 +228,18 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
           className='flex'
           onSubmit={(e: any) => {
             e.preventDefault();
-            let email = e.target[0].value;
-            searchUser(email);
+            let identifier = e.target[0].value;
+            searchUser(identifier);
           }}
         >
           <input
-            type='email'
-            id='userEmail'
+            type='text'
+            id='searchKey'
             className='rounded-lg w-full'
-            placeholder={`Search with email id`}
+            placeholder={`Search with Name or Email-id`}
             required
+            disabled={!!modalUser}
+            defaultValue={modalUser?.name}
           />
           {!modalUser && (
             <Button
@@ -213,6 +265,38 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
             />
           )}
         </form>
+
+        <div className='my-4'>
+          {usersFound.map(u => (
+            <div
+              onClick={() => {
+                if (!loading) fetchUser(u.uid);
+              }}
+              className=' cursor-pointer flex justify-between items-center py-1 my-2 rounded-lg px-4 border-2  hover:bg-skin-fill-accent-hover'
+            >
+              <div className='flex space-x-2'>
+                <div>
+                  <ImageComponent
+                    src={u.imgUrl || '/images/logo.png'}
+                    alt={u.name}
+                    layout='fixed'
+                    width={30}
+                    height={30}
+                  />
+                </div>
+                <Text content={u.name} />
+              </div>
+              {loading && (
+                <Icon
+                  styleClasses='animate-spin'
+                  iconName='Spinner'
+                  size={'20'}
+                />
+              )}
+              {!loading && <Icon iconName={'ArrowForward'} />}
+            </div>
+          ))}
+        </div>
 
         {modalUser && (
           <div className='mt-4 border-2 rounded-lg p-4 '>
