@@ -1,13 +1,21 @@
-import { deleteDoc, doc, getDoc } from 'firebase/firestore';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where
+} from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Icon, ImageComponent, Text } from '../../components';
 import AddToCircleDialog from '../../components/Reusable/AddToCircleDialog';
 import { db, storage } from '../../firebase';
-import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../common/constants';
+import { FS_CIRCLE_USERS_DB, FS_USER_DB } from '../../common/constants';
 import UserType from '../../models/User';
-import { cu_removeUser } from '../../redux/myCircleList';
+import { cu_init, cu_removeUser } from '../../redux/myCircleList';
 import { RootState, useAppDispatch } from '../../redux/store';
 import ProfileAboutSection from './profileAboutSection';
 import ProfileGenderSection from './profileGenderSection';
@@ -15,6 +23,8 @@ import OKCancelBtn from '../../components/Reusable/OKCancelBtn';
 import ProfileImpDatesSection from './profileImpDates';
 import { Gender } from '../../models/enums';
 import EmailAndPhoneView from './emailAndPhoneView';
+import { CircleUserDBKeys } from '../../common/dbKeys';
+import CircleUserType, { convertCUJsonToObj } from '../../models/CircleUser';
 
 type Props = {
   user: UserType;
@@ -64,18 +74,25 @@ const ProfileImageSection: FC<Props> = ({
   const checkUserAlreadyInCircle = async () => {
     try {
       if (circleUsers.length > 0) {
-        if (!!circleUsers.find(cu => cu.uid === user.uid)) {
+        if (!!circleUsers.find(cu => cu.userAdded === user.uid)) {
           setInMyCircle(true);
         }
       } else {
-        const snap = await getDoc(
-          doc(
-            db,
-            `${FS_USER_DB}/${currentUser?.uid}/${FS_USER_MYCIRCLE_DB}`,
-            user.uid
-          )
+        const col = collection(db, FS_CIRCLE_USERS_DB);
+        const q = query(
+          col,
+          where(CircleUserDBKeys.userCircle, '==', currentUser?.uid)
         );
-        if (snap.exists()) {
+
+        const querySnapshot = await getDocs(q);
+        const dbCU: Array<CircleUserType> = [];
+        querySnapshot.forEach(doc => {
+          // doc.data() is never undefined for query doc snapshots
+          dbCU.push(convertCUJsonToObj(doc.data(), doc.id));
+        });
+
+        dispatch(cu_init(dbCU));
+        if (!!dbCU.find(cu => cu.userAdded === user.uid)) {
           setInMyCircle(true);
         }
       }
@@ -88,17 +105,21 @@ const ProfileImageSection: FC<Props> = ({
   const removeUserFromCircle = async () => {
     try {
       setInMyCircle(false);
-      await deleteDoc(
-        doc(
-          db,
-          `${FS_USER_DB}/${currentUser?.uid}/${FS_USER_MYCIRCLE_DB}`,
-          user.uid
-        )
+
+      let cudoc = circleUsers.find(
+        cu => cu.userCircle === currentUser?.uid && cu.userAdded === user.uid
       );
-      dispatch(cu_removeUser(user.uid));
+
+      if (cudoc) {
+        await deleteDoc(doc(db, FS_CIRCLE_USERS_DB, cudoc.docid));
+        dispatch(cu_removeUser(user.uid));
+      } else {
+        throw Error('Error in removing circle user');
+      }
     } catch (e) {
       console.log(e);
       // TODO handle this error
+      console.log(e);
     }
   };
 
@@ -164,7 +185,7 @@ const ProfileImageSection: FC<Props> = ({
   };
 
   useEffect(() => {
-    checkUserAlreadyInCircle();
+    if (currentUser) checkUserAlreadyInCircle();
   }, [currentUser, circleUsers]);
 
   // TODO update the default image

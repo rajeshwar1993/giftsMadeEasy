@@ -76,7 +76,6 @@ const ProductListSection: FC<Props> = ({ tagLine, inputList }) => {
             key={wl.uid}
             t={wl.title}
             piu={wl.productImgUrls}
-            path={`/products/${wl.uid}`}
             objectID={wl.uid}
           />
         ))}

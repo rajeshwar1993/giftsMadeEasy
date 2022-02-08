@@ -3,11 +3,14 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { ImageComponent, Text } from '../../../components';
 import { RootState } from '../../../redux/store';
-import Icon from '../Icon';
 
-import { ProductListItemType as Props } from './type';
+type Props = {
+  objectID: string;
+  t: string;
+  piu: Array<string>;
+};
 
-const ProductListItemMini: FC<Props> = ({ t, piu, path }) => {
+const ProductListItemMini: FC<Props> = ({ objectID, t, piu }) => {
   const isDesktop = useSelector((state: RootState) => state.app.isDesktop);
 
   return (
@@ -15,7 +18,7 @@ const ProductListItemMini: FC<Props> = ({ t, piu, path }) => {
       <div
         className={`flex flex-col space-y-6 items-center h-full justify-between `}
       >
-        <Link href={path}>
+        <Link href={`/products/${objectID}`}>
           <div className='cursor-pointer space-y-2'>
             <div className='rounded-lg overflow-hidden'>
               <ImageComponent
