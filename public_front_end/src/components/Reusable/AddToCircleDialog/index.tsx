@@ -1,6 +1,6 @@
 import React, { FC, Fragment, useContext, useEffect, useState } from 'react';
 
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog } from '@headlessui/react';
 import UserType, { convertUserJsonToObj } from '../../../models/User';
 import { createListboxOptions, DEFAULT_LIST_VALUE } from '../ListBox/utils';
 import SectionTitle from '../SectionTitle';
@@ -13,17 +13,9 @@ import {
   FilterDBKeys,
   UserDBKeys
 } from '../../../common/dbKeys';
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  setDoc,
-  where
-} from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
-import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../../common/constants';
+import { FS_USER_DB, FS_CIRCLE_USERS_DB } from '../../../common/constants';
 import { convertCUJsonToObj } from '../../../models/CircleUser';
 import { useAppDispatch } from '../../../redux/store';
 import { cu_addUser } from '../../../redux/myCircleList';
@@ -90,13 +82,6 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
         setLoading(false);
         return;
       }
-      // check if me, then return
-      // TODO - add this check to select user
-      // if (user?.email === identifier || user?.phoneNumber === identifier) {
-      //   setError('Hey, is this you?');
-      //   setLoading(false);
-      //   return;
-      // }
 
       // logic to find user by email or name
       const res: any = await searchUsersAlgolia(identifier);
@@ -148,27 +133,37 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
 
   const addUserToCircle = async (userToAdd: UserType, rel: string) => {
     try {
+      // check if me, then return
+      // TODO - add this check to select user
+      if (user?.uid === userToAdd.uid) {
+        setError('Hey, is this you?');
+        return;
+      }
+
       // logic to add userToAdd to current user's circle
       setLoading(true);
       setError('');
-      let cu = convertCUJsonToObj(
-        {
-          [CircleUserDBKeys.name]: userToAdd.name,
-          [CircleUserDBKeys.relation]: rel,
-          [CircleUserDBKeys.status]: 'p'
-        },
-        userToAdd.uid
-      );
 
       let col = collection(
         db,
-        `${FS_USER_DB}/${user?.uid}/${FS_USER_MYCIRCLE_DB}`
+        `${FS_USER_DB}/${user?.uid}/${FS_CIRCLE_USERS_DB}`
       );
-      await setDoc(doc(col, userToAdd.uid), {
-        [CircleUserDBKeys.name]: userToAdd.name,
+      const res = await addDoc(col, {
+        [CircleUserDBKeys.userCircle]: user?.uid,
+        [CircleUserDBKeys.userAdded]: userToAdd.uid,
         [CircleUserDBKeys.relation]: rel,
         [CircleUserDBKeys.status]: 'p'
       });
+
+      let cu = convertCUJsonToObj(
+        {
+          [CircleUserDBKeys.userCircle]: user?.uid,
+          [CircleUserDBKeys.userAdded]: userToAdd.uid,
+          [CircleUserDBKeys.relation]: rel,
+          [CircleUserDBKeys.status]: 'p'
+        },
+        res.id
+      );
 
       dispatch(cu_addUser(cu));
       setLoading(false);

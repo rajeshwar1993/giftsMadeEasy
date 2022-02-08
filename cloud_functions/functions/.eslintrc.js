@@ -29,6 +29,7 @@ module.exports = {
     'comma-dangle': ['error', 'never'],
     'linebreak-style': ['off'],
     'arrow-parens': ['off'],
-    indent: ['off']
+    indent: ['off'],
+    'operator-linebreak': ['off']
   }
 };

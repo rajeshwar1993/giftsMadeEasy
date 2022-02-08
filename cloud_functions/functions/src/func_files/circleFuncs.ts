@@ -1,51 +1,38 @@
 import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
 
-import {
-  FS_USER_DB,
-  FS_USER_MEINWHOCIRCLE_DB,
-  FS_USER_MYCIRCLE_DB
-} from './helpers/constants';
-import { CircleUserDBKeys, MeInWhosCircleDBKeys } from './helpers/dbKeys';
+import { FS_CIRCLE_USERS_DB } from './helpers/constants';
+import { CircleUserDBKeys } from './helpers/dbKeys';
 import { generateNotification } from './helpers/notificationGenerator';
 import { NotificationTypes } from './helpers/enums';
 
-export const handleAddOrRemoveToCirle = functions.firestore
-  .document(`${FS_USER_DB}/{userID}/${FS_USER_MYCIRCLE_DB}/{inCircleUserID}`)
+export const handleCircleUserChanges = functions.firestore
+  .document(`${FS_CIRCLE_USERS_DB}/{docId}`)
   .onWrite(async (change, context) => {
     try {
-      const { userID, inCircleUserID } = context.params;
+      // on create
+      if (!change.before.exists && change.after.exists) {
+        // send new user request to circle
+        const document = change.after.data();
 
-      const col = admin
-        .firestore()
-        .collection(
-          `${FS_USER_DB}/${inCircleUserID}/${FS_USER_MEINWHOCIRCLE_DB}`
-        );
+        // we need to send the receiver a notification
 
-      let document = change.after.data();
-
-      if (change.after.exists) {
-        // added new user to circle
-        document = change.after.data();
-        // add to otherUsers' meInWhosCircle collection
-
-        await col.doc(userID).set({
-          [MeInWhosCircleDBKeys.name]: document![CircleUserDBKeys.name],
-          [MeInWhosCircleDBKeys.relationHow]:
-            document![CircleUserDBKeys.relation]
-        });
+        const receiverID = document![CircleUserDBKeys.userAdded];
 
         return generateNotification(
-          NotificationTypes.AddedInCircle,
-          inCircleUserID,
-          { userID: userID }
+          NotificationTypes.CircleRequestSent,
+          receiverID
         );
-      } else {
-        // removed user from circle
-        document = change.before.data();
-        // remove to otherUsers' meInWhosCircle collection
-
-        return col.doc(userID).delete();
+      } else if (change.before.exists && change.after.exists) {
+        // on update
+        const document = change.after.data();
+        const senderID = document![CircleUserDBKeys.userCircle];
+        // check if accepted
+        if (document![CircleUserDBKeys.status] === 'a') {
+          return generateNotification(
+            NotificationTypes.CircleRequestAccepted,
+            senderID
+          );
+        }
       }
     } catch (e) {
       console.log(e);

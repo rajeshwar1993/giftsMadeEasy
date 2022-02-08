@@ -18,6 +18,7 @@ relationshipFilterValues.set('gr', 'Grandfather');
 relationshipFilterValues.set('gm', 'Grandmother');
 relationshipFilterValues.set('gm', 'Grandmother');
 relationshipFilterValues.set('col', 'Colleague');
+relationshipFilterValues.set('otr', 'Other');
 
 // Age Groups
 export const ageGrpFilterValues = new Map<string, string>();
@@ -38,38 +39,39 @@ ageGrpFilterValues.set('W', 'Wisdom (71 & above)');
 // Occasion
 export const occasionFilterValues = new Map<string, string>();
 
-occasionFilterValues.set('b', 'Birthday');
 occasionFilterValues.set('a', 'Anniversary');
-occasionFilterValues.set('w', 'Wedding');
-occasionFilterValues.set('e', 'Engagement');
 occasionFilterValues.set('bs', 'Baby Shower');
-occasionFilterValues.set('g', 'Graduation');
-occasionFilterValues.set('p', 'Promotion');
-occasionFilterValues.set('f', 'Farewell');
-occasionFilterValues.set('hw', 'House Warming');
-occasionFilterValues.set('ce', 'Casual Event');
-occasionFilterValues.set('brh', 'Bridal Shower');
 occasionFilterValues.set('bch', 'Bachelor/Bachelorette');
+occasionFilterValues.set('b', 'Birthday');
+occasionFilterValues.set('brh', 'Bridal Shower');
+occasionFilterValues.set('ce', 'Casual Event');
+occasionFilterValues.set('e', 'Engagement');
+occasionFilterValues.set('f', 'Farewell');
+occasionFilterValues.set('g', 'Graduation');
+occasionFilterValues.set('hw', 'House Warming');
+occasionFilterValues.set('p', 'Promotion');
+occasionFilterValues.set('w', 'Wedding');
+occasionFilterValues.set('oto', 'Other');
 
 // Festival
 export const festivalilterValues = new Map<string, string>();
 
-festivalilterValues.set('ny', 'New Years');
-festivalilterValues.set('loh', 'Lohri');
-festivalilterValues.set('rpd', 'Republic Day');
 festivalilterValues.set('vd', `Valentine's Day`);
-festivalilterValues.set('holi', `Holi`);
-festivalilterValues.set('nav', `Navratri`);
-festivalilterValues.set('dur', `Durga Puja`);
+festivalilterValues.set('dw', `Diwali`);
 festivalilterValues.set('dus', `Dussehra`);
 festivalilterValues.set('eid', `Eid`);
+festivalilterValues.set('holi', `Holi`);
+festivalilterValues.set('ny', 'New Years');
+festivalilterValues.set('loh', 'Lohri');
+festivalilterValues.set('nav', `Navratri`);
+festivalilterValues.set('dur', `Durga Puja`);
 festivalilterValues.set('gan', `Ganesh Chaturthi`);
 festivalilterValues.set('ch', `Christmas`);
-festivalilterValues.set('dw', `Diwali`);
 festivalilterValues.set('on', `Onam`);
 festivalilterValues.set('bai', `Baisakhi`);
 festivalilterValues.set('eas', `Easter`);
 festivalilterValues.set('hal', `Halloween`);
+festivalilterValues.set('otf', `Other`);
 
 // Interest Groups
 export const interestGroupMap = new Map<number, string>();

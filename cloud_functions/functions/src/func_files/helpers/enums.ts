@@ -1,6 +1,7 @@
 export enum NotificationTypes {
   FirstRegister = 'FS',
   CompleteProfile = 'CP',
-  AddedInCircle = 'IC',
+  CircleRequestSent = 'CRS',
+  CircleRequestAccepted = 'CRA',
   UpcommingDate = 'UD'
 }

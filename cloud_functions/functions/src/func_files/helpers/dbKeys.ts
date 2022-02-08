@@ -53,12 +53,10 @@ export const InterestTagDBKeys = {
 
 export const CircleUserDBKeys = {
   relation: 'rel',
-  name: 'n'
-};
-
-export const MeInWhosCircleDBKeys = {
-  relationHow: 'rel',
-  name: 'n'
+  userCircle: 'uc',
+  userAdded: 'ua',
+  status: 's',
+  createdTS: 'cTS'
 };
 
 export const NotificationDBKeys = {

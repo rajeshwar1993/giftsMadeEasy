@@ -1,6 +1,5 @@
 export const FS_USER_DB = 'users';
-export const FS_USER_MYCIRCLE_DB = 'inMyCircle';
-export const FS_USER_MEINWHOCIRCLE_DB = 'meInWhosCircle';
+export const FS_CIRCLE_USERS_DB = 'circleUsers';
 export const FS_INTEREST_TAGS_DB = 'interestTags';
 export const FS_EVENT_DATES_DB = 'eventDates';
 export const FS_EVENT_REL_DB = 'relationshipDates';

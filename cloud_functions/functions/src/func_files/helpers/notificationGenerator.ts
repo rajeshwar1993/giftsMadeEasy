@@ -7,7 +7,7 @@ import { RDB_NOTIFICATIONS_DB } from './constants';
 export const generateNotification = async (
   type: NotificationTypes,
   notificationForUserID: string,
-  data: any
+  data: { [key: string]: any } = {}
 ) => {
   const notiObj = {
     [NotificationDBKeys.type]: '',
@@ -22,19 +22,32 @@ export const generateNotification = async (
       notiObj[NotificationDBKeys.type] =
         NotificationTypes.FirstRegister.toString();
       notiObj[NotificationDBKeys.redirectLink] = '/profile';
-      notiObj[NotificationDBKeys.text] = `You've done it! You're here!!`;
+      notiObj[
+        NotificationDBKeys.text
+      ] = `Welcome to the Tofa Circle, we are gifted to have you!`;
       break;
     case NotificationTypes.CompleteProfile:
       notiObj[NotificationDBKeys.type] =
         NotificationTypes.CompleteProfile.toString();
       notiObj[NotificationDBKeys.redirectLink] = '/profile';
-      notiObj[NotificationDBKeys.text] = `Complete it! `;
+      notiObj[
+        NotificationDBKeys.text
+        // eslint-disable-next-line max-len
+      ] = `Let's get to completing your profile. This is as important as having breakfast!`;
       break;
-    case NotificationTypes.AddedInCircle:
+    case NotificationTypes.CircleRequestSent:
       notiObj[NotificationDBKeys.type] =
-        NotificationTypes.AddedInCircle.toString();
-      notiObj[NotificationDBKeys.redirectLink] = `/profile/${data.userID}`;
-      notiObj[NotificationDBKeys.text] = `Someone added you in their circle! `;
+        NotificationTypes.CircleRequestSent.toString();
+      notiObj[NotificationDBKeys.redirectLink] = `/profile`;
+      notiObj[
+        NotificationDBKeys.text
+      ] = `Someone has requested to add you in their circle. See who this is!`;
+      break;
+    case NotificationTypes.CircleRequestAccepted:
+      notiObj[NotificationDBKeys.type] =
+        NotificationTypes.CircleRequestSent.toString();
+      notiObj[NotificationDBKeys.redirectLink] = `/profile`;
+      notiObj[NotificationDBKeys.text] = `You have a new user in your circle.`;
       break;
     case NotificationTypes.UpcommingDate:
       notiObj[NotificationDBKeys.type] =
