@@ -2,10 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import UserType from '../models/User';
 
 const initialState: {
-  userGiftSearchLink: { [key: string]: string };
   userList: { [key: string]: UserType };
 } = {
-  userGiftSearchLink: {},
   userList: {}
 };
 

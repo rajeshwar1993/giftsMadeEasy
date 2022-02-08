@@ -13,7 +13,14 @@ import {
   FilterDBKeys,
   UserDBKeys
 } from '../../../common/dbKeys';
-import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc
+} from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { FS_USER_DB, FS_CIRCLE_USERS_DB } from '../../../common/constants';
 import { convertCUJsonToObj } from '../../../models/CircleUser';
@@ -144,15 +151,13 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
       setLoading(true);
       setError('');
 
-      let col = collection(
-        db,
-        `${FS_USER_DB}/${user?.uid}/${FS_CIRCLE_USERS_DB}`
-      );
+      let col = collection(db, FS_CIRCLE_USERS_DB);
       const res = await addDoc(col, {
         [CircleUserDBKeys.userCircle]: user?.uid,
         [CircleUserDBKeys.userAdded]: userToAdd.uid,
         [CircleUserDBKeys.relation]: rel,
-        [CircleUserDBKeys.status]: 'p'
+        [CircleUserDBKeys.status]: 'p',
+        [CircleUserDBKeys.createdTS]: serverTimestamp()
       });
 
       let cu = convertCUJsonToObj(
@@ -172,6 +177,8 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
       console.log(e);
       // TODO handle errors
       setError('Error occured while adding user to circle. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 

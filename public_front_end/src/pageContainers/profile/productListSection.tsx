@@ -5,10 +5,7 @@ import { FS_PRODUCTS_DB } from '../../common/constants';
 import { Text } from '../../components';
 import ProductListItemMini from '../../components/Reusable/ProductListItem/listItemMini';
 import { db } from '../../firebase';
-import Product, {
-  convertProductJsonToObj,
-  convertProductToJson
-} from '../../models/Product';
+import Product, { convertProductJsonToObj } from '../../models/Product';
 import { pl_addProducts } from '../../redux/productList';
 import { RootState, useAppDispatch } from '../../redux/store';
 

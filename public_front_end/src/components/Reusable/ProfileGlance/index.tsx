@@ -19,9 +19,10 @@ import { getOptionFromValue } from '../ListBox/utils';
 type Props = {
   uid: string;
   relation?: string;
+  status: 'a' | 'p' | 'r';
 };
 
-const ProfileGlance: FC<Props> = ({ uid, relation }) => {
+const ProfileGlance: FC<Props> = ({ uid, relation, status }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -80,11 +81,15 @@ const ProfileGlance: FC<Props> = ({ uid, relation }) => {
   }, [uid]);
 
   return (
-    <div className='flex flex-col items-center text-center  hover:shadow-lg py-4'>
+    <div
+      className={`flex flex-col items-center text-center py-4 ${
+        status === 'a' && 'hover:shadow-lg'
+      }`}
+    >
       {userData && (
         <>
           <Link href={`/profile/${uid}`}>
-            <div className='cursor-pointer'>
+            <div className={`${status === 'a' && 'cursor-pointer'}`}>
               <div className='shadow-lg w-24 h-24 xl:w-32 xl:h-32 overflow-hidden border-4 rounded-full mx-auto'>
                 <ImageComponent
                   src={userData.imgUrl || '/images/person.jpg'}
@@ -113,8 +118,10 @@ const ProfileGlance: FC<Props> = ({ uid, relation }) => {
               )}
             </div>
           </Link>
-
-          <AppLink link={createSearchLink(userData)} text='Find Gifts' />
+          {status === 'a' && (
+            <AppLink link={createSearchLink(userData)} text='Find Gifts' />
+          )}
+          {status !== 'a' && <Text content='Request Pending' />}
         </>
       )}
     </div>

@@ -26,6 +26,8 @@ import { Layout } from '../components';
 import { UserDBKeys } from '../common/dbKeys';
 import { sendEmailVerificationMail } from '../common/utils';
 import { app_toggle_isSigupOpen } from '../redux/appCommon';
+import { cu_init } from '../redux/myCircleList';
+import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -44,6 +46,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 function WrapperComp(props: any) {
   const [user, loading, error] = useAuthState(auth);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const getUserDataFromFirestore = async (fbUser: FirebaseUser) => {
     try {
@@ -118,6 +121,15 @@ function WrapperComp(props: any) {
     }
   };
 
+  const signoutOps = () => {
+    // dispatching logout
+    dispatch(ur_logout());
+    // init circle user with empty array
+    dispatch(cu_init([]));
+
+    router.push('/');
+  };
+
   useEffect(() => {
     // TODO if error -> then setError state, ask user to refresh
     if (error) {
@@ -128,8 +140,7 @@ function WrapperComp(props: any) {
     else if (!user) {
       // TODO anonymous login ?
 
-      // dispatching logout
-      dispatch(ur_logout());
+      signoutOps();
     } else {
       getUserDataFromFirestore(user);
     }

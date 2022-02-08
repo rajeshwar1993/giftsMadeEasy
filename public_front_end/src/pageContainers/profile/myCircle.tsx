@@ -78,6 +78,7 @@ const MyCircle: FC<Props> = ({ isMe, user }) => {
             uid={cu.userAdded}
             key={cu.docid}
             relation={cu.relation}
+            status={cu.status}
           />
         ))}
       </div>

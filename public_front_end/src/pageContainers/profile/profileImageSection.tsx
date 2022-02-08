@@ -185,10 +185,11 @@ const ProfileImageSection: FC<Props> = ({
   };
 
   useEffect(() => {
-    if (currentUser) checkUserAlreadyInCircle();
-  }, [currentUser, circleUsers]);
+    if (currentUser && circleUsers.length === 0) checkUserAlreadyInCircle();
+  }, [currentUser, circleUsers.length]);
 
   // TODO update the default image
+
   return (
     <>
       <div className='flex flex-col md:sticky md:top-44 lg:top-32'>
