@@ -75,7 +75,7 @@ const NavNotificationsMenu: FC<Props> = ({
                         text={n.text}
                         link={n.redirectLink}
                         onClick={() => {
-                          markNotification('read', '123');
+                          markNotification('read', n.uid);
                           closeModal();
                         }}
                         defautStyle='cust-btn-btn'
