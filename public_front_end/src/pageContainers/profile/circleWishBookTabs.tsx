@@ -86,7 +86,7 @@ const CircleWishBookTabs: FC<Props> = ({ isMe, user }) => {
               'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
             )}
           >
-            <MyCircle isMe={isMe} />
+            <MyCircle isMe={isMe} user={user} />
           </Tab.Panel>
         )}
 

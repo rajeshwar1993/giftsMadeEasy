@@ -1,4 +1,4 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -8,17 +8,19 @@ import AddToCircleDialog from '../../components/Reusable/AddToCircleDialog';
 import ProfileGlance from '../../components/Reusable/ProfileGlance';
 import { db } from '../../firebase';
 import CircleUserType, { convertCUJsonToObj } from '../../models/CircleUser';
-import { FS_USER_DB, FS_USER_MYCIRCLE_DB } from '../../common/constants';
+import { FS_USER_DB, FS_CIRCLE_USERS_DB } from '../../common/constants';
 import { cu_addUser, cu_init } from '../../redux/myCircleList';
 import { RootState, useAppDispatch } from '../../redux/store';
+import { CircleUserDBKeys } from '../../common/dbKeys';
+import UserType from '../../models/User';
 
 type Props = {
   isMe: boolean;
+  user: UserType;
 };
 
-const MyCircle: FC<Props> = ({ isMe }) => {
+const MyCircle: FC<Props> = ({ isMe, user }) => {
   const circleUsers = useSelector((state: RootState) => state.circleUser.list);
-  const user = useSelector((state: RootState) => state.user.data);
   const dispatch = useAppDispatch();
 
   const [openModal, setOpenModal] = useState(false);
@@ -31,9 +33,10 @@ const MyCircle: FC<Props> = ({ isMe }) => {
     try {
       const dbCU: Array<CircleUserType> = [];
 
-      const querySnapshot = await getDocs(
-        collection(db, `${FS_USER_DB}/${user?.uid}/${FS_USER_MYCIRCLE_DB}`)
-      );
+      const col = collection(db, FS_CIRCLE_USERS_DB);
+      const q = query(col, where(CircleUserDBKeys.userCircle, '==', user.uid));
+
+      const querySnapshot = await getDocs(q);
       querySnapshot.forEach(doc => {
         // doc.data() is never undefined for query doc snapshots
         dbCU.push(convertCUJsonToObj(doc.data(), doc.id));
@@ -50,7 +53,7 @@ const MyCircle: FC<Props> = ({ isMe }) => {
     if (circleUsers.length === 0 && user) {
       fetchAndUpdateCircleUsers();
     }
-  }, [user]);
+  }, [user.uid]);
 
   return (
     <>
@@ -71,13 +74,17 @@ const MyCircle: FC<Props> = ({ isMe }) => {
           </div>
         )}
         {circleUsers.map(cu => (
-          <ProfileGlance data={cu} key={cu.uid} />
+          <ProfileGlance
+            uid={cu.userAdded}
+            key={cu.docid}
+            relation={cu.relation}
+          />
         ))}
       </div>
       <AddToCircleDialog
         open={openModal}
         onClose={closeModal}
-        circleUserIds={circleUsers.map(cu => cu.uid)}
+        circleUserIds={circleUsers.map(cu => cu.userAdded)}
         currentUser={user}
         isPresentInCircle={false}
       />

@@ -1,7 +1,7 @@
 import { collection, doc, getDoc } from 'firebase/firestore';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Text, ImageComponent } from '../..';
 import { FS_USER_DB } from '../../../common/constants';
@@ -9,53 +9,56 @@ import { FilterDBKeys, UserDBKeys } from '../../../common/dbKeys';
 import { relationshipFilterValues } from '../../../common/staticFilterValues';
 import { createQueryUrlFromObject } from '../../../common/utils';
 import { db } from '../../../firebase';
-import CircleUser from '../../../models/CircleUser';
+import UserType, { convertUserJsonToObj } from '../../../models/User';
 import { app_sendToast } from '../../../redux/appCommon';
-import { sl_addUserGiftSearchLink } from '../../../redux/simpleLists';
+import { sl_addUserToList } from '../../../redux/simpleLists';
 import { RootState, useAppDispatch } from '../../../redux/store';
 import AppLink from '../AppLink';
-import Button from '../Button';
 import { getOptionFromValue } from '../ListBox/utils';
 
 type Props = {
-  data: CircleUser;
+  uid: string;
+  relation?: string;
 };
 
-const ProfileGlance: FC<Props> = ({ data }) => {
+const ProfileGlance: FC<Props> = ({ uid, relation }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const userGiftingLinks = useSelector(
-    (state: RootState) => state.simpleLists.userGiftSearchLink
+  const userList = useSelector(
+    (state: RootState) => state.simpleLists.userList
   );
 
-  const getUserSearchLink = async () => {
+  const [userData, setUserData] = useState<UserType | null>(null);
+
+  const createSearchLink = (data: UserType) => {
+    const searchUrl =
+      '/search?' +
+      createQueryUrlFromObject({
+        [FilterDBKeys.interests]: data.interestedTags,
+        [FilterDBKeys.gender]: data.gender
+      });
+
+    return searchUrl;
+  };
+
+  const fetchUserData = async (userID: string) => {
     try {
-      setLoading(true);
-
       // check if present in redux
-      if (userGiftingLinks[data.uid]) {
-        setLoading(false);
-        router.push(userGiftingLinks[data.uid]);
+      if (userList[userID]) {
+        setUserData(userList[userID]);
       }
-
+      setLoading(true);
       // fetch user data
-      let res = await getDoc(doc(collection(db, FS_USER_DB), data.uid));
+      let res = await getDoc(doc(collection(db, FS_USER_DB), userID));
 
       if (res.exists()) {
         const id = res.id;
         const data = res.data();
-
-        const searchUrl =
-          '/search?' +
-          createQueryUrlFromObject({
-            [FilterDBKeys.interests]: data[UserDBKeys.interestedTags],
-            [FilterDBKeys.gender]: data[UserDBKeys.gender]
-          });
-
+        const userObj = convertUserJsonToObj(data, id);
         // add to redux
-        dispatch(sl_addUserGiftSearchLink({ [data.uid]: searchUrl }));
-        router.push(searchUrl);
+        dispatch(sl_addUserToList({ [id]: userObj }));
+        setUserData(userObj);
       } else {
         throw Error('user not found');
       }
@@ -72,46 +75,47 @@ const ProfileGlance: FC<Props> = ({ data }) => {
     }
   };
 
-  return (
-    <div className='flex flex-col items-center text-center  hover:shadow-xl py-4'>
-      <Link href={`/profile/${data.uid}`}>
-        <div className='cursor-pointer'>
-          <div className='shadow-lg w-24 h-24 xl:w-32 xl:h-32 overflow-hidden border-4 rounded-full mx-auto'>
-            <ImageComponent
-              src={'/images/person.jpg'}
-              alt={data.name}
-              width={120}
-              height={120}
-              layout='fixed'
-            />
-          </div>
+  useEffect(() => {
+    fetchUserData(uid);
+  }, [uid]);
 
-          <Text
-            content={data.name || ''}
-            tag='h3'
-            styleClasses='text-xl font-semibold'
-          />
-          <Text
-            content={
-              'My ' +
-              getOptionFromValue(relationshipFilterValues, data.relation, '')
-                .text
-            }
-            tag='h3'
-            styleClasses='text-lg font-light'
-          />
-        </div>
-      </Link>
-      {userGiftingLinks[data.uid] && (
-        <AppLink link={userGiftingLinks[data.uid]} text='Find Gifts' />
-      )}
-      {!userGiftingLinks[data.uid] && (
-        <Button
-          text={loading ? 'Searching Gifts' : 'Find Gifts'}
-          defautStyle='cust-btn-link'
-          onClick={getUserSearchLink}
-          loading={loading}
-        />
+  return (
+    <div className='flex flex-col items-center text-center  hover:shadow-lg py-4'>
+      {userData && (
+        <>
+          <Link href={`/profile/${uid}`}>
+            <div className='cursor-pointer'>
+              <div className='shadow-lg w-24 h-24 xl:w-32 xl:h-32 overflow-hidden border-4 rounded-full mx-auto'>
+                <ImageComponent
+                  src={userData.imgUrl || '/images/person.jpg'}
+                  alt={userData.name}
+                  width={120}
+                  height={120}
+                  layout='fixed'
+                />
+              </div>
+
+              <Text
+                content={userData.name || ''}
+                tag='h3'
+                styleClasses='text-xl font-semibold'
+              />
+              {relation && (
+                <Text
+                  content={
+                    'My ' +
+                    getOptionFromValue(relationshipFilterValues, relation, '')
+                      .text
+                  }
+                  tag='h3'
+                  styleClasses='text-lg font-light'
+                />
+              )}
+            </div>
+          </Link>
+
+          <AppLink link={createSearchLink(userData)} text='Find Gifts' />
+        </>
       )}
     </div>
   );
