@@ -167,7 +167,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   };
 
   return {
-    props: { headerData, pageData }
+    props: { headerData, pageData },
+    revalidate: 864000 // revalidate after 10 days
   };
 };
 

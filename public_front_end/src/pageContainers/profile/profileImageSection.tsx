@@ -8,7 +8,14 @@ import {
   where
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, {
+  FC,
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  useMemo
+} from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Icon, ImageComponent, Text } from '../../components';
 import AddToCircleDialog from '../../components/Reusable/AddToCircleDialog';
@@ -25,7 +32,6 @@ import { Gender } from '../../models/enums';
 import EmailAndPhoneView from './emailAndPhoneView';
 import { CircleUserDBKeys } from '../../common/dbKeys';
 import CircleUserType, { convertCUJsonToObj } from '../../models/CircleUser';
-
 type Props = {
   user: UserType;
   saveImgUrl: (url: string) => void;
@@ -49,7 +55,7 @@ const ProfileImageSection: FC<Props> = ({
   const [newImgFile, updateNewImgFile] = useState<any>(null);
   const imgUploadRef = useRef<any>();
 
-  const [inMyCircle, setInMyCircle] = useState(false);
+  // const [inMyCircle, setInMyCircle] = useState<'p' | 'a' | false>(false);
   const [openAddCircle, setOpenAddCircle] = useState(false);
   const [activateRemove, setActivteRemove] = useState(false);
   const currentUser = useSelector((state: RootState) => state.user.data);
@@ -73,29 +79,20 @@ const ProfileImageSection: FC<Props> = ({
 
   const checkUserAlreadyInCircle = async () => {
     try {
-      if (circleUsers.length > 0) {
-        if (!!circleUsers.find(cu => cu.userAdded === user.uid)) {
-          setInMyCircle(true);
-        }
-      } else {
-        const col = collection(db, FS_CIRCLE_USERS_DB);
-        const q = query(
-          col,
-          where(CircleUserDBKeys.userCircle, '==', currentUser?.uid)
-        );
+      const col = collection(db, FS_CIRCLE_USERS_DB);
+      const q = query(
+        col,
+        where(CircleUserDBKeys.userCircle, '==', currentUser?.uid)
+      );
 
-        const querySnapshot = await getDocs(q);
-        const dbCU: Array<CircleUserType> = [];
-        querySnapshot.forEach(doc => {
-          // doc.data() is never undefined for query doc snapshots
-          dbCU.push(convertCUJsonToObj(doc.data(), doc.id));
-        });
+      const querySnapshot = await getDocs(q);
+      const dbCU: Array<CircleUserType> = [];
+      querySnapshot.forEach(doc => {
+        // doc.data() is never undefined for query doc snapshots
+        dbCU.push(convertCUJsonToObj(doc.data(), doc.id));
+      });
 
-        dispatch(cu_init(dbCU));
-        if (!!dbCU.find(cu => cu.userAdded === user.uid)) {
-          setInMyCircle(true);
-        }
-      }
+      dispatch(cu_init(dbCU));
     } catch (e) {
       console.log(e);
       // TODO handle this error
@@ -104,15 +101,13 @@ const ProfileImageSection: FC<Props> = ({
 
   const removeUserFromCircle = async () => {
     try {
-      setInMyCircle(false);
-
       let cudoc = circleUsers.find(
         cu => cu.userCircle === currentUser?.uid && cu.userAdded === user.uid
       );
 
       if (cudoc) {
-        await deleteDoc(doc(db, FS_CIRCLE_USERS_DB, cudoc.docid));
-        dispatch(cu_removeUser(user.uid));
+        deleteDoc(doc(db, FS_CIRCLE_USERS_DB, cudoc.docid));
+        dispatch(cu_removeUser(cudoc.docid));
       } else {
         throw Error('Error in removing circle user');
       }
@@ -184,11 +179,18 @@ const ProfileImageSection: FC<Props> = ({
     }
   };
 
+  const inMyCircle = useMemo(() => {
+    const u = circleUsers.find(cu => cu.userAdded === user.uid);
+    if (u && u.status === 'p') {
+      return 'p';
+    } else if (u && u.status === 'a') {
+      return 'a';
+    } else return false;
+  }, [circleUsers, user]);
+
   useEffect(() => {
     if (currentUser && circleUsers.length === 0) checkUserAlreadyInCircle();
   }, [currentUser, circleUsers.length]);
-
-  // TODO update the default image
 
   return (
     <>
@@ -306,7 +308,7 @@ const ProfileImageSection: FC<Props> = ({
                 updateSelected={updateSelectedGender}
               />
             </div>
-            {!isMe && !inMyCircle && (
+            {!isMe && inMyCircle === false && (
               <Button
                 text='Add To Circle'
                 wrapperClasses='w-full my-2'
@@ -316,13 +318,19 @@ const ProfileImageSection: FC<Props> = ({
             )}
             {!isMe && inMyCircle && (
               <>
-                {!activateRemove && (
+                {!activateRemove && inMyCircle === 'a' && (
                   <Button
                     icon={{ iconName: 'Check' }}
                     text='In your Circle'
                     wrapperClasses='w-full my-2'
                     styleClasses='w-full'
                     onClick={() => setActivteRemove(true)}
+                  />
+                )}
+                {!activateRemove && inMyCircle === 'p' && (
+                  <Text
+                    content='Circle Request Pending'
+                    styleClasses='font-semibold'
                   />
                 )}
                 {activateRemove && (
@@ -388,7 +396,7 @@ const ProfileImageSection: FC<Props> = ({
         open={openAddCircle}
         onClose={closeModal}
         currentUser={currentUser}
-        isPresentInCircle={inMyCircle}
+        isPresentInCircle={!!inMyCircle}
         modalUserFromParent={user}
       />
     </>

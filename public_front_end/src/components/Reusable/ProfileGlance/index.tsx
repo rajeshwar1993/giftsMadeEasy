@@ -88,23 +88,9 @@ const ProfileGlance: FC<Props> = ({ uid, relation, status }) => {
     >
       {userData && (
         <>
-          <Link href={`/profile/${uid}`}>
+          <Link href={status === 'a' ? `/profile/${uid}` : `/profile/${uid}`}>
             <div className={`${status === 'a' && 'cursor-pointer'}`}>
-              <div className='shadow-lg w-24 h-24 xl:w-32 xl:h-32 overflow-hidden border-4 rounded-full mx-auto'>
-                <ImageComponent
-                  src={userData.imgUrl || '/images/person.jpg'}
-                  alt={userData.name}
-                  width={120}
-                  height={120}
-                  layout='fixed'
-                />
-              </div>
-
-              <Text
-                content={userData.name || ''}
-                tag='h3'
-                styleClasses='text-xl font-semibold'
-              />
+              <MiniProfile name={userData.name} imgUrl={userData.imgUrl} />
               {relation && (
                 <Text
                   content={
@@ -125,6 +111,33 @@ const ProfileGlance: FC<Props> = ({ uid, relation, status }) => {
         </>
       )}
     </div>
+  );
+};
+
+type MiniProfileProps = {
+  imgUrl: string;
+  name: string;
+};
+
+export const MiniProfile: FC<MiniProfileProps> = ({ imgUrl, name }) => {
+  return (
+    <>
+      <div className='shadow-lg w-24 h-24 xl:w-32 xl:h-32 overflow-hidden border-4 rounded-full mx-auto'>
+        <ImageComponent
+          src={imgUrl || '/images/person.jpg'}
+          alt={name}
+          width={120}
+          height={120}
+          layout='fixed'
+        />
+      </div>
+
+      <Text
+        content={name || ''}
+        tag='h3'
+        styleClasses='text-xl font-semibold'
+      />
+    </>
   );
 };
 

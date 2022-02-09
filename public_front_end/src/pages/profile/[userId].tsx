@@ -13,7 +13,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { FS_USER_DB } from '../../common/constants';
 import { ParsedUrlQuery } from 'querystring';
-import { convertUserJsonToObj } from '../../models/User';
+import UserType, { convertUserJsonToObj } from '../../models/User';
 
 const UserProfile = ({
   headerData,
@@ -22,7 +22,7 @@ const UserProfile = ({
   if (!pageData || !pageData.uid) {
     return <h1>Loading...</h1>;
   }
-  let user = convertUserJsonToObj(pageData, pageData.uid);
+
   return (
     <div>
       <Head>
@@ -30,14 +30,14 @@ const UserProfile = ({
         <meta name='description' content={'Meta description'} />
         <link rel='icon' href={'/favicon.ico'} />
       </Head>
-      {user && <ProfilePage user={user} />}
+      {pageData && <ProfilePage user={pageData} />}
     </div>
   );
 };
 
 interface Props {
   headerData: HeaderType;
-  pageData: any;
+  pageData: UserType;
 }
 interface Params extends ParsedUrlQuery {
   userId: string;
@@ -70,14 +70,24 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   const userSnap = await getDoc(docRef);
 
   if (userSnap.exists()) {
-    pageData = userSnap.data();
-    pageData.uid = userSnap.id;
+    pageData = convertUserJsonToObj(userSnap.data(), userSnap.id);
+  }
+
+  if (!pageData) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+        // statusCode: 301
+      }
+    };
   }
 
   headerData = { title: 'string', metaDesc: 'string' };
 
   return {
-    props: { headerData, pageData }
+    props: { headerData, pageData },
+    revalidate: 864000 // revalidate after 10 days
   };
 };
 

@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { Gender } from '../../models/enums';
 
 import UserType from '../../models/User';
+import CircleRequests from './circleRequests';
 import CircleWishBookTabs from './circleWishBookTabs';
 import ProfileInterestedInSection from './profileInteredtedInSection';
 
@@ -28,6 +29,8 @@ const ProfileDetailsSection: FC<Props> = ({
         }}
         isMe={isMe}
       />
+
+      <CircleRequests isMe={isMe} user={user} />
 
       <div className='mb-10'>
         <CircleWishBookTabs isMe={isMe} user={user} />

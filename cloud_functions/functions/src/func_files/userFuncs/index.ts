@@ -34,8 +34,6 @@ export const handleUserDataChange = firestore
         }
 
         await generateNotification(NotificationTypes.FirstRegister, userId, {});
-
-        // Add data to algolia if needed
       } else if (op === 'update') {
         const afterData = change.after.data();
         const beforeData = change.before.data();
