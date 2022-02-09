@@ -13,6 +13,7 @@ export const FS_PRODUCTS_DB = 'products';
 export const FS_CIRCLE_USERS_DB = 'circleUsers';
 export const FS_INTEREST_TAGS_DB = 'interestTags';
 export const FS_CONTACT_DB = 'contactUs';
+export const FS_INVITATIONS_DB = 'invitations';
 
 export const RDB_NOTIFICATIONS_DB = 'notifications';
 

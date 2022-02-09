@@ -99,8 +99,6 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     data.uid = productSnap.id;
   }
 
-  data.cTS = data.cTS.toDate().toISOString();
-
   let pageData = convertProductJsonToObj(data, data.uid);
   // convert tag keys to values
   // relationship tags

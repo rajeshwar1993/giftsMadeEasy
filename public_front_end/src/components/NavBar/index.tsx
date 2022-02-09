@@ -12,7 +12,11 @@ import { auth, rdb } from '../../firebase';
 import { RDB_NOTIFICATIONS_DB } from '../../common/constants';
 import Notifications from '../../models/Notifications';
 import { NotificationDBKeys } from '../../common/dbKeys';
-import { app_sendToast, app_toggle_isSigupOpen } from '../../redux/appCommon';
+import {
+  app_sendToast,
+  app_toggle_isSigupOpen,
+  app_toggle_inviteDialogOpen
+} from '../../redux/appCommon';
 import { ButtonType } from '../Reusable/Button/type';
 import MenuPopover from './menuExpandPopover';
 import AppLink from '../Reusable/AppLink';

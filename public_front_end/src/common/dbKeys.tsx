@@ -46,7 +46,8 @@ export const ProductDBKeys: { [key: string]: string } = {
   ageTags: 'at',
   createdTS: 'cTS',
   status: 's',
-  statusMessage: 'sm'
+  statusMessage: 'sm',
+  source: 'sc'
 };
 
 export const InterestTagDBKeys = {
@@ -77,4 +78,11 @@ export const ContactDBKeys = {
   subject: 's',
   message: 'm',
   createdTS: 'ts'
+};
+
+export const InvitationsDBKeys = {
+  fromID: 'fi',
+  fromName: 'fn',
+  toEmail: 'toe',
+  createdTS: 'cTS'
 };

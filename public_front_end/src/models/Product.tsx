@@ -28,6 +28,7 @@ interface Product {
   // extra properties
   status: ProductStatus;
   statusMessage: Array<string>;
+  source: Array<'self' | 'amazon' | 'nykaa'>;
 }
 
 export const convertProductToJson = (product: Product) => ({
@@ -49,7 +50,8 @@ export const convertProductToJson = (product: Product) => ({
   [ProductDBKeys.ageTags]: product.ageTags,
   [ProductDBKeys.productImgUrls]: product.productImgUrls,
   [ProductDBKeys.status]: product.status,
-  [ProductDBKeys.statusMessage]: product.statusMessage
+  [ProductDBKeys.statusMessage]: product.statusMessage,
+  [ProductDBKeys.source]: product.source
 });
 
 export const convertProductJsonToObj = (inp: any, id: string) => {
@@ -76,7 +78,8 @@ export const convertProductJsonToObj = (inp: any, id: string) => {
     statusMessage: inp[ProductDBKeys.statusMessage] || [],
     createdTS: inp[ProductDBKeys.createdTS]
       ? inp[ProductDBKeys.createdTS].toDate().toISOString()
-      : ''
+      : '',
+    source: inp[ProductDBKeys.source] || 'amazon'
   };
   return p;
 };

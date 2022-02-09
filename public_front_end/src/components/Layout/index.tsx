@@ -3,11 +3,13 @@ import { useSelector } from 'react-redux';
 import { Footer, NavBar } from '..';
 import useWindowSize from '../../hooks/useWindowSize';
 import {
+  app_toggle_inviteDialogOpen,
   app_toggle_isDesktop,
   app_toggle_isSigupOpen
 } from '../../redux/appCommon';
 import { RootState, useAppDispatch } from '../../redux/store';
 import AuthComponent from '../Reusable/AuthComponent';
+import InvitationComponent from '../Reusable/InvitationComponent';
 import ToastPopover from '../Reusable/ToastPopup';
 
 import { LayoutConfigType } from './type';
@@ -23,10 +25,15 @@ const Layout: FC<Props> = ({ children, config }) => {
   const size = useWindowSize();
   const dispatch = useAppDispatch();
 
-  const signUpOpen = useSelector((state: RootState) => state.app.signUpOpen);
+  const { signUpOpen, inviteDialogOpen } = useSelector(
+    (state: RootState) => state.app
+  );
 
   const closeSignup = () => {
     dispatch(app_toggle_isSigupOpen(false));
+  };
+  const closeDialogOpen = () => {
+    dispatch(app_toggle_inviteDialogOpen(false));
   };
 
   // check window width on change
@@ -61,6 +68,10 @@ const Layout: FC<Props> = ({ children, config }) => {
       </div>
 
       <AuthComponent open={!!signUpOpen} closeModal={closeSignup} />
+      <InvitationComponent
+        open={inviteDialogOpen}
+        closeModal={closeDialogOpen}
+      />
 
       <ToastPopover />
     </>

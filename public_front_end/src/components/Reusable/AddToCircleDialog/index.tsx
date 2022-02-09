@@ -31,6 +31,8 @@ import { relationshipFilterValues } from '../../../common/staticFilterValues';
 import AppConfig from '../../../common/appConfig';
 import { searchUsers as searchUsersAlgolia } from '../../../common/algolia';
 import Icon from '../Icon';
+import AppLink from '../AppLink';
+import { app_toggle_inviteDialogOpen } from '../../../redux/appCommon';
 
 type AddToCircleDialogProps = {
   open: boolean;
@@ -65,13 +67,11 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
     modalUserFromParent
   );
 
-  const [usersFound, setUsersFound] = useState<
-    Array<{
-      uid: string;
-      name: string;
-      imgUrl: string;
-    }>
-  >([]);
+  const [usersFound, setUsersFound] = useState<Array<{
+    uid: string;
+    name: string;
+    imgUrl: string;
+  }> | null>([]);
 
   const searchUser = async (identifier: string) => {
     try {
@@ -102,7 +102,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
         }));
         setUsersFound(users.slice(0, 5));
       } else {
-        setUsersFound([]);
+        setUsersFound(null);
       }
 
       // setModalUser(foundUser);
@@ -271,35 +271,49 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
         </form>
 
         <div className='my-4'>
-          {usersFound.map(u => (
-            <div
-              onClick={() => {
-                if (!loading) fetchUser(u.uid);
-              }}
-              className=' cursor-pointer flex justify-between items-center py-1 my-2 rounded-lg px-4 border-2  hover:bg-skin-fill-accent-hover'
-            >
-              <div className='flex space-x-2'>
-                <div>
-                  <ImageComponent
-                    src={u.imgUrl || '/images/logo.png'}
-                    alt={u.name}
-                    layout='fixed'
-                    width={30}
-                    height={30}
-                  />
-                </div>
-                <Text content={u.name} />
-              </div>
-              {loading && (
-                <Icon
-                  styleClasses='animate-spin'
-                  iconName='Spinner'
-                  size={'20'}
-                />
-              )}
-              {!loading && <Icon iconName={'ArrowForward'} />}
+          {!usersFound && (
+            <div>
+              <Text content='No users found.' />
+              <Button
+                text='Would you like to send an invite?'
+                defautStyle='cust-btn-link'
+                onClick={() => {
+                  dispatch(app_toggle_inviteDialogOpen(true));
+                  onClose();
+                }}
+              />
             </div>
-          ))}
+          )}
+          {usersFound &&
+            usersFound.map(u => (
+              <div
+                onClick={() => {
+                  if (!loading) fetchUser(u.uid);
+                }}
+                className=' cursor-pointer flex justify-between items-center py-1 my-2 rounded-lg px-4 border-2  hover:bg-skin-fill-accent-hover'
+              >
+                <div className='flex space-x-2'>
+                  <div>
+                    <ImageComponent
+                      src={u.imgUrl || '/images/logo.png'}
+                      alt={u.name}
+                      layout='fixed'
+                      width={30}
+                      height={30}
+                    />
+                  </div>
+                  <Text content={u.name} />
+                </div>
+                {loading && (
+                  <Icon
+                    styleClasses='animate-spin'
+                    iconName='Spinner'
+                    size={'20'}
+                  />
+                )}
+                {!loading && <Icon iconName={'ArrowForward'} />}
+              </div>
+            ))}
         </div>
 
         {modalUser && (
