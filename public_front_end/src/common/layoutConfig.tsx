@@ -50,7 +50,7 @@ export const layoutConfig: LayoutConfigType = {
   navbar: {
     title: AppConfig.COMMON.appName,
     logo: {
-      img: '/images/logo.png',
+      img: '/images/app_logo.png',
       alt: AppConfig.COMMON.appName
     },
     leftSideNav: [
@@ -110,7 +110,7 @@ export const layoutConfig: LayoutConfigType = {
   },
   footer: {
     logo: {
-      img: '/images/logo.png',
+      img: '/images/app_logo.png',
       alt: AppConfig.COMMON.appName
     },
     main: {
