@@ -20,7 +20,7 @@ const NavProfileMenu: FC<Props> = ({ imgSrc, name }) => {
           <Menu.Button className='px-4 py-2 '>
             <div className='rounded-full overflow-hidden border-2 border-skin-inverted'>
               <ImageComponent
-                src={imgSrc || '/images/person.jpg'}
+                src={imgSrc}
                 alt={name}
                 height={30}
                 width={30}

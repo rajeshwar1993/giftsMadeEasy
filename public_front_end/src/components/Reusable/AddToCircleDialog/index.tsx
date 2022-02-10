@@ -321,7 +321,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
             <div className='flex items-center space-x-4 '>
               <div className='shadow-lg w-16 h-16 overflow-hidden border-4 rounded-full'>
                 <ImageComponent
-                  src={modalUser.imgUrl || '/images/person.jpg'}
+                  src={modalUser.imgUrl}
                   alt={'alt'}
                   width={60}
                   height={60}

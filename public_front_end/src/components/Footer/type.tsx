@@ -2,6 +2,10 @@ import { ButtonType } from '../Reusable/Button/type';
 import { TextType } from '../Reusable/Text/type';
 
 export interface FooterConfig {
+  logo: {
+    img: string;
+    alt: string;
+  };
   main: {
     title: string;
     desc: TextType;

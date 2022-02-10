@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { FC } from 'react';
-import { Button, Icon, SectionTitle, Text } from '..';
+import { Button, Icon, ImageComponent, SectionTitle, Text } from '..';
 import AppConfig from '../../common/appConfig';
 import AppLink from '../Reusable/AppLink';
 import { FooterConfig } from './type';
@@ -16,8 +16,16 @@ const Footer: FC<Props> = ({ config }) => {
         <div className='xl:w-[12%]' />
         <div className='flex md:flex-row flex-col justify-between xl:w-[86%] px-2'>
           {/* Main */}
-          <div className='flex flex-col md:w-1/6'>
-            <SectionTitle content={config.main.title} />
+          <div className='flex flex-col items-start md:w-1/6'>
+            <div>
+              <ImageComponent
+                src={config.logo.img}
+                alt={config.logo.alt}
+                height={100}
+                width={230}
+                layout={'fixed'}
+              />
+            </div>
             <div className='my-2 ml-4 text-base'>
               <Text {...config.main.desc} />
             </div>

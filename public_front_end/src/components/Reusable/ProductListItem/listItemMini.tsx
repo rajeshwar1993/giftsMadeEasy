@@ -38,29 +38,6 @@ const ProductListItemMini: FC<Props> = ({ objectID, t, piu }) => {
             </div>
           </div>
         </Link>
-
-        {/* <div className='mt-2 flex space-x-4 items-center'>
-          <div className='grid grid-col-3'>
-            {['test', 'test', 'test', 'test', 'test', 'test'].map(
-              (user, i) => (
-                <div className={classNames('rounded-full overflow-hidden')}>
-                  <ImageComponent
-                    src={'/images/person.jpg'}
-                    alt={'test'}
-                    height={20}
-                    width={20}
-                    layout='fixed'
-                  />
-                </div>
-              )
-            )}
-          </div>
-
-          <Text
-            content="This product is in your recipeint's wishlist!"
-            styleClasses='font-light text-sm'
-          />
-        </div> */}
       </div>
     </div>
   );

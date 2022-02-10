@@ -109,6 +109,10 @@ export const layoutConfig: LayoutConfigType = {
     ]
   },
   footer: {
+    logo: {
+      img: '/images/logo.png',
+      alt: AppConfig.COMMON.appName
+    },
     main: {
       title: AppConfig.COMMON.appName,
       desc: {

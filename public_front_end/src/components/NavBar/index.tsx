@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../redux/store';
 import NavProfileMenu from './navProfileMenu';
 import NavNotificationsMenu from './navNotificationsMenu';
-import { Button, Icon, Text } from '..';
+import { Button, Icon, ImageComponent, Text } from '..';
 import { auth, rdb } from '../../firebase';
 import { RDB_NOTIFICATIONS_DB } from '../../common/constants';
 import Notifications from '../../models/Notifications';
@@ -33,6 +33,7 @@ const NavBar: FC<Props> = ({ config }) => {
     []
   );
   const user = useSelector((state: RootState) => state.user.data);
+  const isDesktop = useSelector((state: RootState) => state.app.isDesktop);
   const [fbUser, loading, error] = useAuthState(auth);
   const dispatch = useAppDispatch();
 
@@ -87,13 +88,20 @@ const NavBar: FC<Props> = ({ config }) => {
             >
               <Icon iconName='Menu' />
             </button>
-            <div className='cursor-pointer w-[15%]' data-testid='navLogo'>
+            <div className='cursor-pointer md:w-[15%]' data-testid='navLogo'>
               <span className='sr-only'>{config.title}</span>
               <Link href={'/'}>
-                <img
+                {/* <img
                   className='md:h-12 h-10 w-auto'
                   src={config.logo.img}
                   alt={config.logo.alt}
+                /> */}
+                <ImageComponent
+                  src={config.logo.img}
+                  alt={config.logo.alt}
+                  height={isDesktop ? 50 : 34}
+                  width={isDesktop ? 130 : 100}
+                  layout={'fixed'}
                 />
               </Link>
             </div>

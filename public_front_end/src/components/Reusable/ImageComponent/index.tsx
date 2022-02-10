@@ -5,7 +5,7 @@ import { ImageComponentType as Props } from './type';
 const Image = dynamic(() => import('next/image'));
 
 const ImageComponent: FC<Props> = ({
-  src,
+  src = '/images/logo_sq.png',
   alt,
   layout = 'fill',
   styleClasses = '',
@@ -24,7 +24,7 @@ const ImageComponent: FC<Props> = ({
         objectFit='contain'
         objectPosition={'center'}
         placeholder={'blur'}
-        blurDataURL='/images/logo.png'
+        blurDataURL='/images/logo_sq.png'
         {...props}
       />
     </div>

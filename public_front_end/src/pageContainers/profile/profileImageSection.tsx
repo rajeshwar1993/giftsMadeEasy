@@ -199,7 +199,7 @@ const ProfileImageSection: FC<Props> = ({
           <div className='relative'>
             <div className='shadow-lg w-40 h-40 xl:w-64 xl:h-64  overflow-hidden border-4 rounded-full '>
               <ImageComponent
-                src={newImg || '/images/person.jpg'}
+                src={newImg}
                 alt={user.name}
                 width={300}
                 height={300}

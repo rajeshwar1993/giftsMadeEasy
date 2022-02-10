@@ -124,7 +124,7 @@ export const MiniProfile: FC<MiniProfileProps> = ({ imgUrl, name }) => {
     <>
       <div className='shadow-lg w-24 h-24 xl:w-32 xl:h-32 overflow-hidden border-4 rounded-full mx-auto'>
         <ImageComponent
-          src={imgUrl || '/images/person.jpg'}
+          src={imgUrl}
           alt={name}
           width={120}
           height={120}
