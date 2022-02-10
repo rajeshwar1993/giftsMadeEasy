@@ -14,9 +14,9 @@ const Footer: FC<Props> = ({ config }) => {
     <div id={'footer'} className='bg-skin-fill mt-6'>
       <footer className='pt-8 border-t-2 mx-auto p-4 stext-base xl:flex'>
         <div className='xl:w-[12%]' />
-        <div className='flex md:flex-row flex-col justify-between xl:w-[86%] px-2'>
+        <div className='grid grid-cols-1 gap-y-4 md:grid-cols-3 md:gap-x-8 lg:gap-x-24 xl:w-[86%] px-2'>
           {/* Main */}
-          <div className='flex flex-col items-start md:w-1/6'>
+          <div className='flex flex-col items-start'>
             <div>
               <ImageComponent
                 src={config.logo.img}
@@ -45,7 +45,7 @@ const Footer: FC<Props> = ({ config }) => {
             </div>
           </div>
           {/* Links */}
-          <div className='flex flex-col items-start space-y-4'>
+          <div className='flex flex-col items-start space-y-2'>
             <SectionTitle content={'Quick Links'} />
             {config.links.map((link, i) => (
               <AppLink

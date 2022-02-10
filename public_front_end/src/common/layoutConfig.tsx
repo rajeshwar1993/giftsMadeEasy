@@ -116,7 +116,7 @@ export const layoutConfig: LayoutConfigType = {
     main: {
       title: AppConfig.COMMON.appName,
       desc: {
-        content: 'We are a one stop shop for all your gifting needs.'
+        content: `We at Tofa Circle eliminate the stress of chosing a gift.`
       },
       socialIconLinks: []
     },
@@ -130,8 +130,17 @@ export const layoutConfig: LayoutConfigType = {
         link: '/search'
       },
       {
+        text: 'About',
+        link: '/about'
+      },
+
+      {
         text: 'Contact Us',
         link: '/contactus'
+      },
+      {
+        text: 'How it works?',
+        link: '/how'
       },
       {
         text: 'FAQ',

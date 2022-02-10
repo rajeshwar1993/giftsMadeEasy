@@ -1,11 +1,15 @@
 import React, { FC } from 'react';
-import { Text } from '../../components';
+import { Button, SectionTitle, Text } from '../../components';
 import GiftsSearchMini from './giftsSearchMini';
 import ProductShowcase from './productShowcase';
 import TrendingSearches from './trendingSearches';
 import { HomePageData } from '../../pages';
+import { useAppDispatch } from '../../redux/store';
+import { app_toggle_isSigupOpen } from '../../redux/appCommon';
 
 const HomePage: FC<HomePageData> = ({ headLines, productShowcase }) => {
+  const dispatch = useAppDispatch();
+
   return (
     <div className='text-base flex flex-col space-y-16'>
       <article className='flex flex-col justify-start items-center space-y-8 md:flex-row md:items-center md:space-x-12 md:space-y-0'>
@@ -46,8 +50,22 @@ const HomePage: FC<HomePageData> = ({ headLines, productShowcase }) => {
         );
       })}
 
-      <div>
+      <div className='grid grid-cols-1 gap-y-4 lg:grid-cols-2 lg:gap-x-16'>
         <TrendingSearches />
+        <div>
+          <SectionTitle content='Join Our Circle' />
+          <Text
+            styleClasses='text-2xl'
+            content='<p>We have designed a personal gifting experience ensuring the your gift is appreciated and cherished by your loved one.</p> <p> Signup with us to unlock the MyCircle feature now!</p>'
+          />
+          <Button
+            text={'Signup'}
+            wrapperClasses='mt-4'
+            onClick={() => {
+              dispatch(app_toggle_isSigupOpen('signup'));
+            }}
+          />
+        </div>
       </div>
     </div>
   );
