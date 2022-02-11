@@ -3,5 +3,7 @@ export enum NotificationTypes {
   CompleteProfile = 'CP',
   CircleRequestSent = 'CRS',
   CircleRequestAccepted = 'CRA',
-  UpcommingDate = 'UD'
+  UpcommingDate = 'UD',
+  AddInviteeToCircle = 'AITC',
+  AddThisInvitedPersonToCircle = 'ATIPTC'
 }

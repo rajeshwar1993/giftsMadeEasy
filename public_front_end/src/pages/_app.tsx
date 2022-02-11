@@ -74,7 +74,6 @@ function WrapperComp(props: any) {
         }
       }
       // if entry not found then create entry
-      // TODO also run all first time functions -> welcome email, strong into algolia etc
       else {
         userData = convertUserJsonToObj(
           {

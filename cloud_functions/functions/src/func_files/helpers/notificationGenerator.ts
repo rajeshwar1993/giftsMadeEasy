@@ -55,6 +55,28 @@ export const generateNotification = async (
       notiObj[NotificationDBKeys.redirectLink] = `/profile/${data.userID}`;
       notiObj[NotificationDBKeys.text] = `See whos is upcoming! `;
       break;
+    case NotificationTypes.AddInviteeToCircle:
+      notiObj[NotificationDBKeys.type] =
+        NotificationTypes.AddInviteeToCircle.toString();
+      notiObj[
+        NotificationDBKeys.redirectLink
+      ] = `/profile/${data.inviteeUserId}`;
+      notiObj[
+        NotificationDBKeys.text
+        // eslint-disable-next-line max-len
+      ] = `You were invited here by ${data.inviteeName}. Let's return the favour and add them to your circle.`;
+      break;
+    case NotificationTypes.AddThisInvitedPersonToCircle:
+      notiObj[NotificationDBKeys.type] =
+        NotificationTypes.AddThisInvitedPersonToCircle.toString();
+      notiObj[
+        NotificationDBKeys.redirectLink
+      ] = `/profile/${data.invitedPersonUserId}`;
+      notiObj[
+        NotificationDBKeys.text
+        // eslint-disable-next-line max-len
+      ] = `${data.invitedPersonName} has just joined the platform. Let's extend the welcome and add them to your circle.`;
+      break;
   }
 
   if (notiObj[NotificationDBKeys.text]) {

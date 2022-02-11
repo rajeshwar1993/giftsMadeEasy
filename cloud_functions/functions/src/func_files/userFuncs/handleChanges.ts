@@ -1,5 +1,9 @@
 import { Change, firestore } from 'firebase-functions';
-import { UserDBKeys } from '../helpers/dbKeys';
+import {
+  InvitationsDBKeys,
+  NotificationDBKeys,
+  UserDBKeys
+} from '../helpers/dbKeys';
 import { createDateString } from '../helpers/utils';
 import * as admin from 'firebase-admin';
 import {
@@ -7,8 +11,11 @@ import {
   FS_EVENT_DOB_DB,
   FS_EVENT_REL_DB,
   FS_PRODUCTS_INUSERWISHLIST_DB,
-  FS_PRODUCTS_DB
+  FS_PRODUCTS_DB,
+  FS_INVITATIONS_DB
 } from '../helpers/constants';
+import { generateNotification } from '../helpers/notificationGenerator';
+import { NotificationTypes } from '../helpers/enums';
 
 export const handleDateChange = async (
   change: Change<firestore.DocumentSnapshot>,
@@ -136,6 +143,45 @@ export const handleWishlistChange = async (
       await collRef.doc(userId).set({
         inWishlist: true
       });
+    }
+  }
+};
+
+export const handleSendNotificationsFromInvitationList = async (
+  change: Change<firestore.DocumentSnapshot>,
+  userId: string
+) => {
+  // this function will check for the email's presence
+  // in the invitation "toEmail" and and send a notification
+  // to the user and the invitee
+  // TODO - do the above
+  const afterData = change.after.data();
+
+  // get the collection of invitations
+  const collRef = admin.firestore().collection(FS_INVITATIONS_DB);
+
+  const res = await collRef
+    .where(InvitationsDBKeys.toEmail, '==', afterData![UserDBKeys.email])
+    .get();
+
+  if (!res.empty) {
+    const docs = res.docs;
+    for (let i = 0; i < docs.length; i++) {
+      const data = docs[i].data();
+      // for self to add invitee to cirle
+      generateNotification(NotificationTypes.AddInviteeToCircle, userId, {
+        inviteeName: data[InvitationsDBKeys.fromName],
+        inviteeUserId: data[InvitationsDBKeys.fromID]
+      });
+      // generate notification for Invitee to add this Invited person
+      generateNotification(
+        NotificationTypes.AddThisInvitedPersonToCircle,
+        data[InvitationsDBKeys.fromID],
+        {
+          invitedPersonName: afterData![UserDBKeys.name],
+          invitedPersonUserId: userId
+        }
+      );
     }
   }
 };

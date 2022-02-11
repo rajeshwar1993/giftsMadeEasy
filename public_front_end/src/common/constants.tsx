@@ -14,6 +14,7 @@ export const FS_CIRCLE_USERS_DB = 'circleUsers';
 export const FS_INTEREST_TAGS_DB = 'interestTags';
 export const FS_CONTACT_DB = 'contactUs';
 export const FS_INVITATIONS_DB = 'invitations';
+export const FS_USER_PRIVATE_DB = 'userPrivateData';
 
 export const RDB_NOTIFICATIONS_DB = 'notifications';
 

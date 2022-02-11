@@ -66,3 +66,10 @@ export const NotificationDBKeys = {
   read: 'r',
   createdTS: 'ts'
 };
+
+export const InvitationsDBKeys = {
+  fromID: 'fi',
+  fromName: 'fn',
+  toEmail: 'toe',
+  createdTS: 'cTS'
+};

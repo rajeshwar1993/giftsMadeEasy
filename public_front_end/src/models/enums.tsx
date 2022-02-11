@@ -54,8 +54,11 @@ export enum Festivals {
 export enum NotificationTypes {
   FirstRegister = 'FS',
   CompleteProfile = 'CP',
-  AddedInCircle = 'IC',
-  UpcommingDate = 'UD'
+  CircleRequestSent = 'CRS',
+  CircleRequestAccepted = 'CRA',
+  UpcommingDate = 'UD',
+  AddInviteeToCircle = 'AITC',
+  AddThisInvitedPersonToCircle = 'ATIPTC'
 }
 
 export enum ProductStatus {
