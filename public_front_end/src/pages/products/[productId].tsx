@@ -101,6 +101,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   if (productSnap.exists) {
     data = productSnap.data();
     data.uid = productSnap.id;
+  } else {
+    return { notFound: true };
   }
 
   let pageData = convertProductJsonToObj(data, data.uid);
