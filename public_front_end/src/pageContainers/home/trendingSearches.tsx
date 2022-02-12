@@ -19,12 +19,13 @@ const TrendingSearches = () => {
           fontSizeClass='text-xl xl:text-3xl'
         />
         <TrendingSearchBox text='A cute gift for my Girlfriend who loves to paint.' />
-
         <TrendingSearchBox
           text='A classy gift for my Colleague who is a sports enthusiast.'
           styleClass='row-span-2 col-span-2'
           fontSizeClass='text-3xl xl:text-6xl'
         />
+        <TrendingSearchBox text='A cute gift for my Girlfriend who loves to paint.' />
+        <TrendingSearchBox text='A cute gift for my Girlfriend who loves to paint.' />
       </div>
     </div>
   );

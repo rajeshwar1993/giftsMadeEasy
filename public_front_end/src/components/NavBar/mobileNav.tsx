@@ -90,7 +90,10 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
                       <Button
                         key={i}
                         onClick={() => {
-                          setCurrentDepth(state => state + 1);
+                          setTimeout(() => {
+                            setCurrentDepth(state => state + 1);
+                          }, 500);
+
                           setStep1Items(data || []);
                         }}
                         text={data.title}
@@ -128,7 +131,11 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
                 <button
                   type='button'
                   className='-m-2 p-2 rounded-md inline-flex text-skin-primary'
-                  onClick={() => setCurrentDepth(state => state - 1)}
+                  onClick={() => {
+                    setTimeout(() => {
+                      setCurrentDepth(state => state - 1);
+                    }, 500);
+                  }}
                 >
                   <Icon iconName='ArrowBack' title='back' />
                 </button>
@@ -171,7 +178,9 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
                       return (
                         <Button
                           onClick={() => {
-                            setCurrentDepth(state => state + 1);
+                            setTimeout(() => {
+                              setCurrentDepth(state => state + 1);
+                            }, 500);
                             setStep2Items(data || []);
                           }}
                           text={data.title}
@@ -210,7 +219,11 @@ const MobileNav: FC<Props> = ({ config, menuOpen, toggleMenuOpen }) => {
                 <button
                   type='button'
                   className='-m-2 p-2 rounded-md inline-flex text-skin-primary'
-                  onClick={() => setCurrentDepth(state => state - 1)}
+                  onClick={() => {
+                    setTimeout(() => {
+                      setCurrentDepth(state => state - 1);
+                    }, 500);
+                  }}
                 >
                   <Icon iconName='ArrowBack' title='back' />
                 </button>

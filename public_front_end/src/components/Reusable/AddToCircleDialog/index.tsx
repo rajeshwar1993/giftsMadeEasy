@@ -74,7 +74,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
     uid: string;
     name: string;
     imgUrl: string;
-  }> | null>([]);
+  }> | null>(null);
 
   const searchUser = async (identifier: string) => {
     try {
@@ -105,7 +105,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
         }));
         setUsersFound(users.slice(0, 5));
       } else {
-        setUsersFound(null);
+        setUsersFound([]);
       }
 
       // setModalUser(foundUser);
@@ -130,7 +130,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
       if (!data.error) {
         foundUser = convertUserJsonToObj(data.userData, id);
         setModalUser(foundUser);
-        setUsersFound([]);
+        setUsersFound(null);
       } else {
         setError(data.errorMessage);
       }
@@ -205,7 +205,7 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
   };
 
   useEffect(() => {
-    setUsersFound([]);
+    setUsersFound(null);
     if (open && modalUserFromParent) {
       setModalUser(modalUserFromParent);
     }
@@ -276,19 +276,6 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
         </form>
 
         <div className='my-4'>
-          {!usersFound && (
-            <div>
-              <Text content='No users found.' />
-              <Button
-                text='Would you like to send an invite?'
-                defautStyle='cust-btn-link'
-                onClick={() => {
-                  dispatch(app_toggle_inviteDialogOpen(true));
-                  onClose();
-                }}
-              />
-            </div>
-          )}
           {usersFound &&
             usersFound.map(u => (
               <div
@@ -297,17 +284,17 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
                 }}
                 className=' cursor-pointer flex justify-between items-center py-1 my-2 rounded-lg px-4 border-2  hover:bg-skin-fill-accent-hover'
               >
-                <div className='flex space-x-2'>
-                  <div>
+                <div className='flex space-x-4 items-center'>
+                  <div className='rounded-full overflow-hidden'>
                     <ImageComponent
-                      src={u.imgUrl || '/images/logo.png'}
+                      src={u.imgUrl}
                       alt={u.name}
                       layout='fixed'
-                      width={30}
-                      height={30}
+                      width={60}
+                      height={60}
                     />
                   </div>
-                  <Text content={u.name} />
+                  <Text content={u.name} styleClasses='text-lg' />
                 </div>
                 {loading && (
                   <Icon
@@ -319,6 +306,21 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
                 {!loading && <Icon iconName={'ArrowForward'} />}
               </div>
             ))}
+          {usersFound?.length === 0 && <Text content='No users found.' />}
+          {usersFound !== null && (
+            <Button
+              text={`Can't find someone? Let's send them an invite.`}
+              defautStyle='cust-btn-link'
+              styleClasses=' text-sm'
+              onClick={() => {
+                setTimeout(() => {
+                  dispatch(app_toggle_inviteDialogOpen(true));
+                }, 500);
+
+                onClose();
+              }}
+            />
+          )}
         </div>
 
         {modalUser && (
