@@ -86,3 +86,12 @@ export const InvitationsDBKeys = {
   toEmail: 'toe',
   createdTS: 'cTS'
 };
+
+export const ClientErrorLoggerDBKeys = {
+  functionName: 'fn',
+  fileName: 'fin',
+  params: 'p',
+  stack: 's',
+  message: 'm',
+  createdTS: 'cTS'
+};

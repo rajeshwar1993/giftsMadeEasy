@@ -75,7 +75,6 @@ const NavProfileMenu: FC<Props> = ({ imgSrc, name }) => {
             <div className='px-1'>
               <Menu.Item
                 onClick={() => {
-                  // TODO need to clear all redux stores related to user
                   signOut(auth);
                 }}
               >

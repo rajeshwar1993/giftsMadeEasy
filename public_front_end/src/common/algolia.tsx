@@ -1,7 +1,6 @@
 import algoliasearch from 'algoliasearch/lite';
 import { rejects } from 'assert';
 
-// TODO move the keys to env variables
 const client = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_PROJECT_ID || '',
   process.env.NEXT_PUBLIC_ALGOLIA_PROJECT_SECRET || ''

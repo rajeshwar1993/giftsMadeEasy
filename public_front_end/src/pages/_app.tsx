@@ -121,6 +121,7 @@ function WrapperComp(props: any) {
   };
 
   const signoutOps = () => {
+    // TODO need to clear all redux stores related to user
     // dispatching logout
     dispatch(ur_logout());
     // init circle user with empty array

@@ -15,6 +15,7 @@ export const FS_INTEREST_TAGS_DB = 'interestTags';
 export const FS_CONTACT_DB = 'contactUs';
 export const FS_INVITATIONS_DB = 'invitations';
 export const FS_USER_PRIVATE_DB = 'userPrivateData';
+export const FS_CLIENT_ERROR_LOGGER_DB = 'clientErrors';
 
 export const RDB_NOTIFICATIONS_DB = 'notifications';
 

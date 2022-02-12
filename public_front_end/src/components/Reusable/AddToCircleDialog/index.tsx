@@ -36,6 +36,7 @@ import { searchUsers as searchUsersAlgolia } from '../../../common/algolia';
 import Icon from '../Icon';
 import { httpsCallable, HttpsCallableResult } from 'firebase/functions';
 import { app_toggle_inviteDialogOpen } from '../../../redux/appCommon';
+import { logError } from '../../../common/utils';
 
 type AddToCircleDialogProps = {
   open: boolean;
@@ -107,11 +108,10 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
       } else {
         setUsersFound([]);
       }
-
-      // setModalUser(foundUser);
-    } catch (e) {
-      // TODO handle errors
-      console.log(e);
+    } catch (e: any) {
+      logError(e.message, e.stack, 'searchUser', 'AddToCircleDialog', {
+        identifier
+      });
       setError('Error occured while searching for user. Please try again.');
     } finally {
       setLoading(false);
@@ -135,8 +135,10 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
         setError(data.errorMessage);
       }
       setLoading(false);
-    } catch (e) {
-      // TODO handle error
+    } catch (e: any) {
+      logError(e.message, e.stack, 'fetchUser', 'AddToCircleDialog', {
+        id
+      });
       setError('Error occured while fetching user. Please try again.');
     } finally {
       setLoading(false);
@@ -146,7 +148,6 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
   const addUserToCircle = async (userToAdd: UserType, rel: string) => {
     try {
       // check if me, then return
-      // TODO - add this check to select user
       if (user?.uid === userToAdd.uid) {
         setError('Hey, is this you?');
         return;
@@ -178,9 +179,11 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
       dispatch(cu_addUser(cu));
       setLoading(false);
       closeModal();
-    } catch (e) {
-      console.log(e);
-      // TODO handle errors
+    } catch (e: any) {
+      logError(e.message, e.stack, 'addUserToCircle', 'AddToCircleDialog', {
+        userToAdd,
+        rel
+      });
       setError('Error occured while adding user to circle. Please try again.');
     } finally {
       setLoading(false);
@@ -377,7 +380,6 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
               if (relVal.value !== DEFAULT_LIST_VALUE) {
                 addUserToCircle(modalUser, relVal.value);
               } else {
-                // TODO show error to choose relationship
                 setError('Please choose a relationship.');
               }
             }}

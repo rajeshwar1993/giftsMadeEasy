@@ -3,6 +3,7 @@ import { Button, Text } from '../../';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../../firebase';
 import { ERROR_MESSAGE_MAPPING } from '../../../common/constants';
+import { logError } from '../../../common/utils';
 
 type Props = {
   setStep: Function;
@@ -35,8 +36,15 @@ const ForgotPassword: FC<Props> = ({ setStep, close }) => {
           setLoading(false);
           // ..
         });
-    } catch (e) {
-      // TODO handle error
+    } catch (e: any) {
+      logError(
+        e.message,
+        e.stack,
+        'handleForgotPasswordSubmit',
+        'ForgotPassword',
+        {}
+      );
+      setError('Unknown error occured. Please try again.');
     }
   };
 

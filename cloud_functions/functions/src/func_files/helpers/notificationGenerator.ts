@@ -14,7 +14,6 @@ export const generateNotification = async (
     [NotificationDBKeys.redirectLink]: '',
     [NotificationDBKeys.text]: '',
     [NotificationDBKeys.read]: false,
-    // TODO add correct timestamp
     [NotificationDBKeys.createdTS]: database.ServerValue.TIMESTAMP
   };
   switch (type) {

@@ -9,6 +9,8 @@ import { FS_USER_DB } from '../../../common/constants';
 import { UserDBKeys } from '../../../common/dbKeys';
 import { useAppDispatch } from '../../../redux/store';
 import { ur_updateUser } from '../../../redux/user';
+import { logError } from '../../../common/utils';
+import { app_sendToast } from '../../../redux/appCommon';
 
 const options = [
   {
@@ -52,9 +54,16 @@ const BasicDetailsFlow: FC<Props> = ({ userId }) => {
       dispatch(ur_updateUser({ key: UserDBKeys.name, value: name }));
       dispatch(ur_updateUser({ key: UserDBKeys.gender, value: gender }));
       dispatch(ur_updateUser({ key: UserDBKeys.dob, value: dob }));
-    } catch (error) {
-      console.log(error);
-      // TODO handle this error
+    } catch (e: any) {
+      logError(e.message, e.stack, 'saveForm', 'BasicDetailsFlow', {
+        userId
+      });
+      dispatch(
+        app_sendToast({
+          type: 'error',
+          message: 'Error in saving user details.'
+        })
+      );
       setLoading(false);
     }
   };

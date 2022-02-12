@@ -1,5 +1,8 @@
 import { sendEmailVerification, User } from 'firebase/auth';
-import { RATE_LIMITER_FLAG } from './constants';
+import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase';
+import { FS_CLIENT_ERROR_LOGGER_DB, RATE_LIMITER_FLAG } from './constants';
+import { ClientErrorLoggerDBKeys } from './dbKeys';
 
 export const toggleTheme = () => {
   if (document.documentElement.classList.contains('root-dark')) {
@@ -101,4 +104,23 @@ export const createQueryUrlFromObject = (filterObj: any) => {
   }
 
   return filters.join('&');
+};
+
+export const logError = async (
+  errorMessage: any,
+  stack: any,
+  functionName: string = '',
+  fileName: string = '',
+  params: any = {}
+) => {
+  const collRef = collection(db, FS_CLIENT_ERROR_LOGGER_DB);
+
+  await addDoc(collRef, {
+    [ClientErrorLoggerDBKeys.functionName]: functionName,
+    [ClientErrorLoggerDBKeys.fileName]: fileName,
+    [ClientErrorLoggerDBKeys.params]: params,
+    [ClientErrorLoggerDBKeys.stack]: stack,
+    [ClientErrorLoggerDBKeys.message]: errorMessage,
+    [ClientErrorLoggerDBKeys.createdTS]: serverTimestamp()
+  });
 };

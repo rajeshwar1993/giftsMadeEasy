@@ -150,7 +150,6 @@ export const handleSendNotificationsFromInvitationList = async (
   // this function will check for the email's presence
   // in the invitation "toEmail" and and send a notification
   // to the user and the invitee
-  // TODO - do the above
   const afterData = change.after.data();
 
   // get the collection of invitations
