@@ -11,9 +11,11 @@ const ImageComponent: FC<Props> = ({
   styleClasses = '',
   ...props
 }) => {
-  return (
-    // TODO Need to make use of Image component from next!!
+  if (!src) {
+    src = '/images/logo_sq.png';
+  }
 
+  return (
     <div
       className={`w-full h-full overflow-hidden flex justify-center items-center ${styleClasses}`}
     >

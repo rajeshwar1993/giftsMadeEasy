@@ -3,7 +3,7 @@ import type {
   GetStaticProps,
   InferGetStaticPropsType
 } from 'next';
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+
 import { ParsedUrlQuery } from 'querystring';
 import { FS_PRODUCTS_DB } from '../../common/constants';
 
@@ -20,6 +20,7 @@ import {
   occasionFilterValues,
   relationshipFilterValues
 } from '../../common/staticFilterValues';
+import fbAdmin from '../../firebaseServer';
 
 const ProductLanding = ({
   headerData,
@@ -69,9 +70,10 @@ interface Props {
 export const getStaticPaths: GetStaticPaths = async () => {
   // TODO - currently fetching all the docs in products DB
   // TODO - change it to only most populat products so that build time is less
+  const db = fbAdmin.firestore();
+  const collRef = db.collection(FS_PRODUCTS_DB);
 
-  const collectionRef = collection(db, FS_PRODUCTS_DB);
-  const productsSnap = await getDocs(collectionRef);
+  const productsSnap = await collRef.get();
   let paths: Array<{ params: { productId: string } }> = [];
 
   productsSnap.forEach(snap => {
@@ -91,10 +93,12 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 
   let data: any = {};
 
-  const docRef = doc(db, FS_PRODUCTS_DB, productId);
-  const productSnap = await getDoc(docRef);
+  const db = fbAdmin.firestore();
+  const collRef = db.collection(FS_PRODUCTS_DB);
 
-  if (productSnap.exists()) {
+  const productSnap = await collRef.doc(productId).get();
+
+  if (productSnap.exists) {
     data = productSnap.data();
     data.uid = productSnap.id;
   }

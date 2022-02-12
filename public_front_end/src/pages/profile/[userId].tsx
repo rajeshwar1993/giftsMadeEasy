@@ -14,6 +14,7 @@ import { db } from '../../firebase';
 import { FS_USER_DB } from '../../common/constants';
 import { ParsedUrlQuery } from 'querystring';
 import UserType, { convertUserJsonToObj } from '../../models/User';
+import fbAdmin from '../../firebaseServer';
 
 const UserProfile = ({
   headerData,
@@ -66,10 +67,12 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 
   let headerData: any, pageData;
 
-  const docRef = doc(db, FS_USER_DB, userId);
-  const userSnap = await getDoc(docRef);
+  const db = fbAdmin.firestore();
+  const collRef = db.collection(FS_USER_DB);
 
-  if (userSnap.exists()) {
+  const userSnap = await collRef.doc(userId).get();
+
+  if (userSnap.exists) {
     pageData = convertUserJsonToObj(userSnap.data(), userSnap.id);
   }
 
