@@ -18,6 +18,9 @@ export const FS_USER_PRIVATE_DB = 'userPrivateData';
 
 export const RDB_NOTIFICATIONS_DB = 'notifications';
 
+// firebase functions
+export const FF_READ_PUBLIC_USER_DATA = 'readPublicUserData';
+
 // error messages
 export const ERROR_MESSAGE_MAPPING = (errorCode: string) => {
   switch (errorCode) {

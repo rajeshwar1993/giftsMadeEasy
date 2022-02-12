@@ -1,14 +1,14 @@
-import { collection, doc, getDoc } from 'firebase/firestore';
+import { httpsCallable } from 'firebase/functions';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Text, ImageComponent } from '../..';
-import { FS_USER_DB } from '../../../common/constants';
+import { FF_READ_PUBLIC_USER_DATA } from '../../../common/constants';
 import { FilterDBKeys, UserDBKeys } from '../../../common/dbKeys';
 import { relationshipFilterValues } from '../../../common/staticFilterValues';
 import { createQueryUrlFromObject } from '../../../common/utils';
-import { db } from '../../../firebase';
+import { db, functions } from '../../../firebase';
 import UserType, { convertUserJsonToObj } from '../../../models/User';
 import { app_sendToast } from '../../../redux/appCommon';
 import { sl_addUserToList } from '../../../redux/simpleLists';
@@ -51,24 +51,25 @@ const ProfileGlance: FC<Props> = ({ uid, relation, status }) => {
       }
       setLoading(true);
       // fetch user data
-      let res = await getDoc(doc(collection(db, FS_USER_DB), userID));
+      const getUser = httpsCallable(functions, FF_READ_PUBLIC_USER_DATA);
 
-      if (res.exists()) {
-        const id = res.id;
-        const data = res.data();
-        const userObj = convertUserJsonToObj(data, id);
+      const res = await getUser({ userID: userID });
+      const data: any = res.data;
+
+      if (!data.error) {
+        const userObj = convertUserJsonToObj(data.userData, userID);
         // add to redux
-        dispatch(sl_addUserToList({ [id]: userObj }));
+        dispatch(sl_addUserToList({ [userID]: userObj }));
         setUserData(userObj);
       } else {
-        throw Error('user not found');
+        throw Error(data.errorMessage);
       }
     } catch (e) {
       // TODO send error report
       dispatch(
         app_sendToast({
           type: 'error',
-          message: 'Error in fetching gifts. Please try again'
+          message: 'Error in fetching user data. Please try again'
         })
       );
     } finally {

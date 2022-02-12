@@ -20,7 +20,7 @@ import { useSelector } from 'react-redux';
 import { Button, Icon, ImageComponent, Text } from '../../components';
 import AddToCircleDialog from '../../components/Reusable/AddToCircleDialog';
 import { db, storage } from '../../firebase';
-import { FS_CIRCLE_USERS_DB, FS_USER_DB } from '../../common/constants';
+import { FS_CIRCLE_USERS_DB } from '../../common/constants';
 import UserType from '../../models/User';
 import { cu_init, cu_removeUser } from '../../redux/myCircleList';
 import { RootState, useAppDispatch } from '../../redux/store';

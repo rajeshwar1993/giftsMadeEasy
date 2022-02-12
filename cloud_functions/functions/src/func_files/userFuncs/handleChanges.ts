@@ -1,9 +1,5 @@
 import { Change, firestore } from 'firebase-functions';
-import {
-  InvitationsDBKeys,
-  NotificationDBKeys,
-  UserDBKeys
-} from '../helpers/dbKeys';
+import { InvitationsDBKeys, UserDBKeys } from '../helpers/dbKeys';
 import { createDateString } from '../helpers/utils';
 import * as admin from 'firebase-admin';
 import {

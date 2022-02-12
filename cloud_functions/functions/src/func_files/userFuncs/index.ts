@@ -1,6 +1,6 @@
-import { firestore, logger } from 'firebase-functions';
-
-import { FS_USER_DB, FS_INVITATIONS_DB } from '../helpers/constants';
+import { firestore, logger, https } from 'firebase-functions';
+import * as admin from 'firebase-admin';
+import { FS_USER_DB } from '../helpers/constants';
 import { generateNotification } from '../helpers/notificationGenerator';
 import { NotificationTypes } from '../helpers/enums';
 import {
@@ -10,7 +10,6 @@ import {
   sendWelcomeEmail
 } from './handleChanges';
 import { UserDBKeys } from '../helpers/dbKeys';
-import { user } from 'firebase-functions/v1/auth';
 
 export const handleUserDataChange = firestore
   .document(`${FS_USER_DB}/{userId}`)
@@ -87,3 +86,44 @@ export const handleUserDataChange = firestore
       logger.log(e);
     }
   });
+
+export const readPublicUserData = https.onCall(async (data, context) => {
+  try {
+    if (!context.auth?.uid) {
+      throw Error('Unauthenticated');
+    }
+
+    if (!data || !data.userID) {
+      throw Error('No User ID Found in Request.');
+    }
+
+    const colRef = admin.firestore().collection(FS_USER_DB);
+
+    const doc = await colRef.doc(data.userID).get();
+
+    if (doc.exists) {
+      const res = doc.data();
+      const dataToSend = { ...res };
+      // delete private data
+      delete dataToSend[UserDBKeys.email];
+      delete dataToSend[UserDBKeys.phoneExt];
+      delete dataToSend[UserDBKeys.phoneNumber];
+
+      return {
+        error: false,
+        errorMessage: null,
+        userData: dataToSend,
+        userID: data.userID
+      };
+    } else {
+      throw Error('No User Found.');
+    }
+  } catch (e) {
+    return {
+      error: true,
+      errorMessage: `${e}`,
+      userData: null,
+      userID: null
+    };
+  }
+});

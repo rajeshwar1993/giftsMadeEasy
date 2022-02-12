@@ -8,15 +8,20 @@ import {
   updateDoc,
   deleteDoc
 } from 'firebase/firestore';
+import { httpsCallable } from 'firebase/functions';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { FS_CIRCLE_USERS_DB, FS_USER_DB } from '../../common/constants';
+import {
+  FF_READ_PUBLIC_USER_DATA,
+  FS_CIRCLE_USERS_DB,
+  FS_USER_DB
+} from '../../common/constants';
 import { CircleUserDBKeys } from '../../common/dbKeys';
 import { Button, SectionTitle, Text } from '../../components';
 import AddToCircleDialog from '../../components/Reusable/AddToCircleDialog';
 import OKCancelBtn from '../../components/Reusable/OKCancelBtn';
 import { MiniProfile } from '../../components/Reusable/ProfileGlance';
-import { db } from '../../firebase';
+import { db, functions } from '../../firebase';
 import CircleUserType, { convertCUJsonToObj } from '../../models/CircleUser';
 import UserType, { convertUserJsonToObj } from '../../models/User';
 import { app_sendToast } from '../../redux/appCommon';
@@ -52,16 +57,15 @@ const CircleRequests: FC<Props> = ({ isMe, user }) => {
 
       const cu: Array<CircleUserType> = [];
 
-      const userColRef = collection(db, FS_USER_DB);
       const promises: any = [];
-
+      const getUser = httpsCallable(functions, FF_READ_PUBLIC_USER_DATA);
       snap.forEach(s => {
         const d = convertCUJsonToObj(s.data(), s.id);
         cu.push(d);
 
         // check if cu is not in user list
         if (!userList[d.userCircle]) {
-          promises.push(getDoc(doc(userColRef, d.userCircle)));
+          promises.push(getUser({ userID: d.userCircle }));
         }
       });
 
@@ -69,9 +73,11 @@ const CircleRequests: FC<Props> = ({ isMe, user }) => {
       let newUsers: { [key: string]: UserType } = {};
       res.forEach(r => {
         if (r.status === 'fulfilled') {
-          let val = r.value;
-          const u = convertUserJsonToObj(val.data(), val.id);
-          newUsers[val.id] = u;
+          let data = r.value.data;
+          if (!data.error) {
+            const u = convertUserJsonToObj(data.userData, data.userID);
+            newUsers[data.userID] = u;
+          }
         }
       });
 

@@ -57,9 +57,7 @@ export const convertUserJsonToObj = (inp: any, id: string) => {
     interestedTags: inp[UserDBKeys.interestedTags] || [],
     wishlist: inp[UserDBKeys.wishlist] || [],
     bookmarks: inp[UserDBKeys.bookmarks] || [],
-    createdTS: inp[UserDBKeys.createdTS]
-      ? inp[UserDBKeys.createdTS].toDate().toISOString()
-      : ''
+    createdTS: inp[UserDBKeys.createdTS] ? inp[UserDBKeys.createdTS] : ''
   };
 
   return u;

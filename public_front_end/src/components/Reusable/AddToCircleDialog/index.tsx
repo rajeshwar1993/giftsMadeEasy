@@ -21,8 +21,11 @@ import {
   serverTimestamp,
   setDoc
 } from 'firebase/firestore';
-import { db } from '../../../firebase';
-import { FS_USER_DB, FS_CIRCLE_USERS_DB } from '../../../common/constants';
+import { db, functions } from '../../../firebase';
+import {
+  FS_CIRCLE_USERS_DB,
+  FF_READ_PUBLIC_USER_DATA
+} from '../../../common/constants';
 import { convertCUJsonToObj } from '../../../models/CircleUser';
 import { useAppDispatch } from '../../../redux/store';
 import { cu_addUser } from '../../../redux/myCircleList';
@@ -31,7 +34,7 @@ import { relationshipFilterValues } from '../../../common/staticFilterValues';
 import AppConfig from '../../../common/appConfig';
 import { searchUsers as searchUsersAlgolia } from '../../../common/algolia';
 import Icon from '../Icon';
-import AppLink from '../AppLink';
+import { httpsCallable, HttpsCallableResult } from 'firebase/functions';
 import { app_toggle_inviteDialogOpen } from '../../../redux/appCommon';
 
 type AddToCircleDialogProps = {
@@ -119,15 +122,17 @@ const AddToCircleDialog: FC<AddToCircleDialogProps> = ({
     try {
       setLoading(true);
       let foundUser: UserType;
-      const userRef = collection(db, FS_USER_DB);
-      const res = await getDoc(doc(userRef, id));
 
-      if (res.exists()) {
-        foundUser = convertUserJsonToObj(res.data(), res.id);
+      const getUser = httpsCallable(functions, FF_READ_PUBLIC_USER_DATA);
+
+      const res = await getUser({ userID: id });
+      const data: any = res.data;
+      if (!data.error) {
+        foundUser = convertUserJsonToObj(data.userData, id);
         setModalUser(foundUser);
         setUsersFound([]);
       } else {
-        setError('Error occured while fetching user. Please try again.');
+        setError(data.errorMessage);
       }
       setLoading(false);
     } catch (e) {
