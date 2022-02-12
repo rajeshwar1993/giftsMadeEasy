@@ -19,13 +19,15 @@ type Props = {
 const ProfilePage: FC<Props> = ({ user }) => {
   const fbAuth = useAuthState(auth);
 
-  const [isMe, updateIsMe] = useState(false);
+  const [isMe, updateIsMe] = useState(true);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (user.uid === fbAuth[0]?.uid) {
       updateIsMe(true);
+    } else {
+      updateIsMe(false);
     }
   }, [user, fbAuth]);
 

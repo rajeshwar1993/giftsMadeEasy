@@ -164,6 +164,7 @@ export const handleSendNotificationsFromInvitationList = async (
     const docs = res.docs;
     for (let i = 0; i < docs.length; i++) {
       const data = docs[i].data();
+      const docId = docs[i].id;
       // for self to add invitee to cirle
       generateNotification(NotificationTypes.AddInviteeToCircle, userId, {
         inviteeName: data[InvitationsDBKeys.fromName],
@@ -178,6 +179,9 @@ export const handleSendNotificationsFromInvitationList = async (
           invitedPersonUserId: userId
         }
       );
+
+      // delete the invitation entry
+      collRef.doc(docId).delete();
     }
   }
 };

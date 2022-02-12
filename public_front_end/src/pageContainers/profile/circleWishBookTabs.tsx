@@ -22,19 +22,6 @@ const CircleWishBookTabs: FC<Props> = ({ isMe, user }) => {
   return (
     <Tab.Group defaultIndex={defautIndex}>
       <Tab.List className='flex p-1 space-x-10 '>
-        <Tab
-          className={({ selected }) =>
-            classNames(
-              'p-2.5 leading-5 focus:outline-none focus:ring-2 ring-offset-2 ring-offset-slate-700/5 ring-white ring-opacity-60 border-b-4 border-opacity-10 border-skin-accent hover:border-opacity-100',
-              selected ? 'border-opacity-100' : ''
-            )
-          }
-        >
-          <Text
-            styleClasses='text-base xl:text-4xl font-light'
-            content='Wishlist'
-          />
-        </Tab>
         {isMe && (
           <Tab
             className={({ selected }) =>
@@ -50,6 +37,19 @@ const CircleWishBookTabs: FC<Props> = ({ isMe, user }) => {
             />
           </Tab>
         )}
+        <Tab
+          className={({ selected }) =>
+            classNames(
+              'p-2.5 leading-5 focus:outline-none focus:ring-2 ring-offset-2 ring-offset-slate-700/5 ring-white ring-opacity-60 border-b-4 border-opacity-10 border-skin-accent hover:border-opacity-100',
+              selected ? 'border-opacity-100' : ''
+            )
+          }
+        >
+          <Text
+            styleClasses='text-base xl:text-4xl font-light'
+            content='Wishlist'
+          />
+        </Tab>
 
         {isMe && (
           <Tab
@@ -68,6 +68,16 @@ const CircleWishBookTabs: FC<Props> = ({ isMe, user }) => {
         )}
       </Tab.List>
       <Tab.Panels className='mt-2'>
+        {isMe && (
+          <Tab.Panel
+            className={classNames(
+              'rounded-xl p-3',
+              'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
+            )}
+          >
+            <MyCircle isMe={isMe} user={user} />
+          </Tab.Panel>
+        )}
         <Tab.Panel
           className={classNames(
             'rounded-xl p-3',
@@ -79,16 +89,6 @@ const CircleWishBookTabs: FC<Props> = ({ isMe, user }) => {
             inputList={user.wishlist}
           />
         </Tab.Panel>
-        {isMe && (
-          <Tab.Panel
-            className={classNames(
-              'rounded-xl p-3',
-              'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
-            )}
-          >
-            <MyCircle isMe={isMe} user={user} />
-          </Tab.Panel>
-        )}
 
         {isMe && (
           <Tab.Panel
