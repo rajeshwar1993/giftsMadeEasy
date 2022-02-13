@@ -10,7 +10,7 @@ import { auth } from '../../../firebase';
 import { Button } from '../..';
 import Text from '../Text';
 import { Tab } from '@headlessui/react';
-import { classNames } from '../../../common/utils';
+import { classNames, logError } from '../../../common/utils';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { ERROR_MESSAGE_MAPPING } from '../../../common/constants';
@@ -96,10 +96,16 @@ const SignupLoginFlow: FC<Props> = ({ setStep }) => {
         // ...
       })
       .catch(error => {
-        // TODO handle if not signin
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
+        logError(
+          error.message,
+          error.stack,
+          'createUserWithGoogle',
+          'signupLoginFlow',
+          { errorCode: errorCode }
+        );
         setError(errorMessage);
         // The email of the user's account used.
         const email = error.email;

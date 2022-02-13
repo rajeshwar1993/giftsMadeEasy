@@ -159,8 +159,10 @@ const PhoneVerification: FC<Props> = ({
           // Response expired. Ask user to solve reCAPTCHA again.
           // ...
           // console.log('Captcha expired');
-          // TODO: handle this error
           setSendOTPDisbaled(true);
+          setError(
+            'Captcha Expired, please update phone number from profile page.'
+          );
         }
       },
       auth

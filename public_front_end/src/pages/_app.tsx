@@ -139,12 +139,7 @@ function WrapperComp(props: any) {
     // TODO if error -> then setError state, ask user to refresh
     if (error) {
       dispatch(ur_setError(error.message));
-    }
-
-    // TODO if user is null (not signed in) make him signin with anonymous login
-    else if (!user) {
-      // TODO anonymous login ?
-
+    } else if (!user) {
       signoutOps();
     } else {
       getUserDataFromFirestore(user);

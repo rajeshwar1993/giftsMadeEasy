@@ -69,7 +69,7 @@ interface Props {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // TODO - currently fetching all the docs in products DB
-  // TODO - change it to only most populat products so that build time is less
+  // TODO - batch this process when number of products is more
   const db = fbAdmin.firestore();
   const collRef = db.collection(FS_PRODUCTS_DB);
 

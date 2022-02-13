@@ -23,7 +23,6 @@ const AuthComponent: FC<Props> = ({ open, closeModal }) => {
     if (!user) {
       setStep(1);
     } else if (user && user.name && user.phoneNumber) {
-      // TODO if phone number is also done
       dispatch(app_toggle_isSigupOpen(false));
     } else if (user && user.name) {
       setStep(3);

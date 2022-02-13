@@ -2,8 +2,8 @@ import { collection, doc, increment, updateDoc } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react';
 
 import { auth, db } from '../../firebase';
-import { InterestTagDBKeys, UserDBKeys } from '../../common/dbKeys';
-import { FS_INTEREST_TAGS_DB, FS_USER_DB } from '../../common/constants';
+import { UserDBKeys } from '../../common/dbKeys';
+import { FS_USER_DB } from '../../common/constants';
 import UserType from '../../models/User';
 import { useAppDispatch } from '../../redux/store';
 import { ur_updateUser } from '../../redux/user';
@@ -98,12 +98,6 @@ const ProfilePage: FC<Props> = ({ user }) => {
   const updateInterestTags = async (updatedTags: Array<string>) => {
     try {
       // TODO - do thorough testing around this functionality (integration testing)
-      const ogTags = [...user.interestedTags];
-      console.log('From Index', updatedTags);
-
-      // used to update the count
-      let tagsToRemove = ogTags.filter(t => !updatedTags.includes(t));
-      let tagsToAdd = updatedTags.filter(t => !ogTags.includes(t));
 
       // update user tags
       const userRef = collection(db, FS_USER_DB);
@@ -115,27 +109,26 @@ const ProfilePage: FC<Props> = ({ user }) => {
         ur_updateUser({ key: UserDBKeys.interestedTags, value: updatedTags })
       );
 
-      // TODO - make this count update happen as part of cloud functions on change in tags
-      // update the tag counts in db
-      let promises: any[] = [];
-      const tagRef = collection(db, FS_INTEREST_TAGS_DB);
-      tagsToRemove.forEach(t => {
-        promises.push(
-          updateDoc(doc(tagRef, t), {
-            [InterestTagDBKeys.userCount]: increment(-1)
-          })
-        );
-      });
+      // update the tag counts in db - not needed, we are removing interest tag db for now
+      // let promises: any[] = [];
+      // const tagRef = collection(db, FS_INTEREST_TAGS_DB);
+      // tagsToRemove.forEach(t => {
+      //   promises.push(
+      //     updateDoc(doc(tagRef, t), {
+      //       [InterestTagDBKeys.userCount]: increment(-1)
+      //     })
+      //   );
+      // });
 
-      tagsToAdd.map(t => {
-        promises.push(
-          updateDoc(doc(tagRef, t), {
-            [InterestTagDBKeys.userCount]: increment(1)
-          })
-        );
-      });
+      // tagsToAdd.map(t => {
+      //   promises.push(
+      //     updateDoc(doc(tagRef, t), {
+      //       [InterestTagDBKeys.userCount]: increment(1)
+      //     })
+      //   );
+      // });
 
-      await Promise.all(promises);
+      // await Promise.all(promises);
     } catch (e: any) {
       logError(e.message, e.stack, 'updateInterestTags', 'ProfilePage', {
         updatedTags,

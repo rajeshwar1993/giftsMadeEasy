@@ -1,17 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { FC, Fragment, useEffect, useState } from 'react';
-import InterestTagType, { convertITJsonToObj } from '../../../models/Interest';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '../../../redux/store';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../../../firebase';
-import { FS_INTEREST_TAGS_DB } from '../../../common/constants';
-import { InterestTagDBKeys, ProductDBKeys } from '../../../common/dbKeys';
-import {
-  it_init_HierarchyArray,
-  it_update_subInterestList
-} from '../../../redux/interestTags';
 import { Button, SectionTitle } from '../../../components';
 import DialogContainer from '../DialogContainer';
 import OKCancelBtn from '../OKCancelBtn';
@@ -20,7 +8,6 @@ import {
   interestGroupMap
 } from '../../../common/staticFilterValues';
 import CheckBoxGroup, { CheckListOption } from '../CheckBoxGroup';
-import DataConfig from '../../../common/componentConfig';
 
 type Props = {
   open: boolean;
