@@ -13,6 +13,8 @@ import { FS_USER_DB } from '../../common/constants';
 import { ParsedUrlQuery } from 'querystring';
 import UserType, { convertUserJsonToObj } from '../../models/User';
 import fbAdmin from '../../firebaseServer';
+import { NextSeo } from 'next-seo';
+import AppConfig from '../../common/appConfig';
 
 const UserProfile = ({
   headerData,
@@ -24,11 +26,17 @@ const UserProfile = ({
 
   return (
     <div>
-      <Head>
-        <title>Gifts Made Easy</title>
-        <meta name='description' content={'Meta description'} />
-        <link rel='icon' href={'/favicon.ico'} />
-      </Head>
+      <NextSeo
+        title={AppConfig.HOME.headerData.title}
+        canonical={''}
+        description={AppConfig.HOME.aboutLine}
+        openGraph={{
+          url: '',
+          title: AppConfig.HOME.headerData.title,
+          description: AppConfig.HOME.aboutLine,
+          images: []
+        }}
+      />
       {pageData && <ProfilePage user={pageData} />}
     </div>
   );
@@ -63,7 +71,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   // must be async
   let { userId } = params!;
 
-  let headerData: any, pageData;
+  let pageData;
 
   const db = fbAdmin.firestore();
   const collRef = db.collection(FS_USER_DB);
@@ -84,7 +92,19 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     };
   }
 
-  headerData = { title: 'string', metaDesc: 'string' };
+  let headerData: HeaderType = {
+    title: `${pageData.name} | ${AppConfig.COMMON.appName}`,
+    canonical: '',
+    meta: {
+      desc: '',
+      og: {
+        url: '',
+        title: '',
+        description: '',
+        images: []
+      }
+    }
+  };
 
   return {
     props: { headerData, pageData },
