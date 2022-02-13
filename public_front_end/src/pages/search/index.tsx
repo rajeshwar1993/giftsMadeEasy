@@ -1,7 +1,5 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import AppConfig from '../../common/appConfig';
-import { HeaderType } from '../../common/types';
 
 import { SearchPage } from '../../pageContainers';
 

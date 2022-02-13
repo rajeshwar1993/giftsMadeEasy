@@ -2,6 +2,7 @@ import { httpsCallable } from 'firebase/functions';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { FC, useEffect, useState } from 'react';
+import ContentLoader from 'react-content-loader';
 import { useSelector } from 'react-redux';
 import { Text, ImageComponent } from '../..';
 import { FF_READ_PUBLIC_USER_DATA } from '../../../common/constants';
@@ -112,6 +113,20 @@ const ProfileGlance: FC<Props> = ({ uid, relation, status }) => {
           )}
           {status !== 'a' && <Text content='Request Pending' />}
         </>
+      )}
+      {!userData && (
+        <ContentLoader
+          width={200}
+          height={200}
+          viewBox='0 0 200 200'
+          backgroundColor='#ddd6fe'
+          foregroundColor='#ecebeb'
+        >
+          <circle cx='100' cy='50' r='38' />
+          <rect x='55' y='100' rx='5' ry='5' width='90' height='15' />
+          <rect x='55' y='120' rx='5' ry='5' width='90' height='15' />
+          <rect x='55' y='140' rx='5' ry='5' width='90' height='15' />
+        </ContentLoader>
       )}
     </div>
   );

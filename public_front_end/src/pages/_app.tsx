@@ -133,7 +133,9 @@ function WrapperComp(props: any) {
     // init circle user with empty array
     dispatch(cu_init([]));
 
-    router.push('/');
+    if (router.pathname === '/profile') {
+      router.push('/');
+    }
   };
 
   useEffect(() => {

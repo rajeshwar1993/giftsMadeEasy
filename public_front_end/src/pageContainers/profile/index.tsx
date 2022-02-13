@@ -22,16 +22,8 @@ const ProfilePage: FC<Props> = ({ user }) => {
   const fbAuth = useAuthState(auth);
   const router = useRouter();
   const [isMe, updateIsMe] = useState(true);
-  // const [defaultTab, setDefaultTab] = useState<any>();
 
   const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   const tab: any = router.query.tab;
-  //   if (tab) {
-  //     setDefaultTab(tab);
-  //   }
-  // }, []);
 
   useEffect(() => {
     if (user.uid === fbAuth[0]?.uid) {

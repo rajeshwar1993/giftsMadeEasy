@@ -8,6 +8,9 @@ import { ProfilePage } from '../../pageContainers';
 import UserType from '../../models/User';
 import { RootState } from '../../redux/store';
 import { HeaderType } from '../../common/types';
+import { NextSeo } from 'next-seo';
+import AppConfig from '../../common/appConfig';
+import Skeleton from 'react-loading-skeleton';
 
 type Props = {
   // headerData: HeaderType;
@@ -29,12 +32,19 @@ const MyProfile: NextPage<Props> = ({}) => {
 
   return (
     <div>
-      <Head>
-        <title>Gifts Made Easy</title>
-        <meta name='description' content={'Meta description'} />
-        <link rel='icon' href={'/favicon.ico'} />
-      </Head>
+      <NextSeo
+        title={AppConfig.HOME.headerData.title}
+        canonical={''}
+        description={AppConfig.HOME.aboutLine}
+        openGraph={{
+          url: '',
+          title: AppConfig.HOME.headerData.title,
+          description: AppConfig.HOME.aboutLine,
+          images: []
+        }}
+      />
       {user && <ProfilePage user={user} />}
+      {!user && <Skeleton count={5} />}
     </div>
   );
 };
