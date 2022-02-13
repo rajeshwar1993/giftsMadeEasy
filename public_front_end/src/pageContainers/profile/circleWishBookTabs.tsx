@@ -17,15 +17,6 @@ const CircleWishBookTabs: FC<Props> = ({ isMe, user, defaultTab }) => {
     defaultTab === 'wl' ? 1 : defaultTab === 'bm' ? 2 : 0
   );
 
-  // useEffect(() => {
-  //   debugger;
-  //   if (defaultTab === 'wl') {
-  //     setDefaultIndex(1);
-  //   } else if (defaultTab === 'bm') {
-  //     setDefaultIndex(2);
-  //   }
-  // }, [isMe]);
-
   // TODO set default tab if navigating from menu to specific tab
   return (
     <Tab.Group defaultIndex={defautIndex}>

@@ -17,6 +17,9 @@ export interface UserType {
   interestedTags: Array<string>; // array of interstTag ids
   wishlist: Array<string>;
   bookmarks: Array<string>;
+  userType: 'G' | 'A' | 'C'; // G-General, A-Admin, C-Company
+  markedForDel: boolean;
+  markedForDelTS: any;
   createdTS: any;
 }
 
@@ -34,7 +37,8 @@ export const convertUserToJson = (user: UserType) => ({
   [UserDBKeys.relDate]: user.relDate.toString(),
   [UserDBKeys.interestedTags]: user.interestedTags,
   [UserDBKeys.wishlist]: user.wishlist,
-  [UserDBKeys.bookmarks]: user.bookmarks
+  [UserDBKeys.bookmarks]: user.bookmarks,
+  [UserDBKeys.userType]: user.userType
 });
 
 export const convertUserJsonToObj = (inp: any, id: string) => {
@@ -57,6 +61,11 @@ export const convertUserJsonToObj = (inp: any, id: string) => {
     interestedTags: inp[UserDBKeys.interestedTags] || [],
     wishlist: inp[UserDBKeys.wishlist] || [],
     bookmarks: inp[UserDBKeys.bookmarks] || [],
+    userType: inp[UserDBKeys.userType] || 'G',
+    markedForDel: inp[UserDBKeys.markedForDel] || [],
+    markedForDelTS: inp[UserDBKeys.markedForDelTS]
+      ? inp[UserDBKeys.markedForDelTS]
+      : '',
     createdTS: inp[UserDBKeys.createdTS] ? inp[UserDBKeys.createdTS] : ''
   };
 

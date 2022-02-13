@@ -14,6 +14,9 @@ export const UserDBKeys = {
   interestedTags: 'it',
   wishlist: 'wl',
   bookmarks: 'bk',
+  userType: 'ut',
+  markedForDel: 'mFD',
+  markedForDelTS: 'mFDTS',
   createdTS: 'cTS'
 };
 

@@ -80,7 +80,8 @@ function WrapperComp(props: any) {
             [UserDBKeys.email]: fbUser.email || '',
             [UserDBKeys.isEmailVerified]: fbUser.emailVerified,
             [UserDBKeys.isAnonymous]: fbUser.isAnonymous,
-            [UserDBKeys.name]: fbUser.displayName || ''
+            [UserDBKeys.name]: fbUser.displayName || '',
+            [UserDBKeys.userType]: 'G'
           },
           fbUser.uid
         );
