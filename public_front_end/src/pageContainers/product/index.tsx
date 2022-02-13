@@ -80,6 +80,7 @@ const ProductPage: FC<Props> = ({ product }) => {
         {/* div Section */}
         <div className='flex flex-col space-y-4 lg:flex-1 px-2'>
           <ProductTitle
+            id={product.uid}
             title={product.title}
             isBookMarked={!!user?.bookmarks.find(b => b === product.uid)}
             toggleBookmark={toggleBookmark}
