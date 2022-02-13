@@ -46,7 +46,7 @@ const ProductSearchBy: FC<Props> = ({
       setFetchedProducts(prods);
       setSelectedProduct(null);
     } catch (e) {
-      // TODO handle Error
+      console.log(e);
     } finally {
       setLoading(false);
     }

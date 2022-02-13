@@ -7,7 +7,7 @@ import { Text, ImageComponent } from '../..';
 import { FF_READ_PUBLIC_USER_DATA } from '../../../common/constants';
 import { FilterDBKeys, UserDBKeys } from '../../../common/dbKeys';
 import { relationshipFilterValues } from '../../../common/staticFilterValues';
-import { createQueryUrlFromObject } from '../../../common/utils';
+import { createQueryUrlFromObject, logError } from '../../../common/utils';
 import { db, functions } from '../../../firebase';
 import UserType, { convertUserJsonToObj } from '../../../models/User';
 import { app_sendToast } from '../../../redux/appCommon';
@@ -64,8 +64,10 @@ const ProfileGlance: FC<Props> = ({ uid, relation, status }) => {
       } else {
         throw Error(data.errorMessage);
       }
-    } catch (e) {
-      // TODO send error report
+    } catch (e: any) {
+      logError(e.message, e.stack, 'fetchUserData', 'ProfileGlance', {
+        userID
+      });
       dispatch(
         app_sendToast({
           type: 'error',

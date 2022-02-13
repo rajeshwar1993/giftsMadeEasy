@@ -2,6 +2,7 @@ import { collection, doc, getDoc } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FS_PRODUCTS_DB } from '../../common/constants';
+import { logError } from '../../common/utils';
 import { Text } from '../../components';
 import ProductListItemMini from '../../components/Reusable/ProductListItem/listItemMini';
 import { db } from '../../firebase';
@@ -55,8 +56,10 @@ const ProductListSection: FC<Props> = ({ tagLine, inputList }) => {
 
       // dispatch redux
       dispatch(pl_addProducts(productsToAdd));
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      logError(e.message, e.stack, 'processTheList', 'productListSection', {
+        list
+      });
     }
   };
 

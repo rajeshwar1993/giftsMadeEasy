@@ -11,6 +11,7 @@ import ProfileImageSection from './profileImageSection';
 import ProfileDetailsSection from './profileDetailsSection';
 import { Gender } from '../../models/enums';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { logError } from '../../common/utils';
 
 type Props = {
   user: UserType;
@@ -38,9 +39,11 @@ const ProfilePage: FC<Props> = ({ user }) => {
         [UserDBKeys.aboutText]: text
       });
       dispatch(ur_updateUser({ key: UserDBKeys.aboutText, value: text }));
-    } catch (e) {
-      console.log(e);
-      // TODO handle error properly
+    } catch (e: any) {
+      logError(e.message, e.stack, 'updateAboutText', 'ProfilePage', {
+        text,
+        userID: user.uid
+      });
     }
   };
 
@@ -51,9 +54,11 @@ const ProfilePage: FC<Props> = ({ user }) => {
         [UserDBKeys.gender]: g.toString()
       });
       dispatch(ur_updateUser({ key: UserDBKeys.gender, value: g.toString() }));
-    } catch (e) {
-      console.log(e);
-      // TODO handle error properly
+    } catch (e: any) {
+      logError(e.message, e.stack, 'updateGender', 'ProfilePage', {
+        g,
+        userID: user.uid
+      });
     }
   };
 
@@ -66,9 +71,12 @@ const ProfilePage: FC<Props> = ({ user }) => {
       });
       dispatch(ur_updateUser({ key: UserDBKeys.dob, value: dob }));
       dispatch(ur_updateUser({ key: UserDBKeys.relDate, value: relDate }));
-    } catch (e) {
-      console.log(e);
-      // TODO handle error properly
+    } catch (e: any) {
+      logError(e.message, e.stack, 'updateDates', 'ProfilePage', {
+        dob,
+        relDate,
+        userID: user.uid
+      });
     }
   };
 
@@ -79,9 +87,11 @@ const ProfilePage: FC<Props> = ({ user }) => {
         [UserDBKeys.imgUrl]: url
       });
       dispatch(ur_updateUser({ key: UserDBKeys.imgUrl, value: url }));
-    } catch (e) {
-      console.log(e);
-      // TODO handle error properly
+    } catch (e: any) {
+      logError(e.message, e.stack, 'saveProfileImgUrl', 'ProfilePage', {
+        url,
+        userID: user.uid
+      });
     }
   };
 
@@ -126,9 +136,11 @@ const ProfilePage: FC<Props> = ({ user }) => {
       });
 
       await Promise.all(promises);
-    } catch (e) {
-      console.log(e);
-      // TODO handle error properly
+    } catch (e: any) {
+      logError(e.message, e.stack, 'updateInterestTags', 'ProfilePage', {
+        updatedTags,
+        userID: user.uid
+      });
     }
   };
 

@@ -24,8 +24,8 @@ import UserType, {
 import { FS_USER_DB } from '../common/constants';
 import { Layout } from '../components';
 import { UserDBKeys } from '../common/dbKeys';
-import { sendEmailVerificationMail } from '../common/utils';
-import { app_toggle_isSigupOpen } from '../redux/appCommon';
+import { logError, sendEmailVerificationMail } from '../common/utils';
+import { app_sendToast, app_toggle_isSigupOpen } from '../redux/appCommon';
 import { cu_init } from '../redux/myCircleList';
 import { useRouter } from 'next/router';
 
@@ -115,8 +115,13 @@ function WrapperComp(props: any) {
 
       // then update redux with new or existing data
       dispatch(ur_init(userData));
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      logError(e.message, e.stack, 'getUserDataFromFirestore', '_app', {
+        userID: fbUser?.uid
+      });
+      dispatch(
+        app_sendToast({ type: 'error', message: 'Error in fetching user.' })
+      );
     }
   };
 

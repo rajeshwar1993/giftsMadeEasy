@@ -69,6 +69,7 @@ const ProductOpsContainer = () => {
         })
       );
     } catch (e) {
+      console.log(e);
       dispatch(
         app_sendToast({
           message: 'Error while saving data',
@@ -97,7 +98,6 @@ const ProductOpsContainer = () => {
 
       setSelectedProduct(null);
     } catch (e) {
-      // TODO handle error
       console.log(e);
     } finally {
       setLoading(false);

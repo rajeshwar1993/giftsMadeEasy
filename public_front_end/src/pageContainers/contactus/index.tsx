@@ -6,7 +6,7 @@ import { db } from '../../firebase';
 import { ContactDBKeys } from '../../common/dbKeys';
 import { useAppDispatch } from '../../redux/store';
 import { app_sendToast } from '../../redux/appCommon';
-import { checkRateLimiter, setRateLimiter } from '../../common/utils';
+import { checkRateLimiter, logError, setRateLimiter } from '../../common/utils';
 
 const ContactUsWrapper = () => {
   const [loading, setLoading] = useState(false);
@@ -46,8 +46,8 @@ const ContactUsWrapper = () => {
 
       // reset form
       e.target.reset();
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      logError(e.message, e.stack, 'handleSubmit', 'ContactUsWrapper', {});
       dispatch(
         app_sendToast({
           type: 'error',

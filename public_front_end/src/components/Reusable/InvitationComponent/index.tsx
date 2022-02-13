@@ -3,6 +3,7 @@ import React, { FC, Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FS_INVITATIONS_DB } from '../../../common/constants';
 import { InvitationsDBKeys } from '../../../common/dbKeys';
+import { logError } from '../../../common/utils';
 import { db } from '../../../firebase';
 import { app_sendToast } from '../../../redux/appCommon';
 import { RootState, useAppDispatch } from '../../../redux/store';
@@ -48,9 +49,8 @@ const InvitationComponent: FC<Props> = ({ open, closeModal }) => {
       });
 
       dispatch(app_sendToast({ type: 'info', message: 'Invitation sent.' }));
-    } catch (e) {
-      // TODO handle error
-      console.log(e);
+    } catch (e: any) {
+      logError(e.message, e.stack, 'handleSubmit', 'InvitationComponent', {});
       dispatch(
         app_sendToast({
           type: 'error',

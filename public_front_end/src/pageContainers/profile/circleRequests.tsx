@@ -17,6 +17,7 @@ import {
   FS_USER_DB
 } from '../../common/constants';
 import { CircleUserDBKeys } from '../../common/dbKeys';
+import { logError } from '../../common/utils';
 import { Button, SectionTitle, Text } from '../../components';
 import AddToCircleDialog from '../../components/Reusable/AddToCircleDialog';
 import OKCancelBtn from '../../components/Reusable/OKCancelBtn';
@@ -86,8 +87,10 @@ const CircleRequests: FC<Props> = ({ isMe, user }) => {
 
       // update circle user array
       setRequests(cu);
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      logError(e.message, e.stack, 'fetchRequests', 'CircleRequests', {
+        userID: user.uid
+      });
       dispatch(
         app_sendToast({
           type: 'error',
@@ -127,8 +130,11 @@ const CircleRequests: FC<Props> = ({ isMe, user }) => {
           })
         );
       }
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      logError(e.message, e.stack, 'updateCircleRequest', 'CircleRequests', {
+        docId,
+        status
+      });
       dispatch(
         app_sendToast({
           type: 'error',

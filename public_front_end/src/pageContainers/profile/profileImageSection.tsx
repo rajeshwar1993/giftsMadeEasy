@@ -32,6 +32,8 @@ import { Gender } from '../../models/enums';
 import EmailAndPhoneView from './emailAndPhoneView';
 import { CircleUserDBKeys } from '../../common/dbKeys';
 import CircleUserType, { convertCUJsonToObj } from '../../models/CircleUser';
+import { logError } from '../../common/utils';
+import { app_sendToast } from '../../redux/appCommon';
 type Props = {
   user: UserType;
   saveImgUrl: (url: string) => void;
@@ -93,9 +95,13 @@ const ProfileImageSection: FC<Props> = ({
       });
 
       dispatch(cu_init(dbCU));
-    } catch (e) {
-      console.log(e);
-      // TODO handle this error
+    } catch (e: any) {
+      logError(
+        e.message,
+        e.stack,
+        'checkUserAlreadyInCircle',
+        'profileImageSection'
+      );
     }
   };
 
@@ -109,12 +115,26 @@ const ProfileImageSection: FC<Props> = ({
         deleteDoc(doc(db, FS_CIRCLE_USERS_DB, cudoc.docid));
         dispatch(cu_removeUser(cudoc.docid));
       } else {
-        throw Error('Error in removing circle user');
+        dispatch(
+          app_sendToast({
+            type: 'error',
+            message: 'Error in removing circle user'
+          })
+        );
       }
-    } catch (e) {
-      console.log(e);
-      // TODO handle this error
-      console.log(e);
+    } catch (e: any) {
+      logError(
+        e.message,
+        e.stack,
+        'removeUserFromCircle',
+        'profileImageSection'
+      );
+      dispatch(
+        app_sendToast({
+          type: 'error',
+          message: 'Error in removing circle user'
+        })
+      );
     }
   };
 
@@ -140,15 +160,24 @@ const ProfileImageSection: FC<Props> = ({
       console.log(newImgFile);
 
       if (!newImgFile) {
-        console.log('no files to work on');
+        dispatch(
+          app_sendToast({
+            type: 'error',
+            message: 'No image found.'
+          })
+        );
         return;
       }
       const file = newImgFile;
       updateNewImgFile(null);
       // check image size
       if (file.size > 4000000) {
-        // TODO make a error display
-        console.log('Size is more than 5mb');
+        dispatch(
+          app_sendToast({
+            type: 'error',
+            message: 'Image size should be less than 4 MB.'
+          })
+        );
         return;
       }
 
@@ -169,13 +198,24 @@ const ProfileImageSection: FC<Props> = ({
           saveImgUrl(url);
           updateNewImg(url);
         })
-        .catch(error => {
+        .catch((e: any) => {
           // Handle any errors
-          // TODO handle error
+          logError(e.message, e.stack, 'getDownloadURL', 'profileImageSection');
+          dispatch(
+            app_sendToast({
+              type: 'error',
+              message: 'Error in saving image.'
+            })
+          );
         });
-    } catch (e) {
-      console.log(e);
-      // TODO handle error
+    } catch (e: any) {
+      logError(e.message, e.stack, 'onImageSave', 'profileImageSection');
+      dispatch(
+        app_sendToast({
+          type: 'error',
+          message: 'Error in saving image.'
+        })
+      );
     }
   };
 

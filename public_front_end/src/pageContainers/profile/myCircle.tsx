@@ -13,6 +13,7 @@ import { cu_init } from '../../redux/myCircleList';
 import { RootState, useAppDispatch } from '../../redux/store';
 import { CircleUserDBKeys } from '../../common/dbKeys';
 import UserType from '../../models/User';
+import { logError } from '../../common/utils';
 
 type Props = {
   isMe: boolean;
@@ -43,9 +44,10 @@ const MyCircle: FC<Props> = ({ isMe, user }) => {
       });
 
       dispatch(cu_init(dbCU));
-    } catch (e) {
-      console.log(e);
-      // TODO handle error
+    } catch (e: any) {
+      logError(e.message, e.stack, 'fetchAndUpdateCircleUsers', 'MyCircle', {
+        userID: user.uid
+      });
     }
   };
 
