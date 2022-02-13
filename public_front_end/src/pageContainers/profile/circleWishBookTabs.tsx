@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useLayoutEffect, useState } from 'react';
 import { Tab } from '@headlessui/react';
 import { classNames } from '../../common/utils';
 import { Text } from '../../components';
@@ -9,14 +9,22 @@ import UserType from '../../models/User';
 type Props = {
   isMe: boolean;
   user: UserType;
+  defaultTab: any;
 };
 
-const CircleWishBookTabs: FC<Props> = ({ isMe, user }) => {
-  const [defautIndex, setDefaultIndex] = useState(0);
+const CircleWishBookTabs: FC<Props> = ({ isMe, user, defaultTab }) => {
+  const [defautIndex, setDefaultIndex] = useState(
+    defaultTab === 'wl' ? 1 : defaultTab === 'bm' ? 2 : 0
+  );
 
-  useEffect(() => {
-    setDefaultIndex(0);
-  }, [isMe]);
+  // useEffect(() => {
+  //   debugger;
+  //   if (defaultTab === 'wl') {
+  //     setDefaultIndex(1);
+  //   } else if (defaultTab === 'bm') {
+  //     setDefaultIndex(2);
+  //   }
+  // }, [isMe]);
 
   // TODO set default tab if navigating from menu to specific tab
   return (

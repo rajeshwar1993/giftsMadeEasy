@@ -51,7 +51,18 @@ const NavProfileMenu: FC<Props> = ({ imgSrc, name }) => {
               </Menu.Item>
             </div>
             <div className='px-1'>
-              <Menu.Item onClick={() => router.push('/profile')}>
+              <Menu.Item onClick={() => router.push('/profile?tab=mc')}>
+                <Button
+                  icon={{ iconName: 'People' }}
+                  text='My Circle'
+                  defautStyle='cust-btn-btn'
+                  styleClasses='w-full !border-0 !py-2 text-base !justify-start'
+                  wrapperClasses='w-full my-2'
+                />
+              </Menu.Item>
+            </div>
+            <div className='px-1'>
+              <Menu.Item onClick={() => router.push('/profile?tab=wl')}>
                 <Button
                   icon={{ iconName: 'OutlineFavorite' }}
                   text='Wishlist'
@@ -62,7 +73,7 @@ const NavProfileMenu: FC<Props> = ({ imgSrc, name }) => {
               </Menu.Item>
             </div>
             <div className='px-1'>
-              <Menu.Item>
+              <Menu.Item onClick={() => router.push('/profile?tab=bm')}>
                 <Button
                   icon={{ iconName: 'BookmarkBorder' }}
                   text='Bookmarks'

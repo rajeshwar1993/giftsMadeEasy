@@ -183,6 +183,10 @@ const Icon: FC<Props> = ({
         let { MdLink } = await import('react-icons/md');
         IconToUse = MdLink;
         break;
+      case 'People':
+        let { MdPeopleAlt } = await import('react-icons/md');
+        IconToUse = MdPeopleAlt;
+        break;
 
       default:
         let { MdDoDisturb } = await import('react-icons/md');

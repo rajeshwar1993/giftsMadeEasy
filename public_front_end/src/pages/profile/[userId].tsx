@@ -9,8 +9,6 @@ import Head from 'next/head';
 
 import { ProfilePage } from '../../pageContainers';
 import { HeaderType } from '../../common/types';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
 import { FS_USER_DB } from '../../common/constants';
 import { ParsedUrlQuery } from 'querystring';
 import UserType, { convertUserJsonToObj } from '../../models/User';

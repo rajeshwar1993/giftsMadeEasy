@@ -11,12 +11,14 @@ type Props = {
   user: UserType;
   updateInterestTags: (tags: Array<string>) => void;
   isMe: boolean;
+  defaultTab: any;
 };
 
 const ProfileDetailsSection: FC<Props> = ({
   user,
   updateInterestTags,
-  isMe
+  isMe,
+  defaultTab
 }) => {
   return (
     <div className='flex flex-col space-y-8'>
@@ -33,7 +35,7 @@ const ProfileDetailsSection: FC<Props> = ({
       <CircleRequests isMe={isMe} user={user} />
 
       <div className='mb-10'>
-        <CircleWishBookTabs isMe={isMe} user={user} />
+        <CircleWishBookTabs isMe={isMe} user={user} defaultTab={defaultTab} />
       </div>
     </div>
   );

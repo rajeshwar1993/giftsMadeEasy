@@ -8,6 +8,7 @@ import {
   interestGroupMap
 } from '../../../common/staticFilterValues';
 import CheckBoxGroup, { CheckListOption } from '../CheckBoxGroup';
+import { ProductDBKeys } from '../../../common/dbKeys';
 
 type Props = {
   open: boolean;

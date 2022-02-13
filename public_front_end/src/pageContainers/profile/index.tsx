@@ -12,6 +12,7 @@ import ProfileDetailsSection from './profileDetailsSection';
 import { Gender } from '../../models/enums';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { logError } from '../../common/utils';
+import { useRouter } from 'next/router';
 
 type Props = {
   user: UserType;
@@ -19,10 +20,18 @@ type Props = {
 
 const ProfilePage: FC<Props> = ({ user }) => {
   const fbAuth = useAuthState(auth);
-
+  const router = useRouter();
   const [isMe, updateIsMe] = useState(true);
+  // const [defaultTab, setDefaultTab] = useState<any>();
 
   const dispatch = useAppDispatch();
+
+  // useEffect(() => {
+  //   const tab: any = router.query.tab;
+  //   if (tab) {
+  //     setDefaultTab(tab);
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (user.uid === fbAuth[0]?.uid) {
@@ -157,6 +166,7 @@ const ProfilePage: FC<Props> = ({ user }) => {
             user={user}
             updateInterestTags={updateInterestTags}
             isMe={isMe}
+            defaultTab={router.query.tab}
           />
         </div>
       </div>
