@@ -22,6 +22,7 @@ import MenuPopover from './menuExpandPopover';
 import AppLink from '../Reusable/AppLink';
 import { sendEmailVerificationMail } from '../../common/utils';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { logSignupOpen } from '../../common/analyticsEvents';
 type Props = {
   config: NavConfig;
 };
@@ -141,7 +142,10 @@ const NavBar: FC<Props> = ({ config }) => {
                   text='Signup'
                   defautStyle='cust-btn-link'
                   styleClasses='mx-2 px-2'
-                  onClick={() => dispatch(app_toggle_isSigupOpen('signup'))}
+                  onClick={() => {
+                    logSignupOpen({ source: 'nav_link' });
+                    dispatch(app_toggle_isSigupOpen('signup'));
+                  }}
                 />
                 <Button
                   text='Login'

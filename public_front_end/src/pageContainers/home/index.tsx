@@ -4,13 +4,17 @@ import GiftsSearchMini from './giftsSearchMini';
 import ProductShowcase from './productShowcase';
 import TrendingSearches from './trendingSearches';
 import { HomePageData } from '../../pages';
-import { useAppDispatch } from '../../redux/store';
+import { RootState, useAppDispatch } from '../../redux/store';
 import { app_toggle_isSigupOpen } from '../../redux/appCommon';
 import AppLink from '../../components/Reusable/AppLink';
 import BannerCTA from '../../components/Reusable/BannerCTA';
+import { useSelector } from 'react-redux';
+import { logSignupOpen } from '../../common/analyticsEvents';
 
 const HomePage: FC<HomePageData> = ({ headLines, productShowcase }) => {
   const dispatch = useAppDispatch();
+
+  const user = useSelector((state: RootState) => state.user.data);
 
   return (
     <div className='text-base flex flex-col space-y-16'>
@@ -53,20 +57,23 @@ const HomePage: FC<HomePageData> = ({ headLines, productShowcase }) => {
       })}
 
       <div className='grid grid-cols-1 gap-y-8 lg:grid-cols-1 lg:gap-x-16'>
-        <BannerCTA
-          title={{ content: 'Join Our Circle' }}
-          text={{
-            content:
-              '<p>We have designed a personal gifting experience ensuring that your gift is appreciated and cherished by your loved one.</p> <p> Signup with us to unlock the MyCircle feature now!</p>'
-          }}
-          link={'/'}
-          btn={{
-            text: 'Signup',
-            onClick: () => {
-              dispatch(app_toggle_isSigupOpen('signup'));
-            }
-          }}
-        />
+        {!user?.uid && (
+          <BannerCTA
+            title={{ content: 'Join Our Circle' }}
+            text={{
+              content:
+                '<p>We have designed a personal gifting experience ensuring that your gift is appreciated and cherished by your loved one.</p> <p> Signup with us to unlock the MyCircle feature now!</p>'
+            }}
+            link={'/'}
+            btn={{
+              text: 'Signup',
+              onClick: () => {
+                logSignupOpen({ source: 'home_cta' });
+                dispatch(app_toggle_isSigupOpen('signup'));
+              }
+            }}
+          />
+        )}
 
         <TrendingSearches />
       </div>

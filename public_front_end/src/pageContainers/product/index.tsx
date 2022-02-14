@@ -7,6 +7,7 @@ import {
 } from 'firebase/firestore';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { logSignupOpen } from '../../common/analyticsEvents';
 import AppConfig from '../../common/appConfig';
 import { FS_USER_DB } from '../../common/constants';
 import { UserDBKeys } from '../../common/dbKeys';
@@ -30,6 +31,7 @@ const ProductPage: FC<Props> = ({ product }) => {
 
   const toggleBookmark = async (isBookMarked: boolean) => {
     if (!user) {
+      logSignupOpen({ source: 'product_bookmark' });
       dispatch(app_toggle_isSigupOpen('signup'));
       return;
     }
@@ -50,6 +52,7 @@ const ProductPage: FC<Props> = ({ product }) => {
 
   const toggleWishlist = async (isWishlist: boolean) => {
     if (!user) {
+      logSignupOpen({ source: 'product_wishlist' });
       dispatch(app_toggle_isSigupOpen('signup'));
       return;
     }

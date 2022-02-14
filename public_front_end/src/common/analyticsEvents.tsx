@@ -14,6 +14,7 @@ export const FBA_PRODUCT_WISH_REM = 'wishlist_rem';
 export const FBA_PRODUCT_BOOK_ADD = 'bookmark_add';
 export const FBA_PRODUCT_BOOK_REM = 'bookmark_rem';
 export const FBA_PRODUCT_SHARE = 'share_product';
+export const FBA_SIGNUP_OPEN = 'signup_open';
 export const FBA_LOG_error = 'error_log';
 
 export const sendAnalytics = (
@@ -38,6 +39,12 @@ export const logNavClicks = (parameter: {
   nav_link: 'relation' | 'interest' | 'occasion' | 'age' | 'search';
 }) => {
   sendAnalytics(FBA_NAV_CLICKS, parameter);
+};
+
+export const logSignupOpen = (parameter: {
+  source: 'home_cta' | 'nav_link' | 'product_wishlist' | 'product_bookmark';
+}) => {
+  sendAnalytics(FBA_SIGNUP_OPEN, parameter);
 };
 
 export const logSearchQuery = (parameter: {
