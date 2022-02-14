@@ -17,4 +17,5 @@ export interface ButtonType {
   loading?: boolean;
   target?: '_self' | '_blank';
   iconPos?: 'before' | 'after';
+  styleInverted?: boolean;
 }

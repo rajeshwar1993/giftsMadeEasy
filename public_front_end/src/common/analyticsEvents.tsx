@@ -47,7 +47,7 @@ export const logSearchQuery = (parameter: {
     | 'showcase_see_all'
     | 'trending_search'
     | 'search_page_filter';
-  search_query: { [key: string]: string };
+  search_query: { [key: string]: any };
 }) => {
   sendAnalytics(FBA_SEARCH_QUERY, parameter);
 };

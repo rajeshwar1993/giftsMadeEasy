@@ -50,13 +50,18 @@ occasionFilterValues.set('f', 'Farewell');
 occasionFilterValues.set('g', 'Graduation');
 occasionFilterValues.set('hw', 'House Warming');
 occasionFilterValues.set('p', 'Promotion');
+occasionFilterValues.set('ret', 'Retirement');
 occasionFilterValues.set('w', 'Wedding');
 occasionFilterValues.set('oto', 'Other');
 
 // Festival
 export const festivalilterValues = new Map<string, string>();
 
-festivalilterValues.set('vd', `Valentine's Day`);
+festivalilterValues.set('mod', `Mother's Day`);
+festivalilterValues.set('fad', `Father's Day`);
+festivalilterValues.set('tcd', `Teacher's Day`);
+festivalilterValues.set('dad', `Daughter's Day`);
+festivalilterValues.set('vad', `Valentine's Day`);
 festivalilterValues.set('dw', `Diwali`);
 festivalilterValues.set('dus', `Dussehra`);
 festivalilterValues.set('eid', `Eid`);

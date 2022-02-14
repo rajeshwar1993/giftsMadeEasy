@@ -3,7 +3,6 @@ import { ButtonType as Props } from './type';
 
 import { useRouter } from 'next/router';
 import { Icon } from '../..';
-import Link from 'next/link';
 
 const Button: FC<Props> = ({
   text,
@@ -21,6 +20,7 @@ const Button: FC<Props> = ({
   loading = false,
   target = '_self',
   iconPos = 'before',
+  styleInverted = false,
   ...props
 }) => {
   const router = useRouter();
@@ -44,7 +44,11 @@ const Button: FC<Props> = ({
         className={`relative py-0.5 font-semibold transition duration-200 ease-in-out cursor-pointer flex justify-center items-center ${styleClasses} ${
           defautStyle === 'cust-btn-link'
             ? 'underline underline-offset-[6px] decoration-accent-soft decoration-[2px] hover:decoration-accent'
-            : 'px-4 border-2 rounded-md border-skin-inverted hover:bg-skin-fill-accent-hover hover:text-skin-primary'
+            : `px-4 border-2 rounded-md  ${
+                styleInverted
+                  ? 'border-skin-primary hover:bg-skin-fill-accent-hover hover:text-skin-primary'
+                  : 'border-skin-inverted hover:bg-skin-fill-accent-hover hover:text-skin-primary'
+              }`
         }
         ${activated ? '!bg-skin-inverted !text-skin-inverted' : ''}
         ${

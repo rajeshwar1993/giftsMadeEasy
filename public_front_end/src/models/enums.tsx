@@ -47,7 +47,7 @@ export enum Festivals {
   NewYears = 'ny',
   Lohri = 'loh',
   RepublicDay = 'rpd',
-  ValentinesDay = 'vd',
+  ValentinesDay = 'vad',
   Holi = 'holi'
 }
 

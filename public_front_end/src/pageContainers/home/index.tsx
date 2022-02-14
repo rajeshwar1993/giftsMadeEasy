@@ -7,6 +7,7 @@ import { HomePageData } from '../../pages';
 import { useAppDispatch } from '../../redux/store';
 import { app_toggle_isSigupOpen } from '../../redux/appCommon';
 import AppLink from '../../components/Reusable/AppLink';
+import BannerCTA from '../../components/Reusable/BannerCTA';
 
 const HomePage: FC<HomePageData> = ({ headLines, productShowcase }) => {
   const dispatch = useAppDispatch();
@@ -52,21 +53,22 @@ const HomePage: FC<HomePageData> = ({ headLines, productShowcase }) => {
       })}
 
       <div className='grid grid-cols-1 gap-y-8 lg:grid-cols-1 lg:gap-x-16'>
-        <TrendingSearches />
-        <div>
-          <SectionTitle content='Join Our Circle' />
-          <Text
-            styleClasses='text-2xl'
-            content='<p>We have designed a personal gifting experience ensuring the your gift is appreciated and cherished by your loved one.</p> <p> Signup with us to unlock the MyCircle feature now!</p>'
-          />
-          <Button
-            text={'Signup'}
-            wrapperClasses='mt-4'
-            onClick={() => {
+        <BannerCTA
+          title={{ content: 'Join Our Circle' }}
+          text={{
+            content:
+              '<p>We have designed a personal gifting experience ensuring that your gift is appreciated and cherished by your loved one.</p> <p> Signup with us to unlock the MyCircle feature now!</p>'
+          }}
+          link={'/'}
+          btn={{
+            text: 'Signup',
+            onClick: () => {
               dispatch(app_toggle_isSigupOpen('signup'));
-            }}
-          />
-        </div>
+            }
+          }}
+        />
+
+        <TrendingSearches />
       </div>
     </div>
   );
