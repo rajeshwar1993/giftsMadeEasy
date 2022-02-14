@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
-import { Button, SectionTitle } from '..';
+import { Button, SectionTitle, Text } from '..';
 import Notifications from '../../models/Notifications';
 
 type Props = {
@@ -68,29 +68,35 @@ const NavNotificationsMenu: FC<Props> = ({
                   />
                 </div>
 
-                <div className=' flex flex-col  items-start py-2 xl:pl-4 pr-6 space-y-6'>
-                  {notifications.map(n => (
-                    <div className='flex flex-col items-start' key={n.uid}>
-                      <Button
-                        text={n.text}
-                        link={n.redirectLink}
-                        onClick={() => {
-                          markNotification('read', n.uid);
-                          closeModal();
-                        }}
-                        defautStyle='cust-btn-btn'
-                        wrapperClasses='w-full'
-                        styleClasses={`w-full !py-3 text-left !border-0 !justify-start ${
-                          n.read ? '!font-normal' : '!font-semibold'
-                        }`}
+                <div className=' flex flex-col items-start py-2 pl-4 pr-6 space-y-6'>
+                  {notifications.map((n, i) => (
+                    <div className='flex flex-row items-center' key={n.uid}>
+                      <Text
+                        content={(i + 1).toString()}
+                        styleClasses='text-5xl md:text-7xl opacity-10'
                       />
+                      <div className='flex flex-col items-start'>
+                        <Button
+                          text={n.text}
+                          link={n.redirectLink}
+                          onClick={() => {
+                            markNotification('read', n.uid);
+                            closeModal();
+                          }}
+                          defautStyle='cust-btn-btn'
+                          wrapperClasses='w-full'
+                          styleClasses={`w-full !py-3 text-left !border-0 !justify-start text-sm md:text-md ${
+                            n.read ? '!font-normal' : '!font-semibold'
+                          }`}
+                        />
 
-                      <Button
-                        text='Remove'
-                        onClick={() => markNotification('dismiss', n.uid)}
-                        defautStyle='cust-btn-link'
-                        styleClasses='text-xs ml-4'
-                      />
+                        <Button
+                          text='Remove'
+                          onClick={() => markNotification('dismiss', n.uid)}
+                          defautStyle='cust-btn-link'
+                          styleClasses='text-xs ml-4'
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>

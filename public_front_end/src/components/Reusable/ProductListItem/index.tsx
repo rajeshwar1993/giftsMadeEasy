@@ -13,7 +13,7 @@ const ProductListItem: FC<Props> = ({ t, p, ogp, piu, r, path, au }) => {
   const isDesktop = useSelector((state: RootState) => state.app.isDesktop);
 
   return (
-    <div className='pt-4 transition-all duration-200 rounded-lg lg:p-4 lg:hover:shadow-2xl border-skin-primary border-opacity-0 lg:hover:border-opacity-30 border-2'>
+    <div className='pt-4 transition-all duration-200 rounded-lg lg:p-4 lg:hover:shadow-md border-skin-primary border-opacity-0 lg:hover:border-opacity-10 border-2'>
       <div
         className={`flex flex-col space-y-6 items-center h-full justify-between `}
       >

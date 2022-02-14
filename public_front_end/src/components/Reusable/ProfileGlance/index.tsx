@@ -86,8 +86,9 @@ const ProfileGlance: FC<Props> = ({ uid, relation, status }) => {
 
   return (
     <div
-      className={`flex flex-col items-center text-center py-4 ${
-        status === 'a' && 'hover:shadow-lg'
+      className={`flex flex-col items-center text-center py-4 rounded-lg ${
+        status === 'a' &&
+        'hover:shadow-md border-skin-primary border-opacity-0 lg:hover:border-opacity-10 border-2'
       }`}
     >
       {userData && (
