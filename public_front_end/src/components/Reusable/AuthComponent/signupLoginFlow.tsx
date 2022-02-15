@@ -4,7 +4,8 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect
+  signInWithRedirect,
+  FacebookAuthProvider
 } from 'firebase/auth';
 import { auth } from '../../../firebase';
 import { Button } from '../..';
@@ -89,10 +90,10 @@ const SignupLoginFlow: FC<Props> = ({ setStep }) => {
     signInMethod(auth, provider)
       .then(result => {
         // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential!.accessToken;
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential!.accessToken;
         // The signed-in user info.
-        const user = result.user;
+        // const user = result.user;
         // ...
       })
       .catch(error => {
@@ -108,14 +109,44 @@ const SignupLoginFlow: FC<Props> = ({ setStep }) => {
         );
         setError(errorMessage);
         // The email of the user's account used.
-        const email = error.email;
+        // const email = error.email;
         // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        // const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
       });
   };
 
-  const createUserWithFacebook = () => {};
+  const createUserWithFacebook = () => {
+    const provider = new FacebookAuthProvider();
+    const signInMethod = isDesktop ? signInWithPopup : signInWithRedirect;
+    signInMethod(auth, provider)
+      .then(result => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // const credential = FacebookAuthProvider.credentialFromResult(result);
+        // const token = credential!.accessToken;
+        // The signed-in user info.
+        // const user = result.user;
+        // ...
+      })
+      .catch(error => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        logError(
+          error.message,
+          error.stack,
+          'createUserWithFacebook',
+          'signupLoginFlow',
+          { errorCode: errorCode }
+        );
+        setError(errorMessage);
+        // The email of the user's account used.
+        // const email = error.email;
+        // The AuthCredential type that was used.
+        // const credential = FacebookAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
 
   return (
     <div className='flex flex-col items-center space-y-4'>

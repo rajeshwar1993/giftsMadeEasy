@@ -27,7 +27,7 @@ const fetchDataForEachProduct = async () => {
   console.time('Op');
   let { browser, page } = await initPage();
   console.log('Starting parsing');
-  const newProductCollectionRef = db.collection(NEW_PRODUCT_DB);
+  const newProductCollectionRef = db.collection(PRODUCT_DB);
 
   // get all new products that have pending status
   const prodSnap = await newProductCollectionRef

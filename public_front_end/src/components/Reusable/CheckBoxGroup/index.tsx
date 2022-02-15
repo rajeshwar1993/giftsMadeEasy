@@ -113,13 +113,13 @@ const CheckBoxGroup: FC<Props> = ({
               type='checkbox'
               value={cl.value}
               checked={selected.includes(cl.value)}
-              id={cl.text}
+              id={cl.value}
               onChange={e => handleClick(e.target.value, e.target.checked)}
-              name={cl.text}
+              name={cl.value}
             />
             <label
               className='form-check-label inline-block text-skin-primary text-lg cursor-pointer'
-              htmlFor={cl.text}
+              htmlFor={cl.value}
             >
               <div className='flex flex-col'>
                 <Text

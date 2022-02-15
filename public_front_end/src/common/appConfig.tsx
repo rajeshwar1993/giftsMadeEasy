@@ -11,8 +11,8 @@ const AppConfig = {
     buyNowLabel: 'Buy Now on Amazon',
     contact_email: CONTACT_EMAIL,
     contact_number: CONTACT_NUMBER,
-    priceDisclaimer:
-      '* This is an indicative price. Actual prices will be seen after adding to the actual cart.'
+    priceDisclaimer: `<p>* This is an indicative price. Actual prices will be seen after adding to the actual cart.</p>
+      <p>Disclaimer: All orders, delivery, cancellations and other processes are taken up by the actual e-commerce website. We only provide searching facility and link to actual product.</p>`
   },
   COMPONENTS: {
     giftSearchMini: {

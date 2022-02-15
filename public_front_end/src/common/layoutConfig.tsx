@@ -116,7 +116,7 @@ export const layoutConfig: LayoutConfigType = {
     main: {
       title: AppConfig.COMMON.appName,
       desc: {
-        content: `We at Tofa Circle eliminate the stress of chosing a gift.`
+        content: `<p>We at Tofa Circle believe gift giving should be fun and easy.</p><p>Using our curated search, with a few simple clicks you get a variety of options to choose from, specific to a person's interests.</p>`
       },
       socialIconLinks: []
     },

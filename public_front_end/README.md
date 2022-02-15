@@ -43,3 +43,10 @@ docker-compose up
 ## Deploy to Google Cloud Run
 
 [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+
+
+cloud build command:
+gcloud builds submit --tag gcr.io/giftsmadeeasy-75edd/tofacircle_public_fe --project giftsmadeeasy-75edd --timeout=30m
+
+cloud deploy command:
+gcloud run deploy --image gcr.io/giftsmadeeasy-75edd/tofacircle_public_fe --project giftsmadeeasy-75edd --platform managed
