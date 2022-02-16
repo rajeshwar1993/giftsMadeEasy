@@ -82,7 +82,9 @@ const fetchDataForEachProduct = async () => {
         [ProductDBKeys.featureList]: data.description,
         [ProductDBKeys.productImgUrls]: data.images,
         [ProductDBKeys.status]: status,
-        [ProductDBKeys.statusMessage]: statusMessage
+        [ProductDBKeys.statusMessage]: statusMessage,
+        [ProductDBKeys.source]: 'amazon',
+        [ProductDBKeys.custom_score]: 0
       });
 
       console.log('Done: ', prod[ProductDBKeys.apid]);

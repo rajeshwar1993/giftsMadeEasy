@@ -29,6 +29,7 @@ interface Product {
   status: ProductStatus;
   statusMessage: Array<string>;
   source: Array<'self' | 'amazon' | 'nykaa'>;
+  custom_score: number;
 }
 
 export const convertProductToJson = (product: Product) => ({
@@ -51,7 +52,8 @@ export const convertProductToJson = (product: Product) => ({
   [ProductDBKeys.productImgUrls]: product.productImgUrls,
   [ProductDBKeys.status]: product.status,
   [ProductDBKeys.statusMessage]: product.statusMessage,
-  [ProductDBKeys.source]: product.source
+  [ProductDBKeys.source]: product.source,
+  [ProductDBKeys.custom_score]: product.custom_score
 });
 
 export const convertProductJsonToObj = (inp: any, id: string) => {
@@ -79,7 +81,8 @@ export const convertProductJsonToObj = (inp: any, id: string) => {
     createdTS: inp[ProductDBKeys.createdTS]
       ? inp[ProductDBKeys.createdTS].toDate().toISOString()
       : '',
-    source: inp[ProductDBKeys.source] || 'amazon'
+    source: inp[ProductDBKeys.source] || 'amazon',
+    custom_score: inp[ProductDBKeys.source] || 0
   };
   return p;
 };

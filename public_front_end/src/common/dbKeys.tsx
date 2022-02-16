@@ -50,7 +50,8 @@ export const ProductDBKeys: { [key: string]: string } = {
   createdTS: 'cTS',
   status: 's',
   statusMessage: 'sm',
-  source: 'sc'
+  source: 'sc',
+  custom_score: 'cs'
 };
 
 export const InterestTagDBKeys = {
