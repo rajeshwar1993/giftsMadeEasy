@@ -3,6 +3,7 @@ import DataConfig from '../../common/componentConfig';
 import { ProductDBKeys } from '../../common/dbKeys';
 import {
   ageGrpFilterValues,
+  festivalilterValues,
   occasionFilterValues,
   relationshipFilterValues
 } from '../../common/staticFilterValues';
@@ -71,10 +72,15 @@ const ProductEditSection: FC<Props> = ({
             </div>
             <div className='flex flex-col space-y-3'>
               <span>
-                Product Url: <strong>{product.productUrl}</strong>
+                Product Url:{' '}
+                <strong>
+                  <a href={product.productUrl} target='_blank'>
+                    {product.productUrl}
+                  </a>
+                </strong>
               </span>
               <span>
-                Affiliate Url: <strong>{product.productUrl}</strong>
+                Affiliate Url: <strong>{product.affiliateUrl}</strong>
               </span>
             </div>
             <div className='flex space-x-4'>
@@ -140,6 +146,20 @@ const ProductEditSection: FC<Props> = ({
                   filterKey={ProductDBKeys.occasionTags}
                   checkList={createCheckboxOptions(occasionFilterValues)}
                   selected={product.occasionTags}
+                  onChangeHandler={onCheckboxClicked}
+                  showSelectAll
+                />
+              }
+            </div>
+          </div>
+          <div className='flex flex-col space-x-4 border-2 border-skin-inverted p-2 rounded-lg'>
+            <Text content='Festival Tags' />
+            <div className='flex space-x-4'>
+              {
+                <CheckBoxGroup
+                  filterKey={ProductDBKeys.festivalTags}
+                  checkList={createCheckboxOptions(festivalilterValues)}
+                  selected={product.festivalTags}
                   onChangeHandler={onCheckboxClicked}
                   showSelectAll
                 />

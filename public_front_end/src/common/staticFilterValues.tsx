@@ -3,92 +3,98 @@ import { InterestGroups } from '../models/enums';
 // Relationships
 export const relationshipFilterValues = new Map<string, string>();
 
-relationshipFilterValues.set('gf', 'Girlfriend');
-relationshipFilterValues.set('bf', 'Boyfriend');
-relationshipFilterValues.set('f', 'Friend');
-relationshipFilterValues.set('h', 'Husband');
-relationshipFilterValues.set('w', 'Wife');
-relationshipFilterValues.set('s', 'Son');
-relationshipFilterValues.set('da', 'Daughter');
-relationshipFilterValues.set('br', 'Brother');
-relationshipFilterValues.set('si', 'Sister');
-relationshipFilterValues.set('fa', 'Father');
-relationshipFilterValues.set('mo', 'Mother');
-relationshipFilterValues.set('gr', 'Grandfather');
-relationshipFilterValues.set('gm', 'Grandmother');
-relationshipFilterValues.set('gm', 'Grandmother');
-relationshipFilterValues.set('col', 'Colleague');
-relationshipFilterValues.set('otr', 'Other');
+relationshipFilterValues.set('rel_gf', 'Girlfriend');
+relationshipFilterValues.set('rel_bf', 'Boyfriend');
+relationshipFilterValues.set('rel_f', 'Friend');
+relationshipFilterValues.set('rel_h', 'Husband');
+relationshipFilterValues.set('rel_w', 'Wife');
+relationshipFilterValues.set('rel_s', 'Son');
+relationshipFilterValues.set('rel_da', 'Daughter');
+relationshipFilterValues.set('rel_br', 'Brother');
+relationshipFilterValues.set('rel_si', 'Sister');
+relationshipFilterValues.set('rel_fa', 'Father');
+relationshipFilterValues.set('rel_mo', 'Mother');
+relationshipFilterValues.set('rel_gr', 'Grandfather');
+relationshipFilterValues.set('rel_gm', 'Grandmother');
+relationshipFilterValues.set('rel_gm', 'Grandmother');
+relationshipFilterValues.set('rel_col', 'Colleague');
+relationshipFilterValues.set('rel_otr', 'Other');
 
 // Age Groups
 export const ageGrpFilterValues = new Map<string, string>();
 
-ageGrpFilterValues.set('Inf', 'Infant (0-2)');
-ageGrpFilterValues.set('Tod', 'Toddler (3-7)');
-ageGrpFilterValues.set('Kid', 'Kid (8-12)');
-ageGrpFilterValues.set('Teen', 'Teenager (13-17)');
-ageGrpFilterValues.set('YA', 'Young Adult (18-22)');
-ageGrpFilterValues.set('A', 'Adult (23-27)');
-ageGrpFilterValues.set('RA', 'Responsible Adult (28-32)');
-ageGrpFilterValues.set('S', 'Settled (33-40)');
-ageGrpFilterValues.set('FS', 'Financially Settled (41-50)');
-ageGrpFilterValues.set('AR', 'Approaching Retirement (51-60)');
-ageGrpFilterValues.set('R', 'Retired (61-70)');
-ageGrpFilterValues.set('W', 'Wisdom (71 & above)');
+ageGrpFilterValues.set('age_Inf', 'Infant (0-2)');
+ageGrpFilterValues.set('age_Tod', 'Toddler (3-7)');
+ageGrpFilterValues.set('age_Kid', 'Kid (8-12)');
+ageGrpFilterValues.set('age_Teen', 'Teenager (13-17)');
+ageGrpFilterValues.set('age_YA', 'Young Adult (18-22)');
+ageGrpFilterValues.set('age_A', 'Adult (23-27)');
+ageGrpFilterValues.set('age_RA', 'Responsible Adult (28-32)');
+ageGrpFilterValues.set('age_S', 'Settled (33-40)');
+ageGrpFilterValues.set('age_FS', 'Financially Settled (41-50)');
+ageGrpFilterValues.set('age_AR', 'Approaching Retirement (51-60)');
+ageGrpFilterValues.set('age_R', 'Retired (61-70)');
+ageGrpFilterValues.set('age_W', 'Wisdom (71 & above)');
 
 // Occasion
 export const occasionFilterValues = new Map<string, string>();
 
-occasionFilterValues.set('a', 'Anniversary');
-occasionFilterValues.set('bs', 'Baby Shower');
-occasionFilterValues.set('bch', 'Bachelor/Bachelorette');
-occasionFilterValues.set('b', 'Birthday');
-occasionFilterValues.set('brh', 'Bridal Shower');
-occasionFilterValues.set('ce', 'Casual Event');
-occasionFilterValues.set('e', 'Engagement');
-occasionFilterValues.set('f', 'Farewell');
-occasionFilterValues.set('g', 'Graduation');
-occasionFilterValues.set('hw', 'House Warming');
-occasionFilterValues.set('p', 'Promotion');
-occasionFilterValues.set('ret', 'Retirement');
-occasionFilterValues.set('w', 'Wedding');
-occasionFilterValues.set('oto', 'Other');
+occasionFilterValues.set('occ_a', 'Anniversary');
+occasionFilterValues.set('occ_bs', 'Baby Shower');
+occasionFilterValues.set('occ_bch', 'Bachelor/Bachelorette');
+occasionFilterValues.set('occ_b', 'Birthday');
+occasionFilterValues.set('occ_brh', 'Bridal Shower');
+occasionFilterValues.set('occ_ce', 'Casual Event');
+occasionFilterValues.set('occ_e', 'Engagement');
+occasionFilterValues.set('occ_f', 'Farewell');
+occasionFilterValues.set('occ_g', 'Graduation');
+occasionFilterValues.set('occ_hw', 'House Warming');
+occasionFilterValues.set('occ_p', 'Promotion');
+occasionFilterValues.set('occ_ret', 'Retirement');
+occasionFilterValues.set('occ_w', 'Wedding');
+occasionFilterValues.set('occ_oto', 'Other');
 
 // Festival
 export const festivalilterValues = new Map<string, string>();
 
-festivalilterValues.set('mod', `Mother's Day`);
-festivalilterValues.set('fad', `Father's Day`);
-festivalilterValues.set('tcd', `Teacher's Day`);
-festivalilterValues.set('dad', `Daughter's Day`);
-festivalilterValues.set('vad', `Valentine's Day`);
-festivalilterValues.set('dw', `Diwali`);
-festivalilterValues.set('dus', `Dussehra`);
-festivalilterValues.set('eid', `Eid`);
-festivalilterValues.set('holi', `Holi`);
-festivalilterValues.set('ny', 'New Years');
-festivalilterValues.set('loh', 'Lohri');
-festivalilterValues.set('nav', `Navratri`);
-festivalilterValues.set('dur', `Durga Puja`);
-festivalilterValues.set('gan', `Ganesh Chaturthi`);
-festivalilterValues.set('ch', `Christmas`);
-festivalilterValues.set('on', `Onam`);
-festivalilterValues.set('bai', `Baisakhi`);
-festivalilterValues.set('eas', `Easter`);
-festivalilterValues.set('hal', `Halloween`);
-festivalilterValues.set('otf', `Other`);
+festivalilterValues.set('fes_mod', `Mother's Day`);
+festivalilterValues.set('fes_fad', `Father's Day`);
+festivalilterValues.set('fes_tcd', `Teacher's Day`);
+festivalilterValues.set('fes_dad', `Daughter's Day`);
+festivalilterValues.set('fes_vad', `Valentine's Day`);
+festivalilterValues.set('fes_dw', `Diwali`);
+festivalilterValues.set('fes_dus', `Dussehra`);
+festivalilterValues.set('fes_eid', `Eid`);
+festivalilterValues.set('fes_holi', `Holi`);
+festivalilterValues.set('fes_ny', 'New Years');
+festivalilterValues.set('fes_loh', 'Lohri');
+festivalilterValues.set('fes_nav', `Navratri`);
+festivalilterValues.set('fes_dur', `Durga Puja`);
+festivalilterValues.set('fes_gan', `Ganesh Chaturthi`);
+festivalilterValues.set('fes_ch', `Christmas`);
+festivalilterValues.set('fes_on', `Onam`);
+festivalilterValues.set('fes_bai', `Baisakhi`);
+festivalilterValues.set('fes_eas', `Easter`);
+festivalilterValues.set('fes_hal', `Halloween`);
+festivalilterValues.set('fes_otf', `Other`);
 
 // Interest Groups
 export const interestGroupMap = new Map<number, string>();
 
-interestGroupMap.set(InterestGroups.Electronics, 'Electronics & Gadgets');
+interestGroupMap.set(
+  InterestGroups.Electronics,
+  'Electronics Gadgets, Computing & Gaming'
+);
 interestGroupMap.set(InterestGroups.ToysGamesAndSports, 'Toys, Games & Sports');
-interestGroupMap.set(InterestGroups.NaturalAndHandMade, 'Natural & Hand Made');
+interestGroupMap.set(
+  InterestGroups.NaturalAndHandMade,
+  'Natural, Plants & Hand Made'
+);
 interestGroupMap.set(
   InterestGroups.HomeKitchenLiving,
   'Home, Kitchen & Living'
 );
-interestGroupMap.set(InterestGroups.ArtMusicMovies, 'Art & Creativity');
+interestGroupMap.set(InterestGroups.ArtMusicMovies, 'Art, Music, Movies & TV');
 interestGroupMap.set(
   InterestGroups.ClothesFashionFootwear,
   'Clothes, Fashion & Footwear'
@@ -159,6 +165,11 @@ interestFilterValues.set('el_gmac', {
   parent: InterestGroups.Electronics,
   desc: 'Latest games, controllers, monitors & more.'
 });
+interestFilterValues.set('el_appl', {
+  name: 'Appliances',
+  parent: InterestGroups.Electronics,
+  desc: 'TV, Fridge and other home appliances.'
+});
 
 // Toys & Games
 interestFilterValues.set('tgs_bdcdg', {
@@ -209,7 +220,7 @@ interestFilterValues.set('nah_pott', {
   parent: InterestGroups.NaturalAndHandMade
 });
 interestFilterValues.set('nah_pln', {
-  name: 'Plants',
+  name: 'Potted Plants & Seeds',
   parent: InterestGroups.NaturalAndHandMade
 });
 interestFilterValues.set('nah_efnd', {
@@ -245,7 +256,11 @@ interestFilterValues.set('khl_ctgl', {
   name: 'Cutlery & Glasswear',
   parent: InterestGroups.HomeKitchenLiving
 });
-
+interestFilterValues.set('khl_kapll', {
+  name: 'Kitchen Appliances',
+  parent: InterestGroups.HomeKitchenLiving,
+  desc: 'Microwave, Mixers and other kitchen appliances.'
+});
 interestFilterValues.set('khl_spdi', {
   name: 'Showpiece & Display Items',
   parent: InterestGroups.HomeKitchenLiving
@@ -308,8 +323,14 @@ interestFilterValues.set('amc_mpvn', {
 });
 
 interestFilterValues.set('amc_bah', {
-  name: 'Bollywood & Hollywood',
+  name: 'Bollywood & Hollywood Movies',
   parent: InterestGroups.ArtMusicMovies
+});
+
+interestFilterValues.set('amc_tvsh', {
+  name: 'TV Shows',
+  parent: InterestGroups.ArtMusicMovies,
+  desc: 'Friends, The Office, Big Bang Theory etc.'
 });
 
 // Books, Comics & Planners

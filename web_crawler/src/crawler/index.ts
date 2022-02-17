@@ -107,8 +107,41 @@ const getWebData = async (page: Page, url: string) => {
   return allData;
 };
 
+const temporaryGetWebData = async (page: Page, url: string) => {
+  await page.goto(url, { waitUntil: 'load', timeout: 30000 });
+
+  let html = await page.evaluate(() => document.body.innerHTML);
+
+  const $ = cheerio.load(html);
+
+  // TRIAL
+
+  const allData: {
+    title: string;
+    price: string;
+    ogPrice: string;
+    rating: string;
+    overview: Array<any>;
+    description: Array<string>;
+    images: Array<string>;
+  } = {
+    title: '',
+    price: '',
+    ogPrice: '',
+    rating: '',
+    overview: [],
+    description: [],
+    images: []
+  };
+
+  // get title
+  allData.title = $(selectors.title).text().trim();
+
+  return allData;
+};
+
 const closeBrowser = async (browser: Browser) => {
   await browser.close();
 };
 
-export { initPage, getWebData, closeBrowser };
+export { initPage, getWebData, closeBrowser, temporaryGetWebData };

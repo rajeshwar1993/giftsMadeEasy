@@ -43,6 +43,10 @@ const ProductOpsContainer = () => {
         s.interestTags = values;
         break;
 
+      case ProductDBKeys.festivalTags:
+        s.festivalTags = values;
+        break;
+
       default:
         break;
     }
