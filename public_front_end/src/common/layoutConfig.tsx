@@ -1,5 +1,6 @@
 import { LayoutConfigType } from '../components/Layout/type';
 import AppConfig from './appConfig';
+import { APP_NAME } from './constants';
 import { FilterDBKeys } from './dbKeys';
 import {
   ageGrpFilterValues,
@@ -150,6 +151,7 @@ export const layoutConfig: LayoutConfigType = {
     contactInfo: {
       email: AppConfig.COMMON.contact_email,
       phone: undefined
-    }
+    },
+    bottomDisclaimer: `Disclaimer: ${APP_NAME} is a participant in the Amazon Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.`
   }
 };

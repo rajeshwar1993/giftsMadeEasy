@@ -74,8 +74,9 @@ export enum InterestGroups {
   ToysGamesAndSports = 2,
   NaturalAndHandMade = 3,
   HomeKitchenLiving = 4,
-  ArtMusicMovies = 5,
-  ClothesFashionFootwear = 6,
-  BooksComicsPlanners = 7,
-  BeautyBathSelfGrooming = 8
+  ArtMusic = 5,
+  MoviesTV = 6,
+  ClothesFashionFootwear = 7,
+  BooksComicsPlanners = 8,
+  BeautyBathSelfGrooming = 9
 }

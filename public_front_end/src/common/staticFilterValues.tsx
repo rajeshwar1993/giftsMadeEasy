@@ -83,7 +83,7 @@ export const interestGroupMap = new Map<number, string>();
 
 interestGroupMap.set(
   InterestGroups.Electronics,
-  'Electronics Gadgets, Computing & Gaming'
+  'Electronic Gadgets, Computing & Gaming'
 );
 interestGroupMap.set(InterestGroups.ToysGamesAndSports, 'Toys, Games & Sports');
 interestGroupMap.set(
@@ -94,7 +94,8 @@ interestGroupMap.set(
   InterestGroups.HomeKitchenLiving,
   'Home, Kitchen & Living'
 );
-interestGroupMap.set(InterestGroups.ArtMusicMovies, 'Art, Music, Movies & TV');
+interestGroupMap.set(InterestGroups.ArtMusic, 'Art and Music');
+interestGroupMap.set(InterestGroups.MoviesTV, 'Movies, TV Shows and Bands');
 interestGroupMap.set(
   InterestGroups.ClothesFashionFootwear,
   'Clothes, Fashion & Footwear'
@@ -144,8 +145,9 @@ interestFilterValues.set('el_camac', {
 });
 
 interestFilterValues.set('el_spear', {
-  name: 'Spreakers & Earphones',
-  parent: InterestGroups.Electronics
+  name: 'Speakers and Audio Accesories',
+  parent: InterestGroups.Electronics,
+  desc: 'Home Theaters, Portable Speakers, Earphones, Headphones, Mics etc.'
 });
 
 interestFilterValues.set('el_wede', {
@@ -174,62 +176,76 @@ interestFilterValues.set('el_appl', {
 // Toys & Games
 interestFilterValues.set('tgs_bdcdg', {
   name: 'Board & Card Games',
-  parent: InterestGroups.ToysGamesAndSports
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'Monopoly, Uno, Ludo and all the classics.'
 });
 interestFilterValues.set('tgs_daf', {
   name: 'Dolls & Action Figures',
-  parent: InterestGroups.ToysGamesAndSports
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'Barbies, G.I.Joe, Bobble Heads etc'
 });
 interestFilterValues.set('tgs_rct', {
-  name: 'Radio Controlled Toys',
-  parent: InterestGroups.ToysGamesAndSports
+  name: 'Remote Controlled Toys',
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'RC Cars, Helicopters, Planes etc.'
 });
 interestFilterValues.set('tgs_edt', {
   name: 'Educational Toys',
-  parent: InterestGroups.ToysGamesAndSports
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'STEM and Informational Games.'
 });
 interestFilterValues.set('tgs_odg', {
-  name: 'Outdoor Games',
-  parent: InterestGroups.ToysGamesAndSports
+  name: 'Outdoor Games & Sports',
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'Football, Badminton, Basketball etc.'
 });
 interestFilterValues.set('tgs_pbg', {
   name: 'Puzzles & Brain Games',
-  parent: InterestGroups.ToysGamesAndSports
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'Crosswords, Picture puzzles etc.'
 });
 interestFilterValues.set('tgs_sft', {
   name: 'Soft Toys',
-  parent: InterestGroups.ToysGamesAndSports
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'Teddy Bears, stuffed animals and Baby Pillows.'
 });
 interestFilterValues.set('tgs_tgc', {
   name: 'Toy Guns & Cars',
-  parent: InterestGroups.ToysGamesAndSports
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'Hot Wheels, Nerf Guns and other Action Toys.'
 });
 interestFilterValues.set('tgs_apl', {
   name: 'Art and Playdough',
-  parent: InterestGroups.ToysGamesAndSports
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'Colouring Books, Kinetic Sand etc.'
 });
 
 interestFilterValues.set('tgs_aot', {
   name: 'All Other Toys',
-  parent: InterestGroups.ToysGamesAndSports
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'All other toys you can imagine!'
 });
 
 // Natural & Handmade
 interestFilterValues.set('nah_pott', {
   name: 'Pottery',
-  parent: InterestGroups.NaturalAndHandMade
+  parent: InterestGroups.NaturalAndHandMade,
+  desc: 'Ceramic, Pottery and other Artisanal Products.'
 });
 interestFilterValues.set('nah_pln', {
   name: 'Potted Plants & Seeds',
-  parent: InterestGroups.NaturalAndHandMade
+  parent: InterestGroups.NaturalAndHandMade,
+  desc: 'Home or Office Plants and Seeds.'
 });
 interestFilterValues.set('nah_efnd', {
   name: 'Eco-Friendly',
-  parent: InterestGroups.NaturalAndHandMade
+  parent: InterestGroups.NaturalAndHandMade,
+  desc: 'Anything and everything we feel is easy on the environment.'
 });
 interestFilterValues.set('nah_hndp', {
   name: 'Hand-made Products',
-  parent: InterestGroups.NaturalAndHandMade
+  parent: InterestGroups.NaturalAndHandMade,
+  desc: 'All Handmade and natural products.'
 });
 interestFilterValues.set('nah_bmjt', {
   name: 'Bamboo & Jute',
@@ -237,24 +253,28 @@ interestFilterValues.set('nah_bmjt', {
 });
 interestFilterValues.set('nah_well', {
   name: 'Wellness',
-  parent: InterestGroups.NaturalAndHandMade
+  parent: InterestGroups.NaturalAndHandMade,
+  desc: 'Physical and Mental Welness products.'
 });
 
 interestFilterValues.set('nah_fgcd', {
   name: 'Fragnance & Candles',
-  parent: InterestGroups.NaturalAndHandMade
+  parent: InterestGroups.NaturalAndHandMade,
+  desc: 'Room Fragrances, Scented Candles and Room Ambience. '
 });
 
 // Home, Kitchen & Living
 
 interestFilterValues.set('khl_whgc', {
   name: 'Wall Hangings & Clocks',
-  parent: InterestGroups.HomeKitchenLiving
+  parent: InterestGroups.HomeKitchenLiving,
+  desc: 'Wall Decoration, Clocks, Decals etc.'
 });
 
 interestFilterValues.set('khl_ctgl', {
   name: 'Cutlery & Glasswear',
-  parent: InterestGroups.HomeKitchenLiving
+  parent: InterestGroups.HomeKitchenLiving,
+  desc: 'Bowls, Spoons, Glasses and Tablewear.'
 });
 interestFilterValues.set('khl_kapll', {
   name: 'Kitchen Appliances',
@@ -263,80 +283,118 @@ interestFilterValues.set('khl_kapll', {
 });
 interestFilterValues.set('khl_spdi', {
   name: 'Showpiece & Display Items',
-  parent: InterestGroups.HomeKitchenLiving
+  parent: InterestGroups.HomeKitchenLiving,
+  desc: 'Idols, Decorative Items and Conversation Starters.'
 });
 
 interestFilterValues.set('khl_chpd', {
   name: 'Cute Home Products',
-  parent: InterestGroups.HomeKitchenLiving
+  parent: InterestGroups.HomeKitchenLiving,
+  desc: 'Items that make your home pop!'
 });
 
 interestFilterValues.set('khl_lplt', {
   name: 'Lamps & Lighting',
-  parent: InterestGroups.HomeKitchenLiving
+  parent: InterestGroups.HomeKitchenLiving,
+  desc: 'Desk Lamps, hanging lights and everything else that brightens your house.'
 });
 
 interestFilterValues.set('khl_bdcv', {
-  name: 'Bedsheets & Covers',
-  parent: InterestGroups.HomeKitchenLiving
+  name: 'Bedsheets, Covers etc',
+  parent: InterestGroups.HomeKitchenLiving,
+  desc: 'Bedroom essentials - Pillow, sheets, blanket etc.'
 });
 
 interestFilterValues.set('khl_btpd', {
   name: 'Bath Products',
-  parent: InterestGroups.HomeKitchenLiving
+  parent: InterestGroups.HomeKitchenLiving,
+  desc: 'Towels, Mirrors, Soaps etc.'
 });
 
 interestFilterValues.set('khl_rafg', {
   name: 'Room Ambiance & Fragrance',
-  parent: InterestGroups.HomeKitchenLiving
+  parent: InterestGroups.HomeKitchenLiving,
+  desc: 'Room aromatics, Candles etc.'
 });
 
 interestFilterValues.set('khl_glgt', {
   name: 'Good Luck Gifts',
-  parent: InterestGroups.HomeKitchenLiving
+  parent: InterestGroups.HomeKitchenLiving,
+  desc: 'Dreamcatchers, Feng Shui, Lucky Charm etc.'
 });
 
 // Art, Music & Movies
 interestFilterValues.set('amc_clasp', {
   name: 'Color and Art Supplies',
-  parent: InterestGroups.ArtMusicMovies
+  parent: InterestGroups.ArtMusic,
+  desc: 'Paints, Brushes, Canvas etc.'
 });
 
 interestFilterValues.set('amc_ptng', {
-  name: 'Paintings',
-  parent: InterestGroups.ArtMusicMovies
+  name: 'Paintings & Posters',
+  parent: InterestGroups.ArtMusic,
+  desc: 'Wall paintings, posters and album art.'
 });
 
 interestFilterValues.set('amc_ptcl', {
   name: 'Pottery & Clay',
-  parent: InterestGroups.ArtMusicMovies
+  parent: InterestGroups.ArtMusic,
+  desc: 'Ceramics, Clay and Artisanal products.'
 });
 
 interestFilterValues.set('amc_mlint', {
   name: 'Musical Instruments',
-  parent: InterestGroups.ArtMusicMovies
+  parent: InterestGroups.ArtMusic,
+  desc: 'Guitar, Flute, Harmonicas etc.'
 });
 
 interestFilterValues.set('amc_mpvn', {
   name: 'Music Players & Vinyls',
-  parent: InterestGroups.ArtMusicMovies
+  parent: InterestGroups.ArtMusic,
+  desc: 'Carvaan, Walkman, Turntables etc.'
 });
 
-interestFilterValues.set('amc_bah', {
-  name: 'Bollywood & Hollywood Movies',
-  parent: InterestGroups.ArtMusicMovies
+// interestFilterValues.set('amc_bah', {
+//   name: 'Bollywood & Hollywood Movies',
+//   parent: InterestGroups.ArtMusicMovies
+// });
+
+// interestFilterValues.set('amc_tvsh', {
+//   name: 'TV Shows',
+//   parent: InterestGroups.ArtMusicMovies,
+//   desc: 'Friends, The Office, Big Bang Theory etc.'
+// });
+
+// Movies and TV Shows
+interestFilterValues.set('mtv_bwd', {
+  name: 'Eveything Bollywood',
+  parent: InterestGroups.MoviesTV,
+  desc: 'Products related to Iconic Bollywood movies like Andaaz Apna Apna, Welcome etc.'
 });
 
-interestFilterValues.set('amc_tvsh', {
-  name: 'TV Shows',
-  parent: InterestGroups.ArtMusicMovies,
-  desc: 'Friends, The Office, Big Bang Theory etc.'
+interestFilterValues.set('mtv_hwd', {
+  name: 'Eveything Hollywood',
+  parent: InterestGroups.MoviesTV,
+  desc: 'Products related to Iconic Hollywood movies like The Godfather, Joker, Taxi Driver etc.'
+});
+
+interestFilterValues.set('mtv_tvsh', {
+  name: 'Eveything TV Shows',
+  parent: InterestGroups.MoviesTV,
+  desc: 'Products related to Iconic TV Shows like Friends, The Office etc.'
+});
+
+interestFilterValues.set('mtv_bnd', {
+  name: 'Eveything Bands',
+  parent: InterestGroups.MoviesTV,
+  desc: 'Products related to Iconic Bands like Beatles, Cold Play etc.'
 });
 
 // Books, Comics & Planners
 interestFilterValues.set('bcp_bsbk', {
   name: 'Best Sellers',
-  parent: InterestGroups.BooksComicsPlanners
+  parent: InterestGroups.BooksComicsPlanners,
+  desc: 'The Best Selling books accross categories.'
 });
 
 interestFilterValues.set('bcp_fift', {
@@ -377,18 +435,21 @@ interestFilterValues.set('bcp_dplr', {
 // Clother, Fashion & Footwear
 
 interestFilterValues.set('cff_ttsh', {
-  name: 'Tops, T-shirts & Shirts',
-  parent: InterestGroups.ClothesFashionFootwear
+  name: 'Tops, T-shirts, Shirts& Baby Clothes',
+  parent: InterestGroups.ClothesFashionFootwear,
+  desc: 'The Best Selling Clothing products.'
 });
 
 interestFilterValues.set('cff_facc', {
   name: 'Fashion Accessories',
-  parent: InterestGroups.ClothesFashionFootwear
+  parent: InterestGroups.ClothesFashionFootwear,
+  desc: 'Rings, Hairbands etc.'
 });
 
 interestFilterValues.set('cff_qqts', {
   name: 'Quirky and Quotes',
-  parent: InterestGroups.ClothesFashionFootwear
+  parent: InterestGroups.ClothesFashionFootwear,
+  desc: 'Bold and Eye-catchy fasion!'
 });
 
 interestFilterValues.set('cff_bpwt', {
@@ -398,12 +459,20 @@ interestFilterValues.set('cff_bpwt', {
 
 interestFilterValues.set('cff_eyew', {
   name: 'Eyewear',
-  parent: InterestGroups.ClothesFashionFootwear
+  parent: InterestGroups.ClothesFashionFootwear,
+  desc: 'Glasses, Goggles and Shades.'
+});
+
+interestFilterValues.set('cff_mkpa', {
+  name: 'Makeup & Accesories',
+  parent: InterestGroups.BeautyBathSelfGrooming,
+  desc: 'Makeup products, Grooming Kits and Skin Care.'
 });
 
 interestFilterValues.set('cff_jwel', {
   name: 'Jwellery',
-  parent: InterestGroups.ClothesFashionFootwear
+  parent: InterestGroups.ClothesFashionFootwear,
+  desc: 'The Bling!'
 });
 
 interestFilterValues.set('cff_slfl', {
@@ -424,7 +493,7 @@ interestFilterValues.set('bbsg_mkpa', {
 });
 
 interestFilterValues.set('bbsg_ssbp', {
-  name: 'Soap, Shampoo & Bath Products',
+  name: 'Soap, Shampoo & Skin Care',
   parent: InterestGroups.BeautyBathSelfGrooming
 });
 
@@ -440,10 +509,5 @@ interestFilterValues.set('bbsg_sgp', {
 
 interestFilterValues.set('bbsg_fgpr', {
   name: 'Fragrance & Perfumes',
-  parent: InterestGroups.BeautyBathSelfGrooming
-});
-
-interestFilterValues.set('bbsg_edp', {
-  name: 'Edible Products',
   parent: InterestGroups.BeautyBathSelfGrooming
 });

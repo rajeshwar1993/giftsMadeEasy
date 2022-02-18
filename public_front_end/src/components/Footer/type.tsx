@@ -19,4 +19,5 @@ export interface FooterConfig {
     email?: string;
     phone?: string;
   };
+  bottomDisclaimer: string;
 }

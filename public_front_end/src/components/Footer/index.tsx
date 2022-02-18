@@ -91,6 +91,12 @@ const Footer: FC<Props> = ({ config }) => {
               </span>
             )}
           </div>
+          <div className='col-span-1 md:col-span-3 text-center'>
+            <Text
+              content={config.bottomDisclaimer}
+              styleClasses='text-xs font-semibold'
+            />
+          </div>
         </div>
         <div className='xl:w-[12%]' />
       </footer>

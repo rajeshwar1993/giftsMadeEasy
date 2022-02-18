@@ -99,3 +99,14 @@ export const ClientErrorLoggerDBKeys = {
   message: 'm',
   createdTS: 'cTS'
 };
+
+export const DedicatedSearchDBKeys = {
+  searchCriteria: 'sc',
+  relationship: 'rt',
+  occasion: 'ot',
+  ageGrp: 'at',
+  gender: 'gt',
+  interests: 'it',
+  festivals: 'ft',
+  isActive: 'ia'
+};

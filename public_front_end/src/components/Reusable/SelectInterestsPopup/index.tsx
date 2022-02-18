@@ -51,7 +51,7 @@ const SelectInterestsPopup: FC<Props> = ({
           key={key}
           text={val}
           defautStyle='cust-btn-link'
-          styleClasses='w-fit'
+          styleClasses='text-left'
           wrapperClasses=''
           onClick={() => updateChosenInterest(key)}
         />
