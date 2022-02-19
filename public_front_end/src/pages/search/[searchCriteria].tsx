@@ -41,7 +41,7 @@ const DedicatedSearchPage = ({
           images: []
         }}
       />
-      <DedicatedSearchContainer test={headerData.title} />
+      <DedicatedSearchContainer title={headerData.title} ds={pageData} />
     </div>
   );
 };
@@ -70,7 +70,7 @@ const createPageTitleAndMeta = (
 
   return {
     title,
-    desc: `${title}${intsVal.length > 0 ? `who likes ${intsStr}` : ''}`
+    desc: `${title}${intsVal.length > 0 ? ` who likes ${intsStr}` : ''}`
   };
 };
 

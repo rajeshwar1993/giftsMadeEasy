@@ -21,7 +21,7 @@ const ProductListItem: FC<Props> = ({ t, p, ogp, piu, r, path, au }) => {
           <div className='cursor-pointer space-y-2'>
             <div className='rounded-lg overflow-hidden'>
               <ImageComponent
-                src={piu[0] || '/images/product.jpg'}
+                src={piu[0]}
                 alt={t}
                 width={isDesktop ? 400 : 300}
                 height={isDesktop ? 400 : 300}

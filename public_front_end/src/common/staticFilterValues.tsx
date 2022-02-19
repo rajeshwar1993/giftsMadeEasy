@@ -323,7 +323,7 @@ interestFilterValues.set('khl_glgt', {
   desc: 'Dreamcatchers, Feng Shui, Lucky Charm etc.'
 });
 
-// Art, Music & Movies
+// Art, Music
 interestFilterValues.set('amc_clasp', {
   name: 'Color and Art Supplies',
   parent: InterestGroups.ArtMusic,
@@ -354,6 +354,12 @@ interestFilterValues.set('amc_mpvn', {
   desc: 'Carvaan, Walkman, Turntables etc.'
 });
 
+interestFilterValues.set('amc_bnd', {
+  name: 'Popular Band Merchendise.',
+  parent: InterestGroups.ArtMusic,
+  desc: 'Products related to Iconic Bands like Beatles, Cold Play etc.'
+});
+
 // interestFilterValues.set('amc_bah', {
 //   name: 'Bollywood & Hollywood Movies',
 //   parent: InterestGroups.ArtMusicMovies
@@ -378,16 +384,28 @@ interestFilterValues.set('mtv_hwd', {
   desc: 'Products related to Iconic Hollywood movies like The Godfather, Joker, Taxi Driver etc.'
 });
 
+interestFilterValues.set('mtv_tmu', {
+  name: 'The Marvel Universe',
+  parent: InterestGroups.MoviesTV,
+  desc: 'Iron Man, Thor, Black Widow and the Avengers Assemble!'
+});
+
 interestFilterValues.set('mtv_tvsh', {
   name: 'Eveything TV Shows',
   parent: InterestGroups.MoviesTV,
   desc: 'Products related to Iconic TV Shows like Friends, The Office etc.'
 });
 
-interestFilterValues.set('mtv_bnd', {
-  name: 'Eveything Bands',
+interestFilterValues.set('mtv_ani', {
+  name: 'The World of Anime',
   parent: InterestGroups.MoviesTV,
-  desc: 'Products related to Iconic Bands like Beatles, Cold Play etc.'
+  desc: 'Products related to top Anime Series like Naruto, Death Note etc.'
+});
+
+interestFilterValues.set('mtv_ani', {
+  name: 'Kids Shows & Animated Movies',
+  parent: InterestGroups.MoviesTV,
+  desc: 'Frozen, Dora, Peppa Pig, and classics like Tom and Jerry. '
 });
 
 // Books, Comics & Planners

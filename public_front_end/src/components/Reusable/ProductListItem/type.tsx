@@ -4,7 +4,7 @@ import { Gender } from '../../../models/enums';
 export interface ProductListItemType {
   objectID: string;
   apid: string;
-  t: string;
+  title: string;
   p: string;
   ogp: string;
   r: string;

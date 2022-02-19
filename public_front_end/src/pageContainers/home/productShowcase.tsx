@@ -3,6 +3,7 @@ import { SectionTitle } from '../../components';
 import AppLink from '../../components/Reusable/AppLink';
 import ProductListItemMini from '../../components/Reusable/ProductListItem/listItemMini';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
+import { TempProductView } from '../search/productListsing';
 
 export interface Props {
   title: string;
@@ -37,6 +38,10 @@ const ProductShowcase: FC<Props> = ({
       <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6'>
         {products &&
           products.map(p => {
+            return <TempProductView key={p.apid} id={p.apid} title={p.title} />;
+          })}
+        {/* {products &&
+          products.map(p => {
             return (
               <ProductListItemMini
                 {...p}
@@ -44,7 +49,7 @@ const ProductShowcase: FC<Props> = ({
                 objectID={p.objectID}
               />
             );
-          })}
+          })} */}
       </div>
 
       <AppLink

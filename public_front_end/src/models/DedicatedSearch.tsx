@@ -23,6 +23,13 @@ export const convertDedicatedSearchToJson = (ds: DedicatedSearch) => ({
   [DedicatedSearchDBKeys.festivals]: ds.festivals
 });
 
+export const convertDedicatedSearchToJsonForSearch = (ds: DedicatedSearch) => ({
+  [DedicatedSearchDBKeys.relationship]: ds.relationship,
+  [DedicatedSearchDBKeys.occasion]: ds.occasion,
+  [DedicatedSearchDBKeys.ageGrp]: ds.ageGrp,
+  [DedicatedSearchDBKeys.interests]: ds.interests
+});
+
 export const convertJsonToDedicatedSearchObj = (inp: any, id: string) => {
   const ds: DedicatedSearch = {
     uid: id,
