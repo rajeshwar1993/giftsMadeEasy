@@ -17,6 +17,12 @@ const Admin: NextPage = () => {
         <Link href='/admin/addProducts'>
           <Text content='ADD Products' styleClasses='cursor-pointer' />
         </Link>
+        <Link href='/admin/dedicatedSearchPageAdmin'>
+          <Text
+            content='Dedicated Search Admin'
+            styleClasses='cursor-pointer'
+          />
+        </Link>
       </div>
     </div>
   );

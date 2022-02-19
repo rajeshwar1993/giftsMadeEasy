@@ -102,7 +102,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       const data = doc.data();
       paths.push({
         params: {
-          searchCriteria: data[DedicatedSearchDBKeys.searchCriteria]
+          searchCriteria: encodeURI(data[DedicatedSearchDBKeys.searchCriteria])
         }
       });
     });
@@ -119,6 +119,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 }) => {
   // must be async
   if (!params) {
+    console.log('NO PARAMS!!');
     return {
       redirect: {
         destination: '/search',
@@ -130,6 +131,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   let { searchCriteria } = params;
 
   if (!searchCriteria) {
+    console.log('NO SC!!');
     return {
       redirect: {
         destination: '/search',
@@ -137,6 +139,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
       }
     };
   }
+
+  searchCriteria = decodeURI(searchCriteria);
 
   let pageData: DedicatedSearch;
 
@@ -151,6 +155,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     const doc = dsSnap.docs[0];
     pageData = convertJsonToDedicatedSearchObj(doc.data(), doc.id);
   } else {
+    console.log('NO DOC FOUND!!');
     return {
       redirect: {
         destination: '/search',

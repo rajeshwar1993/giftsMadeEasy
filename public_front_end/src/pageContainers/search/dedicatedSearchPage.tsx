@@ -31,10 +31,6 @@ type Props = {
 };
 
 const DedicatedSearchContainer: FC<Props> = ({ title, ds }) => {
-  const [filterState, setFilterState] = useState<DedicatedSearch>(ds);
-  const [interestPopoverOpen, setInterestPopoverOpen] =
-    useState<boolean>(false);
-
   const [productShowcases, setProductShowcases] = useState<
     Array<{
       title: string;
@@ -42,30 +38,6 @@ const DedicatedSearchContainer: FC<Props> = ({ title, ds }) => {
       products: Array<any>;
     }>
   >([]);
-
-  const updateValues = (data: ListBoxOption, key: string) => {
-    setFilterState(state =>
-      convertJsonToDedicatedSearchObj(
-        {
-          ...convertDedicatedSearchToJson(state),
-          [key]: data.value
-        },
-        ds.uid
-      )
-    );
-  };
-
-  const updateInterests = (data: Array<string>) => {
-    setFilterState(state =>
-      convertJsonToDedicatedSearchObj(
-        {
-          ...convertDedicatedSearchToJson(state),
-          [FilterDBKeys.interests]: data
-        },
-        ds.uid
-      )
-    );
-  };
 
   const createShowCaseTitle = (ageStr?: any) => {
     if (!ageStr) {
@@ -79,7 +51,7 @@ const DedicatedSearchContainer: FC<Props> = ({ title, ds }) => {
     return `Gifts for Ages ${ageStr}`;
   };
 
-  const handleChangeInFilters = async (fs: DedicatedSearch) => {
+  const handleDataPull = async (fs: DedicatedSearch) => {
     if (!fs.relationship && !fs.occasion) {
       setProductShowcases([]);
       return;
@@ -122,76 +94,38 @@ const DedicatedSearchContainer: FC<Props> = ({ title, ds }) => {
   };
 
   useEffect(() => {
-    handleChangeInFilters(filterState);
-  }, [filterState]);
+    handleDataPull(ds);
+  }, [ds]);
 
   return (
     <>
       <section>
         <h1 className='sr-only'>{title}</h1>
-        <div className='flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-3 items-center flex-wrap'>
-          <SectionTitle content='Gifts for my' />
-          <div className='pb-4 w-80'>
-            <ListBoxComp
-              filterKey={FilterDBKeys.relationship}
-              selectedOption={getOptionFromValue(
-                relationshipFilterValues,
-                filterState.relationship,
-                AppConfig.COMMON.relationshipLabel
-              )}
-              onSelected={updateValues}
-              options={createListboxOptions(
-                relationshipFilterValues,
-                AppConfig.COMMON.relationshipLabel
-              )}
-              buttonStyleClasses='text-3xl md:text-5xl font-light text-center border-l-0 border-r-0 border-t-0 border-b-2 rounded-none border-skin-accent'
+        <div className='flex flex-row space-x-3 items-center flex-wrap'>
+          <div>
+            <SectionTitle
+              content='Gifts for my'
+              styleClasses='text-5xl md:!text-7xl lg:!text-8xl'
             />
           </div>
-          <SectionTitle
-            content='on his/her'
-            styleClasses='text-3xl md:text-4xl lg:text-5xl'
-          />
-          <div className='pb-4 w-80'>
-            <ListBoxComp
-              filterKey={FilterDBKeys.occasion}
-              selectedOption={getOptionFromValue(
-                occasionFilterValues,
-                filterState.occasion,
-                AppConfig.COMMON.occasionLabel
-              )}
-              onSelected={updateValues}
-              options={createListboxOptions(
-                occasionFilterValues,
-                AppConfig.COMMON.occasionLabel
-              )}
-              buttonStyleClasses='text-3xl md:text-5xl font-light text-center border-l-0 border-r-0 border-t-0 border-b-2 rounded-none border-skin-accent'
+          <div>
+            <SectionTitle
+              content={relationshipFilterValues.get(ds.relationship)!}
+              styleClasses='text-5xl md:!text-7xl lg:!text-8xl !font-bold'
             />
           </div>
-        </div>
-        <div className='flex flex-col items-center md:items-start'>
-          <div className='flex space-x-3 mb-3 items-center '>
-            <Text
-              content='and is interested in'
-              styleClasses='text-xl md:text-2xl'
-            />
-            <Button
-              text={`Select ${AppConfig.SEARCH.interestsLabel} ${
-                filterState.interests.length
-                  ? ` (${filterState.interests.length})`
-                  : ''
-              }`}
-              defautStyle='cust-btn-link'
-              styleClasses='text-base pt-1'
-              wrapperClasses=''
-              onClick={() => setInterestPopoverOpen(true)}
+          <div>
+            <SectionTitle
+              content='on his/her'
+              styleClasses='text-5xl md:!text-7xl lg:!text-8xl'
             />
           </div>
-          <ShowSelectedInterests
-            values={filterState.interests}
-            onCancel={updated => {
-              updateInterests(updated);
-            }}
-          />
+          <div>
+            <SectionTitle
+              content={occasionFilterValues.get(ds.occasion)!}
+              styleClasses='text-5xl md:!text-7xl lg:!text-8xl !font-bold'
+            />
+          </div>
         </div>
 
         {productShowcases.map((show, i) => {
@@ -201,17 +135,11 @@ const DedicatedSearchContainer: FC<Props> = ({ title, ds }) => {
                 title={show.title}
                 seeAllLink={show.seeAllLink}
                 products={show.products}
-              />{' '}
+              />
             </div>
           );
         })}
       </section>
-      <SelectInterestsPopup
-        open={interestPopoverOpen}
-        selectedInts={filterState.interests ? filterState.interests : []}
-        onSave={updateInterests}
-        onClose={() => setInterestPopoverOpen(false)}
-      />
     </>
   );
 };
