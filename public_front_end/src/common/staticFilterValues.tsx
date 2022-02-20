@@ -279,6 +279,13 @@ interestFilterValues.set('khl_ctgl', {
   parent: InterestGroups.HomeKitchenLiving,
   desc: 'Bowls, Spoons, Glasses and Tablewear.'
 });
+
+interestFilterValues.set('khl_ctgl', {
+  name: 'Bar and Cocktail Accessories',
+  parent: InterestGroups.HomeKitchenLiving,
+  desc: 'Beer, Cocktail glasses and Bar Accessories.'
+});
+
 interestFilterValues.set('khl_kapll', {
   name: 'Kitchen Appliances',
   parent: InterestGroups.HomeKitchenLiving,

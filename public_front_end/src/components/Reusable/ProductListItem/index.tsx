@@ -9,7 +9,7 @@ import Icon from '../Icon';
 
 import { ProductListItemType as Props } from './type';
 
-const ProductListItem: FC<Props> = ({ t, p, ogp, piu, r, path, au }) => {
+const ProductListItem: FC<Props> = ({ title, p, ogp, piu, r, path, au }) => {
   const isDesktop = useSelector((state: RootState) => state.app.isDesktop);
 
   return (
@@ -22,7 +22,7 @@ const ProductListItem: FC<Props> = ({ t, p, ogp, piu, r, path, au }) => {
             <div className='rounded-lg overflow-hidden'>
               <ImageComponent
                 src={piu[0]}
-                alt={t}
+                alt={title}
                 width={isDesktop ? 400 : 300}
                 height={isDesktop ? 400 : 300}
                 layout='intrinsic'
@@ -31,7 +31,7 @@ const ProductListItem: FC<Props> = ({ t, p, ogp, piu, r, path, au }) => {
             <div className='flex flex-col justify-between space-y-4 px-4 w-full lg:pl-0'>
               <Text
                 tag='h4'
-                content={t}
+                content={title}
                 styleClasses='font-semibold text-base line-clamp-4'
               />
               <div className='flex justify-between items-end'>

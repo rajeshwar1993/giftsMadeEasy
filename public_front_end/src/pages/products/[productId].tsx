@@ -70,18 +70,24 @@ interface Props {
 export const getStaticPaths: GetStaticPaths = async () => {
   // TODO - currently fetching all the docs in products DB
   // TODO - batch this process when number of products is more
-  const db = fbAdmin.firestore();
-  const collRef = db.collection(FS_PRODUCTS_DB);
+  // const db = fbAdmin.firestore();
+  // const collRef = db.collection(FS_PRODUCTS_DB);
 
-  const productsSnap = await collRef.get();
-  let paths: Array<{ params: { productId: string } }> = [];
+  // const productsSnap = await collRef.get();
+  // let paths: Array<{ params: { productId: string } }> = [];
 
-  productsSnap.forEach(snap => {
-    paths.push({ params: { productId: snap.id } });
-  });
+  // productsSnap.forEach(snap => {
+  //   paths.push({ params: { productId: snap.id } });
+  // });
 
   return {
-    paths: paths,
+    paths: [
+      {
+        params: {
+          productId: '0ByLAEFN6vaj7yRErVdM'
+        }
+      }
+    ],
     fallback: true
   };
 };

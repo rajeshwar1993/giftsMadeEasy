@@ -7,6 +7,7 @@ import AppConfig from '../common/appConfig';
 import { Props as ProductShowcaseType } from '../pageContainers/home/productShowcase';
 import makeSearch from '../common/algolia';
 import { ProductListItemType } from '../components/Reusable/ProductListItem/type';
+import { convertProductJsonToObj } from '../models/Product';
 
 const Home = ({
   headerData,
@@ -103,7 +104,9 @@ export const getStaticProps: GetStaticProps<Props> = async context => {
 
   res.forEach((r: any, i) => {
     if (r && r.status === 'fulfilled') {
-      const hits = r.value.hits as Array<ProductListItemType>;
+      const hits = r.value.hits.map((h: any) =>
+        convertProductJsonToObj(h, h.objectID)
+      );
       ps[i].products = hits;
     }
   });
