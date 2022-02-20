@@ -3,9 +3,9 @@ import AppConfig from '../../common/appConfig';
 import { SectionTitle, Text } from '../../components';
 import ProductListItem from '../../components/Reusable/ProductListItem';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
-
+import Product from '../../models/Product';
 type Props = {
-  results: Array<ProductListItemType>;
+  results: Array<Product>;
   loading: boolean;
 };
 
@@ -44,12 +44,13 @@ export const TempProductView: FC<TempProductViewProps> = ({
             content={title}
             styleClasses='font-semibold text-base line-clamp-4'
           />
-          <Text
+          {/* <Text
             content={AppConfig.COMMON.buyNowLabel}
             styleClasses='font-semibold text-base'
-          />
+          /> */}
         </div>
       </div>
+      <hr />
     </a>
   );
 };

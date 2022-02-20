@@ -21,7 +21,7 @@ import DedicatedSearch, {
   convertJsonToDedicatedSearchObj
 } from '../../models/DedicatedSearch';
 import Filter from '../../models/Filter';
-import { convertProductJsonToObj } from '../../models/Product';
+import Product, { convertProductJsonToObj } from '../../models/Product';
 import ProductShowcase from '../home/productShowcase';
 import ShowSelectedInterests from './showSelectedInterests';
 
@@ -35,7 +35,7 @@ const DedicatedSearchContainer: FC<Props> = ({ title, ds }) => {
     Array<{
       title: string;
       seeAllLink: string;
-      products: Array<any>;
+      products: Array<Product>;
     }>
   >([]);
 
@@ -61,7 +61,7 @@ const DedicatedSearchContainer: FC<Props> = ({ title, ds }) => {
     let ps: Array<{
       title: string;
       seeAllLink: string;
-      products: Array<any>;
+      products: Array<Product>;
     }> = [];
 
     fs.ageGrp.forEach(age => {

@@ -201,7 +201,7 @@ const writeProductsFile = (jsonStr: string) => {
 
 const startProcess = async () => {
   await readTheFile();
-  allCSVData = allCSVData.slice(0, 20);
+  // allCSVData = allCSVData.slice(0, 20);
 
   // read local file
   const jsonString = await readProductsFile();

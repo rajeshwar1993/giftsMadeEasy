@@ -3,12 +3,13 @@ import { SectionTitle } from '../../components';
 import AppLink from '../../components/Reusable/AppLink';
 import ProductListItemMini from '../../components/Reusable/ProductListItem/listItemMini';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
+import Product from '../../models/Product';
 import { TempProductView } from '../search/productListsing';
 
 export interface Props {
   title: string;
   seeAllLink: string;
-  products: Array<ProductListItemType>;
+  products: Array<Product>;
   seeAllTitle?: string;
 }
 

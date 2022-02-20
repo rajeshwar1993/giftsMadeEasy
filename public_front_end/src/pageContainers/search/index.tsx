@@ -7,6 +7,7 @@ import { cleanObject } from '../../common/utils';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
 import { ProductStatus } from '../../models/enums';
 import Filter from '../../models/Filter';
+import Product, { convertProductJsonToObj } from '../../models/Product';
 import { RootState } from '../../redux/store';
 import Filters from './filters';
 import ProductListing from './productListsing';
@@ -18,7 +19,7 @@ const SearchPage = () => {
   const [showMobileFilters, updateShowMobileFilters] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [results, setResults] = useState<Array<ProductListItemType>>([]);
+  const [results, setResults] = useState<Array<Product>>([]);
 
   const isDesktop = useSelector((state: RootState) => state.app.isDesktop);
 
@@ -80,7 +81,9 @@ const SearchPage = () => {
     try {
       setLoading(true);
       let res: any = await makeSearch(fValObj);
-      const hits = res.hits as Array<ProductListItemType>;
+      const hits = res.hits.map((h: any) =>
+        convertProductJsonToObj(h, h.objectID)
+      );
       setResults(hits);
     } catch (e) {
       console.log(e);

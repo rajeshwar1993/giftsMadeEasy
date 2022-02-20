@@ -491,7 +491,7 @@ interestFilterValues.set('cff_eyew', {
 
 interestFilterValues.set('cff_mkpa', {
   name: 'Makeup & Accesories',
-  parent: InterestGroups.BeautyBathSelfGrooming,
+  parent: InterestGroups.ClothesFashionFootwear,
   desc: 'Makeup products, Grooming Kits and Skin Care.'
 });
 
