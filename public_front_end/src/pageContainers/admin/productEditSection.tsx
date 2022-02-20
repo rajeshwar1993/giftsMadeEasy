@@ -49,7 +49,10 @@ const ProductEditSection: FC<Props> = ({
         )}
         <div className='flex space-x-4'>
           <div className='w-2/5'>
-            <ImageCarouselSection images={product.productImgUrls} />
+            {/* <ImageCarouselSection images={product.productImgUrls} /> */}
+            <img
+              src={`//ws-in.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=IN&ASIN=${product.apid}&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_`}
+            />
           </div>
           <div className='flex flex-col space-y-4'>
             <SectionTitle content={product.title} styleClasses='!text-3xl' />

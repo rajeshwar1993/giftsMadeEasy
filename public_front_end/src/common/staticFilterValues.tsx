@@ -95,7 +95,10 @@ interestGroupMap.set(
   'Home, Kitchen & Living'
 );
 interestGroupMap.set(InterestGroups.ArtMusic, 'Art and Music');
-interestGroupMap.set(InterestGroups.MoviesTV, 'Movies, TV Shows and Bands');
+interestGroupMap.set(
+  InterestGroups.MoviesTV,
+  'Movies, TV Shows, Anime and Cartoons'
+);
 interestGroupMap.set(
   InterestGroups.ClothesFashionFootwear,
   'Clothes, Fashion & Footwear'
@@ -437,6 +440,11 @@ interestFilterValues.set('bcp_bmhs', {
 
 interestFilterValues.set('bcp_shmt', {
   name: 'Self-help & Motivational',
+  parent: InterestGroups.BooksComicsPlanners
+});
+
+interestFilterValues.set('bcp_fnf', {
+  name: 'Finance & Future',
   parent: InterestGroups.BooksComicsPlanners
 });
 

@@ -100,15 +100,20 @@ const fetchDataForEachProduct = async () => {
   closeBrowser(browser);
 };
 
-const temporaryFetchDataForEachProductFromCSV = async () => {
+const temporaryFetchDataForEachProductFromCSV = async (dataMap: any) => {
   console.time('Op');
   let { browser, page } = await initPage();
   console.log('Starting parsing');
   const newProductCollectionRef = db.collection(PRODUCT_DB);
 
+  const dataKeys = Object.keys(dataMap);
+
   // get all new products that have pending status
-  for (let i = 0; i < allCSVData.length; i++) {
-    let data = await temporaryGetWebData(page, allCSVData[i].URL);
+  for (let i = 0; i < dataKeys.length; i++) {
+    const apid = dataKeys[i];
+    console.log('Processing', i, ' -- ', apid);
+
+    let data = await temporaryGetWebData(page, dataMap[apid]);
 
     let status = ProductStatus.FetchSuccess.toString();
     let statusMessage = [];
@@ -116,18 +121,6 @@ const temporaryFetchDataForEachProductFromCSV = async () => {
       status = ProductStatus.Error.toString();
       statusMessage.push('Error in fetching Title');
     }
-
-    // create the affiliate url
-    const apid = extractProductID(allCSVData[i].URL);
-
-    if (!apid) {
-      {
-        status = ProductStatus.Error.toString();
-        statusMessage.push('Error in fetching APID');
-      }
-    }
-
-    console.log('Processing', apid);
 
     await newProductCollectionRef.add({
       [ProductDBKeys.title]: data.title,
@@ -142,7 +135,7 @@ const temporaryFetchDataForEachProductFromCSV = async () => {
       [ProductDBKeys.source]: 'amazon',
       [ProductDBKeys.custom_score]: 0,
       [ProductDBKeys.apid]: apid,
-      [ProductDBKeys.productUrl]: allCSVData[i].URL
+      [ProductDBKeys.productUrl]: dataMap[apid]
     });
   }
 
@@ -184,11 +177,49 @@ const readTheFile = () => {
   });
 };
 
+const readProductsFile = () => {
+  return new Promise<string>((resolve, reject) => {
+    // get all the data
+    fs.readFile('./products.json', 'utf8', (err, jsonString: string) => {
+      if (err) {
+        reject('');
+      }
+      resolve(jsonString);
+    });
+  });
+};
+
+const writeProductsFile = (jsonStr: string) => {
+  fs.writeFile('./products.json', jsonStr, err => {
+    if (err) {
+      console.log('Error writing file', err);
+    } else {
+      console.log('Successfully wrote file');
+    }
+  });
+};
+
 const startProcess = async () => {
   await readTheFile();
-  allCSVData = allCSVData.slice(0, 5);
-  console.log('THE END', allCSVData.length);
-  temporaryFetchDataForEachProductFromCSV();
+  allCSVData = allCSVData.slice(0, 20);
+
+  // read local file
+  const jsonString = await readProductsFile();
+  const products = JSON.parse(jsonString);
+
+  let UrlMap: any = {};
+
+  allCSVData.forEach((data: any) => {
+    const apid = extractProductID(data.URL);
+    if (apid && !products[apid]) {
+      UrlMap[apid] = data.URL;
+    }
+  });
+
+  console.log('Map Length', Object.keys(UrlMap).length);
+  await temporaryFetchDataForEachProductFromCSV(UrlMap);
+
+  writeProductsFile(JSON.stringify({ ...products, ...UrlMap }));
 };
 
 startProcess();

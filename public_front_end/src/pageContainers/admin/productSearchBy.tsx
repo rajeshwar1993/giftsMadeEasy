@@ -1,6 +1,7 @@
 import {
   collection,
   getDocs,
+  limit,
   query,
   where,
   WhereFilterOp
@@ -36,7 +37,7 @@ const ProductSearchBy: FC<Props> = ({
       setLoading(true);
       const colRef = collection(db, FS_PRODUCTS_DB);
 
-      const q = query(colRef, where(key, operator, value));
+      const q = query(colRef, where(key, operator, value), limit(10));
 
       const snap = await getDocs(q);
 

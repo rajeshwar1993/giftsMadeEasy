@@ -99,8 +99,13 @@ const ProductOpsContainer = () => {
             : p
         )
       );
-
-      setSelectedProduct(null);
+      // send notification
+      dispatch(
+        app_sendToast({
+          message: 'Product updated.',
+          type: 'info'
+        })
+      );
     } catch (e) {
       console.log(e);
     } finally {

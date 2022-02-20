@@ -101,25 +101,17 @@ const ProductsTable: FC<Props> = ({
               </td>{' '}
               {!selectedProduct && (
                 <>
-                  <td
-                    className={`px-4 py-3 border-b-2 border-opacity-20 min-w-[120px] lg:min-w-[160px] `}
-                  >
+                  <td className={`px-4 py-3 border-b-2 border-opacity-20 `}>
                     <Text content={tr.uid} />
                   </td>
 
-                  <td
-                    className={`px-4 py-3 border-b-2 border-opacity-20 min-w-[120px] lg:min-w-[160px] `}
-                  >
+                  <td className={`px-4 py-3 border-b-2 border-opacity-20 `}>
                     <Text content={tr.productUrl} />
                   </td>
-                  <td
-                    className={`px-4 py-3 border-b-2 border-opacity-20 min-w-[120px] lg:min-w-[160px] `}
-                  >
+                  <td className={`px-4 py-3 border-b-2 border-opacity-20 `}>
                     <Text content={tr.affiliateUrl} />
                   </td>
-                  <td
-                    className={`px-4 py-3 border-b-2 border-opacity-20 min-w-[120px] lg:min-w-[160px] `}
-                  >
+                  <td className={`px-4 py-3 border-b-2 border-opacity-20 `}>
                     <Text content={tr.apid} />
                   </td>
                 </>

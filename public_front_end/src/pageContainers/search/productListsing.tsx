@@ -65,7 +65,7 @@ const ProductListing: FC<Props> = ({ results, loading }) => {
       {!loading && (
         <div className='grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-6 xl:grid-cols-4  lg:gap-x-8 w-full'>
           {results.map(r => (
-            <TempProductView id={r.apid} key={r.apid} title={r.t} />
+            <TempProductView id={r.apid} key={r.apid} title={r.title} />
           ))}
         </div>
       )}
