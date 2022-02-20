@@ -94,7 +94,7 @@ interestGroupMap.set(
   InterestGroups.HomeKitchenLiving,
   'Home, Kitchen & Living'
 );
-interestGroupMap.set(InterestGroups.ArtMusic, 'Art and Music');
+interestGroupMap.set(InterestGroups.ArtMusic, 'Stationery, Art and Music');
 interestGroupMap.set(
   InterestGroups.MoviesTV,
   'Movies, TV Shows, Anime and Cartoons'
@@ -334,6 +334,12 @@ interestFilterValues.set('khl_glgt', {
 });
 
 // Art, Music
+interestFilterValues.set('amc_sosp', {
+  name: 'School and Office Stationery ',
+  parent: InterestGroups.ArtMusic,
+  desc: 'Pens, Pencils, Bags etc.'
+});
+
 interestFilterValues.set('amc_clasp', {
   name: 'Color and Art Supplies',
   parent: InterestGroups.ArtMusic,
@@ -468,7 +474,7 @@ interestFilterValues.set('bcp_dplr', {
 // Clother, Fashion & Footwear
 
 interestFilterValues.set('cff_ttsh', {
-  name: 'Tops, T-shirts, Shirts& Baby Clothes',
+  name: 'Tops, T-shirts, Shirts & Baby Clothes',
   parent: InterestGroups.ClothesFashionFootwear,
   desc: 'The Best Selling Clothing products.'
 });
