@@ -45,6 +45,7 @@ occasionFilterValues.set('occ_bch', 'Bachelor/Bachelorette');
 occasionFilterValues.set('occ_b', 'Birthday');
 occasionFilterValues.set('occ_brh', 'Bridal Shower');
 occasionFilterValues.set('occ_ce', 'Casual Event');
+occasionFilterValues.set('occ_cb', 'Child Birth');
 occasionFilterValues.set('occ_e', 'Engagement');
 occasionFilterValues.set('occ_f', 'Farewell');
 occasionFilterValues.set('occ_g', 'Graduation');
@@ -192,31 +193,37 @@ interestFilterValues.set('tgs_rct', {
   parent: InterestGroups.ToysGamesAndSports,
   desc: 'RC Cars, Helicopters, Planes etc.'
 });
+interestFilterValues.set('tgs_tgc', {
+  name: 'Toy Guns & Cars',
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'Hot Wheels, Nerf Guns and other Action Toys.'
+});
 interestFilterValues.set('tgs_edt', {
   name: 'Educational Toys',
   parent: InterestGroups.ToysGamesAndSports,
   desc: 'STEM and Informational Games.'
-});
-interestFilterValues.set('tgs_odg', {
-  name: 'Outdoor Games & Sports',
-  parent: InterestGroups.ToysGamesAndSports,
-  desc: 'Football, Badminton, Basketball etc.'
 });
 interestFilterValues.set('tgs_pbg', {
   name: 'Puzzles & Brain Games',
   parent: InterestGroups.ToysGamesAndSports,
   desc: 'Crosswords, Picture puzzles etc.'
 });
+interestFilterValues.set('tgs_odg', {
+  name: 'Outdoor Games & Sports',
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'Football, Badminton, Basketball etc.'
+});
+interestFilterValues.set('tgs_exg', {
+  name: 'Exercise & Gym Equipment',
+  parent: InterestGroups.ToysGamesAndSports,
+  desc: 'Treadmill, Dumbells  etc.'
+});
 interestFilterValues.set('tgs_sft', {
   name: 'Soft Toys',
   parent: InterestGroups.ToysGamesAndSports,
   desc: 'Teddy Bears, stuffed animals and Baby Pillows.'
 });
-interestFilterValues.set('tgs_tgc', {
-  name: 'Toy Guns & Cars',
-  parent: InterestGroups.ToysGamesAndSports,
-  desc: 'Hot Wheels, Nerf Guns and other Action Toys.'
-});
+
 interestFilterValues.set('tgs_apl', {
   name: 'Art and Playdough',
   parent: InterestGroups.ToysGamesAndSports,

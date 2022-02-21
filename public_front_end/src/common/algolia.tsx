@@ -1,5 +1,4 @@
 import algoliasearch from 'algoliasearch/lite';
-import { rejects } from 'assert';
 
 const client = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_PROJECT_ID || '',

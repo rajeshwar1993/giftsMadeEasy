@@ -98,12 +98,13 @@ const ProductListing: FC<Props> = ({
             </div>
           )}
           {page + 1 === totalPages && (
-            <div className=' mt-12 text-center'>
+            <div className='mt-12 flex flex-col items-center'>
               <Text content='Did not find the perfect gift?' />
               <SectionTitle
                 content='Try Changing Filters'
                 wrapperClasses='text-center'
               />
+              <img src='/images/algolia.svg' alt='Search powered by Algolia' />
             </div>
           )}
         </>
