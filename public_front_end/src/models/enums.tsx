@@ -44,11 +44,11 @@ export enum Occasion {
 }
 
 export enum Festivals {
-  NewYears = 'ny',
-  Lohri = 'loh',
-  RepublicDay = 'rpd',
-  ValentinesDay = 'vad',
-  Holi = 'holi'
+  NewYears = 'fes_ny',
+  Lohri = 'fes_loh',
+  RepublicDay = 'fes_rpd',
+  ValentinesDay = 'fes_vad',
+  Holi = 'fes_holi'
 }
 
 export enum NotificationTypes {

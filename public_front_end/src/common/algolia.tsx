@@ -35,6 +35,7 @@ const makeSearch = async (filterObj: any, options: any = {}) => {
     index
       .search('', {
         filters: createFilters(filterObj),
+        hitsPerPage: 20,
         ...options
       })
       .then(res => {

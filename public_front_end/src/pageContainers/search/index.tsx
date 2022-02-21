@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import makeSearch from '../../common/algolia';
 import { FilterDBKeys, ProductDBKeys } from '../../common/dbKeys';
 import { cleanObject } from '../../common/utils';
+import { Button } from '../../components';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
 import { ProductStatus } from '../../models/enums';
 import Filter from '../../models/Filter';
@@ -19,7 +20,12 @@ const SearchPage = () => {
   const [showMobileFilters, updateShowMobileFilters] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [results, setResults] = useState<Array<Product>>([]);
+  const [result, setResult] = useState<{
+    items: Array<Product>;
+    nbHits: number;
+    page: number;
+    nbPages: number;
+  }>({ items: [], nbHits: 0, page: 0, nbPages: 0 });
 
   const isDesktop = useSelector((state: RootState) => state.app.isDesktop);
 
@@ -30,7 +36,7 @@ const SearchPage = () => {
     // create new filter object
     const f = Filter.convertJsonToObj(router.query);
     updateFilterValues(f);
-    makeQuery(f.convertToJson());
+    makeQuery(f.convertToJson(), { page: 0 });
   }, [router.query]);
 
   // update the filter copy when opening mobile filters
@@ -77,19 +83,31 @@ const SearchPage = () => {
     console.log(Filter.convertJsonToObj(fValObj));
   };
 
-  const makeQuery = async (fValObj: any) => {
+  const makeQuery = async (fValObj: any, options: any = {}) => {
     try {
-      setLoading(true);
-      let res: any = await makeSearch(fValObj);
+      setLoading(options.page === 0);
+      let res: any = await makeSearch(fValObj, options);
+      let { page, nbPages, nbHits } = res;
       const hits = res.hits.map((h: any) =>
         convertProductJsonToObj(h, h.objectID)
       );
-      setResults(hits);
+      setResult(state => ({
+        ...state,
+        items: page > 0 ? state.items.concat(hits) : hits,
+        nbHits,
+        nbPages,
+        page
+      }));
     } catch (e) {
       console.log(e);
     } finally {
       setLoading(false);
     }
+  };
+
+  const loadMoreResults = () => {
+    if (result.page + 1 < result.nbPages)
+      makeQuery(filterValues.convertToJson(), { page: result.page + 1 });
   };
 
   const handleClearFilters = (onlyFilters: boolean = false) => {
@@ -120,7 +138,7 @@ const SearchPage = () => {
         updateParentState={handleFilterChange}
         openMobileFilter={() => updateShowMobileFilters(true)}
         handleClearFilters={handleClearFilters}
-        resultCount={results.length}
+        resultCount={result.nbHits}
         loading={loading}
       />
       {/* Filter and List */}
@@ -138,7 +156,13 @@ const SearchPage = () => {
         />
 
         <div className='lg:px-4 w-full lg:w-4/5 pt-2'>
-          <ProductListing results={results} loading={loading} />
+          <ProductListing
+            results={result.items}
+            loading={loading}
+            loadMoreResults={loadMoreResults}
+            page={result.page}
+            totalPages={result.nbPages}
+          />
         </div>
       </div>
     </section>

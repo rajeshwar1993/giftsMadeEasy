@@ -1,12 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import AppConfig from '../../common/appConfig';
-import { SectionTitle, Text } from '../../components';
+import { Button, SectionTitle, Text } from '../../components';
 import ProductListItem from '../../components/Reusable/ProductListItem';
 import { ProductListItemType } from '../../components/Reusable/ProductListItem/type';
 import Product from '../../models/Product';
 type Props = {
   results: Array<Product>;
   loading: boolean;
+  loadMoreResults: () => void;
+  page: number;
+  totalPages: number;
 };
 
 const ids = [
@@ -27,13 +31,13 @@ export const TempProductView: FC<TempProductViewProps> = ({
   title = 'TITLE'
 }) => {
   return (
-    <a
-      target='_blank'
-      href={`https://www.amazon.in/gp/product/${id}/ref=as_li_tl?ie=UTF8&camp=3638&creative=24630&creativeASIN=${id}&linkCode=as2&tag=tofacircle-21`}
-    >
-      <div className='pt-4 transition-all duration-200 rounded-lg lg:p-4 lg:hover:shadow-md border-skin-primary border-opacity-0 lg:hover:border-opacity-10 border-2'>
+    <div className='pt-4 transition-all duration-200 rounded-lg lg:p-4 lg:hover:shadow-md border-skin-primary border-opacity-0 lg:hover:border-opacity-10 border-2'>
+      <a
+        target='_blank'
+        href={`https://www.amazon.in/gp/product/${id}/ref=as_li_tl?ie=UTF8&camp=3638&creative=24630&creativeASIN=${id}&linkCode=as2&tag=tofacircle-21`}
+      >
         <div
-          className={`flex flex-col space-y-6 items-center h-full justify-between `}
+          className={`flex flex-col space-y-6 items-center h-full justify-start `}
         >
           <img
             src={`//ws-in.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=IN&ASIN=${id}&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=tofacircle-21`}
@@ -49,13 +53,27 @@ export const TempProductView: FC<TempProductViewProps> = ({
             styleClasses='font-semibold text-base'
           /> */}
         </div>
-      </div>
-      <hr />
-    </a>
+      </a>
+    </div>
   );
 };
 
-const ProductListing: FC<Props> = ({ results, loading }) => {
+const ProductListing: FC<Props> = ({
+  results,
+  loading,
+  loadMoreResults,
+  page,
+  totalPages
+}) => {
+  const { ref, inView, entry } = useInView({
+    threshold: 0
+  });
+
+  useEffect(() => {
+    if (inView) {
+      loadMoreResults();
+    }
+  }, [inView]);
   return (
     <>
       {loading && (
@@ -64,11 +82,31 @@ const ProductListing: FC<Props> = ({ results, loading }) => {
         </div>
       )}
       {!loading && (
-        <div className='grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-6 xl:grid-cols-4  lg:gap-x-8 w-full'>
-          {results.map(r => (
-            <TempProductView id={r.apid} key={r.apid} title={r.title} />
-          ))}
-        </div>
+        <>
+          <div className='grid grid-cols-1 gap-y-16 md:grid-cols-2 md:gap-x-6 lg:grid-cols-3 xl:grid-cols-4  lg:gap-x-8 w-full'>
+            {results.map(r => (
+              <TempProductView id={r.apid} key={r.apid} title={r.title} />
+            ))}
+          </div>
+
+          {page + 1 < totalPages && (
+            <div className=' mt-12' ref={ref}>
+              <SectionTitle
+                content='Loading Products ...'
+                wrapperClasses='text-center animate-bounce'
+              />
+            </div>
+          )}
+          {page + 1 === totalPages && (
+            <div className=' mt-12 text-center'>
+              <Text content='Did not find the perfect gift?' />
+              <SectionTitle
+                content='Try Changing Filters'
+                wrapperClasses='text-center'
+              />
+            </div>
+          )}
+        </>
       )}
       {results.length > 0 && (
         <div className='mt-16'>

@@ -143,10 +143,6 @@ const FilterBody: FC<FilterBodyProp> = ({
           filterKey={FilterDBKeys.festivals}
           checkList={[
             {
-              text: festivalilterValues.get(Festivals.ValentinesDay)!,
-              value: Festivals.ValentinesDay
-            },
-            {
               text: festivalilterValues.get(Festivals.Holi)!,
               value: Festivals.Holi
             }
