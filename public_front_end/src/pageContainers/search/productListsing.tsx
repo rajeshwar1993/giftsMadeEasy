@@ -109,14 +109,14 @@ const ProductListing: FC<Props> = ({
           )}
         </>
       )}
-      {results.length > 0 && (
+      {/* {results.length > 0 && (
         <div className='mt-16'>
           <Text
             styleClasses='text-xs'
             content={AppConfig.COMMON.priceDisclaimer}
           />
         </div>
-      )}
+      )} */}
       {results.length === 0 && (
         <SectionTitle
           wrapperClasses='p-6'

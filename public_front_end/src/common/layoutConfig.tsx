@@ -152,6 +152,6 @@ export const layoutConfig: LayoutConfigType = {
       email: AppConfig.COMMON.contact_email,
       phone: undefined
     },
-    bottomDisclaimer: `Disclaimer: ${APP_NAME} is a participant in the Amazon Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.`
+    bottomDisclaimer: `<p>Disclaimer: ${APP_NAME} is a participant in the Amazon Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.</p><p>Disclaimer: All orders, delivery, cancellations and other processes are taken up by the actual e-commerce website. We only provide searching facility and link to actual product.</p>`
   }
 };
