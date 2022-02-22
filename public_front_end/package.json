@@ -8,7 +8,7 @@
     "lint": "next lint",
     "deploy": "next build && next start",
     "test:open": "cypress open",
-    "postbuild": "next-sitemap",
+    "postbuild": "next-sitemap --config sitemap-config.js",
     "gcp-build": "npm run build",
     "gcp-deploy": "gcloud app deploy --project giftsmadeeasy-75edd"
   },

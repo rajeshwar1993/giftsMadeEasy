@@ -1,0 +1,34 @@
+# *
+User-agent: *
+Disallow: /admin
+
+# *
+User-agent: *
+Disallow: /admin/*
+
+# *
+User-agent: *
+Disallow: /profile
+
+# *
+User-agent: *
+Disallow: /profile/*
+
+# *
+User-agent: *
+Disallow: /products
+
+# *
+User-agent: *
+Disallow: /products/*
+
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://tofacirclepublicfe-rcaojxe24a-el.a.run.app/
+
+# Sitemaps
+Sitemap: https://tofacirclepublicfe-rcaojxe24a-el.a.run.app/sitemap.xml
+Sitemap: https://tofacirclepublicfe-rcaojxe24a-el.a.run.app/sitemap-0.xml
