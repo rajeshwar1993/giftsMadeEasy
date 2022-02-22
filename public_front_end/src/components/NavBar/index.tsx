@@ -89,7 +89,10 @@ const NavBar: FC<Props> = ({ config }) => {
             >
               <Icon iconName='Menu' />
             </button>
-            <div className='cursor-pointer md:w-[15%]' data-testid='navLogo'>
+            <div
+              className='cursor-pointer md:w-[15%] mr-6'
+              data-testid='navLogo'
+            >
               <span className='sr-only'>{config.title}</span>
               <Link href={'/'}>
                 {/* <img
@@ -100,8 +103,8 @@ const NavBar: FC<Props> = ({ config }) => {
                 <ImageComponent
                   src={config.logo.img}
                   alt={config.logo.alt}
-                  height={isDesktop ? 50 : 34}
-                  width={isDesktop ? 130 : 100}
+                  height={isDesktop ? 70 : 34}
+                  width={isDesktop ? 150 : 100}
                   layout={'fixed'}
                 />
               </Link>
@@ -115,7 +118,7 @@ const NavBar: FC<Props> = ({ config }) => {
                       key={i}
                       text={data.text || ''}
                       link={data.link || '#'}
-                      styleClasses='mx-2 px-2'
+                      styleClasses='mx-2 px-2 text-lg'
                     />
                   );
                 } else {
@@ -160,7 +163,7 @@ const NavBar: FC<Props> = ({ config }) => {
                 <Button
                   icon={{
                     iconName: 'Notifications',
-                    size: '26'
+                    size: isDesktop ? '30' : '34'
                   }}
                   onClick={() => toggleNotificationsOpen(true)}
                   defautStyle='cust-btn-link'

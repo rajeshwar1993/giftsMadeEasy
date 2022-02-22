@@ -40,6 +40,7 @@ export const TempProductView: FC<TempProductViewProps> = ({
           className={`flex flex-col space-y-6 items-center h-full justify-start `}
         >
           <img
+            height={'300px'}
             src={`//ws-in.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=IN&ASIN=${id}&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=tofacircle-21`}
           />
 
@@ -83,7 +84,7 @@ const ProductListing: FC<Props> = ({
       )}
       {!loading && (
         <>
-          <div className='grid grid-cols-1 gap-y-16 md:grid-cols-2 md:gap-x-6 lg:grid-cols-3 xl:grid-cols-4  lg:gap-x-8 w-full'>
+          <div className='grid grid-cols-1 gap-y-16 md:grid-cols-2 md:gap-x-6 lg:grid-cols-3 2xl:grid-cols-4   lg:gap-x-8 w-full'>
             {results.map(r => (
               <TempProductView id={r.apid} key={r.apid} title={r.title} />
             ))}
@@ -117,7 +118,7 @@ const ProductListing: FC<Props> = ({
           />
         </div>
       )} */}
-      {results.length === 0 && (
+      {results.length === 0 && !loading && (
         <SectionTitle
           wrapperClasses='p-6'
           content={AppConfig.SEARCH.noResultsMessage}

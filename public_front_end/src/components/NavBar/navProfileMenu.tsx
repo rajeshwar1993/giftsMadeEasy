@@ -2,9 +2,11 @@ import { Menu, Transition } from '@headlessui/react';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import React, { FC, Fragment } from 'react';
+import { useSelector } from 'react-redux';
 import { Button, Icon, ImageComponent } from '..';
 
 import { auth } from '../../firebase';
+import { RootState } from '../../redux/store';
 
 type Props = {
   imgSrc: string;
@@ -13,6 +15,7 @@ type Props = {
 
 const NavProfileMenu: FC<Props> = ({ imgSrc, name }) => {
   const router = useRouter();
+  const isDesktop = useSelector((state: RootState) => state.app.isDesktop);
   return (
     <div className='text-right'>
       <Menu as='div' className='relative inline-block text-left'>
@@ -22,8 +25,8 @@ const NavProfileMenu: FC<Props> = ({ imgSrc, name }) => {
               <ImageComponent
                 src={imgSrc}
                 alt={name}
-                height={30}
-                width={30}
+                height={isDesktop ? 44 : 34}
+                width={isDesktop ? 44 : 34}
                 layout='fixed'
               />
             </div>
