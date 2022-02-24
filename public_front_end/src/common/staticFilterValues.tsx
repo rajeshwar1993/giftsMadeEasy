@@ -95,7 +95,7 @@ interestGroupMap.set(
   InterestGroups.HomeKitchenLiving,
   'Home, Kitchen & Living'
 );
-interestGroupMap.set(InterestGroups.ArtMusic, 'Stationery, Art and Music');
+interestGroupMap.set(InterestGroups.ArtMusic, 'Art, Music & Stationery');
 interestGroupMap.set(
   InterestGroups.MoviesTV,
   'Movies, TV Shows, Anime and Cartoons'
@@ -238,9 +238,9 @@ interestFilterValues.set('tgs_aot', {
 
 // Natural & Handmade
 interestFilterValues.set('nah_pott', {
-  name: 'Pottery',
+  name: 'Artisanal Products',
   parent: InterestGroups.NaturalAndHandMade,
-  desc: 'Ceramic, Pottery and other Artisanal Products.'
+  desc: 'Curated Artisanal Products.'
 });
 interestFilterValues.set('nah_pln', {
   name: 'Potted Plants & Seeds',
@@ -299,7 +299,7 @@ interestFilterValues.set('khl_kapll', {
   desc: 'Microwave, Mixers and other kitchen appliances.'
 });
 interestFilterValues.set('khl_spdi', {
-  name: 'Showpiece & Display Items',
+  name: 'Showpiece & Home Decor',
   parent: InterestGroups.HomeKitchenLiving,
   desc: 'Idols, Decorative Items and Conversation Starters.'
 });
@@ -360,7 +360,7 @@ interestFilterValues.set('amc_ptng', {
 });
 
 interestFilterValues.set('amc_ptcl', {
-  name: 'Pottery & Clay',
+  name: 'Statues, Pottery & Clay',
   parent: InterestGroups.ArtMusic,
   desc: 'Ceramics, Clay and Artisanal products.'
 });
@@ -444,7 +444,7 @@ interestFilterValues.set('bcp_fift', {
 });
 
 interestFilterValues.set('bcp_mysp', {
-  name: 'Mystry & Suspence',
+  name: 'Mystery & Suspence',
   parent: InterestGroups.BooksComicsPlanners
 });
 
