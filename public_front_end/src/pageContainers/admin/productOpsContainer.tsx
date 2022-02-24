@@ -4,12 +4,13 @@ import { FS_PRODUCTS_DB } from '../../common/constants';
 import { ProductDBKeys } from '../../common/dbKeys';
 import ProductsTable from '../../components/Reusable/ProductsTable';
 import { db } from '../../firebase';
-import { ProductStatus } from '../../models/enums';
+import { Gender, ProductStatus } from '../../models/enums';
 import Product, { convertProductToJson } from '../../models/Product';
 import { app_sendToast } from '../../redux/appCommon';
 import { useAppDispatch } from '../../redux/store';
 import ProductEditSection from './productEditSection';
 import ProductSearchBy from './productSearchBy';
+import SearchAlgolia from './searchAlgolia';
 
 const ProductOpsContainer = () => {
   const [products, setProducts] = useState<Array<Product>>([]);
@@ -113,12 +114,44 @@ const ProductOpsContainer = () => {
     }
   };
 
+  const setFilterAttributes = (filters: {
+    at: { [key: string]: number };
+    gt: { [key: string]: number };
+    it: { [key: string]: number };
+    ot: { [key: string]: number };
+    rt: { [key: string]: number };
+  }) => {
+    if (selectedProduct) {
+      let tempProd = { ...selectedProduct };
+
+      // for age
+      tempProd.ageTags = Object.keys(filters.at);
+      // for genger
+      tempProd.genderTags = Object.keys(filters.gt).map(g => {
+        if (g === Gender.Male.toString()) {
+          return Gender.Male;
+        }
+        return Gender.Female;
+      });
+      // for interest
+      tempProd.interestTags = Object.keys(filters.it);
+      // for occasion
+      tempProd.occasionTags = Object.keys(filters.ot);
+      // for relation
+      tempProd.relationshipTags = Object.keys(filters.rt);
+      setSelectedProduct(tempProd);
+    }
+  };
+
   return (
     <section className='space-y-4'>
       <ProductSearchBy
         setFetchedProducts={products => setProducts(products)}
         setSelectedProduct={setSelectedProduct}
       />
+      {selectedProduct && (
+        <SearchAlgolia setFilterAttributes={setFilterAttributes} />
+      )}
       <div className='flex flex-row space-x-4 p-2 border-t-2'>
         <div className='w-2/5'>
           <ProductsTable

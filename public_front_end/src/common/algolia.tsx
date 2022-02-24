@@ -29,10 +29,14 @@ const createFilters = (filterObj: any) => {
   return filters.join(' AND ');
 };
 
-const makeSearch = async (filterObj: any, options: any = {}) => {
+const makeSearch = async (
+  filterObj: any,
+  options: any = {},
+  query: string = ''
+) => {
   return new Promise((response, reject) => {
     index
-      .search('', {
+      .search(query, {
         filters: createFilters(filterObj),
         hitsPerPage: 20,
         ...options
