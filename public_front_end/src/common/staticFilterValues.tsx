@@ -419,7 +419,7 @@ interestFilterValues.set('mtv_tvsh', {
   desc: 'Products related to Iconic TV Shows like Friends, The Office etc.'
 });
 
-interestFilterValues.set('mtv_ani', {
+interestFilterValues.set('mtv_anime', {
   name: 'The World of Anime',
   parent: InterestGroups.MoviesTV,
   desc: 'Products related to top Anime Series like Naruto, Death Note etc.'
