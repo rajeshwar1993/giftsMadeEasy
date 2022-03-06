@@ -130,6 +130,7 @@ const DedicatedSearchAdminContainer = () => {
                 >
                   Search Key
                 </th>
+                <th>Copy</th>
               </tr>
             </thead>
 
@@ -143,10 +144,22 @@ const DedicatedSearchAdminContainer = () => {
                   <td
                     className={`px-4 py-3 border-b-2 border-opacity-20 min-w-[120px] lg:min-w-[160px] cursor-pointer`}
                     onClick={() => {
-                      setSelectedDSConfig(DSConfigs[i]);
+                      setSelectedDSConfig(tr);
                     }}
                   >
                     {tr.searchCriteria}
+                  </td>
+                  <td>
+                    <Button
+                      text='Copy'
+                      onClick={() => {
+                        setSelectedDSConfig({
+                          ...tr,
+                          uid: '',
+                          searchCriteria: ''
+                        });
+                      }}
+                    />
                   </td>
                 </tr>
               ))}

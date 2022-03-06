@@ -408,7 +408,7 @@ interestFilterValues.set('mtv_hwd', {
 });
 
 interestFilterValues.set('mtv_tmu', {
-  name: 'The Marvel Universe',
+  name: 'The Marvel & DC Universe',
   parent: InterestGroups.MoviesTV,
   desc: 'Iron Man, Thor, Black Widow and the Avengers Assemble!'
 });
