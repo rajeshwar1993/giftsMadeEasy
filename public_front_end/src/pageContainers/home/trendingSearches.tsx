@@ -12,24 +12,24 @@ const TrendingSearches = () => {
           text='A Birthday gift for my Daughter.'
           styleClass='col-span-2'
           fontSizeClass='text-xl xl:text-3xl'
-          link={'/search?rt=da&ot=b'}
+          link={'/search?rt=rel_gf&ot=occ_b'}
         />
         <TrendingSearchBox
           text='A Special gift for my Father on his Retirement.'
-          link={'/search?rt=fa&ot=ret'}
+          link={'/search?rt=rel_fa&ot=occ_ret'}
         />
         <TrendingSearchBox
           text='Something natural and hand made for my Mother.'
           styleClass='row-span-2'
           fontSizeClass='text-xl xl:text-3xl'
           link={
-            '/search?rt=mo&it=nah_pott&it=nah_pln&it=nah_efnd&it=nah_hndp&it=nah_bmjt&it=nah_well&it=nah_fgcd'
+            '/search?rt=rel_mo&it=nah_pott&it=nah_pln&it=nah_efnd&it=nah_hndp&it=nah_bmjt&it=nah_well&it=nah_fgcd'
           }
         />
         <TrendingSearchBox
           text='Toys or Sports gifts for my Son.'
           link={
-            '/search?rt=s&it=tgs_bdcdg&it=tgs_daf&it=tgs_rct&it=tgs_edt&it=tgs_odg&it=tgs_pbg&it=tgs_sft&it=tgs_tgc&it=tgs_apl&it=tgs_aot'
+            '/search?rt=rel_s&it=tgs_tgc&it=tgs_pbg&it=tgs_odg&it=tgs_rct&it=tgs_daf&it=tgs_bdcdg&it=tgs_aot'
           }
         />
         <TrendingSearchBox
@@ -37,18 +37,16 @@ const TrendingSearches = () => {
           styleClass='row-span-2 col-span-2'
           fontSizeClass='text-3xl xl:text-6xl'
           link={
-            '/search?rt=gf&it=cff_ttsh&it=cff_facc&it=amc_ptcl&it=tgs_sft&it=tgs_daf&it=nah_pott&it=nah_pln&it=nah_efnd&it=nah_hndp&it=nah_bmjt&it=nah_well&it=nah_fgcd&it=el_bfgeg&it=el_wede&it=bbsg_mkpa&it=bbsg_ssbp&it=bbsg_hpac&it=bbsg_sgp&it=bbsg_fgpr&it=bbsg_edp'
+            '/search?rt=rel_gf&ot=occ_a&at=age_A&it=nah_pln&it=nah_hndp&it=khl_chpd&it=khl_rafg&it=cff_facc&it=cff_qqts&it=cff_jwel&it=cff_bpwt&it=bbsg_ssbp&it=bbsg_hpac'
           }
         />
         <TrendingSearchBox
           text='A classy Farewell gift for my Colleague.'
-          link={
-            '/search?rt=col&it=el_bfgeg&it=el_wede&it=el_gmac&it=el_spear&it=el_tab&it=el_smhd&it=tgs_bdcdg&it=nah_pott&it=nah_efnd&it=nah_bmjt&it=nah_hndp&it=nah_pln&it=nah_fgcd&it=nah_well&it=khl_whgc&it=khl_lplt&it=khl_glgt&it=bbsg_hpac&it=bbsg_sgp&it=bcp_bsbk'
-          }
+          link={'/search?rt=rel_col&ot=occ_f'}
         />
         <TrendingSearchBox
           text='Fictional books or fun board games!'
-          link={'/search?it=bcp_fift&it=tgs_bdcdg'}
+          link={'/search?it=tgs_bdcdg&it=bcp_bsbk&it=bcp_fift'}
         />
       </div>
     </div>

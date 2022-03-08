@@ -193,6 +193,7 @@ const SearchTopSection: FC<Props> = ({
                   {({ countUpRef }) => (
                     <div>
                       <span
+                        data-testid='res-count'
                         ref={countUpRef}
                         className='lg:text-7xl xl:text-8xl font-bold'
                       />
@@ -206,6 +207,7 @@ const SearchTopSection: FC<Props> = ({
                 />
               </div>
               <Button
+                data-testid='clear-all'
                 text={AppConfig.SEARCH.clearAllLabel}
                 defautStyle='cust-btn-link'
                 styleClasses='text-sm'

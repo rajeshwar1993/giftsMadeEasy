@@ -4,6 +4,7 @@ import { analytics } from '../firebase';
 // analytics events
 
 export const FBA_SCREEN_VIEW = 'screen_view';
+export const FBA_PRODUCT_VIEW = 'product_view';
 export const FBA_NAV_CLICKS = 'nav_clicks';
 export const FBA_SEARCH_QUERY = 'search_query';
 export const FBA_SEARCH_ZERO_RES = 'search_zero_results';
@@ -33,6 +34,10 @@ export const logScreenView = (parameter: {
   screen_name: 'home' | 'search' | 'product';
 }) => {
   sendAnalytics(FBA_SCREEN_VIEW, parameter);
+};
+
+export const logProductView = (parameter: { product_id: string }) => {
+  sendAnalytics(FBA_PRODUCT_VIEW, parameter);
 };
 
 export const logNavClicks = (parameter: {

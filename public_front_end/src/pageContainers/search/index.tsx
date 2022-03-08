@@ -80,7 +80,7 @@ const SearchPage = () => {
         query: cleanObject(fValObj)
       });
     }
-    console.log(Filter.convertJsonToObj(fValObj));
+    // console.log(Filter.convertJsonToObj(fValObj));
   };
 
   const makeQuery = async (fValObj: any, options: any = {}) => {

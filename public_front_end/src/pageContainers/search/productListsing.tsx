@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { logProductView } from '../../common/analyticsEvents';
 import AppConfig from '../../common/appConfig';
 import { Button, SectionTitle, Text } from '../../components';
 import ProductListItem from '../../components/Reusable/ProductListItem';
@@ -31,7 +32,12 @@ export const TempProductView: FC<TempProductViewProps> = ({
   title = 'TITLE'
 }) => {
   return (
-    <div className='pt-4 transition-all duration-200 rounded-lg lg:p-4 lg:hover:shadow-md border-skin-primary border-opacity-0 lg:hover:border-opacity-10 border-2'>
+    <div
+      className='pt-4 transition-all duration-200 rounded-lg lg:p-4 lg:hover:shadow-md border-skin-primary border-opacity-0 lg:hover:border-opacity-10 border-2'
+      onClick={() => {
+        logProductView({ product_id: id });
+      }}
+    >
       <a
         target='_blank'
         href={`https://www.amazon.in/gp/product/${id}/ref=as_li_tl?ie=UTF8&camp=3638&creative=24630&creativeASIN=${id}&linkCode=as2&tag=tofacircle-21`}

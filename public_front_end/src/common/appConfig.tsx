@@ -31,18 +31,18 @@ const AppConfig = {
     showcase: [
       {
         title: 'Popular Gifts for Brothers',
-        seeAllLink: `/search?${FilterDBKeys.relationship}=br`,
+        seeAllLink: `/search?${FilterDBKeys.relationship}=rel_br`,
         seeAllTitle: 'Find all gifts for Brothers',
         queryParams: {
-          [FilterDBKeys.relationship]: 'br'
+          [FilterDBKeys.relationship]: 'rel_br'
         }
       },
       {
         title: 'Popular Anniversary Gifts',
-        seeAllLink: `/search?${FilterDBKeys.occasion}=a`,
+        seeAllLink: `/search?${FilterDBKeys.occasion}=occ_a`,
         seeAllTitle: 'Find All Anniversary Gifts',
         queryParams: {
-          [FilterDBKeys.occasion]: 'a'
+          [FilterDBKeys.occasion]: 'occ_a'
         }
       },
       {
