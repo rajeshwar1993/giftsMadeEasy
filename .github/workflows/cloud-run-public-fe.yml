@@ -1,6 +1,10 @@
 
 name: Build and Deploy to Cloud Run
 
+defaults:
+  run:
+    working-directory: public_front_end
+
 on:
   push:
     branches:
@@ -23,8 +27,8 @@ jobs:
       uses: actions/checkout@v3
     - name: Check files
       run: ls -a
-    - name: Change directory
-      run: cd public_front_end
+    # - name: Change directory
+    #   run: cd public_front_end
 
     # Setup gcloud CLI
     - name: Setup GCloud
