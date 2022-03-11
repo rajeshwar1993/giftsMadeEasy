@@ -20,7 +20,9 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2 && cd public_front_end
+      uses: actions/checkout@v3
+    - name: Change directory
+      run: cd public_front_end
 
     # Setup gcloud CLI
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
