@@ -22,12 +22,10 @@ export const sendAnalytics = (
   eventName: string,
   parameters: { [key: string]: any }
 ) => {
-  // TODO: uncomment this later
-  // if (analytics) {
-  //   logEvent(analytics, eventName, parameters);
-  // } else {
-  //   console.log('Analytics is not enabled in this env.');
-  // }
+  if (analytics) {
+    logEvent(analytics, eventName, parameters);
+  }
+  // else - Analytics is not enabled in this env.
 };
 
 export const logScreenView = (parameter: {

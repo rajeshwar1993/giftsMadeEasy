@@ -35,7 +35,11 @@ const functions = getFunctions(app);
 // }
 
 const checkAnalytics = () => {
-  if (typeof window !== 'undefined' && isSupported()) {
+  if (
+    typeof window !== 'undefined' &&
+    isSupported() &&
+    process.env.NODE_ENV === 'production'
+  ) {
     return getAnalytics(app);
   } else {
     return null;

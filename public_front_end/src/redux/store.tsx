@@ -13,7 +13,8 @@ const store = configureStore({
     circleUser: circleUserReducer,
     products: productsReducer,
     simpleLists: simpleListsReducer
-  }
+  },
+  devTools: process.env.NODE_ENV === 'development'
 });
 
 export type RootState = ReturnType<typeof store.getState>;
