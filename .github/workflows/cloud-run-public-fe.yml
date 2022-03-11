@@ -21,11 +21,14 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+    - name: Check files
+      run: ls -a
     - name: Change directory
       run: cd public_front_end
 
     # Setup gcloud CLI
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+    - name: Setup GCloud
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
         # version: '290.0.1'
         service_account_key: ${{ secrets.RUN_SA_KEY }}
