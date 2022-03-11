@@ -25,7 +25,7 @@ const AppConfig = {
     headerData: {
       title: `${APP_NAME} | Give Gifts That Matter`
     },
-    hL1: 'give gifts that matterrrr',
+    hL1: 'give gifts that matterrrrr',
     hL2: `and we'll help you find them`,
     aboutLine: `We <em>Curate</em> and <em>Categorize</em> the top rated gifting products from trusted websites like <strong>Amazon</strong>, making this the one-stop destination for all your gifting needs!`,
     showcase: [
