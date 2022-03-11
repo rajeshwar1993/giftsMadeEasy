@@ -5,8 +5,6 @@ on:
   push:
     branches:
     - master
-    paths:
-      - public_front_end/**
 
 env:
   PROJECT_ID: ${{ secrets.RUN_PROJECT }}
