@@ -8,7 +8,7 @@ defaults:
 on:
   push:
     branches:
-    - main
+    - main_NOT_ACTIVE
     paths:
       - public_front_end/**
 
