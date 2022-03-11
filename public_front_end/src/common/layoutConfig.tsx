@@ -130,23 +130,23 @@ export const layoutConfig: LayoutConfigType = {
         text: 'Search All',
         link: '/search'
       },
-      {
-        text: 'About',
-        link: '/about'
-      },
+      // {
+      //   text: 'About',
+      //   link: '/about'
+      // },
 
       {
         text: 'Contact Us',
         link: '/contactus'
-      },
-      {
-        text: 'How it works?',
-        link: '/how'
-      },
-      {
-        text: 'FAQ',
-        link: '/faq'
       }
+      // {
+      //   text: 'How it works?',
+      //   link: '/how'
+      // },
+      // {
+      //   text: 'FAQ',
+      //   link: '/faq'
+      // }
     ],
     contactInfo: {
       email: AppConfig.COMMON.contact_email,

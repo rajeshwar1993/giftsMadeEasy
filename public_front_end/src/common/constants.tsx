@@ -1,6 +1,6 @@
 // app constants
 export const APP_NAME = 'Tofa Circle';
-export const CONTACT_EMAIL = 'contact@email.com';
+export const CONTACT_EMAIL = 'contact@jusfolio.com';
 export const CONTACT_NUMBER = '9999999999';
 export const EXPORT_MODE = 'DYNAMIC';
 
