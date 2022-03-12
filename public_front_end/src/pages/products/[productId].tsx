@@ -157,7 +157,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   // TODO set proper content
   let headerData: HeaderType = {
     title: `${pageData.title} | ${AppConfig.COMMON.appName}`,
-    canonical: '',
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}`,
     meta: {
       desc: `An ideal gift for your ${pageData.relationshipTags.join(
         ', '
@@ -171,7 +171,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
           url: piu,
           alt: pageData.title
         })),
-        url: ''
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}`
       }
     }
   };

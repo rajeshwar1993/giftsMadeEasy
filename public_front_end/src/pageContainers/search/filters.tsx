@@ -137,7 +137,7 @@ const FilterBody: FC<FilterBodyProp> = ({
         />
       </div>
       {/* Upcomming festivals Filter */}
-      <div className='mb-8'>
+      {/* <div className='mb-8'>
         <CheckBoxGroup
           title={{ content: AppConfig.SEARCH.upcommingFestivalsLabel }}
           filterKey={FilterDBKeys.festivals}
@@ -154,7 +154,7 @@ const FilterBody: FC<FilterBodyProp> = ({
           }
           onChangeHandler={updateCheckboxValues}
         />
-      </div>
+      </div> */}
       {/* Occasion Filter */}
       <div className='mb-8'>
         <ListBoxComp

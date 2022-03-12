@@ -138,42 +138,44 @@ const NavBar: FC<Props> = ({ config }) => {
           </div>
 
           {/* Right Section */}
-          <div className='lg:w-1/5 w-2/5 flex flex-row justify-end items-center'>
-            {!user && (
-              <>
-                <Button
-                  text='Signup'
-                  defautStyle='cust-btn-link'
-                  styleClasses='mx-2 px-2'
-                  onClick={() => {
-                    logSignupOpen({ source: 'nav_link' });
-                    dispatch(app_toggle_isSigupOpen('signup'));
-                  }}
-                />
-                <Button
-                  text='Login'
-                  defautStyle='cust-btn-link'
-                  styleClasses='mx-2 px-2'
-                  onClick={() => dispatch(app_toggle_isSigupOpen('login'))}
-                />
-              </>
-            )}
-            {user && (
-              <>
-                <Button
-                  icon={{
-                    iconName: 'Notifications',
-                    size: isDesktop ? '30' : '34'
-                  }}
-                  onClick={() => toggleNotificationsOpen(true)}
-                  defautStyle='cust-btn-link'
-                  styleClasses='!border-b-0 mx-2 px-2'
-                  topScript={notifications.filter(n => !n.read).length}
-                />
-                <NavProfileMenu imgSrc={user.imgUrl} name={user.name} />
-              </>
-            )}
-          </div>
+          {process.env.NODE_ENV === 'development' && (
+            <div className='lg:w-1/5 w-2/5 flex flex-row justify-end items-center'>
+              {!user && (
+                <>
+                  <Button
+                    text='Signup'
+                    defautStyle='cust-btn-link'
+                    styleClasses='mx-2 px-2'
+                    onClick={() => {
+                      logSignupOpen({ source: 'nav_link' });
+                      dispatch(app_toggle_isSigupOpen('signup'));
+                    }}
+                  />
+                  <Button
+                    text='Login'
+                    defautStyle='cust-btn-link'
+                    styleClasses='mx-2 px-2'
+                    onClick={() => dispatch(app_toggle_isSigupOpen('login'))}
+                  />
+                </>
+              )}
+              {user && (
+                <>
+                  <Button
+                    icon={{
+                      iconName: 'Notifications',
+                      size: isDesktop ? '30' : '34'
+                    }}
+                    onClick={() => toggleNotificationsOpen(true)}
+                    defautStyle='cust-btn-link'
+                    styleClasses='!border-b-0 mx-2 px-2'
+                    topScript={notifications.filter(n => !n.read).length}
+                  />
+                  <NavProfileMenu imgSrc={user.imgUrl} name={user.name} />
+                </>
+              )}
+            </div>
+          )}
         </div>
       </nav>
 

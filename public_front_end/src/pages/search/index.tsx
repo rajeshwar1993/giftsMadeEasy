@@ -8,10 +8,10 @@ const Search = () => {
     <div>
       <NextSeo
         title={AppConfig.HOME.headerData.title}
-        canonical={''}
+        canonical={`${process.env.NEXT_PUBLIC_BASE_URL}/search`}
         description={AppConfig.HOME.aboutLine}
         openGraph={{
-          url: '',
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/search`,
           title: AppConfig.HOME.headerData.title,
           description: AppConfig.HOME.aboutLine,
           images: []

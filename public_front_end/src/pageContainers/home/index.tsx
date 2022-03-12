@@ -57,7 +57,7 @@ const HomePage: FC<HomePageData> = ({ headLines, productShowcase }) => {
       })}
 
       <div className='grid grid-cols-1 gap-y-8 lg:grid-cols-1 lg:gap-x-16'>
-        {!user?.uid && (
+        {false && !user?.uid && (
           <BannerCTA
             title={{ content: 'Join Our Circle' }}
             text={{

@@ -11,7 +11,7 @@ const ContactUs = ({
     <section>
       <NextSeo
         title={headerData.title}
-        canonical={''}
+        canonical={headerData.canonical}
         description={headerData.meta.desc}
       />
       <ContactUsWrapper />
@@ -28,15 +28,15 @@ export const getStaticProps: GetStaticProps<Props> = async context => {
   console.log(context);
 
   let headerData: HeaderType = {
-    title: `Contact US | ${AppConfig.HOME.headerData.title}`,
-    canonical: '',
+    title: `Contact Us | ${AppConfig.HOME.headerData.title}`,
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}`,
     meta: {
       desc: `Contact us regarding any query you might have.`,
       og: {
-        title: '',
-        description: '',
+        title: 'Contact Us',
+        description: `Contact us regarding any query you might have.`,
         images: [],
-        url: ''
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}`
       }
     }
   };

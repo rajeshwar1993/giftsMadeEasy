@@ -56,14 +56,14 @@ export const getStaticProps: GetStaticProps<Props> = async context => {
   // TODO set proper content
   let headerData: HeaderType = {
     title: AppConfig.HOME.headerData.title,
-    canonical: '',
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}`,
     meta: {
       desc: AppConfig.HOME.aboutLine,
       og: {
         title: AppConfig.HOME.headerData.title,
         description: AppConfig.HOME.aboutLine,
         images: [],
-        url: ''
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}`
       }
     }
   };

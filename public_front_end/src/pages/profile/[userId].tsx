@@ -28,10 +28,10 @@ const UserProfile = ({
     <div>
       <NextSeo
         title={AppConfig.HOME.headerData.title}
-        canonical={''}
+        canonical={headerData.canonical}
         description={AppConfig.HOME.aboutLine}
         openGraph={{
-          url: '',
+          url: headerData.meta.og.url,
           title: AppConfig.HOME.headerData.title,
           description: AppConfig.HOME.aboutLine,
           images: []
@@ -94,11 +94,11 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 
   let headerData: HeaderType = {
     title: `${pageData.name} | ${AppConfig.COMMON.appName}`,
-    canonical: '',
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}`,
     meta: {
       desc: '',
       og: {
-        url: '',
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
         title: '',
         description: '',
         images: []
