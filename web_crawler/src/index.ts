@@ -200,26 +200,27 @@ const writeProductsFile = (jsonStr: string) => {
 };
 
 const startProcess = async () => {
-  await readTheFile();
+  // await readTheFile();
   // allCSVData = allCSVData.slice(0, 20);
 
   // read local file
-  const jsonString = await readProductsFile();
-  const products = JSON.parse(jsonString);
+  // const jsonString = await readProductsFile();
+  // const products = JSON.parse(jsonString);
 
-  let UrlMap: any = {};
+  // let UrlMap: any = {};
 
-  allCSVData.forEach((data: any) => {
-    const apid = extractProductID(data.URL);
-    if (apid && !products[apid]) {
-      UrlMap[apid] = data.URL;
-    }
-  });
+  // allCSVData.forEach((data: any) => {
+  //   const apid = extractProductID(data.URL);
+  //   if (apid && !products[apid]) {
+  //     UrlMap[apid] = data.URL;
+  //   }
+  // });
 
-  console.log('Map Length', Object.keys(UrlMap).length);
-  await temporaryFetchDataForEachProductFromCSV(UrlMap);
+  // console.log('Map Length', Object.keys(UrlMap).length);
+  // await temporaryFetchDataForEachProductFromCSV(UrlMap);
 
-  writeProductsFile(JSON.stringify({ ...products, ...UrlMap }));
+  // writeProductsFile(JSON.stringify({ ...products, ...UrlMap }));
+  await fetchDataForEachProduct();
 };
 
 startProcess();

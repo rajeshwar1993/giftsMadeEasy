@@ -209,7 +209,7 @@ interestFilterValues.set('tgs_pbg', {
   desc: 'Crosswords, Picture puzzles etc.'
 });
 interestFilterValues.set('tgs_odg', {
-  name: 'Outdoor Games & Sports',
+  name: 'Sports Equipment',
   parent: InterestGroups.ToysGamesAndSports,
   desc: 'Football, Badminton, Basketball etc.'
 });

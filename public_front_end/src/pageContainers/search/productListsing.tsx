@@ -40,14 +40,14 @@ export const TempProductView: FC<TempProductViewProps> = ({
     >
       <a
         target='_blank'
-        href={`https://www.amazon.in/gp/product/${id}/ref=as_li_tl?ie=UTF8&camp=3638&creative=24630&creativeASIN=${id}&linkCode=as2&tag=tofacircle-21`}
+        href={`https://www.amazon.in/gp/product/${id}/ref=as_li_tl?ie=UTF8&camp=3638&creative=24630&creativeASIN=${id}&linkCode=as2&tag=tofacircle0f-21`}
       >
         <div
           className={`flex flex-col space-y-6 items-center h-full justify-start `}
         >
           <img
             height={'300px'}
-            src={`//ws-in.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=IN&ASIN=${id}&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=tofacircle-21`}
+            src={`//ws-in.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=IN&ASIN=${id}&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=tofacircle0f-21`}
           />
 
           <Text
